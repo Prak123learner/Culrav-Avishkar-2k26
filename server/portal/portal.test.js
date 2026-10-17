@@ -482,6 +482,17 @@ test("solo registration validates answers, blocks duplicate races and keeps form
   let registration = attempts.find((r) => r.status === 201).body.registration;
   assert.deepEqual(registration.memberIds, [aliceUser._id]);
   assert.equal(registration.participants[0].caId, aliceUser.caId);
+  const lookupPath = base + `/events/${event._id}/my-registration`;
+  assert.equal((await request(app).get(lookupPath)).status, 401);
+  const lookup = await alice.get(lookupPath);
+  assert.equal(lookup.status, 200);
+  assert.deepEqual(lookup.body, { registration: { _id: registration._id } });
+  assert.equal(lookup.headers["cache-control"], "no-store");
+  assert.deepEqual((await bob.get(lookupPath)).body, { registration: null });
+  assert.equal(
+    (await alice.get(base + "/events/invalid/my-registration")).status,
+    400,
+  );
   event = (await coordinator.get(base + "/staff/events")).body.events.find(
     (e) => e._id === event._id,
   );
@@ -1022,6 +1033,15 @@ test("team registrations require acceptance and leadership, then lock the roster
   );
   assert.equal(registered.status, 201);
   assert.equal(registered.body.registration.participants.length, 2);
+  for (const member of [alice, bob]) {
+    const lookup = await member.get(
+      base + `/events/${event._id}/my-registration`,
+    );
+    assert.equal(lookup.status, 200);
+    assert.deepEqual(lookup.body, {
+      registration: { _id: registered.body.registration._id },
+    });
+  }
   assert.equal(
     (
       await send(bob, "post", `/teams/${team._id}/remove`, {

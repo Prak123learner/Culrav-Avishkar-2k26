@@ -15,9 +15,9 @@ const firebaseConfig = {
 
 export const firebaseConfigured = Boolean(
   firebaseConfig.apiKey &&
-    firebaseConfig.authDomain &&
-    firebaseConfig.projectId &&
-    firebaseConfig.appId,
+  firebaseConfig.authDomain &&
+  firebaseConfig.projectId &&
+  firebaseConfig.appId,
 );
 
 const app = firebaseConfigured
@@ -25,8 +25,35 @@ const app = firebaseConfigured
   : null;
 const auth = app ? getAuth(app) : null;
 const provider = new GoogleAuthProvider();
+let preparation;
 
 provider.setCustomParameters({ prompt: "select_account" });
+
+export function prepareGoogleSignIn() {
+  if (!auth)
+    return Promise.reject(new Error("Firebase sign-in is not configured"));
+  if (!preparation) {
+    // Connection hints only: Firebase still owns its helper iframe and popup.
+    // Run on the login page, before a participant clicks the sign-in button.
+    for (const origin of [
+      `https://${firebaseConfig.authDomain}`,
+      "https://apis.google.com",
+      "https://accounts.google.com",
+    ]) {
+      if (document.querySelector(`link[rel="preconnect"][href="${origin}"]`))
+        continue;
+      const link = document.createElement("link");
+      link.rel = "preconnect";
+      link.href = origin;
+      document.head.appendChild(link);
+    }
+    preparation = auth.authStateReady().catch((error) => {
+      preparation = null;
+      throw error;
+    });
+  }
+  return preparation;
+}
 
 export function signInWithGooglePopup() {
   if (!auth) throw new Error("Firebase sign-in is not configured");

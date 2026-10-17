@@ -9,6 +9,7 @@ import {
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
 import { useResource } from "./useResource";
+import { useTeams } from "./useTeams";
 import { FormFields, AnswerView } from "./FormFields";
 import { courses, courseYears, branches, branchName } from "./profileOptions";
 import { PortalLoading } from "./PortalLoading";
@@ -81,7 +82,10 @@ function Workspace() {
   // Registration redirects carry a one-time focus/notice state. Replace that
   // history entry before child effects run so a refresh or tab change is normal.
   useLayoutEffect(() => {
-    if (!location.state?.focusRegistrationId && !location.state?.alreadyRegisteredEvent)
+    if (
+      !location.state?.focusRegistrationId &&
+      !location.state?.alreadyRegisteredEvent
+    )
       return;
     navigate(location.pathname, { replace: true, state: null });
   }, [location.pathname, location.state, navigate]);
@@ -428,7 +432,7 @@ function Profile() {
   );
 }
 function Teams() {
-  const resource = useResource("/teams"),
+  const resource = useTeams(),
     { user } = usePortal(),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
@@ -447,6 +451,13 @@ function Teams() {
   return (
     <section>
       <h2>Your teams & invitations</h2>
+      <button
+        className="ca-secondary"
+        disabled={busy || resource.refreshing}
+        onClick={() => resource.reload().catch((e) => setError(message(e)))}
+      >
+        {resource.refreshing ? "Refreshing teams…" : "Refresh teams"}
+      </button>
       <p>
         Invite members using their CA IDs. Every member must accept before the
         leader registers. After a team is registered for an event, its roster is
@@ -610,7 +621,7 @@ export function RegistrationPage({ eventId, eventData = null }) {
   );
 }
 function RegistrationAccess({ event }) {
-  const registrations = useResource("/registrations");
+  const registrations = useResource(`/events/${event._id}/my-registration`);
   if (registrations.loading)
     return <main className="ca-portal">Checking your registration…</main>;
   if (registrations.error) {
@@ -623,9 +634,7 @@ function RegistrationAccess({ event }) {
       </main>
     );
   }
-  const existing = registrations.data?.registrations.find(
-    (registration) => registration.eventId?._id === event._id,
-  );
+  const existing = registrations.data?.registration;
   if (existing) {
     return (
       <Navigate
@@ -644,7 +653,7 @@ function RegistrationAccess({ event }) {
 }
 function EventRegistration({ event }) {
   const id = event._id,
-    teams = useResource("/teams"),
+    teams = useTeams(event.mode !== "solo"),
     { user } = usePortal();
   const location = useLocation();
   const navigate = useNavigate();

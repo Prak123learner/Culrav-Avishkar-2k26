@@ -1,9 +1,10 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
 import {
   firebaseConfigured,
+  prepareGoogleSignIn,
   signInWithGooglePopup,
   signOutOfFirebase,
 } from "./firebase";
@@ -36,8 +37,29 @@ export function GoogleLogin() {
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   const loginInFlight = useRef(false);
+  const blockedAttempts = useRef(0);
+  const [preparing, setPreparing] = useState(firebaseConfigured);
+  useEffect(() => {
+    if (!firebaseConfigured) return;
+    let active = true;
+    // This is preparation only. Never open a popup from an effect or timer.
+    // A slow/unavailable SDK must not leave the button disabled indefinitely.
+    const timeout = setTimeout(() => active && setPreparing(false), 5000);
+    prepareGoogleSignIn()
+      .catch(() => {
+        // The click-triggered SDK operation can retry and display its error.
+      })
+      .finally(() => {
+        clearTimeout(timeout);
+        if (active) setPreparing(false);
+      });
+    return () => {
+      active = false;
+      clearTimeout(timeout);
+    };
+  }, []);
   async function login() {
-    if (loginInFlight.current) return;
+    if (loginInFlight.current || preparing) return;
     loginInFlight.current = true;
     let firebaseSignedIn = false;
     setBusy(true);
@@ -45,6 +67,7 @@ export function GoogleLogin() {
     try {
       // Start inside the click handler: no fetch, timer or dynamic import first.
       const result = await signInWithGooglePopup();
+      blockedAttempts.current = 0;
       firebaseSignedIn = true;
       const { data } = await portalApi.post("/auth/google", {
         idToken: await result.user.getIdToken(),
@@ -52,9 +75,12 @@ export function GoogleLogin() {
       setUser(data.user);
       navigate(destination, { replace: true });
     } catch (e) {
+      if (e?.code === "auth/popup-blocked") blockedAttempts.current += 1;
       const popupErrors = {
         "auth/popup-blocked":
-          "Your browser blocked the Google sign-in window. Click the blocked-popup icon in the address bar, allow pop-ups for this site, then click Continue with Google again.",
+          blockedAttempts.current === 1
+            ? "The sign-in window could not open. Please click Continue with Google once more."
+            : "Your browser is still blocking the sign-in window. Use the blocked-popup icon in the address bar to allow it for this site, then try again.",
         "auth/popup-closed-by-user":
           "The Google sign-in window closed before sign-in finished. Click Continue with Google to try again.",
         "auth/cancelled-popup-request":
@@ -101,10 +127,14 @@ export function GoogleLogin() {
           )}
           <button
             type="button"
-            disabled={busy || !firebaseConfigured}
+            disabled={busy || preparing || !firebaseConfigured}
             onClick={login}
           >
-            {busy ? "Signing in…" : "Continue with Google"}
+            {busy
+              ? "Signing in…"
+              : preparing
+                ? "Preparing sign-in…"
+                : "Continue with Google"}
           </button>
           {error && (
             <p role="alert" className="ca-error">

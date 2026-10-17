@@ -59,6 +59,8 @@ You do not need to enable Firebase Email/Password for coordinators. Coordinator 
 4. Keep the existing Firebase-provided domains.
 5. When deploying later, add your real frontend hostname here as well.
 
+For a Vercel deployment, use Firebase's standard popup sign-in. Set `VITE_FIREBASE_AUTH_DOMAIN=culrav-avishkar.firebaseapp.com` in the frontend Vercel environment and add the frontend hostname under Firebase Authentication's **Authorized domains**. Redeploy after changing the environment. The popup uses Firebase's existing `https://culrav-avishkar.firebaseapp.com/__/auth/handler` callback; the frontend no longer proxies Firebase's auth helper or uses its own hostname as `authDomain`. Keep the existing Firebase callback configured. See [Firebase Google popup sign-in](https://firebase.google.com/docs/auth/web/google-signin).
+
 Enter `localhost`, **not** `http://localhost:5173` and not a URL path. Recent Firebase projects may not authorize localhost automatically. Use `http://localhost:5173` consistently in your browser during local testing; do not switch between localhost and 127.0.0.1 for the cookie-based app session.
 
 ### D. Understand the frontend configuration
@@ -87,6 +89,12 @@ To find these values again: **Project settings → General → Your apps → sel
 | `appId`                   | `VITE_FIREBASE_APP_ID`              |
 
 Copy values only, not the entire JavaScript `firebaseConfig` object. The supplied `storageBucket`, `messagingSenderId` and `measurementId` are not needed by this Google-login implementation.
+
+`VITE_FIREBASE_AUTH_DOMAIN` is used in both development and production. For this project, keep it set to `culrav-avishkar.firebaseapp.com`, including on Vercel.
+
+If Edge reports a blocked popup, click the blocked-popup icon in its address bar, allow popups for this frontend site, and click **Continue with Google** again. The app does not automatically switch to redirect login. The SDK is imported and initialized before the click, and the click handler starts popup sign-in before awaiting any network request. A browser policy or explicit site block still requires the user to allow the popup.
+
+The login page now waits for Firebase's initial auth state to settle and preconnects to its sign-in origins before enabling the button (with a five-second readiness fallback). These hints reduce connection setup work; they do not preload Firebase's internal popup helper or override browser policy. A first blocked attempt asks the participant to click again, while repeated blocking explains the browser permission. Verify the first-click behavior in Edge on the deployed build using `TESTING.md`.
 
 **Visibility:** anything prefixed `VITE_` is compiled into the browser application. Firebase's Web config and Web API key are public project identifiers, not Admin credentials. An `.env` file keeps configuration out of Git but cannot hide a value that frontend JavaScript must use. The backend independently verifies identity before granting a festival session.
 

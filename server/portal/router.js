@@ -993,19 +993,42 @@ router.get(
         { memberIds: req.participant.id },
         { pendingIds: req.participant.id },
       ],
-    })
-      .populate("memberIds", "name caId college")
-      .populate("pendingIds", "name caId");
-    const registeredIds = new Set(
-      (
-        await Registration.distinct("teamId", {
-          teamId: { $in: teams.map((team) => team._id) },
-        })
-      ).map(String),
+    }).lean();
+    if (!teams.length) return res.json({ teams: [] });
+    const participantIds = [
+      ...new Set(
+        teams.flatMap((team) =>
+          [...team.memberIds, ...team.pendingIds].map(String),
+        ),
+      ),
+    ];
+    const unlockedIds = teams
+      .filter((team) => !team.membershipLockedAt)
+      .map((team) => team._id);
+    // Resolve all members/invitees in one query. Check older registrations in
+    // parallel, only for teams that do not already have a recorded roster lock.
+    const [participants, registeredTeamIds] = await Promise.all([
+      Participant.find({ _id: { $in: participantIds } })
+        .select("name caId college")
+        .lean(),
+      unlockedIds.length
+        ? Registration.distinct("teamId", { teamId: { $in: unlockedIds } })
+        : Promise.resolve([]),
+    ]);
+    const byId = new Map(
+      participants.map((participant) => [String(participant._id), participant]),
     );
+    const registeredIds = new Set(registeredTeamIds.map(String));
     res.json({
       teams: teams.map((team) => ({
-        ...team.toObject(),
+        ...team,
+        memberIds: team.memberIds
+          .map((id) => byId.get(String(id)))
+          .filter(Boolean),
+        pendingIds: team.pendingIds
+          .map((id) => byId.get(String(id)))
+          .filter(Boolean)
+          .map(({ _id, name, caId }) => ({ _id, name, caId })),
         locked:
           !!team.membershipLockedAt || registeredIds.has(String(team._id)),
       })),
@@ -1118,6 +1141,22 @@ router.post(
     );
     v.check(updated.matchedCount, "Team changed. Retry.", 409);
     res.json({ success: true });
+  }),
+);
+router.get(
+  "/events/:id/my-registration",
+  a.participant,
+  async(async (req, res) => {
+    v.check(validator.isMongoId(req.params.id), "Invalid event", 400);
+    // Only an existence check is needed here. Do not load every registration,
+    // answer history, or populated form just to open a single event.
+    const registration = await Registration.findOne({
+      eventId: req.params.id,
+      memberIds: req.participant._id,
+    })
+      .select("_id")
+      .lean();
+    res.json({ registration });
   }),
 );
 router.get(

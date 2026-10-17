@@ -20,7 +20,8 @@ function sessionKind(path = "") {
     path === "/auth/me" ||
     path === "/auth/logout" ||
     /^\/(profile|teams|registrations)(\/|$)/.test(path) ||
-    /^\/events\/[^/]+\/register$/.test(path)
+    /^\/events\/[^/]+\/register$/.test(path) ||
+    /^\/events\/[^/]+\/my-registration$/.test(path)
   )
     return "participant";
   return null;
