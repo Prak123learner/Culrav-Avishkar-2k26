@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { EventRegistrationLink } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,84 +5,11 @@ import dummy from "../../assets/dummy.png"; // Replace with your hero image path
 
 const HERO_IMAGE = dummy;
 
-const Litmuse = {
-  eventName: "Litmuse",
-  tagline: "",
-  events: [
-    {
-      id: 13,
-      name: "Kavyanjali",
-      desc: [
-        "Poem should be written in Hindi and should be of maximum 8 mins.",
-        "Poem should be an original piece of content.",
-        "Participants are allowed to present more than one poem in bound time.",
-      ],
-      rules: [
-        "Poem should be written in Hindi and should be of maximum 8 mins.",
-        "Poem should be an original piece of content.",
-        "Participants are allowed to present more than one poem in bound time.",
-      ],
-      coords: [],
-    },
-    {
-      id: 14,
-      name: "Poetry Slam",
-      desc: [
-        "The English poetry slam competition will comprise of 3 rounds.",
-        "Poetry should contain the mentioned literary device at least once but is not restricted to it.",
-        "The poem will be judged based on creativity, idea, thought process and development, style and structure of writing, knowledge and usage of literary devices, and overall representation.",
-      ],
-      rules: [
-        "The English poetry slam competition will comprise of 3 rounds.",
-        "a. The online Elimination round: Contestants submit entries online; best are chosen.",
-        "b. Impromptu Poetry writing and recitation round: Given a phrase with a literary device, write an original piece impromptu in 30 mins.",
-        "c. Final Round: Recite any original work you feel best represents you.",
-        "Content shouldn't be explicit or vulgar.",
-        "Judging criteria: creativity, structure, literary device usage, overall representation.",
-      ],
-      coords: [],
-    },
-    {
-      id: 15,
-      name: "Spell-bee",
-      desc: [
-        "A 2 round team event with a maximum of 2 members per team.",
-        "Conducted only in English language.",
-      ],
-      rules: [
-        "It would be a 2 round event.",
-        "It would be a team event with a maximum of 2 members a team.",
-        "Events would be conducted for the English language only.",
-        "Panel will pronounce words with some star marked words as tie-breakers.",
-        "Participants write spellings on a sheet of paper.",
-        "Specific teams qualify for Final based on previous round evaluation.",
-        "Teams press buzzer; order of buzzing determines word to spell immediately.",
-        "Team with most correct answers wins.",
-      ],
-      coords: [],
-    },
-    {
-      id: 110,
-      name: "Laccuzzi",
-      desc: [
-        "Two-round event with eliminations.",
-        "Written Round: Quiz on TV series and comics choice.",
-        "Final Round: Gnosis styled quiz during Culrav on multiple topics.",
-      ],
-      rules: [
-        "Two-round event with eliminations.",
-        "Written Round: Quiz on TV series: Friends, Big Bang Theory, Sherlock, etc.",
-        "Choice between Comic series: DC and Marvel Universe or Anime-Manga.",
-        "Final Round: Gnosis styled quiz during Culrav with diverse questions.",
-      ],
-      coords: [],
-    },
-  ],
-};
+import Litmuse from "../../data/event-catalog/culrav/litmuse/subevents.json";
 
 const LitmusePage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent("culrav", "litmuse", selectedOriginal);
+  const selected = selectedOriginal;
 
   return (
     <div className="min-h-screen bg-black font-sans text-gray-300">

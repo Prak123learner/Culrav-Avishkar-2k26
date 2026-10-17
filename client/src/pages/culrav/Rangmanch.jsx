@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { EventRegistrationLink } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,121 +6,13 @@ import dummy from "../../assets/dummy.png"; // Placeholder hero image
 const HERO_IMAGE = dummy;
 
 // Rangmanch event data adapted for usage
-const Rangmanch = {
-  title: "Rangmanch",
-  tagline: "",
-  events: [
-    {
-      id: 16,
-      name: "Hasyamanch - Comic Play",
-      desc: [
-        "Laughter is the best way to create influence on the people.",
-        "Unleash your thoughts, showcase your best satires and prove that humor too can be serious stuff.",
-        "Rangmanch invites you all to put on your comic mask and help us laugh out loud.",
-        "Participants have to enact a comedy skit/nautanki or any other comedic play meant for an open-theatre venue.",
-      ],
-      rules: [
-        "The time duration of the performance is 6+4 minutes.",
-        "The team shall consist of a minimum of 8 and a maximum of 15 people, including the musicians.",
-        "If violating the time limit, participants will be penalized by the judges. The given time duration is from the empty stage to the empty stage.",
-        "Usage of fire or water is not allowed.",
-        "Any instance of vulgarity or disturbing content of any order will lead to immediate disqualification.",
-        "Only live music is allowed. Teams will have to bring their instruments.",
-        "Judging Criteria: Content: 40, Acting: 30, Direction: 20, Miscellaneous: 10.",
-        "Plagiarism is heavily frowned upon and will lead to disqualification.",
-        "For MNNIT Teams - No final year will be involved in lighting, music, props, acting, or any backstage help during the act/play. Play is subject to disqualification if found otherwise. (Exception: technical/logistic issues during the act).",
-        "Violation of any rule above will invite a 10% penalty for each rule broken.",
-        "The judge's decision will be final and binding.",
-      ],
-      coords: [],
-    },
-    {
-      id: 17,
-      name: "Pratibimb - Mono Act competition",
-      desc: [
-        "We invite you to take center stage as Rangmanch brings you, Pratibimb- the Mono Act competition.",
-        "Let's watch you put yourself in others' shoes and see how far you can understand them.",
-      ],
-      rules: [
-        "The performance can be in either English or Hindi or both.",
-        "For MNNIT participants: The time duration of the elimination round is 3+2 minutes; results of Alchemy Meet-1 will determine the final shortlist.",
-        "For outside participants: The time duration of the elimination round is 5 minutes. Participants must submit a video to dramatics.mnnit2024@gmail.com with the subject line 'Mono-Act Submission <Participant Name> <College>'. In the body of the email, please include your contact details and a Google Drive link to the video.",
-        "The time duration of the final round is 4+2 minutes.",
-        "The given time duration is from the empty stage to the empty stage.",
-        "No one other than the performer should be on the stage while the lights are on.",
-        "The use of fire or water is not allowed on stage.",
-        "Any instance of vulgarity or disturbing content will lead to immediate disqualification.",
-        "Lighting and background music are to be managed by the individuals themselves (with team members' support).",
-        "The stage should be cleared (including props) after the performance.",
-        "Participants are not allowed to use any lyrical music in the background.",
-        "Judging criteria: Acting: 35, Content: 30, Direction/Concept: 20, Props: 5, Music: 10.",
-        "Plagiarism is heavily frowned upon, and detection of the same will lead to disqualification.",
-        "Stage ethics should be kept in mind during the performance.",
-        "For MNNIT students - No final year will be involved in lighting, music, props, acting, or any backstage help during the act. The act is subject to disqualification if found otherwise. (Exception: technical/logistic issues during the act).",
-        "Violation of any rule above will invite a 10% penalty for each rule broken.",
-        "The judge's decision will be final and binding.",
-      ],
-      coords: [],
-    },
-    {
-      id: 18,
-      name: "Naatyamanch - Stage Play",
-      desc: [
-        "We invite you all to take part in the most popular form of theatre, Stage Play.",
-        "Rangmanch brings you Natyamanch, Stage Play.",
-        "So get up and get ready to mesmerize the world with your theatrics.",
-      ],
-      rules: [
-        "The team shall consist of a minimum of 8 and a maximum of 45 people (including people at lights, music, and handling props).",
-        "The duration of a single play for the finals is 30+30 minutes.",
-        "The timings shall be recorded from the first light/sound related to the play and end when the stage is lit and left empty. This includes any props or actors. Please note that the stage must be clean when your performance is over.",
-        "Judging criteria: Content/Concept: 35, Acting: 25, Direction: 25, Play setting (props, music, and lights): 15.",
-        "Usage of fire on stage is not allowed.",
-        "Lights, mics, music, and any other additional requirements should be notified 3 to 4 days beforehand.",
-        "Play is subject to disqualification if plagiarism is found or if any inappropriate language, vulgarity, or disturbing content is found.",
-        "Any lyrical content/voice lines must be live and cannot be played pre-recorded. Live music, songs, or voice lines are allowed.",
-        "For MNNIT Teams - No final year will be involved in lighting, music, props, acting, or any backstage help during the act. Play is subject to disqualification if found otherwise. (Exception: technical/logistic issues during the act).",
-        "Violation of any rule above will invite a 10% penalty for each rule broken.",
-        "The judge's decision will be final and binding.",
-      ],
-      coords: [],
-    },
-    {
-      id: 19,
-      name: "Nukkad - Street Play",
-      desc: [
-        "Nukkad is one of the oldest and purest forms of dramatics.",
-        "Rangmanch invites you all to experience the joy of street play.",
-      ],
-      rules: [
-        "The time duration of the performance is 20+7 minutes.",
-        "The team shall consist of a minimum of 18 and a maximum of 26.",
-        "In violating the time limit, participants will be penalized by the judges. The given time duration is from the empty stage to the empty stage.",
-        "Usage of fire or water is not allowed.",
-        "Any instance of vulgarity or disturbing content of any order will lead to an immediate disqualification.",
-        "Only live music is allowed. Teams will have to bring their instruments.",
-        "Judging Criterion: Content - 40, Acting - 25, Direction - 25, Miscellaneous - 10.",
-        "The organising team reserves the right to change or modify any of the rules.",
-        "Plagiarism is heavily frowned upon and detection of the same will lead to disqualification.",
-        "For elimination of outside participants performance of at least 10 min.",
-        "For MNNIT Teams- No final year will be involved in music, props, acting or any backstage help during the act. Nukkad is subject to disqualification if found otherwise. (Exception - Technical/logistic issues during the act).",
-        "Violation of any rule above will invite a 10% penalty for each rule broken.",
-        "The judge's decision will be final and binding.",
-      ],
-      coords: [],
-    },
-  ],
-};
+import Rangmanch from "../../data/event-catalog/culrav/rangmanch/subevents.json";
 
 const navLinks = ["Home", "Info", "Service", "Contact"];
 
 const RangmanchPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "culrav",
-    "rangmanch",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
 
   return (
     <div className="min-h-screen bg-black font-sans text-gray-300">

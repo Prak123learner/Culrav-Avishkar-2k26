@@ -141,8 +141,7 @@ function open(event) {
     event.status === "published" &&
     event.formPublished &&
     (!event.opensAt || +event.opensAt <= now) &&
-    event.closesAt &&
-    +event.closesAt > now
+    (!event.closesAt || +event.closesAt > now)
   );
 }
 function participationSettings(body) {
@@ -192,9 +191,6 @@ function eventBody(body) {
   };
   return {
     title: text(body.title, 200, true),
-    description: text(body.description, 20000),
-    rules: text(body.rules, 20000),
-    contact: text(body.contact, 5000),
     ...participation,
     opensAt: opensAt || null,
     closesAt: closesAt || null,

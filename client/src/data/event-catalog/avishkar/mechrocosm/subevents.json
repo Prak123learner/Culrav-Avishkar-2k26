@@ -1,0 +1,265 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "mechrocosm",
+  "categoryName": "Mechrocosm",
+  "eventName": "Mechrocosm",
+  "tagline": "",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "Triathlon",
+      "registrationLink": "https://forms.gle/bjyacgDLSEtPQTCM7",
+      "eventId": "62",
+      "description": "A placement-simulation event designed to provide real-time exposure to campus recruitment. Participants face aptitude rounds, technical/consultancy interviews and behavioural assessments—mimicking real company hiring formats.",
+      "rules": [
+        "Branches allowed: ME, PIE, ECM, MTE.",
+        "Individual participation only.",
+        "Compulsory for 1st, 2nd & 3rd year ME/PIE/ECM/Material Engg students.",
+        "Participants may attempt ONLY ONE TRACK or a specified combination.",
+        "CORE TRACK → (2 + 3) Rounds",
+        "CONSULTANCY TRACK → (1 + 2 + 3) Rounds",
+        "SOFTWARE TRACK → (1 + 2 + 3) Rounds",
+        "Round 1. Aptitude / Technical Screening",
+        "Round 2. HR / Behavioural + Technical Interview",
+        "Round 3. Final Round (Offline)"
+      ],
+      "expectedParticipation": "400+",
+      "goodies": "24 (expected)",
+      "coordinators": [
+        {
+          "name": "Krishnendu",
+          "contact": ""
+        },
+        {
+          "name": "Kuber",
+          "contact": ""
+        },
+        {
+          "name": "Ujjwal Gupta",
+          "contact": ""
+        },
+        {
+          "name": "Aakarsh",
+          "contact": ""
+        },
+        {
+          "name": "Manish",
+          "contact": ""
+        },
+        {
+          "name": "Kavya",
+          "contact": ""
+        },
+        {
+          "name": "Aditya Verma",
+          "contact": ""
+        },
+        {
+          "name": "Shaan",
+          "contact": ""
+        },
+        {
+          "name": "Iqra",
+          "contact": ""
+        },
+        {
+          "name": "Manmeet",
+          "contact": ""
+        },
+        {
+          "name": "Ankit",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/0"
+    },
+    {
+      "eventName": "Crack the Case",
+      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLSf4R85-ljPJJENL-p5GrkpLCu8NOcBlfuIGU5rT8sP-XzJKbQ/viewform?usp=publish-editor",
+      "eventId": "CTC01",
+      "description": "A high-pressure consulting & business case championship featuring Case Solving + Guesstimates + PPT analysis rounds. One of the biggest participation events—built to test structured thinking, storytelling & decision-making.",
+      "rules": [
+        "Eligibility: All branches (ME preference as given).",
+        "Team Structure: 3 members.",
+        "For 1st years → 2 ME + 1 any branch mandatory.",
+        "Round 1 → Database Round (Excel / SQL / Python Libraries)",
+        "Round 2 → Spot Guesstimates + Puzzles",
+        "Round 3 → Business Case PPT + PowerBI dashboard presentation"
+      ],
+      "expectedParticipation": "900+",
+      "goodies": "9",
+      "coordinators": [
+        {
+          "name": "Aditya Verma",
+          "contact": ""
+        },
+        {
+          "name": "Priyanshu",
+          "contact": ""
+        },
+        {
+          "name": "Ujjwal",
+          "contact": ""
+        },
+        {
+          "name": "Utkarsh",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/1"
+    },
+    {
+      "eventName": "Industrial Monopoly",
+      "registrationLink": "",
+      "eventId": "IM01",
+      "description": "A business-building simulation where participants bid, acquire & grow companies. Use strategy, analysis & auction skills to dominate the market—winner builds the most profitable enterprise.",
+      "rules": [
+        "Team Size: 3 members → (2 ME + 1 any)",
+        "Inter-branch allowed, inter-year not allowed",
+        "Round 1. Online Case Submission Round",
+        "Round 2. Offline Auction + Bidding War",
+        "Round 3. Business Plan Presentation (Offline)"
+      ],
+      "expectedParticipation": "Approx. 900",
+      "goodies": "9",
+      "coordinators": [
+        {
+          "name": "Manish",
+          "contact": ""
+        },
+        {
+          "name": "Aakarsh",
+          "contact": ""
+        },
+        {
+          "name": "Kavya",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/2"
+    },
+    {
+      "eventName": "Mechathon",
+      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLSeioRUfI8pQqrAQbeFXcfce7oyHrfXm4mqPpi7DGZH4Hu17Gw/viewform?usp=dialog",
+      "eventId": "MH01",
+      "description": "A Dev + ML based product-building event where participants develop real engineering solutions through Machine Learning & Software Development modules.",
+      "rules": [
+        "Team of 4 → 2 ME + 2 ANY",
+        "( If ≤ 2 members → 1 ME compulsory )",
+        "Round 1 → Abstract Submission (Online)",
+        "Round 2 → Mid-Evaluation (Online)",
+        "Round 3 → Final Evaluation (Offline) + PPT + QA"
+      ],
+      "expectedParticipation": "70+ Teams",
+      "goodies": "12",
+      "coordinators": [
+        {
+          "name": "Shaan",
+          "contact": ""
+        },
+        {
+          "name": "Iqra",
+          "contact": ""
+        },
+        {
+          "name": "Ankit",
+          "contact": ""
+        },
+        {
+          "name": "Devansh",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/3"
+    },
+    {
+      "eventName": "DeSim (Blueprint + Automax)",
+      "registrationLink": "",
+      "eventId": "DS01",
+      "description": "A new simulation-based event where teams solve engineering problems in-lab and present computational analysis models for evaluation.",
+      "rules": [
+        "NEW EVENT",
+        "Team of 3 Members",
+        "Round 1. Problem Statement Assessment in Lab ( Evaluated by Professors )",
+        "Round 2. Simulation + Analysis Presentation Round ( Evaluated by EC )"
+      ],
+      "expectedParticipation": "500+",
+      "goodies": "9",
+      "coordinators": [
+        {
+          "name": "Krishnendu",
+          "contact": ""
+        },
+        {
+          "name": "Manudev",
+          "contact": ""
+        },
+        {
+          "name": "Ankur",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/4"
+    },
+    {
+      "eventName": "Turbo Speed Showdown",
+      "registrationLink": "",
+      "eventId": "TS01",
+      "description": "A high-rush motorsport-style event—build, tune, race & compete for the ultimate speed title.",
+      "rules": [
+        "Team Size: 4 – 6 members",
+        "All Branches Allowed | Inter-branch Allowed",
+        "Inter-year NOT allowed",
+        "Round 1: Workshop Round",
+        "Round 2: Test-n-Tune",
+        "Round 3: Arena Challenge"
+      ],
+      "expectedParticipation": "500+",
+      "goodies": "9",
+      "coordinators": [
+        {
+          "name": "Mahindra Sonkar",
+          "contact": ""
+        },
+        {
+          "name": "Kuber Agrawal",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/5"
+    },
+    {
+      "eventName": "Game of Codes",
+      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLSe5Sppo3q2LvhD8kDcL_6jL14AOJGTVZIaIVFVYU5bHYzF2Ag/viewform ",
+      "eventId": "GOC01",
+      "description": "A coding battle tournament with knockout duels. Solve problems faster than opponents—No AI tools allowed. Clean logic & full test-case pass required.",
+      "rules": [
+        "Team of 3 → 1 ME compulsory + 2 ANY",
+        "NO AI Models Allowed",
+        "All test cases must pass to be considered correct",
+        "IF TEAMS > 16 → Round 1 Activated",
+        "ROUND 1 : Online Qualifier (Timed problem solving)",
+        "Ranking = Time + Accuracy",
+        "ROUND 2 : Offline Knockout Bracket",
+        "Head-to-head coding war → Faster team wins"
+      ],
+      "expectedParticipation": "30+ Teams",
+      "goodies": "12",
+      "coordinators": [
+        {
+          "name": "Shaan",
+          "contact": ""
+        },
+        {
+          "name": "Ankit",
+          "contact": ""
+        },
+        {
+          "name": "Iqra",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/mechrocosm/6"
+    }
+  ]
+}

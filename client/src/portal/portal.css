@@ -407,6 +407,9 @@
 .ca-publish-panel-admin label.ca-choice {
   grid-column: 1;
 }
+.ca-publish-panel label.ca-answer-edits {
+  grid-column: 1 / -1;
+}
 .ca-form-update-notice {
   grid-column: 1 / -1;
   padding: 16px 18px;
@@ -718,5 +721,775 @@ ol.list-decimal li {
   }
   .ca-heading {
     align-items: flex-start;
+  }
+}
+
+/* Festival portal: extend the site's cinematic artwork and control-room language. */
+.ca-portal {
+  --ca-cyan: #67e8f9;
+  --ca-magenta: #e879f9;
+  --ca-line: #73dced46;
+  --ca-muted: #a9bbc7;
+  --ca-panel: #08121b;
+  background:
+    linear-gradient(180deg, #03070bec 0%, #06111be8 38%, #020508 100%),
+    url("../assets/c_s_bg.png") center top / cover fixed;
+  color: #e7f5f8;
+  font-family: "General Sans", ui-sans-serif, system-ui, sans-serif;
+  padding: 122px max(20px, calc((100vw - 1360px) / 2)) 90px;
+}
+.ca-portal.ca-staff,
+.ca-portal.ca-registration {
+  font-family: "General Sans", ui-sans-serif, system-ui, sans-serif;
+}
+.ca-portal :is(h1, h2, h3),
+.ca-staff :is(h1, h2, h3),
+.ca-registration :is(h1, h2, h3) {
+  color: #f3fdff;
+  font-family: var(--font-display, "Orbitron"), ui-sans-serif, sans-serif;
+  font-weight: 800;
+  line-height: 1.22;
+  overflow-wrap: anywhere;
+  text-shadow: none;
+}
+.ca-portal h1 {
+  font-size: clamp(28px, 3.4vw, 46px);
+  letter-spacing: -0.035em;
+}
+.ca-portal h2 {
+  font-size: clamp(21px, 2.1vw, 28px);
+  letter-spacing: -0.02em;
+}
+.ca-portal h3 {
+  font-size: clamp(16px, 1.4vw, 20px);
+}
+.ca-portal p,
+.ca-portal dd {
+  color: #c1d0d9;
+}
+.ca-portal small {
+  color: var(--ca-muted);
+}
+.ca-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ca-cyan);
+  font:
+    700 11px var(--font-mono, "Share Tech Mono"),
+    monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ca-kicker::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--ca-magenta);
+  box-shadow: 0 0 12px var(--ca-magenta);
+}
+.ca-portal .ca-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--ca-line);
+  border-radius: 2px;
+  background:
+    linear-gradient(142deg, #13232bdc, #050b12f2 62%), var(--ca-panel);
+  box-shadow:
+    0 24px 70px #0007,
+    inset 0 1px #d2faff0c;
+}
+.ca-portal .ca-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 54px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--ca-cyan), var(--ca-magenta));
+  box-shadow: 0 0 16px #67e8f980;
+}
+.ca-portal :is(button, input, select, textarea) {
+  font-family: inherit;
+}
+.ca-portal button {
+  border: 1px solid #5eddec;
+  border-radius: 2px;
+  background: #75eaf4;
+  color: #031019;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  box-shadow: 3px 3px 0 #ca48ca66;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.ca-portal button:hover:not(:disabled) {
+  border-color: #f5a5f7;
+  background: #d5faff;
+  color: #031019;
+  box-shadow: -3px 3px 0 #ca48caaa;
+  transform: translateY(-1px);
+}
+.ca-portal button.ca-secondary,
+.ca-portal .ca-tabs button,
+.ca-portal .ca-event-breadcrumb button {
+  border-color: #74dbe361;
+  background: #07141bcc;
+  color: #bcecf0;
+  box-shadow: none;
+}
+.ca-portal button.ca-secondary:hover:not(:disabled),
+.ca-portal .ca-event-breadcrumb button:hover:not(:disabled) {
+  border-color: var(--ca-magenta);
+  background: #191222;
+  color: #fff;
+  box-shadow: none;
+}
+.ca-portal :is(input, select, textarea) {
+  border: 1px solid #456b77;
+  border-radius: 2px;
+  background: #050c13ed;
+  color: #f1fbff;
+  min-height: 46px;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+.ca-portal :is(input, select, textarea):focus {
+  border-color: var(--ca-cyan);
+  outline: none;
+  box-shadow: 0 0 0 3px #67e8f922;
+}
+.ca-portal :is(input, textarea)::placeholder {
+  color: #8096a2;
+}
+.ca-portal label {
+  color: #dcebf0;
+  font-weight: 600;
+}
+.ca-portal :is(.ca-question, .ca-builder-question) {
+  border: 1px solid #5b829054;
+  border-radius: 2px;
+  background: linear-gradient(125deg, #10222b8c, #060d15a8);
+  padding: clamp(18px, 2.6vw, 28px);
+}
+.ca-portal :is(.ca-question, .ca-builder-question) legend {
+  color: #b9f4fb;
+  font-family: var(--font-display, "Orbitron"), sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.ca-portal .ca-question p {
+  max-width: 75ch;
+  margin: 4px 0 20px;
+  color: var(--ca-muted);
+}
+.ca-portal .ca-notice {
+  border-radius: 2px;
+  border: 1px solid #67e8f977;
+  border-left: 3px solid var(--ca-cyan);
+  background: #0a3440aa;
+  color: #e6fcff;
+}
+.ca-portal .ca-error {
+  border-radius: 2px;
+  border-left: 3px solid #fb7185;
+}
+.ca-portal .ca-notice p,
+.ca-portal .ca-error p {
+  color: inherit;
+}
+.ca-portal .ca-table-wrap {
+  border: 1px solid #4e80905c;
+  background: #07111add;
+}
+.ca-portal :is(th, td) {
+  border-color: #57758050;
+}
+.ca-portal th {
+  color: #a4f4fb;
+  background: #0c2730;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.ca-portal tr:nth-child(even) td {
+  background: #ffffff06;
+}
+
+/* Login panels use the same city artwork and actual festival mark. */
+.ca-portal .ca-auth {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.1fr);
+  gap: 0;
+  width: min(100%, 980px);
+  min-height: 540px;
+  padding: 0;
+  margin: clamp(20px, 5vh, 58px) auto;
+}
+.ca-auth-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 540px;
+  padding: clamp(28px, 4vw, 44px);
+  isolation: isolate;
+  border-right: 1px solid #f0a6ed59;
+  background:
+    linear-gradient(165deg, #07101c73 10%, #06111b99 40%, #100817ed 100%),
+    url("../assets/c_s_bg.png") center / cover;
+}
+.ca-auth-art::after {
+  content: "";
+  position: absolute;
+  inset: 18px;
+  z-index: -1;
+  border: 1px solid #b57ab43d;
+  border-bottom-color: #64ddea77;
+  pointer-events: none;
+}
+.ca-portal .ca-auth-art img {
+  width: min(100%, 260px);
+  height: auto;
+  align-self: flex-start;
+  filter: drop-shadow(0 8px 28px #000);
+}
+.ca-auth-art-caption {
+  display: grid;
+  gap: 8px;
+  color: #effdff;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+.ca-auth-art-caption span {
+  color: var(--ca-magenta);
+  font-size: 12px;
+}
+.ca-auth-art-caption strong {
+  font-size: clamp(18px, 2.2vw, 28px);
+  line-height: 1.2;
+}
+.ca-auth-art-index {
+  position: absolute;
+  right: 28px;
+  top: 34px;
+  writing-mode: vertical-rl;
+  color: #aff5ff91;
+  font:
+    12px var(--font-mono, "Share Tech Mono"),
+    monospace;
+  letter-spacing: 0.18em;
+}
+.ca-auth-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  padding: clamp(28px, 5vw, 62px);
+}
+.ca-auth-content h1 {
+  margin: 22px 0 12px;
+}
+.ca-auth-content > p {
+  max-width: 48ch;
+}
+.ca-auth-content > button:not(.ca-secondary) {
+  margin: 18px 0 12px;
+  min-height: 50px;
+}
+.ca-auth-content > a {
+  align-self: flex-start;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 13px;
+  margin-top: 16px;
+}
+.ca-portal.ca-auth-screen {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 96px 20px 20px;
+}
+.ca-portal.ca-staff.ca-auth-screen {
+  background:
+    radial-gradient(ellipse at 12% 24%, #b52baf30, transparent 45%),
+    radial-gradient(ellipse at 88% 78%, #0bb6d02b, transparent 46%),
+    linear-gradient(110deg, #03071429, #030a1559),
+    url("../assets/c_s_bg.png") center / cover no-repeat fixed;
+}
+.ca-portal.ca-auth-screen .ca-auth-login {
+  min-height: 0;
+  margin: 0;
+}
+.ca-portal.ca-auth-screen .ca-auth-participant-card {
+  min-height: min(420px, calc(100svh - 116px));
+}
+.ca-auth-login .ca-auth-art {
+  min-height: 0;
+}
+.ca-auth-login .ca-auth-content {
+  padding: 30px clamp(28px, 3.5vw, 44px);
+}
+.ca-auth-login .ca-auth-content h1 {
+  font-size: clamp(27px, 3vw, 38px);
+  margin: 14px 0 8px;
+}
+.ca-auth-login .ca-auth-content > p {
+  line-height: 1.5;
+  margin: 8px 0 14px;
+}
+.ca-auth-login .ca-auth-content label {
+  gap: 5px;
+  margin: 8px 0;
+}
+.ca-auth-login .ca-auth-content input {
+  min-height: 42px;
+  padding: 10px 12px;
+}
+.ca-auth-login .ca-auth-content > button:not(.ca-secondary) {
+  min-height: 44px;
+  margin: 12px 0 4px;
+}
+.ca-auth-login .ca-auth-content > a {
+  margin-top: 8px;
+}
+
+/* The workspace headers and navigation read as one festival control surface. */
+.ca-portal .ca-workspace-heading,
+.ca-portal .ca-registration-heading {
+  position: relative;
+  isolation: isolate;
+  min-height: 216px;
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid #68e2ed70;
+  border-bottom: 2px solid #e879f9a8;
+  background:
+    linear-gradient(95deg, #030910f5 0%, #06121cdb 55%, #08091069 100%),
+    url("../assets/c_s_bg.png") center 54% / cover;
+  box-shadow:
+    0 25px 60px #0008,
+    inset 0 0 45px #072b33a0;
+  overflow: hidden;
+}
+.ca-portal .ca-workspace-heading::after,
+.ca-portal .ca-registration-heading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 5px,
+    #bdebf305 6px
+  );
+  pointer-events: none;
+}
+.ca-portal .ca-workspace-heading > div,
+.ca-portal .ca-registration-heading > div {
+  max-width: 850px;
+}
+.ca-portal .ca-workspace-heading h1,
+.ca-portal .ca-registration-heading h1 {
+  margin: 14px 0 0;
+  color: #f5feff;
+  text-transform: uppercase;
+  text-shadow: 0 5px 28px #000;
+}
+.ca-portal .ca-workspace-heading p,
+.ca-portal .ca-registration-heading p {
+  color: #aaf2fa;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 13px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.ca-portal .ca-workspace-heading button {
+  align-self: flex-end;
+  position: relative;
+  z-index: 1;
+}
+.ca-portal .ca-tabs {
+  gap: 0;
+  padding: 0;
+  margin: 0 0 30px;
+  border: 1px solid #5eddec54;
+  border-top: 0;
+  background: #030b11e8;
+}
+.ca-portal .ca-tabs button {
+  position: relative;
+  padding: 18px 24px;
+  border: 0;
+  border-right: 1px solid #5eddec32;
+  border-radius: 0;
+  color: #a4bdc5;
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.ca-portal .ca-tabs button:hover:not(:disabled) {
+  transform: none;
+  background: #10202b;
+  color: #fff;
+  box-shadow: none;
+}
+.ca-portal .ca-tabs button[aria-pressed="true"] {
+  background: linear-gradient(180deg, #0d2831, #06111b);
+  color: #ddfbff;
+  border-bottom: 3px solid var(--ca-cyan);
+}
+.ca-portal .ca-tabs button[aria-pressed="true"]::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 2px;
+  background: var(--ca-magenta);
+}
+
+.ca-staff .ca-event-search {
+  max-width: none;
+  margin: 30px 0 14px;
+}
+.ca-staff .ca-event-search input {
+  max-width: 680px;
+  background: #060d15ed;
+}
+.ca-event-breadcrumb {
+  border-bottom: 1px solid #5eddec40;
+  padding-bottom: 18px;
+}
+.ca-portal .ca-festival-tile,
+.ca-portal .ca-category-tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid #60d5e762;
+  border-radius: 2px;
+  box-shadow: 0 18px 45px #0009;
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+.ca-portal .ca-festival-tile {
+  min-height: 270px;
+  padding: clamp(26px, 4vw, 50px);
+}
+.ca-portal .ca-category-tile {
+  min-height: 160px;
+  padding: 25px;
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile)[data-festival="avishkar"] {
+  background:
+    linear-gradient(95deg, #070909ee 6%, #2b14099c 100%),
+    url("../assets/a_s_bg.png") center 40% / cover;
+  border-color: #eaa25c85;
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile)[data-festival="culrav"] {
+  background:
+    linear-gradient(95deg, #090613ec 8%, #1c0a2d9e 100%),
+    url("../assets/c_s_bg.png") center / cover;
+  border-color: #cb78df82;
+}
+.ca-portal
+  :is(.ca-festival-tile, .ca-category-tile)[data-festival="avishkar"]:hover:not(
+    :disabled
+  ) {
+  background:
+    linear-gradient(95deg, #070909ee 6%, #2b14099c 100%),
+    url("../assets/a_s_bg.png") center 40% / cover;
+}
+.ca-portal
+  :is(.ca-festival-tile, .ca-category-tile)[data-festival="culrav"]:hover:not(
+    :disabled
+  ) {
+  background:
+    linear-gradient(95deg, #090613ec 8%, #1c0a2d9e 100%),
+    url("../assets/c_s_bg.png") center / cover;
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile)::after {
+  content: "↗";
+  position: absolute;
+  right: 24px;
+  top: 18px;
+  font:
+    28px var(--font-mono, "Share Tech Mono"),
+    monospace;
+  color: #d8faffb8;
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile):hover:not(:disabled) {
+  transform: translateY(-4px);
+  border-color: #d9fbff;
+  box-shadow:
+    0 22px 54px #000c,
+    0 0 26px #67e8f92c;
+  color: #fff;
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile) strong {
+  color: #f5fcff;
+  font-family: var(--font-display, "Orbitron"), sans-serif;
+  font-size: clamp(22px, 3vw, 40px);
+  letter-spacing: -0.03em;
+  text-shadow: 0 4px 20px #000;
+}
+.ca-portal .ca-category-tile strong {
+  font-size: clamp(18px, 2vw, 24px);
+}
+.ca-portal :is(.ca-festival-tile, .ca-category-tile) span,
+.ca-portal .ca-category-tile small {
+  color: #d6e7ee;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ca-portal .ca-event-card[data-festival="culrav"]::before {
+  background: var(--ca-magenta);
+  box-shadow: 0 0 16px #e879f981;
+}
+.ca-portal .ca-event-card[data-festival="avishkar"]::before {
+  background: #f2ad74;
+  box-shadow: 0 0 16px #f2ad7481;
+}
+.ca-event-card > p:first-of-type,
+.ca-response-card > p:first-of-type {
+  color: var(--ca-cyan);
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.ca-event-card h3 {
+  margin: 8px 0 14px;
+}
+.ca-event-card .ca-toolbar {
+  margin-top: 22px;
+}
+
+/* Registration is a focused path through identity, event questions and receipt. */
+.ca-portal.ca-registration {
+  background:
+    linear-gradient(180deg, #02060bea 0%, #06121cdb 52%, #030609 100%),
+    url("../assets/c_s_bg.png") center top / cover fixed;
+}
+.ca-portal.ca-registration[data-festival="avishkar"] {
+  background:
+    linear-gradient(180deg, #090806e3 0%, #0a1017e8 40%, #030609 100%),
+    url("../assets/a_s_bg.png") center top / cover fixed;
+}
+.ca-registration .ca-registration-content {
+  max-width: 1080px;
+}
+.ca-portal a.ca-registration-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  padding: 9px 15px;
+  border: 1px solid #72dce67a;
+  border-radius: 2px;
+  background: linear-gradient(120deg, #07151dcc, #0b1722b8);
+  color: #c8f7fa;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-underline-offset: 0;
+  text-transform: uppercase;
+  box-shadow: inset 0 1px #b6faff1a;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    transform 160ms ease;
+}
+.ca-portal a.ca-registration-back span {
+  color: var(--ca-cyan);
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 160ms ease;
+}
+.ca-portal a.ca-registration-back:hover,
+.ca-portal a.ca-registration-back:focus-visible {
+  border-color: var(--ca-cyan);
+  background: linear-gradient(120deg, #0a222ddd, #111728dc);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+.ca-portal a.ca-registration-back:hover span,
+.ca-portal a.ca-registration-back:focus-visible span {
+  transform: translateX(-3px);
+}
+.ca-registration .ca-registration-heading {
+  margin-top: 18px;
+  margin-bottom: 22px;
+  padding: clamp(24px, 4vw, 46px);
+}
+.ca-registration[data-festival="avishkar"] .ca-registration-heading {
+  background:
+    linear-gradient(95deg, #060808ed 4%, #24150bcf 62%, #100b0766 100%),
+    url("../assets/a_s_bg.png") center 43% / cover;
+  border-color: #eba56e83;
+  border-bottom-color: #f3bd76;
+}
+.ca-registration .ca-heading span:not(.ca-kicker) {
+  color: #e4baf2;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ca-registration .ca-card {
+  border-radius: 2px;
+  padding: clamp(20px, 3vw, 38px);
+}
+.ca-registration .ca-card > h2 {
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--ca-line);
+}
+.ca-registration fieldset {
+  border-radius: 2px;
+  border-color: #5b829054;
+  background: #07131b99;
+}
+.ca-registration input[readonly] {
+  color: #d5e7eb;
+  border-color: #44626b;
+  background: #101c24;
+}
+.ca-portal.ca-registration button {
+  margin: 16px 3px 8px;
+  border: 1px solid var(--ca-cyan);
+  border-radius: 2px;
+  background: #75eaf4;
+  color: #031019;
+  box-shadow: 3px 3px 0 #ca48ca66;
+}
+.ca-portal.ca-registration button:hover:not(:disabled) {
+  background: #d5faff;
+  border-color: var(--ca-magenta);
+  color: #031019;
+  box-shadow: -3px 3px 0 #ca48caaa;
+}
+.ca-portal.ca-registration button.ca-secondary {
+  background: #07141bcc;
+  color: #bcecf0;
+  box-shadow: none;
+}
+.ca-registration-entry {
+  border-left: 2px solid var(--ca-cyan) !important;
+}
+.ca-registration-entry[data-focused="true"] {
+  border-color: #d9fbff !important;
+  box-shadow:
+    0 0 0 1px #67e8f980,
+    0 0 30px #67e8f92e,
+    0 18px 45px #0009;
+}
+.ca-registration-entry > p:first-of-type {
+  color: #a5e7ed;
+  font-family: var(--font-mono, "Share Tech Mono"), monospace;
+  font-size: 12px;
+}
+.ca-registration-entry details {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--ca-line);
+}
+.ca-registration-entry summary {
+  cursor: pointer;
+  color: var(--ca-cyan);
+}
+.ca-publish-panel {
+  border-radius: 2px;
+  background: linear-gradient(120deg, #0b3440af, #110e20e8);
+  box-shadow: inset 0 1px #9dfaff24;
+}
+.ca-rules-box {
+  border-radius: 2px;
+}
+.ca-form-update-notice {
+  border-radius: 2px;
+}
+
+@media (max-width: 760px) {
+  .ca-portal {
+    background-attachment: scroll;
+    padding: 110px 16px 60px;
+  }
+  .ca-portal .ca-auth {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .ca-portal.ca-auth-screen {
+    display: grid;
+    padding: 88px 14px 16px;
+  }
+  .ca-portal.ca-staff.ca-auth-screen {
+    background-attachment: scroll;
+  }
+  .ca-portal.ca-auth-screen .ca-auth-participant-card {
+    min-height: 0;
+  }
+  .ca-auth-art {
+    min-height: 190px;
+    border-right: 0;
+    border-bottom: 1px solid #f0a6ed59;
+    background-position: center 42%;
+  }
+  .ca-portal .ca-auth-art img {
+    width: 150px;
+  }
+  .ca-auth-art-caption strong {
+    font-size: 15px;
+  }
+  .ca-auth-content {
+    padding: 28px 24px 34px;
+  }
+  .ca-auth-login .ca-auth-art {
+    min-height: 150px;
+    padding: 22px;
+  }
+  .ca-auth-login .ca-auth-content {
+    padding: 22px;
+  }
+  .ca-portal .ca-workspace-heading,
+  .ca-portal .ca-registration-heading {
+    min-height: 0;
+    padding: 26px 22px;
+  }
+  .ca-portal .ca-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  .ca-portal .ca-tabs button {
+    flex: 0 0 auto;
+    padding: 15px 17px;
+  }
+  .ca-portal :is(.ca-festival-tile, .ca-category-tile) {
+    min-height: 160px;
+  }
+  .ca-portal.ca-registration {
+    background-attachment: scroll;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ca-portal
+    :is(button, input, select, textarea, .ca-festival-tile, .ca-category-tile) {
+    transition: none;
   }
 }

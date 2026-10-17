@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,146 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const PowerSurgeData = {
-  eventName: "PowerSurge",
-  tagline: "Ignite the Spark of Innovation",
-  instagramLink: "https://www.instagram.com/powersurge/",
-  events: [
-    {
-      eventName: "Pentathlon",
-      eventId: "87",
-      description:
-        "A flagship multi-stage recruitment event simulating campus placements through Online Assessments, Group Discussions, Extempore and Interview rounds. Mandatory for EE students who wish to participate in other events.",
-      rules: [
-        "Mandatory for Electrical students to be eligible for participation in other events.",
-        "Flagship recruitment simulation event of PowerSurge.",
-        "Round 1: Online Assessment (Core / Software / Consultancy as per domain selection).",
-        "Round 2: Group Discussion (common for all).",
-        "Round 3: Personal Interview domain-specific.",
-        "Eligibility: 1st, 2nd & 3rd year B.Tech.",
-        "Individual event.",
-      ],
-      minTeamSize: 1,
-      maxTeamSize: 1,
-      PsLink: "",
-      coordinators: [
-        { name: "DEV SHARMA", contact: "" },
-        { name: "AYUSH MAURYA", contact: "" },
-        { name: "VEDANT OJHA", contact: "" },
-        { name: "KARNIKA SINGH", contact: "" },
-        { name: "YATHARTHA TIWARI", contact: "" },
-      ],
-    },
-    {
-      eventName: "Dev or Die",
-      eventId: "88",
-      description:
-        "A product-development event where participants build impactful digital solutions—from web apps to tech tools. Includes aptitude screening, a development sprint and offline final evaluation.",
-      rules: [
-        "Round 1: Aptitude screening (elimination).",
-        "Round 2: 10-day Development Sprint with problem statement + evaluation + video submission.",
-        "Round 3: Offline final presentation and demo.",
-        "Eligibility: B.Tech all years except final year + MCA.",
-        "Minimum one EE member in every team.",
-        "Team size: 2–4.",
-      ],
-      minTeamSize: 2,
-      maxTeamSize: 4,
-      PsLink: "",
-      coordinators: [
-        { name: "CHINMAY MALVE", contact: "" },
-        { name: "TEJASW AGRAWAL", contact: "" },
-        { name: "AYUSH GUPTA", contact: "" },
-      ],
-    },
-    {
-      eventName: "CodeSparks",
-      eventId: "89",
-      description:
-        "Competitive programming contest featuring algorithmic problems that test logic, time-efficiency and coding precision. Includes interview screening for top finalists.",
-      rules: [
-        "Round 1: Coding contest with 5–6 problems (year-wise difficulty separation).",
-        "Round 2: Interview-style evaluation for shortlisted candidates.",
-        "Eligibility: B.Tech except final year + MCA + M.Tech 1st year.",
-        "Individual participation.",
-      ],
-      minTeamSize: 1,
-      maxTeamSize: 1,
-      PsLink: "",
-      coordinators: [
-        { name: "Ayushman Tiwari", contact: "" },
-        { name: "Keshav Diwakar", contact: "" },
-      ],
-    },
-    {
-      eventName: "Circuit Bizz",
-      eventId: "90",
-      description:
-        "A concept-driven event where participants solve circuit-logic problems through bidding, written challenges and interviews—designed for electrical problem-solvers.",
-      rules: [
-        "Round 1: Auction-style problem allocation.",
-        "Round 2: Pen-and-paper problem solving.",
-        "Round 3: Interview-round evaluation.",
-        "Eligibility: 1st–3rd year students.",
-      ],
-      minTeamSize: 1,
-      maxTeamSize: 1,
-      PsLink: "",
-      coordinators: [
-        { name: "Umme Sidra", contact: "" },
-        { name: "Akrati Singh", contact: "" },
-        { name: "Nikhil Kumar Jadon", contact: "" },
-      ],
-    },
-    {
-      eventName: "Predefined Hardware",
-      eventId: "91",
-      description:
-        "Hands-on electrical hardware development event. Teams build core electrical engineering solutions based on predefined requirements, with evaluation on execution and innovation.",
-      rules: [
-        "Round 1: Mid-evaluation on development progress.",
-        "Round 2: Final demo + technical presentation.",
-        "Eligibility: B.Tech 1st–3rd year.",
-        "Team size: 3–5.",
-      ],
-      minTeamSize: 3,
-      maxTeamSize: 5,
-      PsLink: "",
-      coordinators: [
-        { name: "Ratan Kumar", contact: "" },
-        { name: "Ravula Vasu", contact: "" },
-        { name: "Ishan Singh", contact: "" },
-      ],
-    },
-    {
-      eventName: "Royal Rumble",
-      eventId: "93",
-      description:
-        "A reverse-coding + knockout DSA duel event. Decode logic from output in Round 1; battle 1v1 head-to-head in Round 2 where fastest correct submitter advances.",
-      rules: [
-        "Round 1: Reverse Coding challenge (time + correctness scoring).",
-        "Round 2: DSA 1v1 Knockout Bracket.",
-        "Eligibility: 1st–3rd year + MCA.",
-        "Individual event.",
-      ],
-      minTeamSize: 1,
-      maxTeamSize: 1,
-      PsLink: "",
-      coordinators: [
-        { name: "Priyanshu Anand", contact: "" },
-        { name: "Priyam Raj", contact: "" },
-      ],
-    },
-  ],
-};
+import PowerSurgeData from "../../data/event-catalog/avishkar/powersurge/subevents.json";
 
 const PowerSurgePage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "powersurge",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
   const navigate = useNavigate();
 
   const handleRegister = () => {

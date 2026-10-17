@@ -12,7 +12,11 @@
     "test": "node --test portal/portal.test.js",
     "test:standalone": "node --test portal/standalone.test.js",
     "test:sessions": "node --test portal/sessions.test.js portal/client-sessions.test.js",
-    "bootstrap": "node portal/bootstrap.js"
+    "bootstrap": "node portal/bootstrap.js",
+    "migrate:static-content": "node portal/migrate-static-event-content.js",
+    "migrate:registration-search": "node scripts/migrate-registration-search.js",
+    "initialize:fresh-festival": "node scripts/initialize-fresh-festival-db.js",
+    "reset:test-data": "node scripts/reset-festival-data.js"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",

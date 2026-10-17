@@ -64,7 +64,8 @@ export function EventRegistrationLink({ festival, category, title }) {
 
 export function ResolveEventRegistration() {
   const { festival, category, title } = useParams();
-  const resource = useResource("/events");
+  const query = new URLSearchParams({ festival, category, title }).toString();
+  const resource = useResource(`/events/resolve?${query}`);
   if (resource.loading) {
     return <main className="ca-portal">Loading registration…</main>;
   }
@@ -78,14 +79,9 @@ export function ResolveEventRegistration() {
       </main>
     );
   }
-  const event = resource.data?.events.find(
-    (item) =>
-      item.categoryId?.festival === festival &&
-      item.categoryId?.slug === category &&
-      item.title === title,
-  );
+  const event = resource.data?.event;
   return event ? (
-    <RegistrationPage eventId={event._id} />
+    <RegistrationPage eventData={event} />
   ) : (
     <Navigate replace to="/coming-soon" />
   );

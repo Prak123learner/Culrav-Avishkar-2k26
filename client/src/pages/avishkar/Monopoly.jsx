@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,113 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const MonopolyData = {
-  eventName: "Monopoly",
-  tagline: "",
-  instagramLink: "",
-  events: [
-    {
-      eventName: "Chanakya Neeti",
-      registrationLink: "",
-      eventId: "71",
-      description:
-        "A strategic competition testing analytical skills through quiz, riddles and strategy-based case presentation rounds.",
-      rules: [
-        "Team size: 1–2 members",
-        "Round 1: Brain Buster Blitz – Quiz round testing analytical aptitude",
-        "Round 2: The Riddle Conundrum – Solve 5 riddles in minimum time",
-        "Round 3: Strategic Mastermind – Case Study Presentation (5–7 mins + Q&A)",
-      ],
-      maxTeamSize: 2,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-
-    {
-      eventName: "Netrivta",
-      registrationLink: "https://forms.gle/TXWsnm6EKZdhv4AJ7",
-      eventId: "72",
-      description:
-        "A public-speaking and leadership event involving introduction round, debate segment and elocution-based final evaluation.",
-      rules: [
-        "Individual participation",
-        "Round 1: Parichaya – Self introduction + leadership questions",
-        "Round 2: Vaad-Vivad – Debate round on on-spot topic",
-        "Round 3: Vaktavya – Elocution followed by judge Q&A",
-      ],
-      maxTeamSize: 1,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-
-    {
-      eventName: "Navachar",
-      registrationLink: "",
-      eventId: "73",
-      description:
-        "An innovation & entrepreneurship-based event conducted across quiz, case analysis and business-presentation rounds.",
-      rules: [
-        "Team size: 1–2 members",
-        "Round 1: Quizoholic – Objective quiz based on startups & innovation",
-        "Round 2: Business Case Study – 25 min written analysis, 100-word limit per question",
-        "Round 3: B-Plan Presentation – Max 6 slides, 10 min pitch + Q&A",
-      ],
-      maxTeamSize: 2,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-
-    {
-      eventName: "Stall Mart",
-      registrationLink: "",
-      eventId: "74",
-      description:
-        "A stall-based business competition involving idea pitching, stall execution, revenue generation and market-engagement strategy.",
-      rules: [
-        "Team size: 3–4 members",
-        "Round 1: Idea Sprint – Present stall concept, product strategy, audience appeal",
-        "Round 2: Entrepreneur’s Arena – Live stall management and sales performance",
-        "No gambling, objectionable content or unfair means allowed",
-        "Only team members may operate inside stall",
-        "First-come-first-serve stall allotment",
-        "Daily balance sheet maintenance compulsory",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 3,
-      PsLink: "",
-      coordinators: [],
-    },
-
-    {
-      eventName: "Reel Fiesta",
-      registrationLink: "",
-      eventId: "75",
-      description:
-        "A creative reel-based entrepreneurship challenge including quiz, brand face-off and product pitching through video creation.",
-      rules: [
-        "Team size: 2–3 members",
-        "Round 1: Business Trivia Quiz",
-        "Round 2: Brand Battle – Create humorous reel of two competing brands (45–60 sec)",
-        "Round 3: Pitch Perfect – Reel-pitch of a mystery-box product (45–60 sec)",
-      ],
-      maxTeamSize: 3,
-      minTeamSize: 2,
-      PsLink: "",
-      coordinators: [],
-    },
-  ],
-};
+import MonopolyData from "../../data/event-catalog/avishkar/monopoly/subevents.json";
 
 const MonopolyPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "monopoly",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
   const navigate = useNavigate();
 
   const handleRegister = () => {

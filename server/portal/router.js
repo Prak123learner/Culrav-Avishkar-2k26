@@ -20,6 +20,10 @@ const {
 const v = require("./validation");
 const a = require("./auth");
 const { sendEmail } = require("../utils/email");
+const {
+  registrationSearchKeys,
+  searchPrefix,
+} = require("./registration-search");
 const router = express.Router();
 const async = a.wrap;
 router.use((req, res, next) => {
@@ -33,6 +37,31 @@ router.use((req, res, next) => {
   }
   next();
 });
+
+function cachePublicResponse(res, browserSeconds, cdnSeconds) {
+  const revalidateSeconds = Math.min(60, cdnSeconds);
+  res.set(
+    "Cache-Control",
+    `public, max-age=${browserSeconds}, must-revalidate`,
+  );
+  res.set(
+    "CDN-Cache-Control",
+    `public, max-age=${cdnSeconds}, stale-while-revalidate=${revalidateSeconds}`,
+  );
+  res.set(
+    "Vercel-CDN-Cache-Control",
+    `public, max-age=${cdnSeconds}, stale-while-revalidate=${revalidateSeconds}`,
+  );
+}
+function publicEventView(event, category = event.categoryId) {
+  const data = event.toObject();
+  if (category?.toObject) data.categoryId = category.toObject();
+  else if (category) data.categoryId = category;
+  if (data.mode === "solo_or_team") data.minTeamSize = 1;
+  data.fields = event.formPublished ? currentFields(event) : [];
+  delete data.formVersions;
+  return data;
+}
 const authLimit = rateLimit({
   windowMs: 15 * 60 * 1000,
   limit: 30,
@@ -122,13 +151,7 @@ function registrationView(registration, event, includeForm = false) {
 function responseSearch(value) {
   const query = v.text(value, 80);
   if (!query) return null;
-  const literal = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = { $regex: literal, $options: "i" };
-  return [
-    { teamName: match },
-    { "participants.name": match },
-    { "participants.caId": match },
-  ];
+  return { $regex: `^${searchPrefix(query)}` };
 }
 
 router.post(
@@ -308,14 +331,16 @@ router.post(
 
 router.get(
   "/categories",
-  async(async (req, res) =>
+  async(async (req, res) => {
+    const categories = await Category.find({ archived: false }).sort({
+      festival: 1,
+      name: 1,
+    });
+    cachePublicResponse(res, 300, 3600);
     res.json({
-      categories: await Category.find({ archived: false }).sort({
-        festival: 1,
-        name: 1,
-      }),
-    }),
-  ),
+      categories,
+    });
+  }),
 );
 router.get(
   "/events",
@@ -323,28 +348,33 @@ router.get(
     const filter = { status: { $in: ["published", "closed", "cancelled"] } };
     if (req.query.categoryId) filter.categoryId = req.query.categoryId;
     const events = await Subevent.find(filter)
-      .select("-formVersions -sourceData -rules")
+      .select("-formVersions")
       .populate("categoryId")
       .sort({ title: 1 });
+    cachePublicResponse(res, 15, 60);
     res.json({ events });
   }),
 );
 router.get(
-  "/event-content",
+  "/events/resolve",
   async(async (req, res) => {
+    const festival = v.text(req.query.festival, 30, true);
+    const slug = v.text(req.query.category, 100, true);
+    const title = v.text(req.query.title, 200, true);
+    v.check(["avishkar", "culrav"].includes(festival), "Invalid festival");
+    v.check(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug), "Invalid category");
     const category = await Category.findOne({
-      festival: v.text(req.query.festival, 30, true),
-      slug: v.text(req.query.category, 100, true),
+      festival,
+      slug,
       archived: false,
     });
-    v.check(category, "Category not found", 404);
+    if (!category) return res.json({ event: null });
     const event = await Subevent.findOne({
       categoryId: category._id,
-      title: v.text(req.query.title, 200, true),
+      title,
       status: { $in: ["published", "closed", "cancelled"] },
-    }).select("title description rules contact coordinators");
-    v.check(event, "Event not found", 404);
-    res.json({ event });
+    });
+    res.json({ event: event ? publicEventView(event, category) : null });
   }),
 );
 router.get(
@@ -353,18 +383,9 @@ router.get(
     const event = await Subevent.findOne({
       _id: req.params.id,
       status: { $in: ["published", "closed", "cancelled"] },
-    })
-      .select("-sourceData")
-      .populate("categoryId");
+    }).populate("categoryId");
     v.check(event, "Event not found", 404);
-    const data = event.toObject();
-    if (data.mode === "solo_or_team") data.minTeamSize = 1;
-    data.fields = event.formPublished
-      ? event.formVersions.find((f) => f.version === event.currentVersion)
-          ?.fields || []
-      : [];
-    delete data.formVersions;
-    res.json({ event: data });
+    res.json({ event: publicEventView(event) });
   }),
 );
 
@@ -703,7 +724,6 @@ router.get(
           ? {}
           : { categoryId: { $in: req.staff.categoryIds } },
       )
-        .select("-sourceData")
         .populate("categoryId")
         .sort({ updatedAt: -1 }),
     }),
@@ -739,15 +759,13 @@ router.put(
   a.staff,
   async(async (req, res) => {
     const event = await eventForStaff(req);
+    const participationWasLocked = !!event.participationLockedAt;
     v.check(
       Number(req.body.revision) === event.revision,
       "Event changed. Reload before editing.",
       409,
     );
     const coordinatorKeys = [
-      "description",
-      "rules",
-      "coordinators",
       "fields",
       "revision",
       "formPublished",
@@ -756,19 +774,12 @@ router.put(
       "maxTeamSize",
       "responseUpdateDeadline",
       "closesAt",
+      "allowEdits",
     ];
     if (req.staff.role !== "admin")
       v.check(
         Object.keys(req.body).every((key) => coordinatorKeys.includes(key)),
-        "Coordinators can edit only coordinator contacts, participation settings, deadlines and registration forms.",
-        403,
-      );
-    if (req.staff.role !== "admin")
-      v.check(
-        (req.body.description === undefined ||
-          req.body.description === event.description) &&
-          (req.body.rules === undefined || req.body.rules === event.rules),
-        "Only admins can change the event description and rules",
+        "Coordinators can edit only participation settings, deadlines, answer-edit permission and registration forms.",
         403,
       );
     v.check(
@@ -820,6 +831,59 @@ router.put(
               : req.body.maxTeamSize,
         }),
       };
+    const participationChanged =
+      data.mode !== event.mode ||
+      data.minTeamSize !== event.minTeamSize ||
+      data.maxTeamSize !== event.maxTeamSize;
+    if (participationChanged && req.staff.role !== "admin")
+      v.check(
+        !participationWasLocked,
+        "Participation settings are locked after the form is first published. Ask an admin to change them.",
+        403,
+      );
+    if (participationChanged) {
+      const hasRegistrations = !!(await Registration.exists({
+        eventId: event._id,
+      }));
+      v.check(
+        !hasRegistrations || data.mode === event.mode,
+        "Participation mode cannot change after registrations exist",
+        409,
+      );
+      if (hasRegistrations) {
+        const incompatibleRegistration = await Registration.exists({
+          eventId: event._id,
+          $expr: {
+            $or: [
+              {
+                $lt: [
+                  { $size: { $ifNull: ["$memberIds", []] } },
+                  data.minTeamSize,
+                ],
+              },
+              {
+                $gt: [
+                  { $size: { $ifNull: ["$memberIds", []] } },
+                  data.maxTeamSize,
+                ],
+              },
+            ],
+          },
+        });
+        v.check(
+          !incompatibleRegistration,
+          "The new team-size range excludes an existing registration",
+          409,
+        );
+      }
+    }
+    if (req.body.allowEdits !== undefined) {
+      v.check(
+        typeof req.body.allowEdits === "boolean",
+        "Invalid answer edit setting",
+      );
+      if (req.staff.role !== "admin") data.allowEdits = req.body.allowEdits;
+    }
     if (req.staff.role !== "admin" && req.body.closesAt !== undefined) {
       const deadline = req.body.closesAt ? new Date(req.body.closesAt) : null;
       v.check(
@@ -832,36 +896,10 @@ router.put(
       );
       data.closesAt = deadline;
     }
-    if (req.body.coordinators !== undefined) {
-      v.check(
-        Array.isArray(req.body.coordinators) &&
-          req.body.coordinators.length <= 20,
-        "Use up to 20 coordinator contacts",
-      );
-      data.coordinators = req.body.coordinators.map((person) => {
-        v.check(
-          person && typeof person === "object",
-          "Invalid coordinator contact",
-        );
-        const name = v.text(person.name, 100, true);
-        const phone = v.text(person.phone, 30, true);
-        v.check(
-          /^[+0-9()\s.-]+$/.test(phone) && /\d/.test(phone),
-          "Invalid coordinator phone number",
-        );
-        return { name, phone };
-      });
-      data.contact = data.coordinators
-        .map((person) => `${person.name} — ${person.phone}`)
-        .join("\n");
-    }
     data.configurationRequired = false;
     data.formPublished = req.body.formPublished ?? event.formPublished;
-    v.check(
-      !data.formPublished ||
-        (Object.hasOwn(data, "closesAt") ? data.closesAt : event.closesAt),
-      "Set a registration deadline before publishing the form",
-    );
+    if (data.formPublished && !event.participationLockedAt)
+      data.participationLockedAt = new Date();
     if (req.body.responseUpdateDeadline !== undefined) {
       const deadline = req.body.responseUpdateDeadline
         ? new Date(req.body.responseUpdateDeadline)
@@ -924,6 +962,8 @@ router.put(
       { new: true, runValidators: true },
     );
     v.check(updated, "Event changed. Reload before editing.", 409);
+    if (participationChanged && participationWasLocked)
+      await audit(req, "event.participation.update", event.id);
     await audit(req, "event.update", event.id);
     res.json({ event: updated });
   }),
@@ -1167,12 +1207,6 @@ router.post(
         "A member is already registered for this event",
         409,
       );
-      // Serialize registration against edits/deletion/closure of this event.
-      await Subevent.updateOne(
-        { _id: event.id },
-        { $inc: { revision: 1 } },
-        { session },
-      );
       [registration] = await Registration.create(
         [
           {
@@ -1184,6 +1218,10 @@ router.post(
             teamName: team?.name,
             memberIds: members,
             participants: people.map(profile),
+            searchKeys: registrationSearchKeys({
+              teamName: team?.name,
+              participants: people.map(profile),
+            }),
             formVersion: event.currentVersion,
             fields,
             answers: data,
@@ -1239,11 +1277,6 @@ router.patch(
         "Registration changed. Reload.",
         409,
       );
-      await Subevent.updateOne(
-        { _id: event.id },
-        { $inc: { revision: 1 } },
-        { session },
-      );
       const updatedAnswers = v.answers(
         updatingForm || correctingUpdatedForm ? latest : registration.fields,
         req.body.answers || {},
@@ -1292,7 +1325,7 @@ router.get(
     const page = Math.max(1, Math.floor(Number(req.query.page) || 1));
     const filter = { categoryId: category._id };
     const search = responseSearch(req.query.q);
-    if (search) filter.$or = search;
+    if (search) filter.searchKeys = search;
     if (req.query.eventId) {
       const event = await Subevent.findOne({
         _id: req.query.eventId,
@@ -1329,7 +1362,7 @@ router.get(
     const page = Math.max(1, Number(req.query.page) || 1);
     const filter = { eventId: req.params.id };
     const search = responseSearch(req.query.q);
-    if (search) filter.$or = search;
+    if (search) filter.searchKeys = search;
     const [registrations, total] = await Promise.all([
       Registration.find(filter)
         .sort({ createdAt: -1, _id: -1 })

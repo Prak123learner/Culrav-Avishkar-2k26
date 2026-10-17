@@ -119,22 +119,15 @@ const formVersionSchema = new Schema(
 const eventSchema = new Schema(
   {
     fixedKey: { type: String, unique: true, sparse: true, immutable: true },
-    sourceData: Schema.Types.Mixed,
     configurationRequired: { type: Boolean, default: false },
     formPublished: { type: Boolean, default: false },
+    participationLockedAt: { type: Date, default: null },
     categoryId: {
       type: Schema.Types.ObjectId,
       ref: "FestCategory",
       required: true,
     },
     title: { type: String, required: true },
-    description: String,
-    rules: String,
-    contact: String,
-    coordinators: {
-      type: [new Schema({ name: String, phone: String }, { _id: false })],
-      default: undefined,
-    },
     mode: {
       type: String,
       enum: ["solo", "team", "solo_or_team"],
@@ -158,6 +151,8 @@ const eventSchema = new Schema(
   },
   { timestamps: true },
 );
+eventSchema.index({ categoryId: 1, title: 1, status: 1 });
+eventSchema.index({ status: 1, title: 1 });
 const teamSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -188,6 +183,7 @@ const registrationSchema = new Schema(
     teamId: Schema.Types.ObjectId,
     memberIds: [{ type: Schema.Types.ObjectId, required: true }],
     participants: [Schema.Types.Mixed],
+    searchKeys: { type: [String], default: [] },
     teamName: String,
     formVersion: Number,
     fields: [questionSchema],
@@ -227,6 +223,8 @@ registrationSchema.index({ eventId: 1, createdAt: -1, _id: -1 });
 registrationSchema.index({ eventId: 1, formVersion: 1 });
 registrationSchema.index({ categoryId: 1, createdAt: -1, _id: -1 });
 registrationSchema.index({ teamId: 1 });
+registrationSchema.index({ eventId: 1, searchKeys: 1 });
+registrationSchema.index({ categoryId: 1, searchKeys: 1 });
 const auditSchema = new Schema(
   {
     staffId: { type: Schema.Types.ObjectId, ref: "FestStaff" },

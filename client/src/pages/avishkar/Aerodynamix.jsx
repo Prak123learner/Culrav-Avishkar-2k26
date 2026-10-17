@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,103 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const AerodynamixData = {
-  eventName: "Aerodynamix",
-  tagline: "Where Aerodynamics Meets Innovation",
-  events: [
-    {
-      eventName: "VISIONQUEST",
-      registrationLink: "",
-      eventId: "01",
-      description:
-        "Step into the world of machine vision and AI-powered perception by building intelligent systems that see like humans do. Explore the fusion of drones and artificial intelligence through computer vision and machine learning challenges. Whether detecting drones from images or tracking their real-time motion, this event lets you apply cutting-edge AI techniques to aerial systems.",
-      rules: [
-        "AI/ML + Computer Vision based challenge.",
-        "Tasks may include drone detection, tracking or image-based predictions.",
-        "Use of pretrained models allowed unless specified otherwise.",
-        "Participants must not violate safety or ethical AI guidelines.",
-        "Final rules will be announced before the event.",
-      ],
-      coordinators: [
-        { name: "Abhay Pratap Singh", contact: "8077100909" },
-        { name: "Lanke Manasi", contact: "7066290061" },
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-    },
-
-    {
-      eventName: "FALCON",
-      registrationLink: "",
-      eventId: "02",
-      description:
-        "Design, build, and pilot your own RC aircraft in this exciting aerodynamics competition. Test your engineering skills by creating a high-performance flying machine that can execute aerial maneuvers and precision tasks. Perfect for aviation enthusiasts ready to bring their aircraft designs to life.",
-      rules: [
-        "Teams must build their own RC aircraft.",
-        "Pre-built kits are not allowed unless approved.",
-        "Aircraft must pass all safety checks before flight.",
-        "Crash or unsafe flight may result in disqualification.",
-        "Judging based on stability, control, maneuverability and accuracy.",
-      ],
-      coordinators: [
-        { name: "Madhav Goyal", contact: "9058691081" },
-        { name: "Nikhil Kumar", contact: "6386313708" },
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-    },
-
-    {
-      eventName: "HOVERTROUBLE",
-      registrationLink: "",
-      eventId: "03",
-      description:
-        "Build a functional hovercraft using principles of lift, friction, and air cushion technology. Apply your knowledge of aerodynamics and mechanical design to create a vehicle that floats and maneuvers across surfaces. Compete in speed, stability, and control challenges.",
-      rules: [
-        "Teams must design & build their own hovercraft.",
-        "No harmful or unsafe materials allowed.",
-        "Hovercraft must stay inside arena boundaries.",
-        "Points based on speed, stability, control & design.",
-        "Judges' decision is final.",
-      ],
-      coordinators: [
-        { name: "Jahnavi Mishra", contact: "8400899324" },
-        { name: "Sumit Tripathi", contact: "9519394183" },
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-    },
-
-    {
-      eventName: "AERONEXUS",
-      registrationLink: "",
-      eventId: "04",
-      description:
-        "Pilot unmanned aerial vehicles using smartphone controls in this cutting-edge drone competition. Navigate challenging courses and complete mission objectives while demonstrating precision flying and strategic thinking. Experience the future of aerial systems through mobile-based flight control.",
-      rules: [
-        "Participants must use smartphone-controlled UAVs.",
-        "Obstacle course navigation required.",
-        "Unsafe flying may lead to penalties.",
-        "Multiple mission objectives must be completed.",
-        "Final scoring based on control, precision & completion time.",
-      ],
-      coordinators: [
-        { name: "Vikram Anand", contact: "8789370349" },
-        { name: "Nikhil", contact: "9369469765" },
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-    },
-  ],
-};
+import AerodynamixData from "../../data/event-catalog/avishkar/aerodynamix/subevents.json";
 
 const AerodynamixPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "aerodynamix",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
 
   const navigate = useNavigate();
 

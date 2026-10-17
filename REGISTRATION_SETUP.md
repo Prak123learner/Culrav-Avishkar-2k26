@@ -7,7 +7,7 @@
 - `/register/:festival/:category/:title`: a published subevent's native registration form. Old `/portal/events/:id` links redirect here.
 - `/coordinator/login`: separate staff email/password login.
 - `/coordinator`: mandatory first-login password change, category-scoped form and participation settings, deadlines, public coordinator contacts, responses and exports. About and rules are read-only.
-- `/admin` (login at `/admin/login`): administration, including categories, coordinator accounts, event status, dates, branch eligibility and answer-edit settings. Admin accounts visiting `/coordinator` are redirected here.
+- `/admin` (login at `/admin/login`): administration, including categories, coordinator accounts, event status, opening dates and branch eligibility. Admin accounts visiting `/coordinator` are redirected here. Admins and assigned coordinators can set answer editing in the event form's publish section.
 
 Both staff workspaces include **CA ID lookup**. A full CA ID or trailing digits find a participant's basic profile. Admins see that participant's registrations across all events; coordinators see only registrations in their assigned categories.
 
@@ -19,7 +19,7 @@ Staff Events navigation starts with Avishkar and Culrav, then categories, then s
 
 Inside a category, **View category responses** shows registrations across all its events. Coordinators can view only assigned categories; admins can view all categories. Submissions are recorded immediately without an approval step. Filter by event to download that event's Excel/CSV responses. The combined category view is paginated at 50 registrations per page.
 
-The fixed catalog imports all 116 existing subevents across 20 categories from `server/portal/catalog.json`, preserving each original data object in `sourceData`. About, rules and contact information are initialized from that data. Original festival category pages load saved About, rules and coordinator contacts when Explore opens; their layout stays intact, with static content as an offline fallback. Neither admin nor coordinator can add/delete subevents through the portal. The extraction script `scripts/generate-event-catalog.cjs` reads the original JSX data without executing it. Bootstrap uses insert-only seeding so later coordinator edits are retained.
+The 116 fixed subevents across 20 categories use two deliberately separate catalogs. Public descriptions, rules and coordinator contacts live in `client/src/data/event-catalog/<festival>/<category>/subevents.json` and are bundled with their category page, so opening Explore does not query MongoDB or briefly show stale content. Registration identity and initial participation sizes live in `server/portal/registration-catalog.json`; MongoDB stores only dynamic registration settings, forms, deadlines and responses. Neither admin nor coordinator can add/delete subevents or edit public editorial content through the portal. Change the relevant frontend JSON and redeploy when editorial content must change. Bootstrap uses insert-only seeding so existing forms and dynamic settings are retained.
 
 Legacy User/Team/Event collections and external Google Forms are not overwritten. The old API and dashboard routes are retired and return 404; new identities, categories, teams and registrations use `Fest*` models. Any production migration of existing participant accounts needs a deliberate migration.
 
@@ -27,7 +27,7 @@ Legacy User/Team/Event collections and external Google Forms are not overwritten
 
 This project uses **Firebase Authentication for Google login only**. Participant profiles, CA IDs, teams, events and registrations stay in your local MongoDB. You do not need to create Firestore, Realtime Database, Firebase Storage or Firebase Hosting for this setup.
 
-Your supplied Web app settings are already entered in `client/.env`. The backend's `FIREBASE_PROJECT_ID` is also set to `culrav-avishkar`. The remaining work is enabling Google in the Firebase console, authorizing localhost and providing backend Admin credentials.
+On the original development machine, the supplied Web app settings are in ignored `client/.env`, and the backend's `FIREBASE_PROJECT_ID` is `culrav-avishkar`. These files are not in Git. A fresh clone must create its own `client/.env` and `server/.env` using the values below, enable Google in the Firebase console, authorize localhost and provide backend Admin credentials.
 
 ### A. Open the correct Firebase project
 
@@ -65,7 +65,7 @@ Enter `localhost`, **not** `http://localhost:5173` and not a URL path. Recent Fi
 
 The four values used by the code are in:
 
-`D:/coding/culrav avishkar 26/client/.env`
+`client/.env` in your checkout
 
 ```dotenv
 VITE_API_BASE_URL=http://localhost:3000/api/v1
@@ -75,7 +75,7 @@ VITE_FIREBASE_PROJECT_ID=culrav-avishkar
 VITE_FIREBASE_APP_ID=1:256929305931:web:57b35f52e2b7fe1d5784ce
 ```
 
-The actual API key you supplied is already saved in your ignored local file; the placeholder above is only for this guide.
+The actual API key is saved only in the original ignored local file; copy it from the Firebase console on a fresh checkout. The placeholder above is only for this guide.
 
 To find these values again: **Project settings → General → Your apps → select the Web app → SDK setup and configuration → Config**.
 
@@ -107,32 +107,19 @@ The Web API key from step D is **not sufficient** for this backend's Firebase Ad
 
 The JSON contains fields including `project_id`, `client_email` and `private_key`. Confirm its project is `culrav-avishkar`.
 
-### F. Point the backend to the JSON file — recommended local option
+### F. Put Firebase Admin credentials in the backend environment
 
-Open:
-
-`D:/coding/culrav avishkar 26/server/.env`
-
-Keep the existing MongoDB URI, JWT secret, admin email and other settings. Set/add these Firebase entries:
-
-```dotenv
-FIREBASE_PROJECT_ID=culrav-avishkar
-GOOGLE_APPLICATION_CREDENTIALS="D:/coding/culrav avishkar 26/.local/firebase-admin.json"
-FIREBASE_CLIENT_EMAIL=
-FIREBASE_PRIVATE_KEY=
-```
-
-This uses Application Default Credentials to load the private service-account JSON on the server. The quoted absolute path handles the spaces in this project's folder name. The service account file remains outside the frontend bundle and is covered by the project's `.local/` Git ignore rule.
-
-**Alternative, if your deployment supports environment variables instead of a key file:** set `FIREBASE_CLIENT_EMAIL` from the JSON's `client_email` and `FIREBASE_PRIVATE_KEY` from its `private_key`. For example, using placeholders:
+Open `server/.env`. Keep the existing MongoDB URI, JWT secret, admin email and other settings. Copy these three values from the service-account JSON into backend-only environment variables:
 
 ```dotenv
 FIREBASE_PROJECT_ID=culrav-avishkar
 FIREBASE_CLIENT_EMAIL="<client_email from the service-account JSON>"
-FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\\n<key content>\\n-----END PRIVATE KEY-----\\n"
+FIREBASE_PRIVATE_KEY="<private_key from the service-account JSON, with newlines written as \n>"
 ```
 
-Use one method. For the JSON-file method above, leave the email/private-key variables blank. Private key newlines must be preserved; literal `\\n` escapes inside the quoted variable are supported by the backend.
+Remove `GOOGLE_APPLICATION_CREDENTIALS` from `server/.env`. When the email and private key are set, the backend initializes Firebase Admin directly from these variables and does not read the JSON file at runtime. Keep `server/.env` private and uncommitted. The JSON in `.local/` remains ignored and is not required after the values are set.
+
+For deployment, set the same backend-only variables in your hosting environment. A local `D:/...` JSON path will not exist there.
 
 | Setting                                               | Browser-visible? | Purpose                                                 |
 | ----------------------------------------------------- | ---------------- | ------------------------------------------------------- |
@@ -197,7 +184,18 @@ Official references: [Google sign-in](https://firebase.google.com/docs/auth/web/
 
 ## 2. Configure MongoDB and server
 
-Copy `server/.env.example` to `server/.env`. Set:
+Create `server/.env` (it is ignored by Git). Start with these settings, then add the Firebase Admin values from step 1:
+
+```dotenv
+NODE_ENV=development
+PORT=3000
+MONGO=mongodb://127.0.0.1:27017/culrav_avishkar?replicaSet=rs0
+JWT_SECRET=<generate-a-random-secret-of-at-least-32-characters>
+FRONTEND_URL=http://localhost:5173
+ADMIN_EMAIL=culrav@mnnit.ac.in
+```
+
+The `.env.example` files are intentionally not committed. Set:
 
 - `MONGO`: use a replica set or sharded MongoDB deployment. The existing local standalone service still supports catalog, login and editing, but registration submission and answer edits now return 503 until it is configured as a single-node replica set. Do not just append `replicaSet` to the URI: start `mongod` with a replica-set name, initialize it with `rs.initiate()`, then update the URI (for example, `mongodb://127.0.0.1:27017/culrav_avishkar?replicaSet=rs0`). Back up existing local data before changing the MongoDB service configuration. A managed Atlas replica set is also suitable. The event/member unique index remains as duplicate protection.
 - `JWT_SECRET`: a strong randomly generated secret.
@@ -206,7 +204,7 @@ Copy `server/.env.example` to `server/.env`. Set:
 - Firebase settings from step 1.
 - Optional SMTP settings for emailing coordinator temporary credentials.
 
-The old `DATABASE`/`DATABASE_PASSWORD` connection settings remain supported if `MONGO` is unset. The server waits for MongoDB and portal indexes before listening.
+The old `DATABASE`/`DATABASE_PASSWORD` connection settings remain supported if `MONGO` is unset. The server waits for MongoDB and its main portal model indexes before listening. Check actual indexes with MongoDB's `getIndexes()` before launch; an index definition in code alone does not prove it exists or that a query uses it.
 
 From `server`:
 
@@ -216,7 +214,9 @@ npm run bootstrap
 npm start
 ```
 
-Bootstrap creates the initial administrator only if that email does not already exist. It displays the generated temporary password once in your terminal and seeds 20 categories and 116 fixed subevents. Running it again does not reset credentials, overwrite About/rules/forms or delete records. Temporary admin credentials expire in 72 hours; sign in promptly and change the password. The local admin is `culrav@mnnit.ac.in`; its initial credentials are in ignored `.local/ADMIN_ACCESS.txt`. Delete that local credentials note after changing the password.
+Bootstrap creates the initial administrator only if that email does not already exist. It displays the generated temporary password once in your terminal and seeds 20 categories and 116 fixed subevents from the registration-only catalog. Running it again does not reset credentials, overwrite forms/settings or delete records. Temporary admin credentials expire in 72 hours; sign in promptly and change the password. The original machine's ignored `.local/ADMIN_ACCESS.txt` is not in a fresh clone; a new database gets a new temporary password. Delete any local credentials note after changing the password. To transfer existing participants, forms and responses, restore a MongoDB backup separately; bootstrap does not copy them. When upgrading a database created by the older editable-content schema, run `npm run migrate:static-content` once from `server`; this safety-restricted command accepts only a local MongoDB URI, removes the duplicated editorial fields and locks participation settings for already-published/registered events.
+
+For a deliberate local testing reset, stop the backend, back up the database, and run `npm run reset:test-data -- --confirm=RESET-FESTIVAL-DATA` from `server`. This backend-only CLI command is not exposed through an HTTP route or frontend bundle. It refuses `NODE_ENV=production`, refuses non-local MongoDB hosts, verifies `ADMIN_EMAIL` before deleting anything, preserves that admin account/password/CA ID, removes every other portal account/session/team/registration/audit record, releases deleted random CA ID suffixes, and recreates the fixed categories/events with empty unpublished forms. The retained admin is signed out and must log in again. Never add this command to application startup.
 
 From `client`:
 
@@ -234,11 +234,12 @@ Without SMTP, the admin grant/reset response displays a temporary password once 
 1. Admin creates/renames categories under Avishkar or Culrav.
 2. Admin assigns a coordinator email to one or more categories.
 3. Coordinator signs in, changes their temporary password and selects an existing subevent in their assigned categories. There are no create/delete/rename subevent controls or APIs.
-4. Admin edits About and rules; Enter creates the next numbered rule and Shift+Enter adds a line within a rule. Coordinators can view that content but cannot change it. Coordinators edit public coordinator name/phone rows, participation type (Solo, Team, or Solo or team), team-size limits and the form. Public contact entries do not grant staff access. Only admins can change event status, branch eligibility, answer-edit permission and opening time. Coordinators set the required deadline for new registrations and the separate updated-response deadline. College eligibility is no longer a setting or a registration restriction, including for older saved events. Times use the browser's local timezone and are stored in UTC. Coordinators can publish registration forms directly without admin approval. Registration availability still follows the event status and opening/closing dates. Older stored participation-confirmation flags no longer block registration.
+4. Public About text, rules and coordinator contacts are changed in the category JSON files and deployed with the frontend. Admins and assigned coordinators manage participation type (Solo, Team, or Solo or team), team-size limits and the form. A coordinator can change participation settings until the form is first published; first publication permanently locks those controls for coordinators, even if the form is later unpublished. An admin can make a protected correction afterward, but cannot change mode once registrations exist or choose a size range that excludes an existing registration. Only admins can change event status, branch eligibility and opening time. Coordinators may set an optional deadline for new registrations; leaving it blank keeps registration open while the event and form remain published. The updated-response deadline remains separate and required when changed questions affect existing responses. Admins and assigned coordinators can set answer-edit permission. College eligibility is no longer a setting or a registration restriction, including for older saved events. Times use the browser's local timezone and are stored in UTC. Coordinators can publish registration forms directly without admin approval. Registration availability still follows the event status and any opening/closing dates. Older stored participation-confirmation flags no longer block registration.
 
-Original static rules were restored for all 116 seeded subevents at the user's request. Previous rules were backed up in ignored `.local/rules-before-restore-*.json`. The explicit one-time command `node portal/restore-original-rules.js` (from `server`) performs this reset again; do not rerun it during normal startup because it replaces later rule edits. It preserves forms, registrations, About text and coordinator contacts. 5. Add text, paragraphs, numbers, dates, dropdowns, radio choices, checkbox groups and file/folder link questions. Mark required questions and add instructions. Reorder with Move up/down, then preview. 6. Publish the form. Participants find the fixed events from the site's REGISTER navigation entry. Forms start unpublished, so incomplete empty forms do not accidentally accept registrations.
+5. Add text, paragraphs, numbers, dates, dropdowns, radio choices, checkbox groups and file/folder link questions. Mark required questions and add instructions. Reorder with Move up/down, then preview.
+6. Publish the form. Participants start registration from each public event's Register Now button. Forms start unpublished, so incomplete forms do not accidentally accept registrations.
 
-Subevents cannot be added or removed through the portal. Admin can close/archive/cancel them operationally. Form edits create new versions. When an already-used form gains, loses, or changes questions, a coordinator must set a future response-update deadline before publishing. Registered events then flags affected responses. Unchanged answers are prefilled; new or changed questions start blank, and earlier answers remain in response history. Changing only instructions does not require resubmission; changing Required requests review while preserving a previous answer. Question reordering alone does not require another submission. The original submitter (team leader for team entries) can submit and correct the updated form by that separate deadline even after registration closes. This replaces the current answer immediately; no staff approval is required. If the deadline passes, the original submission remains recorded with its older form answers. Optimistic revision checks prevent one editor overwriting another's work. Coordinator payloads containing title, category, event status, opening time, branch eligibility or ordinary answer-edit settings are rejected on the server. Admin payloads cannot change either deadline.
+Subevents cannot be added or removed through the portal. Admin can close/archive/cancel them operationally. Form edits create new versions. When an already-used form gains, loses, or changes questions, a coordinator must set a future response-update deadline before publishing. Registered events then flags affected responses. Unchanged answers are prefilled; new or changed questions start blank, and earlier answers remain in response history. Changing only instructions does not require resubmission; changing Required requests review while preserving a previous answer. Question reordering alone does not require another submission. The original submitter (team leader for team entries) can submit and correct the updated form by that separate deadline even after registration closes. This replaces the current answer immediately; no staff approval is required. If the deadline passes, the original submission remains recorded with its older form answers. Optimistic revision checks prevent one editor overwriting another's work. Coordinator payloads containing title, category, event status, opening time or branch eligibility are rejected on the server. Admin payloads cannot change either deadline.
 
 ## 4. Participant/team flow
 
@@ -248,7 +249,7 @@ Newly saved participant phone numbers must have exactly 10 digits and start with
 
 For solo events, the participant submits their own form. For team events, the leader creates a team and invites members by CA ID. Members must accept and complete their profiles before the leader submits. Each confirmed member is checked for eligibility and prior registration. A unique event/member database index prevents a person entering the same event under multiple teams. Membership and profiles are snapshotted at submission; changing the reusable team later does not change submitted registrations.
 
-Ordinary answer edits are available only while the event is published, within its registration window and if the admin enabled editing. These edits retain the original form version and save immediately. A requested form update has its own deadline and can be submitted while the event is published or closed. It replaces the current response with the new form version and archives the previous questions and answers. Other team members can view the notice but cannot edit the leader's answers. Coordinators' access checks happen on the server for every operation. Previously stored approval decisions are ignored by the current workflow and hidden from participant/staff response views; the old audit trail remains historical data.
+Ordinary answer edits are available only while the event is published, within its registration window and if an admin or assigned coordinator enabled editing. These edits retain the original form version and save immediately. A requested form update has its own deadline and can be submitted while the event is published or closed. It replaces the current response with the new form version and archives the previous questions and answers. Other team members can view the notice but cannot edit the leader's answers. Coordinators' access checks happen on the server for every operation. Previously stored approval decisions are ignored by the current workflow and hidden from participant/staff response views; the old audit trail remains historical data.
 
 ## 5. Files and reporting
 

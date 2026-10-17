@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,126 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const AstrowingData = {
-  eventName: "Astrowing",
-  tagline: "Explore the Universe of Curiosity",
-  instagramLink: "",
-  events: [
-    {
-      eventName: "Starfall Studio",
-      registrationLink: "",
-      eventId: "01",
-      description:
-        "A creative astrophotography challenge where participants capture night-sky shots using any device—even a phone. Learn framing, long exposure, and techniques to bring cosmic beauty to life.",
-      rules: [
-        "Individual participation.",
-        "Participants can use DSLR or phone cameras.",
-        "Photos must be original and captured by the participant.",
-        "Basic editing allowed (contrast, exposure, noise reduction).",
-        "Astrophotography tips will be shared during workshop.",
-      ],
-      maxTeamSize: 1,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "The Death Star Escape",
-      registrationLink: "",
-      eventId: "02",
-      description:
-        "A puzzle-solving escape challenge inspired by cosmic mysteries, astronomy, mythology and logic. Participants solve cryptic clues to escape before time runs out.",
-      rules: [
-        "Team size: 2–4 members.",
-        "Time-bound puzzle solving.",
-        "Clues are based on astronomy, mythology & cosmic logic.",
-        "Wrong answers may result in penalties.",
-        "Fastest escape wins.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 2,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "The Jedi Trials",
-      registrationLink: "",
-      eventId: "03",
-      description:
-        "A knowledge-based astronomy challenge testing speed, logic and celestial concepts. Participants compete in cosmic quizzes to earn the title of Master.",
-      rules: [
-        "Individual participation.",
-        "Multiple quiz rounds (speed, logic, accuracy).",
-        "Questions based on astronomy, space science & cosmic phenomena.",
-        "Top scorers advance to final round.",
-      ],
-      maxTeamSize: 1,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "The Skywalker Night",
-      registrationLink: "",
-      eventId: "04",
-      description:
-        "A telescope observation night where participants witness planets, galaxies, nebulae and constellations through powerful optics—like gazing from a galaxy far away.",
-      rules: [
-        "Open participation.",
-        "Respect telescope handling protocols.",
-        "No flashlight or white light near telescope zone.",
-        "Photography allowed only when permitted.",
-      ],
-      maxTeamSize: 10,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "Galactic ThinkTank",
-      registrationLink: "",
-      eventId: "05",
-      description:
-        "An idea pitching event where participants propose innovations in space science, astronomy tools, and deep-space exploration solutions.",
-      rules: [
-        "Team size: 1–3 members.",
-        "Ideas must be astronomy or space-tech oriented.",
-        "Pitch duration: 4–6 minutes.",
-        "Judging criteria: innovation, feasibility, clarity.",
-      ],
-      maxTeamSize: 3,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "AetherHack",
-      registrationLink: "",
-      eventId: "06",
-      description:
-        "A tech hackathon focused on astronomy-inspired challenges — AI, automation, data analysis, celestial computation, radio astronomy and more.",
-      rules: [
-        "Team size: 2–4 members.",
-        "24-hour hackathon format.",
-        "Projects must be astronomy/space themed.",
-        "Use of any programming language allowed.",
-        "Judging based on creativity, technical depth & impact.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 2,
-      PsLink: "",
-      coordinators: [],
-    },
-  ],
-};
+import AstrowingData from "../../data/event-catalog/avishkar/astrowing/subevents.json";
 
 const AstrowingPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "astrowing",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
   const navigate = useNavigate();
 
   const handleRegister = () => {

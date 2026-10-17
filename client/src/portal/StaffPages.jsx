@@ -5,12 +5,6 @@ import { usePortal } from "./context";
 import { useResource } from "./useResource";
 import { ChangeStaffPassword } from "./AuthPages";
 import { FormFields, AnswerView } from "./FormFields";
-import {
-  eventCoordinators,
-  rulePoints,
-  serializeRulePoints,
-} from "./eventContent";
-import { RulesEditor } from "./RulesEditor";
 import { ChoiceOptionsEditor } from "./ChoiceOptionsEditor";
 import { AuditLogs } from "./AuditLogs";
 import "./portal.css";
@@ -41,8 +35,9 @@ function StaffWorkspace() {
   const categories = useResource("/staff/categories");
   return (
     <main className="ca-portal ca-staff">
-      <header className="ca-heading">
+      <header className="ca-heading ca-workspace-heading">
         <div>
+          <span className="ca-kicker">Festival operations / 2026</span>
           <p>
             {staff.caId} · {staff.email}
           </p>
@@ -537,10 +532,9 @@ function ManageEvents({ categories }) {
     <section>
       <h2>Festival events</h2>
       <p>
-        Existing event names and categories are fixed.{" "}
-        {staff.role === "admin"
-          ? "Edit About, rules and the registration form."
-          : "Edit registration forms and coordinator settings for your assigned categories. Admins manage About and rules."}
+        Existing event names, categories, descriptions, rules and public
+        contacts are maintained in the static event catalog. Manage
+        participation settings and registration forms here.
       </p>
       {!categories.length && (
         <p>No categories assigned yet. Ask your admin for access.</p>
@@ -599,6 +593,7 @@ function ManageEvents({ categories }) {
           {["avishkar", "culrav"].map((name) => (
             <button
               className="ca-festival-tile"
+              data-festival={name}
               key={name}
               onClick={() => setFestival(name)}
             >
@@ -626,6 +621,7 @@ function ManageEvents({ categories }) {
             {matchingCategories.map((category) => (
               <button
                 className="ca-category-tile"
+                data-festival={category.festival}
                 key={category._id}
                 onClick={() => openCategory(category)}
               >
@@ -663,14 +659,25 @@ function ManageEvents({ categories }) {
         <>
           <div className="ca-grid">
             {visibleEvents.map((e) => (
-              <article className="ca-card" key={e._id}>
+              <article
+                className="ca-card ca-event-card"
+                data-festival={e.categoryId?.festival}
+                key={e._id}
+              >
                 <p>
                   {e.categoryId?.festival} / {e.categoryId?.name}
                 </p>
                 <h3>{e.title}</h3>
                 <p>
-                  {e.mode} · Form v{e.currentVersion} ·{" "}
-                  {e.formPublished ? "Form published" : "Form not published"}
+                  {e.mode === "solo_or_team"
+                    ? "Solo or team"
+                    : e.mode === "team"
+                      ? "Team"
+                      : "Solo"}{" "}
+                  ·{" "}
+                  {e.formPublished
+                    ? "Registration form published"
+                    : "Registration form draft"}
                 </p>
                 <div className="ca-toolbar">
                   <button
@@ -685,13 +692,9 @@ function ManageEvents({ categories }) {
                       })
                     }
                   >
-                    {staff.role === "admin"
-                      ? e.formPublished
-                        ? "Update About, rules & form"
-                        : "Edit About, rules & form"
-                      : e.formPublished
-                        ? "Update registration form"
-                        : "Edit registration form"}
+                    {e.formPublished
+                      ? "Update registration form"
+                      : "Edit registration form"}
                   </button>
                   <button className="ca-secondary" onClick={() => setReview(e)}>
                     Responses
@@ -722,8 +725,6 @@ function EventEditor({ event, categories, onClose, onSaved }) {
           : field,
       ),
     })),
-    [rules, setRules] = useState(() => rulePoints(event.rules)),
-    [coordinators, setCoordinators] = useState(() => eventCoordinators(event)),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false),
     [preview, setPreview] = useState(false),
@@ -803,8 +804,6 @@ function EventEditor({ event, categories, onClose, onSaved }) {
         ? {
             ...draft,
             minTeamSize: draft.mode === "solo_or_team" ? 1 : draft.minTeamSize,
-            rules: serializeRulePoints(rules),
-            coordinators,
             fields,
             opensAt: draft.opensAt
               ? new Date(draft.opensAt).toISOString()
@@ -813,13 +812,13 @@ function EventEditor({ event, categories, onClose, onSaved }) {
             responseUpdateDeadline: draft.responseUpdateDeadline,
           }
         : {
-            coordinators,
             fields,
             revision: draft.revision,
             formPublished: !!draft.formPublished,
             mode: draft.mode,
             minTeamSize: draft.mode === "solo_or_team" ? 1 : draft.minTeamSize,
             maxTeamSize: draft.maxTeamSize,
+            allowEdits: !!draft.allowEdits,
             closesAt: draft.closesAt
               ? new Date(draft.closesAt).toISOString()
               : null,
@@ -853,117 +852,6 @@ function EventEditor({ event, categories, onClose, onSaved }) {
           {categories.find((c) => c._id === draft.categoryId)?.name} /{" "}
           {draft.title}
         </p>
-        <div className="ca-event-copy">
-          {admin ? (
-            <label>
-              About the event
-              <textarea
-                rows={6}
-                maxLength={20000}
-                value={draft.description}
-                onChange={(e) => set("description", e.target.value)}
-              />
-            </label>
-          ) : (
-            <section>
-              <h3>About the event</h3>
-              <p className="ca-event-readonly">
-                {draft.description || "No description added."}
-              </p>
-            </section>
-          )}
-          <section className="ca-rules-editor">
-            <h3>Rules</h3>
-            {admin ? (
-              <>
-                <p>
-                  Press Enter to start the next rule, or Shift+Enter for a new
-                  line within the same rule. Numbers are added automatically and
-                  cannot be edited.
-                </p>
-                <RulesEditor initialRules={rules} onChange={setRules} />
-              </>
-            ) : rules.length ? (
-              <ol>
-                {rules.map((rule, index) => (
-                  <li className="ca-event-readonly" key={index}>
-                    {rule}
-                  </li>
-                ))}
-              </ol>
-            ) : (
-              <p>No rules added.</p>
-            )}
-          </section>
-          <section className="ca-contacts-editor">
-            <h3>Event coordinators</h3>
-            <p>
-              These public names and phone numbers appear on the event page.
-              They do not grant dashboard access.
-            </p>
-            {coordinators.map((person, index) => (
-              <div className="ca-contact-row" key={index}>
-                <label>
-                  Coordinator name
-                  <input
-                    required
-                    maxLength={100}
-                    value={person.name}
-                    onChange={(e) =>
-                      setCoordinators((items) =>
-                        items.map((item, i) =>
-                          i === index
-                            ? { ...item, name: e.target.value }
-                            : item,
-                        ),
-                      )
-                    }
-                  />
-                </label>
-                <label>
-                  Phone number
-                  <input
-                    type="tel"
-                    required
-                    maxLength={30}
-                    value={person.phone}
-                    onChange={(e) =>
-                      setCoordinators((items) =>
-                        items.map((item, i) =>
-                          i === index
-                            ? { ...item, phone: e.target.value }
-                            : item,
-                        ),
-                      )
-                    }
-                  />
-                </label>
-                <button
-                  type="button"
-                  className="ca-secondary"
-                  aria-label={`Remove coordinator ${index + 1}`}
-                  onClick={() =>
-                    setCoordinators((items) =>
-                      items.filter((_, i) => i !== index),
-                    )
-                  }
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="ca-secondary"
-              disabled={coordinators.length >= 20}
-              onClick={() =>
-                setCoordinators((items) => [...items, { name: "", phone: "" }])
-              }
-            >
-              Add coordinator
-            </button>
-          </section>
-        </div>
         <fieldset className="ca-builder-question">
           <legend>Participation settings</legend>
           <p>
@@ -974,6 +862,7 @@ function EventEditor({ event, categories, onClose, onSaved }) {
             <label>
               Participation
               <select
+                disabled={!admin && !!draft.participationLockedAt}
                 value={draft.mode}
                 onChange={(e) =>
                   setDraft((current) => ({
@@ -998,6 +887,7 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                     Minimum team size
                     <input
                       type="number"
+                      disabled={!admin && !!draft.participationLockedAt}
                       required
                       min={1}
                       max={100}
@@ -1016,6 +906,7 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                   Maximum team size
                   <input
                     type="number"
+                    disabled={!admin && !!draft.participationLockedAt}
                     required
                     min={draft.mode === "solo_or_team" ? 1 : draft.minTeamSize}
                     max={100}
@@ -1026,6 +917,12 @@ function EventEditor({ event, categories, onClose, onSaved }) {
               </>
             )}
           </div>
+          {!admin && draft.participationLockedAt && (
+            <small>
+              Participation mode and team size were locked when this form was
+              first published. An admin can make a protected correction.
+            </small>
+          )}
         </fieldset>
         {admin && (
           <fieldset className="ca-builder-question">
@@ -1058,14 +955,6 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                     <option key={x}>{x}</option>
                   ))}
                 </select>
-              </label>
-              <label className="ca-choice">
-                <input
-                  type="checkbox"
-                  checked={draft.allowEdits}
-                  onChange={(e) => set("allowEdits", e.target.checked)}
-                />
-                Allow answer edits before closing
               </label>
             </div>
           </fieldset>
@@ -1202,13 +1091,13 @@ function EventEditor({ event, categories, onClose, onSaved }) {
               Registration closes (your local time)
               <input
                 type="datetime-local"
-                required={!!draft.formPublished}
                 value={dateValue(draft.closesAt)}
                 onChange={(e) => set("closesAt", e.target.value)}
               />
               <small>
-                After this time, no new person or team can register. Required
-                before publishing; you can extend it later.
+                Optional. Leave blank to keep registration open while the form
+                and event remain published. If set, no new person or team can
+                register after this time.
               </small>
             </label>
           )}
@@ -1230,6 +1119,14 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                   : "Save below to apply this setting."}
               </small>
             </span>
+          </label>
+          <label className="ca-choice ca-answer-edits">
+            <input
+              type="checkbox"
+              checked={draft.allowEdits}
+              onChange={(e) => set("allowEdits", e.target.checked)}
+            />
+            Allow answer edits while registration is open
           </label>
           {existingParticipantsNeedReview && (
             <div className="ca-form-update-notice" role="status">
@@ -1482,7 +1379,10 @@ function ResponseReview({ event, category, events = [], onClose }) {
       {!resource.loading &&
         !resource.error &&
         resource.data?.registrations.map((r) => (
-          <article className="ca-card" key={`${r._id}-${r.revision}`}>
+          <article
+            className="ca-card ca-response-card"
+            key={`${r._id}-${r.revision}`}
+          >
             {category && (
               <p>
                 <strong>{r.eventId?.title || "Archived event"}</strong>
@@ -1490,7 +1390,7 @@ function ResponseReview({ event, category, events = [], onClose }) {
             )}
             <h3>{r.teamName || r.participants[0]?.name}</h3>
             <p>
-              Registration {r._id} · Form v{r.formVersion}
+              Registration {r._id} · Form version {r.formVersion}
               <br />
               {new Date(r.createdAt).toLocaleString()}
             </p>
@@ -1550,7 +1450,7 @@ function ResponseReview({ event, category, events = [], onClose }) {
                 <summary>Earlier form responses</summary>
                 {r.answerHistory.map((entry, index) => (
                   <div key={`${entry.formVersion}-${index}`}>
-                    <p>Form v{entry.formVersion}</p>
+                    <p>Form version {entry.formVersion}</p>
                     <AnswerView fields={entry.fields} answers={entry.answers} />
                   </div>
                 ))}

@@ -3,10 +3,16 @@ import { portalApi, message } from "./api";
 export function useResource(path) {
   const [data, setData] = useState(null),
     [error, setError] = useState(""),
-    [loading, setLoading] = useState(true);
+    [loading, setLoading] = useState(!!path);
   const requestId = useRef(0);
   const reload = useCallback(async () => {
     const currentRequest = ++requestId.current;
+    if (!path) {
+      setData(null);
+      setError("");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError("");
     try {

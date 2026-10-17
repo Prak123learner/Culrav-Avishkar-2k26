@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,147 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const RobomaniaData = {
-  eventName: "Robomania",
-  tagline: "Where Innovation Meets Robotics",
-  events: [
-    // 1. TrailBlitz
-    {
-      eventName: "TrailBlitz",
-      eventId: "01",
-      description:
-        "Teams design and construct an autonomous line-following robot capable of detecting and tracing a marked path. The bot must navigate turns, intersections, and checkpoints with precision, testing logic design, sensor tuning, and autonomous navigation.",
-      rules: [
-        "Only one bot per team.",
-        "No touching or manual adjustment during the run.",
-        "Once started, no team member may enter the arena.",
-        "Maximum of 3 restarts allowed.",
-        "Timer does not reset during restarts.",
-        "Event coordinators’ decision is final and may change if needed.",
-        "Team Size: 2 – 4 members.",
-        "Event includes separate problem statements for 1st years & others.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 2,
-      coordinators: [
-        { name: "Dhruv Chandhok", contact: "+91 8279448621" },
-        { name: "Mohammad Kaif", contact: "+91 9520046728" },
-        { name: "Aryan Vishwakarma", contact: "+91 9532983109" },
-        { name: "Aman Sharma", contact: "+91 9936064502" },
-      ],
-    },
-
-    // 2. Sketch-O-Bot
-    {
-      eventName: "Sketch-O-Bot",
-      eventId: "02",
-      description:
-        "Participants must process an image through OpenCV to extract contour data. Their autonomous bot must trace the pattern on the arena, managing pen lifts, intersections, and staying aligned with the given outline.",
-      rules: [
-        "Only one autonomous bot per team.",
-        "No team member allowed to touch the bot or enter arena after start.",
-        "Bot must start from a safe starting point inside arena.",
-        "Only one member allowed near the bot initially.",
-        "Run starts only on organizers’ signal.",
-        "If pen/brush falls off, run is nullified.",
-        "Teams must not hardcode the pattern.",
-        "Participants may choose any starting point (ending point must match).",
-        "Event coordinators’ decision is final.",
-        "Team Size: 2 – 4 members.",
-        "Separate problem statements for 1st years & others.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 2,
-      coordinators: [
-        { name: "Abhay Agrawal", contact: "+91 9695666222" },
-        { name: "Abdul Basit", contact: "+91 6392081638" },
-        { name: "Astha Singh", contact: "+91 9336292091" },
-      ],
-    },
-
-    // 3. RoboGesture Rally
-    {
-      eventName: "RoboGesture Rally",
-      eventId: "03",
-      description:
-        "Teams design and construct gesture-controlled or mobile-controlled robotic vehicles to race through an urban-style obstacle arena. Bots must demonstrate agility, obstacle handling, and quick problem-solving in dynamic terrain.",
-      rules: [
-        "Teams must build their own bot — no prebuilt kits allowed.",
-        "Maximum 3 attempts; best timing considered.",
-        "Points deducted for collisions or missed checkpoints.",
-        "Intentional arena damage → disqualification.",
-        "Judges’ decision is final.",
-        "Team Size: 2 – 4 members.",
-        "Separate problem statements for 1st years & others.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 2,
-      coordinators: [
-        { name: "Aman Sharma", contact: "+91 9936064502" },
-        { name: "Ankit Upadhyay", contact: "+91 8368822483" },
-        { name: "Avneesh Sahu", contact: "+91 9616520679" },
-        { name: "Devanshi Gupta", contact: "+91 7081839153" },
-      ],
-    },
-
-    // 4. Code Sprint
-    {
-      eventName: "Code Sprint",
-      eventId: "04",
-      description:
-        "A hackathon-style coding competition with multiple problem statements for both 1st years and open-category participants. Themes span AI, ML, audio analysis, vision tasks, and more.",
-      rules: [
-        "Raw dataset will be provided to teams.",
-        "Rules vary by theme and difficulty level.",
-        "Evaluation based on accuracy and application.",
-        "Event coordinators’ decision is final.",
-        "Separate problem statements for 1st years & others.",
-        "Themes (1st year): WorthSmith, PhytoMind, PlateNet, Signus.AI.",
-        "Themes (Open): EchoMind, SynthWave, SonicTrace, RoadSage.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-      coordinators: [
-        { name: "Ankit Upadhyay", contact: "+91 8368822483" },
-        { name: "Astha Singh", contact: "+91 9336292091" },
-        { name: "Aryan Vishwakarma", contact: "+91 9532983109" },
-        { name: "Inam", contact: "+91 7302533510" },
-      ],
-    },
-
-    // 5. BOT Warriors
-    {
-      eventName: "BOT Warriors",
-      eventId: "05",
-      description:
-        "A dual-stage robotics combat challenge combining ‘Destroy the Flag’ and a mechanical Tug of War. Bots must display strength, defense, endurance, and intelligent combat strategies.",
-      rules: [
-        "Teams qualify by destroying opponent’s flag or defending their own.",
-        "Final winner decided by Tug of War between Stage 1 victors.",
-        "All bots must follow safety norms.",
-        "No harmful materials, flames, liquids, or flying objects allowed.",
-        "Intentional severe damage → disqualification.",
-        "Team Size: Maximum 4 members.",
-      ],
-      maxTeamSize: 4,
-      minTeamSize: 1,
-      coordinators: [
-        { name: "Mohammad Kaif", contact: "+91 9520046728" },
-        { name: "Abhay Agrawal", contact: "+91 9695666222" },
-        { name: "Abdul Basit", contact: "+91 6392081638" },
-        { name: "Avneesh Sahu", contact: "+91 9616520679" },
-      ],
-    },
-  ],
-};
+import RobomaniaData from "../../data/event-catalog/avishkar/robomania/subevents.json";
 
 const RobomaniaPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "robomania",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
   const navigate = useNavigate();
 
   const handleRegister = () => {

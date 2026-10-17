@@ -4,13 +4,18 @@ const crypto = require("crypto");
 const { Participant, Staff, Session } = require("./models");
 const { check } = require("./validation");
 const cookie = (kind) => `ca_${kind}_session`;
-const options = () => ({
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "lax",
-  path: "/",
-  maxAge: 8 * 60 * 60 * 1000,
-});
+const options = () => {
+  const sameSite = process.env.COOKIE_SAME_SITE || "lax";
+  return {
+    httpOnly: true,
+    // SameSite=None is valid only over HTTPS and is needed only when the
+    // frontend and API are on unrelated sites.
+    secure: process.env.NODE_ENV === "production" || sameSite === "none",
+    sameSite,
+    path: "/",
+    maxAge: 8 * 60 * 60 * 1000,
+  };
+};
 async function issue(res, actor, kind) {
   const jti = crypto.randomBytes(32).toString("base64url");
   const token = jwt.sign(

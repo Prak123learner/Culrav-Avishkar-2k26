@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const { connectDB } = require("./utils/connectDB");
 require("./portal/deployment").validateProductionConfig();
 
 const app = express();
@@ -20,6 +21,17 @@ app.use(
     credentials: true,
   }),
 );
+
+// Vercel invokes this exported Express app directly; it never executes
+// server.js or app.listen(). The promise is shared by warm function requests.
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 
 // login into developer mode
 if (process.env.NODE_ENV === "development") {

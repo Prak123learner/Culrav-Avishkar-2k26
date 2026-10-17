@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import {
   Link,
   Navigate,
@@ -59,15 +59,36 @@ export function ParticipantHome() {
 }
 function Workspace() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const [registrationRedirect] = useState(() => {
+    const state = location.state;
+    if (!state?.focusRegistrationId && !state?.alreadyRegisteredEvent)
+      return null;
+    const key = `ca-portal-registration-redirect:${location.key}`;
+    if (sessionStorage.getItem(key)) return null;
+    sessionStorage.setItem(key, "seen");
+    return state;
+  });
   const { user, logout } = usePortal(),
     [tab, setTab] = useState(
-      location.state?.returnTo || !complete(user) ? "profile" : "registrations",
+      location.state?.tab ||
+        (location.state?.returnTo || !complete(user)
+          ? "profile"
+          : "registrations"),
     ),
     [error, setError] = useState("");
+  // Registration redirects carry a one-time focus/notice state. Replace that
+  // history entry before child effects run so a refresh or tab change is normal.
+  useLayoutEffect(() => {
+    if (!location.state?.focusRegistrationId && !location.state?.alreadyRegisteredEvent)
+      return;
+    navigate(location.pathname, { replace: true, state: null });
+  }, [location.pathname, location.state, navigate]);
   return (
-    <main className="ca-portal">
-      <header className="ca-heading">
+    <main className="ca-portal ca-participant">
+      <header className="ca-heading ca-workspace-heading">
         <div>
+          <span className="ca-kicker">Participant access / 2026</span>
           <p>{user.caId}</p>
           <h1>Welcome, {user.name}</h1>
         </div>
@@ -95,7 +116,10 @@ function Workspace() {
       ) : tab === "teams" ? (
         <Teams />
       ) : (
-        <Registrations />
+        <Registrations
+          focusRegistrationId={registrationRedirect?.focusRegistrationId}
+          alreadyRegisteredEvent={registrationRedirect?.alreadyRegisteredEvent}
+        />
       )}
     </main>
   );
@@ -550,12 +574,13 @@ function Teams() {
     </section>
   );
 }
-export function RegistrationPage({ eventId }) {
+export function RegistrationPage({ eventId, eventData = null }) {
   const { id } = useParams();
-  const resource = useResource(`/events/${eventId || id}`);
-  if (resource.loading)
+  const { user, loading: sessionLoading } = usePortal();
+  const resource = useResource(eventData ? null : `/events/${eventId || id}`);
+  if (!eventData && resource.loading)
     return <main className="ca-portal">Loading event…</main>;
-  if (resource.error) {
+  if (!eventData && resource.error) {
     return (
       <main className="ca-portal">
         <p role="alert" className="ca-error">
@@ -565,11 +590,11 @@ export function RegistrationPage({ eventId }) {
       </main>
     );
   }
-  const event = resource.data?.event;
-  if (!event?.formPublished) {
+  const event = eventData || resource.data?.event;
+  if (!event?.formPublished && !sessionLoading && !user) {
     return <Navigate to="/coming-soon" replace />;
   }
-  if (!eventId && event.categoryId?.slug) {
+  if (!eventData && !eventId && event.categoryId?.slug) {
     return (
       <Navigate
         replace
@@ -579,20 +604,53 @@ export function RegistrationPage({ eventId }) {
   }
   return (
     <Guard requireComplete>
-      <EventRegistration key={event._id} event={event} />
+      <RegistrationAccess key={event._id} event={event} />
     </Guard>
   );
+}
+function RegistrationAccess({ event }) {
+  const registrations = useResource("/registrations");
+  if (registrations.loading)
+    return <main className="ca-portal">Checking your registration…</main>;
+  if (registrations.error) {
+    return (
+      <main className="ca-portal">
+        <p role="alert" className="ca-error">
+          {registrations.error}
+        </p>
+        <button onClick={registrations.reload}>Try again</button>
+      </main>
+    );
+  }
+  const existing = registrations.data?.registrations.find(
+    (registration) => registration.eventId?._id === event._id,
+  );
+  if (existing) {
+    return (
+      <Navigate
+        replace
+        to="/portal"
+        state={{
+          tab: "registrations",
+          focusRegistrationId: existing._id,
+          alreadyRegisteredEvent: event.title,
+        }}
+      />
+    );
+  }
+  if (!event.formPublished) return <Navigate to="/coming-soon" replace />;
+  return <EventRegistration event={event} />;
 }
 function EventRegistration({ event }) {
   const id = event._id,
     teams = useResource("/teams"),
     { user } = usePortal();
   const location = useLocation();
+  const navigate = useNavigate();
   const registrationOpen =
     event.status === "published" &&
     event.formPublished &&
-    !!event.closesAt &&
-    new Date(event.closesAt).getTime() > Date.now() &&
+    (!event.closesAt || new Date(event.closesAt).getTime() > Date.now()) &&
     (!event.opensAt || new Date(event.opensAt).getTime() <= Date.now());
   const [answers, setAnswers] = useState({}),
     [teamId, setTeamId] = useState(""),
@@ -610,7 +668,16 @@ function EventRegistration({ event }) {
       });
       setReceipt(data.registration);
     } catch (e) {
-      setError(message(e));
+      const detail = message(e);
+      if (detail.includes("already registered")) {
+        navigate("/portal", {
+          replace: true,
+          state: {
+            tab: "registrations",
+            alreadyRegisteredEvent: event.title,
+          },
+        });
+      } else setError(detail);
     } finally {
       setBusy(false);
     }
@@ -621,43 +688,55 @@ function EventRegistration({ event }) {
       data-festival={event.categoryId.festival}
     >
       <div className="ca-registration-content">
-        <Link to={`/${event.categoryId.festival}/${event.categoryId.slug}`}>
-          ← Back to {event.categoryId.name}
+        <Link
+          className="ca-registration-back"
+          to={`/${event.categoryId.festival}/${event.categoryId.slug}`}
+        >
+          <span aria-hidden="true">←</span>
+          Back to {event.categoryId.name}
         </Link>
         {event && (
           <>
-            <header className="ca-heading">
+            <header className="ca-heading ca-registration-heading">
               <div>
+                <span className="ca-kicker">Event registration / 2026</span>
                 <p>
                   {event.categoryId?.festival} / {event.categoryId?.name}
                 </p>
                 <h1>{event.title}</h1>
               </div>
               <span>
-                {event.mode === "solo_or_team" ? "Solo or team" : event.mode}{" "}
+                {event.mode === "solo_or_team"
+                  ? "Solo or team"
+                  : event.mode === "team"
+                    ? "Team"
+                    : "Solo"}{" "}
                 registration
               </span>
             </header>
-            <p className="ca-notice">
-              {event.closesAt ? (
-                <>
-                  <strong>Registration closes:</strong>{" "}
-                  {formatDeadline(event.closesAt)}
-                </>
-              ) : (
-                "Registration is unavailable until the coordinator sets a closing time."
-              )}
-              {event.status !== "published" &&
-                " New registration is currently closed."}
-              {event.status === "published" &&
-                event.opensAt &&
-                new Date(event.opensAt).getTime() > Date.now() &&
-                ` Registration opens ${formatDeadline(event.opensAt)}.`}
-              {event.status === "published" &&
-                event.closesAt &&
-                new Date(event.closesAt).getTime() <= Date.now() &&
-                " New registration is closed."}
-            </p>
+            {(event.closesAt ||
+              event.status !== "published" ||
+              (event.opensAt &&
+                new Date(event.opensAt).getTime() > Date.now())) && (
+              <p className="ca-notice">
+                {event.closesAt && (
+                  <>
+                    <strong>Registration closes:</strong>{" "}
+                    {formatDeadline(event.closesAt)}
+                  </>
+                )}
+                {event.status !== "published" &&
+                  " New registration is currently closed."}
+                {event.status === "published" &&
+                  event.opensAt &&
+                  new Date(event.opensAt).getTime() > Date.now() &&
+                  ` Registration opens ${formatDeadline(event.opensAt)}.`}
+                {event.status === "published" &&
+                  event.closesAt &&
+                  new Date(event.closesAt).getTime() <= Date.now() &&
+                  " New registration is closed."}
+              </p>
+            )}
             <div className="ca-registration-form">
               <section className="ca-card">
                 <h2>Register</h2>
@@ -700,7 +779,15 @@ function EventRegistration({ event }) {
                     <p>
                       Registration ID: <strong>{receipt._id}</strong>
                     </p>
-                    <Link to="/portal">View your registrations</Link>
+                    <Link
+                      to="/portal"
+                      state={{
+                        tab: "registrations",
+                        focusRegistrationId: receipt._id,
+                      }}
+                    >
+                      View your registration
+                    </Link>
                   </div>
                 ) : !complete(user) ? (
                   <p>
@@ -769,13 +856,20 @@ function EventRegistration({ event }) {
     </main>
   );
 }
-function Registrations() {
+function Registrations({ focusRegistrationId, alreadyRegisteredEvent }) {
   const resource = useResource("/registrations"),
     { user } = usePortal(),
     [editing, setEditing] = useState(null),
     [answers, setAnswers] = useState({}),
     [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
+  useEffect(() => {
+    if (resource.loading || !focusRegistrationId) return;
+    const target = document.getElementById(
+      `participant-registration-${focusRegistrationId}`,
+    );
+    target?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [focusRegistrationId, resource.loading]);
   async function save(e) {
     e.preventDefault();
     setBusy(true);
@@ -819,6 +913,12 @@ function Registrations() {
           Refresh
         </button>
       </div>
+      {alreadyRegisteredEvent && (
+        <p className="ca-notice" role="status">
+          <strong>Already registered:</strong> Your registration for{" "}
+          {alreadyRegisteredEvent} is shown below.
+        </p>
+      )}
       {(error || resource.error) && (
         <p role="alert" className="ca-error">
           {error || resource.error}
@@ -829,7 +929,12 @@ function Registrations() {
         <p>You have no registrations yet.</p>
       )}
       {resource.data?.registrations.map((r) => (
-        <article className="ca-card" key={r._id}>
+        <article
+          id={`participant-registration-${r._id}`}
+          className="ca-card ca-registration-entry"
+          data-focused={r._id === focusRegistrationId || undefined}
+          key={r._id}
+        >
           <h3>{r.eventId?.title || "Archived event"}</h3>
           <p>
             Registration ID: {r._id}
@@ -912,8 +1017,9 @@ function Registrations() {
                 (r.canCorrectUpdatedResponse ||
                   (r.eventId?.allowEdits &&
                     r.eventId?.status === "published" &&
-                    r.eventId?.closesAt &&
-                    new Date(r.eventId.closesAt).getTime() > Date.now())) && (
+                    (!r.eventId?.closesAt ||
+                      new Date(r.eventId.closesAt).getTime() >
+                        Date.now()))) && (
                   <button onClick={() => beginEdit(r)}>
                     {r.canCorrectUpdatedResponse
                       ? "Edit updated answers"
@@ -926,7 +1032,7 @@ function Registrations() {
                   <summary>Earlier form responses</summary>
                   {r.answerHistory.map((entry, index) => (
                     <div key={`${entry.formVersion}-${index}`}>
-                      <p>Form v{entry.formVersion}</p>
+                      <p>Form version {entry.formVersion}</p>
                       <AnswerView
                         fields={entry.fields}
                         answers={entry.answers}

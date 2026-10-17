@@ -1,8 +1,11 @@
 import axios from "axios";
+
+const apiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  (import.meta.env.PROD ? "/api/v1" : "http://localhost:3000/api/v1");
+
 export const portalApi = axios.create({
-  baseURL: import.meta.env.PROD
-    ? "/api/v1/portal"
-    : `${import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api/v1"}/portal`,
+  baseURL: `${apiBaseUrl.replace(/\/$/, "")}/portal`,
   withCredentials: true,
 });
 const expiredListeners = new Set();

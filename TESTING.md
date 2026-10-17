@@ -2,6 +2,8 @@
 
 Use this checklist before rollout. Focused automated checks cover the code paths, but do not replace manual browser and deployment checks.
 
+The static-content migration on 17 October was formatted and passed backend syntax/catalog-shape checks. The local database was queried after migration: 116 event documents remain, zero retain the removed static fields, and five existing published/registered events have locked participation settings. The automated portal suite was not rerun for this migration; complete the checks below before rollout.
+
 ## Current local setup
 
 - Frontend: `http://localhost:5173`.
@@ -11,6 +13,7 @@ Use this checklist before rollout. Focused automated checks cover the code paths
 - Fixed catalog: 20 categories, 116 subevents. Do not create or delete real registrations as a testing shortcut. Use clearly named disposable participant accounts and agree on cleanup before using this database for live registration.
 - Firebase web app configuration is entered for `culrav-avishkar`. Google provider enablement, authorized domains and backend service-account configuration must be completed manually using `REGISTRATION_SETUP.md`.
 - No files are uploaded by the portal; attachment questions store links only.
+- [ ] Reset-script safety check: with the backend stopped and a disposable database backup available, run `npm run reset:test-data` without the confirmation argument and expect no deletion. The script must also refuse `NODE_ENV=production`, a non-local MongoDB URI, a missing configured admin, or an invalid retained-admin CA ID. Only an intentional run with `--confirm=RESET-FESTIVAL-DATA` may preserve the configured admin and recreate 20 categories/116 unpublished empty-form events.
 
 ## Before starting
 
@@ -20,6 +23,12 @@ Use this checklist before rollout. Focused automated checks cover the code paths
 4. Prepare at least three Google participant accounts: a team leader, invited member and unrelated participant. Include a non-MNNIT college account.
 5. Prepare two coordinator emails and assign different categories, e.g. CyberQuest and Darkroom. New staff credentials can be delivered manually if SMTP is unset.
 6. For API tests, use browser DevTools Network → Copy as fetch, or an API client. Preserve the appropriate session cookie and send `Origin: http://localhost:5173`. Never paste session cookies into shared documents.
+
+## Visual review of portal pages
+
+- [ ] At desktop and mobile widths, open participant sign-in, coordinator sign-in, and first-time password change. Expected: the Culrav–Avishkar mark and festival artwork are visible, while fields, primary actions, errors, and links remain readable and reachable. At a typical 1280 × 720 laptop viewport, both `/login` and `/coordinator/login` fit without page scrolling. The coordinator page background shows the festival city artwork rather than a plain black fill.
+- [ ] Open participant Profile, Teams, Registered events, an event registration form, and the updated-answer editor. Expected: headings, tabs, profile details, question controls, deadlines, notices, and submit actions follow the same dark festival styling without clipping or horizontal overflow.
+- [ ] Open admin and coordinator dashboards, festival/category/event search results, the form editor and preview, Responses, CA ID lookup, coordinator management, and audit logs. Expected: consistent artwork and typography; festival and category tiles keep readable text over dark artwork while hovered or focused, including immediately after clicking through; long names, tables, and action bars remain usable on mobile.
 
 ## 1. Admin first login
 
@@ -57,6 +66,9 @@ Verified: admin/coordinator/participant cookie restoration; eight-hour HttpOnly 
 - [ ] After restarting the backend, sign in afresh: cookies issued before the server-side session change are intentionally invalid.
 - [ ] Replay a saved participant cookie after participant logout and a saved staff cookie after staff logout through a private local API client. Both `/auth/me` and `/staff/me` should return 401 respectively. Never put real cookies in a shared document.
 - [ ] Directly request retired `/api/v1/auth`, `/api/v1/user`, `/api/v1/team` and `/api/v1/event` URLs. They should return 404; `/api/v1/portal/categories` should still work.
+- [ ] Inspect response headers for anonymous public reads. `/api/v1/portal/categories` and `/api/v1/portal/events` must return `Cache-Control: public` plus CDN cache headers. Categories should use a 5-minute browser / 1-hour CDN window; event listings 15 seconds / 60 seconds. `/api/v1/portal/event-content` must return 404 because public descriptions, rules and contacts are now bundled static files.
+- [ ] Inspect `/api/v1/portal/events/:id`, `/auth/me`, `/staff/me`, `/profile`, `/teams`, `/registrations`, every `/staff/*` response, exports, and all mutation responses. Expected: `Cache-Control: no-store` and no public CDN cache header. Confirm that participant, registration, response, and staff data are never returned from a shared cache.
+- [ ] In the deployed site, request the same public endpoint twice and inspect `x-vercel-cache`: after the first miss, a repeat within its CDN window should be served from cache. Registration form publication and deadline changes through `/events/:id` must remain immediate. A static description/rule/contact change should appear only after rebuilding and deploying the frontend.
 - [ ] Confirm new indexes finished building in the target MongoDB and inspect `explain("executionStats")` for team membership/invitations, participant history, event response listing and export on representative data.
 - [ ] On the deployed HTTPS site, verify frontend-origin `/api/v1/*` proxying, Firebase authorized domain, login/refresh/logout, registration writes and Excel/CSV exports. Vercel supports the Express backend directly; a two-project setup still needs a frontend rewrite, and the backend entry must connect to MongoDB before serving requests.
 
@@ -70,8 +82,10 @@ Verified: admin/coordinator/participant cookie restoration; eight-hour HttpOnly 
 
 The 17 isolated portal workflow tests and the frontend production build passed on 17 October 2026. These tests use temporary fixtures and do not write registrations to the live festival database.
 
-- [ ] As coordinator, set a deadline for new registrations and publish a form. Leave the deadline blank and try publishing: the save must fail. Extend the deadline before and after it passes; new registrations should follow the latest deadline. A published legacy form without a deadline must reject new submissions until a coordinator sets one.
-- [ ] In the coordinator editor, Registration closes appears beside Publish registration form on desktop and stacks cleanly on mobile. A new or unchanged form shows no updated-answer date input. The participant registration page shows Registration closes and never shows the updated-answer deadline.
+- [ ] As coordinator, publish a form with no registration deadline. Expected: publication succeeds, new registrations remain open while the event/form are published, and no deadline notice is shown on the participant page. Then set a future deadline, extend it before and after it passes, and verify the page and new registrations follow the latest value.
+- [ ] Register a solo participant and a team, then revisit each event's public Register Now route as the participant and as a non-leader team member. Expected: the portal opens Registered events, shows an Already registered notice, scrolls to and highlights the matching registration, and never displays a second blank form. Repeat after the form is unpublished; an existing registrant still reaches their saved registration while an unregistered visitor reaches Coming Soon.
+- [ ] Open DevTools Network, click Register Now from several public event categories, and inspect the initial lookup. Expected: each click calls only `/api/v1/portal/events/resolve?festival=…&category=…&title=…`; it must not call the full `/events` catalog and must not immediately follow with `/events/:id`. Unknown festival/category/title combinations should reach Coming Soon without exposing a draft form.
+- [ ] In the coordinator editor, optional Registration closes appears beside Publish registration form on desktop and stacks cleanly on mobile. Its help text explains that blank means open indefinitely. A new or unchanged form shows no updated-answer date input. The participant page shows the closing time only when one is configured and never shows the updated-answer deadline.
 - [ ] Add or change a question on a published form with an existing response. Before saving, the editor shows an existing-participants review notice and requires a future updated-answer deadline. Changing instructions alone or editing an event with no responses does not show that date input. The saved update appears only to affected participants in Registered events, with its deadline next to the review notice; other registrants and new visitors do not see it.
 - [ ] GET `/api/v1/portal/staff/events/:id/response-status` should return whether an assigned event has responses or pending form updates. An unrelated coordinator or signed-out visitor must be denied.
 - [ ] After publishing an update, use Extend existing participant review deadline without changing questions. Expected: the new date saves, while the updated-answer date input stays hidden until the extension control is opened. Try opening the same editor in another tab while a new response arrives; a rejected save should refresh the response check and reveal the required deadline.
@@ -83,20 +97,21 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 - [ ] As coordinator, open Events → festival → assigned category → View category responses. Expected: paginated registrations from every event in that category, with event names, participant/team details and submitted answers, without approval controls. Filter to a single event and export Excel/CSV. Clearing the filter returns to all category responses; Back preserves the category selection.
 - [ ] Request `/api/v1/portal/staff/categories/:id/registrations` for an unassigned category. Expected: 403 and no response data. Supplying an event from another category in `eventId` must be rejected. Admin may view every category. Empty categories should show No responses yet.
 
-- [ ] Compare each category's subevents with the original festival pages. Expected: same names, descriptions, rules, contacts and original details; total 116.
-- [ ] As admin, edit About using multiple paragraphs and rules in the single rules box. Press Enter at the start, middle and end of a rule; each press must start a new numbered point. Press Shift+Enter within a rule; it must add a visible line inside the same numbered point. Then paste multiple lines and edit/delete text. Expected: one readable box, automatic list numbering outside editable text, no per-rule boxes/buttons, no removable number text. Save/reopen and Explore the public event; the point boundaries and Shift+Enter line breaks must remain. As coordinator, verify About and rules are visible but read-only. Direct API attempts to change either field must return 403; other allowed coordinator edits must leave both fields unchanged. Check original static rules are initially restored for seeded events.
+- [ ] Compare the 20 files under `client/src/data/event-catalog/<festival>/<category>/subevents.json` with the public category pages. Expected: 116 events total with the same names, descriptions, rules, contacts and original details. Open public event pages with the backend stopped; all editorial content must still render with no stale-data flash or MongoDB request.
+- [ ] Confirm neither admin nor coordinator event editors contain About, rules, or public-contact controls. Direct staff API requests containing `description`, `rules`, `contact`, `coordinators`, or `sourceData` must not persist those fields. Make a controlled JSON edit, rebuild the frontend, and verify the public page reflects it.
 - [ ] Events must initially show two festival boxes: Avishkar and Culrav. Open one, then a category, then an event. Use breadcrumbs to go back; saving an event or closing responses should preserve the chosen category. Search for `Darkroom` and `Picture Tale`: category results and event results must be separately identifiable and directly usable, with festival/category context. Empty/unmatched searches show appropriate results or empty states. Coordinators must never see unassigned category/event results.
 - [ ] Navbar must have no REGISTER button on desktop or mobile. `/portal/events` must no longer show a registration directory. Individual event Register Now buttons and legacy `/portal/events/:id` redirects must still work. Check admin/coordinator login, password-change, dashboard and event editor styling at desktop/mobile widths.
-- [ ] Add, edit and remove coordinator name/phone rows for Picture Tale, save, then visit `/culrav/darkroom` and Explore Picture Tale. Expected: exactly those contacts appear in Coordinators. Repeat for a technical event. Public contact entries must not create staff accounts or grant dashboard access.
-- [ ] Try blank coordinator names/phones, invalid phone characters, over 20 contacts and coordinator updates to an unassigned category. Expected: validation/access errors without changing stored details. International phone formats with `+`, spaces and parentheses should be accepted.
-- [ ] As an assigned coordinator, switch an event between Solo, Team and Solo or team, set valid minimum/maximum team sizes, save and reopen it. Expected: the saved settings match, Solo stores size 1–1, and invalid limits (empty, non-integer, minimum above maximum or above 100) are rejected. Attempt the same update on an unassigned event; expected: 403.
+- [ ] Before first publication, an assigned coordinator can switch an event between Solo, Team and Solo or team and set valid sizes. First publication must set `participationLockedAt`; unpublishing must not clear it. Afterwards the coordinator controls are disabled and a direct API change returns 403. Invalid limits and unassigned-event changes must also be rejected.
+- [ ] After first publication, an admin can make a protected participation correction. If registrations exist, changing mode must return 409; narrowing the size range so any existing registration falls outside it must return 409. A compatible size change should save and create both the normal event audit and `event.participation.update` audit.
 - [ ] Open Admin event settings. Expected: Eligible colleges is absent; Eligible branches is still available. Set a branch restriction and verify an ineligible branch is rejected. A participant from another college with an eligible branch should not be blocked because of their college, including for an event that previously stored eligible colleges.
-- [ ] Coordinator sends a direct PUT containing `title`, `categoryId`, dates, status, answer-edit permission, legacy contact or eligibility changes. Expected: 403, even if the hidden UI is bypassed. Admin can still edit these operational fields.
+- [ ] As an assigned coordinator, toggle **Allow answer edits before closing** beside the form publish controls and save. Expected: the setting persists; the submitting participant sees **Edit answers** in Registered events while registration is open, and the button disappears after closing. An unassigned coordinator must receive 403 for the same event.
+- [ ] Coordinator sends a direct PUT containing `title`, `categoryId`, opening date, status, legacy contact or eligibility changes. Expected: 403, even if the hidden UI is bypassed. Admin can still edit these operational fields. A non-boolean `allowEdits` value must be rejected.
 - [ ] Send POST `/api/v1/portal/staff/events` or DELETE `/api/v1/portal/staff/events/:id`. Expected: 405; fixed events cannot be added/removed through the portal.
 - [ ] Use a coordinator from another category to read responses/export or update an event using its known ID. Expected: denied.
-- [ ] Run `npm run bootstrap` again only when intentionally checking seeding. Expected: no duplicate fixed events; edited About/rules/forms and existing admin password are retained.
-- [ ] Publish a form as an assigned coordinator without admin approval, including an older event whose stored `configurationRequired` flag is true. Expected: no approval notice or checkbox, and registrations are accepted when event status/dates permit. Coordinators cannot change admin-only status, dates, eligibility or answer-edit settings.
-- [ ] Original festival category pages retain their layout and event catalog, but load saved About, rules and coordinator contacts when Explore opens. With the API offline, the original static event content remains available. No dashboard-only data is included by `/api/v1/portal/event-content`.
+- [ ] Run `npm run bootstrap` again only when intentionally checking seeding. Expected: no duplicate fixed events; forms, registration settings and existing admin password are retained. The seed must use `registration-catalog.json` and must not create description/rule/contact/source fields in MongoDB.
+- [ ] Publish a form as an assigned coordinator without admin approval, including an older event whose stored `configurationRequired` flag is true. Expected: no approval notice or checkbox, and registrations are accepted when event status/dates permit. Coordinators cannot change admin-only status, opening date or eligibility.
+- [ ] Run `npm run migrate:static-content` from `server` against local MongoDB. Expected: published/registered legacy events gain `participationLockedAt`, and every event document loses `description`, `rules`, `contact`, `coordinators`, and `sourceData`. The command must refuse a non-local MongoDB URI.
+- [ ] In admin and coordinator event lists, confirm participation and form status read naturally, such as “Solo or team · Registration form draft” and “Team · Registration form published”; raw mode codes and `Form v1` should not appear on the event cards.
 
 ## 4. Form builder
 
@@ -182,9 +197,9 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 ## 8. Deadlines and editing
 
 - [ ] Test before opening, after closing, unpublished form, closed/archived/cancelled event and unconfirmed participation setup. Expected: registration is refused by the backend.
-- [ ] Enable answer editing as admin. Submitter edits before deadline. Expected: original form version remains and new answers save immediately without approval.
+- [ ] Enable answer editing as admin or assigned coordinator. With no registration deadline, the submitter can edit while the event/form remain published. After setting a deadline, edits work before it. Expected: the original form version remains and new answers save immediately without approval.
 - [ ] A nonleader team member or unrelated participant attempts to edit. Expected: denied.
-- [ ] Disable edits or pass the deadline. Expected: edits fail even if an old browser form remains open.
+- [ ] Disable edits, unpublish/close the event, or pass a configured deadline. Expected: edits fail even if an old browser form remains open. Clearing the deadline should reopen edits when answer editing and the event/form are still enabled.
 - [ ] Attempt the retired `PATCH /api/v1/portal/staff/registrations/:id` endpoint directly. Expected: 404; staff response pages have no review form, and old accepted/rejected records display as Submitted.
 - [ ] Have two tabs edit the same response. Expected: revision conflict prevents lost updates.
 
@@ -200,6 +215,7 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 
 - [ ] Check all event responses and next/previous pagination (50 registrations per page).
 - [ ] In Event → Responses, search by a team name, any team member's name, and a full or partial CA ID. Expected: matching registrations and count only, across all result pages. Clear restores the full list. Repeat in category responses and combine search with its event filter; an unassigned coordinator must still be denied. Search for `.*` literally and confirm it does not match everything.
+- [ ] Run `npm run migrate:registration-search` from `server` after deploying this version. Search existing and newly submitted registrations by team name, participant-name word, full CA ID, and final six CA-ID digits. Expected: both event and category response views return the intended records.
 - [ ] Download Excel and CSV from event responses. Expected: the selected button shows a spinner and “Preparing…” while the file is generated; both export buttons are disabled until download starts or an error appears. A failed export clears the loader and shows an error.
 - [ ] Export CSV and XLSX; open them in Excel and import CSV into Google Sheets. Expected: CA IDs, member details, team, question/version labels and answers align; approval status and review-reason columns are absent.
 - [ ] For an event accepting both solo and team entries, submit one of each. CSV and XLSX must contain two data rows (one per registration), with Entry type and Member count. The team row must show its team name and leader profile, not duplicate the answers for every member. The coordinator response view must still show every team member.
@@ -214,10 +230,13 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 
 - [ ] Test desktop and mobile widths, keyboard navigation, required-field errors, long rules and long answers.
 - [ ] Refresh participant/staff pages, sign out and use Back. Expected: API data remains protected; expired/revoked sessions cannot perform actions.
+- [ ] Open an event that is already registered, allow its redirect to Registered events, then refresh, switch to Profile, and switch to Teams. Expected: the one-time notice/highlight does not reappear or scroll the page again.
 - [ ] Test backend temporarily unavailable. Expected: error shown without falsely confirming a registration.
 - [ ] Confirm original homepage, category pages, gallery, team and sponsors still render.
 - [ ] Verify frontend/back origins match `.env` and that production cookies use HTTPS. Do not mix `localhost` and `127.0.0.1` during local cookie-based testing.
 - [ ] Restart the backend after source/environment changes; `npm start` runs plain Node and does not watch edits. Use `npm run dev` for watching during development.
+- [ ] Deploy `client` and `server` as separate Vercel projects. Open `/login`, `/portal`, `/coordinator/login`, and a public event URL directly and refresh each. Expected: frontend routes return the Vite app; backend routes reach Express and connect to MongoDB without running `server.js`.
+- [ ] With `www.example.edu` for the frontend and `api.example.edu` for the backend, sign in and call protected portal routes. Expected: credentialed CORS succeeds and session cookies remain valid with `COOKIE_SAME_SITE=lax`.
 
 ## 12. Before 10,000+ participants
 
@@ -226,6 +245,7 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 - [ ] Test sign-in bursts, browsing, team invites and simultaneous registrations. Track p95 latency, errors, CPU/memory, database connections, index use and duplicate rejection.
 - [ ] Campus users can share an IP. Confirm sign-in rate limits do not block ordinary shared-network usage; verify credential-guessing protection still works.
 - [ ] Verify backups and perform a restore rehearsal.
+- [ ] On an isolated empty MongoDB database, run `npm run initialize:fresh-festival -- --database=culrav_avishkar_2027 --confirm=CREATE-FRESH-FESTIVAL-DATABASE`. Expected: a new admin at `culrav@mnnit.ac.in`, a one-time temporary password, all indexes, and the fixed empty-form catalog. Repeat against a non-empty database. Expected: the script refuses without modifying it.
 - [ ] Configure a single-node replica set locally or use a managed replica set. Standalone MongoDB must reject registration submission and answer edits with 503; on a replica set those writes should succeed transactionally.
 - [ ] Agree on event deadlines, coordinator access, account recovery, Drive retention and operator contacts.
 - [ ] Confirm retired `/api/v1/auth`, `/api/v1/user`, `/api/v1/team`, `/api/v1/event` and old dashboard routes return 404. Existing legacy collections remain stored but are not exposed by those routes.

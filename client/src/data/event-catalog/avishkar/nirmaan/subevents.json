@@ -1,0 +1,205 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "nirmaan",
+  "categoryName": "Nirmaan",
+  "eventName": "Nirmaan",
+  "tagline": "Self-Development Through Self-Awareness",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "COGNIZANCE ",
+      "registrationLink": "https://forms.gle/rUxTRKXU8UukPj157",
+      "eventId": "01",
+      "description": "An exclusive mock placement event for Civil Engineers.",
+      "rules": [
+        "Individual Participation",
+        "Round 1: Online Test",
+        "Round 2: Group Discussion",
+        "Round 3: Interview"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Shreyas Mishra",
+          "contact": ""
+        },
+        {
+          "name": "Priyanshu Ranjan",
+          "contact": ""
+        },
+        {
+          "name": "Shrey Srivastav",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/0"
+    },
+    {
+      "eventName": "LINKIDGE",
+      "registrationLink": "https://forms.gle/oi14uMTFYwHd66PV9",
+      "eventId": "02",
+      "description": "A Popsicle Stick Bridge Building competition.",
+      "rules": [
+        "Team Event",
+        "Round 1: Abstract Submission",
+        "Round 2: Mid Evaluation & Viva",
+        "Round 3: Testing Phase"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Siddhant Singh Bisht",
+          "contact": ""
+        },
+        {
+          "name": "Rishikesh Kumar",
+          "contact": ""
+        },
+        {
+          "name": "Modasshir Khan",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/1"
+    },
+    {
+      "eventName": "CONSTRENGTHO",
+      "registrationLink": "https://forms.gle/hDPnw6c3G2ihP84w5",
+      "eventId": "03",
+      "description": "A Concrete Mix Design Challenge to create the strongest block while maximizing efficiency.",
+      "rules": [
+        "Team Event",
+        "Round 1: Online Test",
+        "Round 2: Abstract Submission",
+        "Round 3: Laboratory Testing"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Kushagra Tiwari",
+          "contact": ""
+        },
+        {
+          "name": "Shweta Sinha",
+          "contact": ""
+        },
+        {
+          "name": "Tanya Singh",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/2"
+    },
+    {
+      "eventName": "ZIGGURARE",
+      "registrationLink": "https://forms.gle/z8YAzZB4rokdjjCv9",
+      "eventId": "04",
+      "description": "The ultimate AutoCAD and building design showdown.\n Design Top view and plan of existing building.\n Design views with surprise constraints.",
+      "rules": [
+        "Team Event",
+        "Round 1: Building Top View & Plan Drafting",
+        "Round 2: Constraint Based Redesigning",
+        "Round 3: Design + Analysis Presentation"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Abhay",
+          "contact": ""
+        },
+        {
+          "name": "Abhijit Rai",
+          "contact": ""
+        },
+        {
+          "name": "Chandani",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/3"
+    },
+    {
+      "eventName": "CODIGO",
+      "registrationLink": "https://forms.gle/vd9sC7T7Lb9r4PLJ8",
+      "eventId": "05",
+      "description": "A coding odyssey to test innovation, problem-solving skills & technical depth. Designed to prepare students for placements.",
+      "rules": [
+        "Solo Participation",
+        "Round 1: CS Fundamentals Test",
+        "Round 2: Coding Challenge",
+        "Round 3: Interview"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Swetabh Salampuria",
+          "contact": ""
+        },
+        {
+          "name": "Shreyas Mishra",
+          "contact": ""
+        },
+        {
+          "name": "Saurabh Khare",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/4"
+    },
+    {
+      "eventName": "CaseFlow",
+      "registrationLink": "https://forms.gle/KcFNcrgHRkK1H2219",
+      "eventId": "06",
+      "description": "The Consulting Challenge focusing on case studies, guesstimates, and real-world business problems.",
+      "rules": [
+        "Solo Event",
+        "Round 1: Pen and Paper Test",
+        "Round 2: Presentation"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Vivek Saroj",
+          "contact": ""
+        },
+        {
+          "name": "Priyeranjan",
+          "contact": ""
+        },
+        {
+          "name": "Upasna Verma",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/5"
+    },
+    {
+      "eventName": "SAMADHAN",
+      "registrationLink": "https://forms.gle/7dHvgVK5rUXQncCR7",
+      "eventId": "08",
+      "description": "The Engineering Ideathon where teams identify a societal issue and propose a civil engineering solution.",
+      "rules": [
+        "Team Event",
+        "Round 1: Problem Statement Evaluation",
+        "Round 2: Draft Submission",
+        "Round 3: Final Presentation"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Saksham Singh",
+          "contact": ""
+        },
+        {
+          "name": "Suvendra Singh",
+          "contact": ""
+        },
+        {
+          "name": "Tanya Singh",
+          "contact": ""
+        }
+      ],
+      "fixedKey": "avishkar/nirmaan/6"
+    }
+  ]
+}

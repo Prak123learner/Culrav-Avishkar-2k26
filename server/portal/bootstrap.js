@@ -48,7 +48,7 @@ async function run() {
   }
   const result = await require("./catalog-service").seedCatalog();
   console.log(
-    `Fixed catalog ready: ${result.categories} categories / ${result.subevents} subevents. Existing edits and forms retained.`,
+    `Fixed registration catalog ready: ${result.categories} categories / ${result.subevents} subevents. Existing forms and registration settings retained.`,
   );
 }
 run()

@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { EventRegistrationLink } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,90 +5,11 @@ import dummy from "../../assets/dummy.png"; // Replace with your hero image path
 
 const HERO_IMAGE = dummy;
 
-const Spandan = {
-  eventName: "Spandan",
-  tagline: "Style that distinguishes you and walk that gives you confidence",
-  BGImageLink: null,
-  instagramLink: "https://www.instagram.com/spandan_mnnit",
-  events: [
-    // =================== EVENT 1 ===================
-    {
-      id: 30,
-      name: "Desfile de Moda (Ramp Show)",
-      desc: [
-        "The Ramp Show is a celebration of fashion, creativity, and confidence.",
-        "Teams will showcase themed performances that blend style with storytelling.",
-        "The event will be conducted on the main day of Spandan.",
-        "Themes will be revealed soon on the official Spandan Instagram page (@spandan_mnnit).",
-      ],
-      rules: [
-        "This is a team event with 10–15 members in each team.",
-        "The duration of the performance must be strictly between 10–15 minutes.",
-        "Music, costumes, and makeup are to be arranged by the teams themselves.",
-        "Prop usage is encouraged and should complement the theme without obstructing the flow of the performance.",
-        "The ramp show should resemble a professional fashion show, emphasizing style, elegance, and confidence.",
-        "Dance moves or indecent poses are strictly prohibited.",
-      ],
-      evaluation: [
-        "Teams will be judged on creativity, fashion styling, self-expression, theme interpretation, coordination, and overall presentation.",
-        "Teams are encouraged to showcase innovation through their outfits and choreography.",
-        "The background music must align with the chosen theme and enhance the overall impact of the performance.",
-      ],
-      minTeamSize: 10,
-      maxTeamSize: 15,
-      coords: [
-        { name: "Aarushi Sinha", phone: "7738898174" },
-        { name: "Jaya Sharma", phone: "9098498385" },
-      ],
-    },
-
-    // =================== EVENT 2 ===================
-    {
-      id: 31,
-      name: "Mr. & Miss Spandan",
-      desc: [
-        "Mr. & Miss Spandan is an individual fashion and personality-based competition that celebrates confidence and self-expression.",
-        "Participants will compete across three engaging rounds: Photoshoot, Personality, and Questionnaire.",
-      ],
-      rules: [
-        "This is an individual event consisting of three rounds.",
-
-        // Round 1
-        "Round 1 – Photoshoot Round:",
-        "Participants must prepare 3–4 creative poses and attend the photoshoot in stylish outfits reflecting individuality, creativity, and fashion sense.",
-        "Details regarding timing and venue will be shared on the official Spandan Instagram page (@spandan_mnnit).",
-
-        // Round 2
-        "Round 2 – Personality Round:",
-        "Conducted on the main event day.",
-        "Participants will give a brief self-introduction highlighting their personality, interests, and what fashion means to them.",
-        "Participants must wear outfits that reflect their style and confidence.",
-
-        // Round 3
-        "Round 3 – Questionnaire Round:",
-        "Participants will answer on-stage questions designed to test confidence, spontaneity, and presence of mind.",
-        "Final results will be announced after this round.",
-
-        // Evaluation
-        "Evaluation Criteria: Creativity, fashion sense, self-expression, stage presence, and confidence.",
-
-        // Elimination
-        "Each round will be elimination-based.",
-        "Round 2 and Round 3 will be conducted on the same day.",
-      ],
-      minTeamSize: 1,
-      maxTeamSize: 1,
-      coords: [
-        { name: "Aarushi Sinha", phone: "7738898174" },
-        { name: "Jaya Sharma", phone: "9098498385" },
-      ],
-    },
-  ],
-};
+import Spandan from "../../data/event-catalog/culrav/spandan/subevents.json";
 
 const SpandanPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent("culrav", "spandan", selectedOriginal);
+  const selected = selectedOriginal;
 
   return (
     <div className="min-h-screen bg-black font-sans text-gray-300">

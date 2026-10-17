@@ -1,4 +1,3 @@
-import { usePublicEventContent } from "../../portal/eventContent";
 import { eventRegistrationPath } from "../../portal/EventRegistrationLink";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,89 +5,11 @@ import { useNavigate } from "react-router";
 
 import AvishkarBG from "../../assets/a_s_bg.png";
 
-const OligopolyData = {
-  eventName: "Oligopoly",
-  tagline: "",
-  instagramLink: "",
-  events: [
-    {
-      eventName: "Solo Lobo",
-      registrationLink: "https://forms.gle/FS4NoLncNJQHPyAN8",
-      eventId: "01",
-      description:
-        "A three-round corporate readiness challenge assessing communication, leadership, interview performance, and crisis handling skills.",
-      rules: [
-        "Individual participation only.",
-        "Round 1: Group Discussion – evaluates communication, awareness, teamwork & articulation.",
-        "Round 2: Mock Interview – HR-style interview based on personality, communication & persuasion.",
-        "Round 3: Corporate Strategy + Risk Management – participants propose business solutions within 10 mins followed by evaluation.",
-      ],
-      maxTeamSize: 1,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "Pitchers",
-      registrationLink: "https://forms.gle/TFBod4xhuiHrSpBX7",
-      eventId: "02",
-      description:
-        "A startup pitching challenge conducted in two stages — quiz followed by a business pitch presentation.",
-      rules: [
-        "Team size: 1-3 members.",
-        "Round 1: Offline quiz on startups & entrepreneurship (40 MCQs, no negative marking, 30% qualifying score).",
-        "Round 2: PPT Pitching Round – teams present business plan in under 10 slides (excluding cover & final slide).",
-        "Presentation must include motivation, feasibility, revenue, marketing and financial strategy.",
-      ],
-      maxTeamSize: 3,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "Ad-Hole",
-      registrationLink: "",
-      eventId: "03",
-      description:
-        "A multi-round advertising challenge involving quizzes, live ad-analysis and final ad-film production.",
-      rules: [
-        "Team size: 1-2 members.",
-        "Round 1: Brain Teaser – 15-minute online quiz (20 advertisement-based questions) taken individually by both members.",
-        "Round 2: Evolution – video advertisement shown, participants write analysis on A4 sheet within 20 minutes.",
-        "Round 3: Thinkistaan – creative ad-making round (1.5 to 3-minute ad) followed by Q&A panel.",
-      ],
-      maxTeamSize: 2,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-    {
-      eventName: "Trading Strategist",
-      registrationLink: "",
-      eventId: "04",
-      description:
-        "A stock-market based analytical event testing fundamentals of finance, trading mindset and portfolio strategy under simulated conditions.",
-      rules: [
-        "Individual participation only.",
-        "Round 1: The Financial Forum – MCQ-based assessment covering stock basics, concepts & market awareness.",
-        "Round 2: The Trading Turf – simulated trading session to maximize profits using strategic decisions.",
-        "Eligibility: Open to all interested in stock trading.",
-      ],
-      maxTeamSize: 1,
-      minTeamSize: 1,
-      PsLink: "",
-      coordinators: [],
-    },
-  ],
-};
+import OligopolyData from "../../data/event-catalog/avishkar/oligopoly/subevents.json";
 
 const OligopolyPage = () => {
   const [selectedOriginal, setSelected] = useState(null);
-  const selected = usePublicEventContent(
-    "avishkar",
-    "oligopoly",
-    selectedOriginal,
-  );
+  const selected = selectedOriginal;
   const navigate = useNavigate();
 
   const handleRegister = () => {
