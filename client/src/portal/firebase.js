@@ -1,7 +1,9 @@
 import { getApps, initializeApp } from "firebase/app";
 import {
   getAuth,
+  getRedirectResult,
   GoogleAuthProvider,
+  signInWithRedirect,
   signInWithPopup,
   signOut,
 } from "firebase/auth";
@@ -32,6 +34,15 @@ export function signInWithGooglePopup() {
   if (!auth) throw new Error("Firebase sign-in is not configured");
   // This runs synchronously from the button click, preserving user activation.
   return signInWithPopup(auth, provider);
+}
+
+export function signInWithGoogleRedirect() {
+  if (!auth) throw new Error("Firebase sign-in is not configured");
+  return signInWithRedirect(auth, provider);
+}
+
+export function getGoogleRedirectResult() {
+  return auth ? getRedirectResult(auth) : Promise.resolve(null);
 }
 
 export function signOutOfFirebase() {

@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
 import {
   firebaseConfigured,
+  getGoogleRedirectResult,
+  signInWithGoogleRedirect,
   signInWithGooglePopup,
   signOutOfFirebase,
 } from "./firebase";
@@ -35,11 +37,8 @@ export function GoogleLogin() {
     navigate = useNavigate();
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
-  async function login() {
-    setBusy(true);
-    setError("");
-    try {
-      const result = await signInWithGooglePopup();
+  const completeGoogleLogin = useCallback(
+    async (result) => {
       try {
         const { data } = await portalApi.post("/auth/google", {
           idToken: await result.user.getIdToken(),
@@ -49,7 +48,44 @@ export function GoogleLogin() {
       } finally {
         await signOutOfFirebase();
       }
+    },
+    [destination, navigate, setUser],
+  );
+  useEffect(() => {
+    let active = true;
+    async function finishRedirectLogin() {
+      try {
+        const result = await getGoogleRedirectResult();
+        if (!result || !active) return;
+        setBusy(true);
+        await completeGoogleLogin(result);
+      } catch (e) {
+        if (active) setError(message(e));
+      } finally {
+        if (active) setBusy(false);
+      }
+    }
+    finishRedirectLogin();
+    return () => {
+      active = false;
+    };
+  }, [completeGoogleLogin]);
+  async function login() {
+    setBusy(true);
+    setError("");
+    try {
+      const result = await signInWithGooglePopup();
+      await completeGoogleLogin(result);
     } catch (e) {
+      if (e?.code === "auth/popup-blocked") {
+        try {
+          await signInWithGoogleRedirect();
+          return;
+        } catch (redirectError) {
+          setError(message(redirectError));
+          return;
+        }
+      }
       setError(message(e));
     } finally {
       setBusy(false);
