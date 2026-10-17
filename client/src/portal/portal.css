@@ -130,6 +130,111 @@
   object-fit: contain;
   align-self: center;
 }
+.ca-portal.ca-session-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 100px 24px 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, #1a345b80 0, transparent 30rem),
+    linear-gradient(145deg, #07111e 0%, #070a12 54%, #12101e 100%);
+}
+.ca-session-loading-card {
+  position: relative;
+  width: min(100%, 390px);
+  padding: 42px 32px 36px;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid #5bd7f04d;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #142640e8, #0a101de8);
+  box-shadow: 0 24px 70px #00000075, inset 0 1px #b5f4ff1f;
+}
+.ca-session-loading-card::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: linear-gradient(115deg, transparent 35%, #8ff7ff0d 50%, transparent 65%);
+  animation: ca-session-sheen 2.4s ease-in-out infinite;
+}
+.ca-session-loading-card > * {
+  position: relative;
+}
+.ca-session-loading-card .ca-kicker {
+  display: block;
+  margin: 20px 0 8px;
+  color: #73eaf8;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ca-session-loading-card strong {
+  display: block;
+  color: #f3f8ff;
+  font-family: "Anton", Arial, sans-serif;
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+.ca-session-loading-card p {
+  margin: 9px 0 0;
+  color: #a9c1d5;
+  font-size: 0.82rem;
+}
+.ca-session-orbit {
+  position: relative;
+  display: grid;
+  width: 68px;
+  height: 68px;
+  margin: 0 auto;
+  place-items: center;
+  border: 1px solid #6ce7f06b;
+  border-radius: 50%;
+  box-shadow: 0 0 24px #2ad5eb30;
+}
+.ca-session-orbit::before,
+.ca-session-orbit span {
+  position: absolute;
+  border-radius: inherit;
+  content: "";
+}
+.ca-session-orbit::before {
+  inset: -8px;
+  border: 2px solid transparent;
+  border-top-color: #65edf9;
+  border-right-color: #b482ff;
+  animation: ca-session-orbit 0.9s linear infinite;
+}
+.ca-session-orbit span {
+  width: 7px;
+  height: 7px;
+  background: #d6faff;
+  box-shadow: 0 0 12px #77efff;
+}
+.ca-session-orbit i {
+  color: #e5faff;
+  font-size: 0.63rem;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+@keyframes ca-session-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ca-session-sheen {
+  0%,
+  100% {
+    transform: translateX(-45%);
+  }
+  50% {
+    transform: translateX(45%);
+  }
+}
 .ca-heading,
 .ca-toolbar {
   display: flex;

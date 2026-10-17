@@ -11,6 +11,7 @@ import { usePortal } from "./context";
 import { useResource } from "./useResource";
 import { FormFields, AnswerView } from "./FormFields";
 import { courses, courseYears, branches, branchName } from "./profileOptions";
+import { PortalLoading } from "./PortalLoading";
 import "./portal.css";
 const formatDeadline = (value) =>
   new Intl.DateTimeFormat(undefined, {
@@ -34,7 +35,7 @@ const complete = (u) =>
 function Guard({ children, requireComplete = false }) {
   const { user, loading } = usePortal();
   const location = useLocation();
-  if (loading) return <main className="ca-portal">Loading…</main>;
+  if (loading) return <PortalLoading label="Restoring participant access" />;
   if (user && requireComplete && !complete(user)) {
     return (
       <Navigate

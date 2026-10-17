@@ -7,6 +7,7 @@ import {
   signInWithGooglePopup,
   signOutOfFirebase,
 } from "./firebase";
+import { PortalLoading } from "./PortalLoading";
 import "./portal.css";
 
 function AuthArt() {
@@ -54,7 +55,7 @@ export function GoogleLogin() {
       setBusy(false);
     }
   }
-  if (loading) return <div className="ca-portal">Loading session…</div>;
+  if (loading) return <PortalLoading label="Restoring participant access" />;
   if (user) return <Navigate to={destination} replace />;
   if (staff)
     return (
@@ -115,7 +116,7 @@ export function StaffLogin({ adminLogin = false }) {
       setBusy(false);
     }
   }
-  if (loading) return <div className="ca-portal">Loading session…</div>;
+  if (loading) return <PortalLoading label="Restoring staff access" />;
   if (staff)
     return (
       <Navigate

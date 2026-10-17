@@ -10,6 +10,7 @@ import { GoogleLogin, StaffLogin } from "./portal/AuthPages";
 import { ParticipantHome, RegistrationPage } from "./portal/ParticipantPages";
 import { CoordinatorHome } from "./portal/StaffPages";
 import { ResolveEventRegistration } from "./portal/EventRegistrationLink";
+import { PortalProvider } from "./portal/session";
 
 // lazy loaded pages
 const Homepage = lazy(() => import("./pages/Homepage"));
@@ -52,9 +53,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Navbar />
-        <Suspense fallback={<Loader />}>
-          <Routes>
+        <PortalProvider>
+          <Navbar />
+          <Suspense fallback={<Loader />}>
+            <Routes>
             <Route index element={<Homepage />} />
 
             {/* Culrav main and sub-events */}
@@ -105,8 +107,9 @@ function App() {
             <Route path="/admin/login" element={<StaffLogin adminLogin />} />
             {/* FALLBACK PAGE */}
             <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </Suspense>
+            </Routes>
+          </Suspense>
+        </PortalProvider>
       </BrowserRouter>
       {/* Global Toaster */}
       <Toaster richColors position="bottom-right" />

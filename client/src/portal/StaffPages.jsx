@@ -7,6 +7,7 @@ import { ChangeStaffPassword } from "./AuthPages";
 import { FormFields, AnswerView } from "./FormFields";
 import { ChoiceOptionsEditor } from "./ChoiceOptionsEditor";
 import { AuditLogs } from "./AuditLogs";
+import { PortalLoading } from "./PortalLoading";
 import "./portal.css";
 
 const defaultLinkInstructions =
@@ -14,7 +15,7 @@ const defaultLinkInstructions =
 
 export function CoordinatorHome({ adminOnly = false }) {
   const { staff, loading } = usePortal();
-  if (loading) return <main className="ca-portal">Loading session…</main>;
+  if (loading) return <PortalLoading label="Restoring staff workspace" />;
   if (!staff)
     return (
       <Navigate
