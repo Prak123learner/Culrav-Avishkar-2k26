@@ -13,7 +13,11 @@ const AppError = require("./utils/appError");
 
 const globalErrorHandler = require("./Controller/error.controller");
 
-app.use(helmet());
+app.use(
+  helmet({
+    crossOriginOpenerPolicy: { policy: "same-origin-allow-popups" },
+  }),
+);
 app.use(
   cors({
     origin: (process.env.FRONTEND_URL || "http://localhost:5173")

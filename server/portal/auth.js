@@ -139,30 +139,54 @@ function password(value) {
 function temporaryPassword() {
   return `CA-${crypto.randomBytes(18).toString("base64url")}9`;
 }
+function formatPrivateKey(rawKey) {
+  if (!rawKey) return "";
+  let key = rawKey.trim();
+  if (
+    (key.startsWith('"') && key.endsWith('"')) ||
+    (key.startsWith("'") && key.endsWith("'"))
+  ) {
+    key = key.slice(1, -1);
+  }
+  return key.replace(/\\n/g, "\n");
+}
 async function verifyFirebase(idToken) {
-  check(process.env.FIREBASE_PROJECT_ID, "Firebase is not configured", 503);
+  check(
+    process.env.FIREBASE_PROJECT_ID,
+    "FIREBASE_PROJECT_ID is not configured in environment variables",
+    503,
+  );
+  check(
+    process.env.FIREBASE_CLIENT_EMAIL,
+    "FIREBASE_CLIENT_EMAIL is not configured in environment variables",
+    503,
+  );
+  check(
+    process.env.FIREBASE_PRIVATE_KEY,
+    "FIREBASE_PRIVATE_KEY is not configured in environment variables",
+    503,
+  );
   const {
     getApps,
     initializeApp,
-    applicationDefault,
     cert,
   } = require("firebase-admin/app");
   const { getAuth } = require("firebase-admin/auth");
-  if (!getApps().length)
-    initializeApp({
-      projectId: process.env.FIREBASE_PROJECT_ID,
-      credential:
-        process.env.FIREBASE_CLIENT_EMAIL && process.env.FIREBASE_PRIVATE_KEY
-          ? cert({
-              projectId: process.env.FIREBASE_PROJECT_ID,
-              clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-              privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(
-                /\\n/g,
-                "\n",
-              ),
-            })
-          : applicationDefault(),
-    });
+  if (!getApps().length) {
+    try {
+      initializeApp({
+        projectId: process.env.FIREBASE_PROJECT_ID,
+        credential: cert({
+          projectId: process.env.FIREBASE_PROJECT_ID,
+          clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+          privateKey: formatPrivateKey(process.env.FIREBASE_PRIVATE_KEY),
+        }),
+      });
+    } catch (err) {
+      console.error("Firebase Admin initialization error:", err.message);
+      check(false, `Firebase initialization failed: ${err.message}`, 500);
+    }
+  }
   try {
     const data = await getAuth().verifyIdToken(idToken, true);
     check(
@@ -171,8 +195,10 @@ async function verifyFirebase(idToken) {
       401,
     );
     return data;
-  } catch {
-    check(false, "Invalid Google sign-in. Please try again.", 401);
+  } catch (err) {
+    if (err.isOperational) throw err;
+    console.error("Firebase verifyIdToken error:", err.message);
+    check(false, `Invalid Google sign-in: ${err.message}`, 401);
   }
 }
 module.exports = {
