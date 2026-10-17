@@ -12,6 +12,8 @@ import {
 import { PortalLoading } from "./PortalLoading";
 import "./portal.css";
 
+const GOOGLE_REDIRECT_DESTINATION = "ca-google-redirect-destination";
+
 function AuthArt() {
   return (
     <div className="ca-auth-art" aria-hidden="true">
@@ -38,13 +40,13 @@ export function GoogleLogin() {
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   const completeGoogleLogin = useCallback(
-    async (result) => {
+    async (result, target = destination) => {
       try {
         const { data } = await portalApi.post("/auth/google", {
           idToken: await result.user.getIdToken(),
         });
         setUser(data.user);
-        navigate(destination, { replace: true });
+        navigate(target, { replace: true });
       } finally {
         await signOutOfFirebase();
       }
@@ -56,9 +58,18 @@ export function GoogleLogin() {
     async function finishRedirectLogin() {
       try {
         const result = await getGoogleRedirectResult();
-        if (!result || !active) return;
+        if (!active) return;
+        const target = sessionStorage.getItem(GOOGLE_REDIRECT_DESTINATION);
+        if (!result) {
+          if (target) {
+            sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
+            setError("Google sign-in did not finish. Please try again.");
+          }
+          return;
+        }
+        sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
         setBusy(true);
-        await completeGoogleLogin(result);
+        await completeGoogleLogin(result, target || destination);
       } catch (e) {
         if (active) setError(message(e));
       } finally {
@@ -79,9 +90,11 @@ export function GoogleLogin() {
     } catch (e) {
       if (e?.code === "auth/popup-blocked") {
         try {
+          sessionStorage.setItem(GOOGLE_REDIRECT_DESTINATION, destination);
           await signInWithGoogleRedirect();
           return;
         } catch (redirectError) {
+          sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
           setError(message(redirectError));
           return;
         }

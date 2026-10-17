@@ -10,7 +10,10 @@ import {
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  // On Vercel the auth helper is proxied through this same hostname.
+  authDomain: import.meta.env.PROD
+    ? window.location.hostname
+    : import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
@@ -27,6 +30,7 @@ const app = firebaseConfigured
   : null;
 const auth = app ? getAuth(app) : null;
 const provider = new GoogleAuthProvider();
+let redirectResultPromise;
 
 provider.setCustomParameters({ prompt: "select_account" });
 
@@ -42,7 +46,11 @@ export function signInWithGoogleRedirect() {
 }
 
 export function getGoogleRedirectResult() {
-  return auth ? getRedirectResult(auth) : Promise.resolve(null);
+  if (!auth) return Promise.resolve(null);
+  // React Strict Mode can mount the login effect twice. Both runs must share
+  // the same redirect result rather than consuming it on the first run only.
+  redirectResultPromise ??= getRedirectResult(auth);
+  return redirectResultPromise;
 }
 
 export function signOutOfFirebase() {
