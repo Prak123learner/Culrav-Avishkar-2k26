@@ -1,18 +1,14 @@
-import { useCallback, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
 import {
   firebaseConfigured,
-  getGoogleRedirectResult,
-  signInWithGoogleRedirect,
   signInWithGooglePopup,
   signOutOfFirebase,
 } from "./firebase";
 import { PortalLoading } from "./PortalLoading";
 import "./portal.css";
-
-const GOOGLE_REDIRECT_DESTINATION = "ca-google-redirect-destination";
 
 function AuthArt() {
   return (
@@ -39,68 +35,41 @@ export function GoogleLogin() {
     navigate = useNavigate();
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
-  const completeGoogleLogin = useCallback(
-    async (result, target = destination) => {
-      try {
-        const { data } = await portalApi.post("/auth/google", {
-          idToken: await result.user.getIdToken(),
-        });
-        setUser(data.user);
-        navigate(target, { replace: true });
-      } finally {
-        await signOutOfFirebase();
-      }
-    },
-    [destination, navigate, setUser],
-  );
-  useEffect(() => {
-    let active = true;
-    async function finishRedirectLogin() {
-      try {
-        const result = await getGoogleRedirectResult();
-        if (!active) return;
-        const target = sessionStorage.getItem(GOOGLE_REDIRECT_DESTINATION);
-        if (!result) {
-          if (target) {
-            sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
-            setError("Google sign-in did not finish. Please try again.");
-          }
-          return;
-        }
-        sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
-        setBusy(true);
-        await completeGoogleLogin(result, target || destination);
-      } catch (e) {
-        if (active) setError(message(e));
-      } finally {
-        if (active) setBusy(false);
-      }
-    }
-    finishRedirectLogin();
-    return () => {
-      active = false;
-    };
-  }, [completeGoogleLogin]);
+  const loginInFlight = useRef(false);
   async function login() {
+    if (loginInFlight.current) return;
+    loginInFlight.current = true;
+    let firebaseSignedIn = false;
     setBusy(true);
     setError("");
     try {
+      // Start inside the click handler: no fetch, timer or dynamic import first.
       const result = await signInWithGooglePopup();
-      await completeGoogleLogin(result);
+      firebaseSignedIn = true;
+      const { data } = await portalApi.post("/auth/google", {
+        idToken: await result.user.getIdToken(),
+      });
+      setUser(data.user);
+      navigate(destination, { replace: true });
     } catch (e) {
-      if (e?.code === "auth/popup-blocked") {
-        try {
-          sessionStorage.setItem(GOOGLE_REDIRECT_DESTINATION, destination);
-          await signInWithGoogleRedirect();
-          return;
-        } catch (redirectError) {
-          sessionStorage.removeItem(GOOGLE_REDIRECT_DESTINATION);
-          setError(message(redirectError));
-          return;
-        }
-      }
-      setError(message(e));
+      const popupErrors = {
+        "auth/popup-blocked":
+          "Your browser blocked the Google sign-in window. Click the blocked-popup icon in the address bar, allow pop-ups for this site, then click Continue with Google again.",
+        "auth/popup-closed-by-user":
+          "The Google sign-in window closed before sign-in finished. Click Continue with Google to try again.",
+        "auth/cancelled-popup-request":
+          "Another sign-in attempt interrupted this one. Please try again.",
+        "auth/unauthorized-domain":
+          "Google sign-in is not configured for this website address. Please contact the festival administrator.",
+      };
+      setError(popupErrors[e?.code] || message(e));
     } finally {
+      if (firebaseSignedIn) {
+        // The backend cookie owns the portal session. Firebase cleanup must not
+        // turn an otherwise successful portal login into a reported failure.
+        await signOutOfFirebase().catch(() => {});
+      }
+      loginInFlight.current = false;
       setBusy(false);
     }
   }
@@ -130,7 +99,11 @@ export function GoogleLogin() {
               festival administrator.
             </p>
           )}
-          <button disabled={busy || !firebaseConfigured} onClick={login}>
+          <button
+            type="button"
+            disabled={busy || !firebaseConfigured}
+            onClick={login}
+          >
             {busy ? "Signing in…" : "Continue with Google"}
           </button>
           {error && (
