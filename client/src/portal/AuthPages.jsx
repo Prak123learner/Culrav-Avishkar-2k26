@@ -1,0 +1,241 @@
+import { useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { portalApi, message } from "./api";
+import { usePortal } from "./context";
+import "./portal.css";
+
+export function GoogleLogin() {
+  const location = useLocation();
+  const returnTo = location.state?.returnTo;
+  const destination =
+    typeof returnTo === "string" &&
+    (returnTo.startsWith("/portal/") || returnTo.startsWith("/register/"))
+      ? returnTo
+      : "/portal";
+  const { user, staff, setUser, loading } = usePortal(),
+    navigate = useNavigate();
+  const [error, setError] = useState(""),
+    [busy, setBusy] = useState(false);
+  const configured =
+    import.meta.env.VITE_FIREBASE_API_KEY &&
+    import.meta.env.VITE_FIREBASE_PROJECT_ID &&
+    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN &&
+    import.meta.env.VITE_FIREBASE_APP_ID;
+  async function login() {
+    setBusy(true);
+    setError("");
+    try {
+      const [
+        { initializeApp, getApps },
+        { getAuth, GoogleAuthProvider, signInWithPopup, signOut },
+      ] = await Promise.all([import("firebase/app"), import("firebase/auth")]);
+      const app =
+        getApps()[0] ||
+        initializeApp({
+          apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+          authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+          projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+          appId: import.meta.env.VITE_FIREBASE_APP_ID,
+        });
+      const auth = getAuth(app),
+        provider = new GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: "select_account" });
+      const result = await signInWithPopup(auth, provider);
+      try {
+        const { data } = await portalApi.post("/auth/google", {
+          idToken: await result.user.getIdToken(),
+        });
+        setUser(data.user);
+        navigate(destination, { replace: true });
+      } finally {
+        await signOut(auth);
+      }
+    } catch (e) {
+      setError(message(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+  if (loading) return <div className="ca-portal">Loading session…</div>;
+  if (user) return <Navigate to={destination} replace />;
+  if (staff)
+    return (
+      <Navigate
+        to={staff.role === "admin" ? "/admin" : "/coordinator"}
+        replace
+      />
+    );
+  return (
+    <main className="ca-portal">
+      <section className="ca-card ca-auth">
+        <img src="/img/logo_avishkar_culrav.png" alt="Culrav Avishkar" />
+        <h1>Participant sign-in</h1>
+        <p>
+          Continue with your Google account. We’ll assign your permanent CA ID,
+          then you can complete your profile and register for events.
+        </p>
+        {!configured && (
+          <p className="ca-notice">
+            Google sign-in is awaiting Firebase configuration. Contact the
+            festival administrator.
+          </p>
+        )}
+        <button disabled={busy || !configured} onClick={login}>
+          {busy ? "Signing in…" : "Continue with Google"}
+        </button>
+        {error && (
+          <p role="alert" className="ca-error">
+            {error}
+          </p>
+        )}
+        <Link to="/coordinator/login">Coordinator / admin login</Link>
+      </section>
+    </main>
+  );
+}
+
+export function StaffLogin({ adminLogin = false }) {
+  const { staff, setStaff, loading } = usePortal();
+  const [error, setError] = useState(""),
+    [busy, setBusy] = useState(false);
+  async function submit(e) {
+    e.preventDefault();
+    setBusy(true);
+    setError("");
+    try {
+      const { data } = await portalApi.post(
+        "/staff/login",
+        Object.fromEntries(new FormData(e.currentTarget)),
+      );
+      setStaff(data.staff);
+    } catch (e) {
+      setError(message(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+  if (loading) return <div className="ca-portal">Loading session…</div>;
+  if (staff)
+    return (
+      <Navigate
+        to={staff.role === "admin" ? "/admin" : "/coordinator"}
+        replace
+      />
+    );
+  return (
+    <main className="ca-portal ca-staff">
+      <form onSubmit={submit} className="ca-card ca-auth">
+        <h1>{adminLogin ? "Admin login" : "Coordinator login"}</h1>
+        <p>
+          Use the email granted access by your administrator. First-time
+          accounts must replace their temporary password.
+        </p>
+        <label>
+          Email
+          <input name="email" type="email" autoComplete="username" required />
+        </label>
+        <label>
+          Password
+          <input
+            name="password"
+            type="password"
+            autoComplete="current-password"
+            maxLength={128}
+            required
+          />
+        </label>
+        <button disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
+        {error && (
+          <p role="alert" className="ca-error">
+            {error}
+          </p>
+        )}
+        <Link to="/login">Participant Google sign-in</Link>
+      </form>
+    </main>
+  );
+}
+
+export function ChangeStaffPassword() {
+  const { staff, setStaff, logout } = usePortal();
+  const [error, setError] = useState(""),
+    [busy, setBusy] = useState(false);
+  async function submit(e) {
+    e.preventDefault();
+    const body = Object.fromEntries(new FormData(e.currentTarget));
+    if (body.newPassword !== body.confirm) {
+      setError("Passwords do not match");
+      return;
+    }
+    setBusy(true);
+    setError("");
+    try {
+      const { data } = await portalApi.post("/staff/password", body);
+      setStaff(data.staff);
+    } catch (e) {
+      setError(message(e));
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <main className="ca-portal ca-staff">
+      <form className="ca-card ca-auth" onSubmit={submit}>
+        <h1>Set your password</h1>
+        <p>
+          {staff.email} · {staff.caId}
+        </p>
+        <p>
+          You must replace your temporary password before accessing assigned
+          categories.
+        </p>
+        <label>
+          Temporary password
+          <input
+            name="currentPassword"
+            type="password"
+            autoComplete="current-password"
+            required
+            maxLength={128}
+          />
+        </label>
+        <label>
+          New password
+          <input
+            name="newPassword"
+            type="password"
+            autoComplete="new-password"
+            minLength={12}
+            maxLength={128}
+            required
+          />
+        </label>
+        <small>
+          Use at least 12 characters including a letter and a number.
+        </small>
+        <label>
+          Confirm password
+          <input
+            name="confirm"
+            type="password"
+            autoComplete="new-password"
+            required
+          />
+        </label>
+        <button disabled={busy}>Change password</button>
+        <button
+          type="button"
+          className="ca-secondary"
+          onClick={() => logout("staff").catch((e) => setError(message(e)))}
+        >
+          Sign out
+        </button>
+        {error && (
+          <p role="alert" className="ca-error">
+            {error}
+          </p>
+        )}
+      </form>
+    </main>
+  );
+}
