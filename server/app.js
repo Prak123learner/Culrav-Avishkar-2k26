@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const { connectDB } = require("./utils/connectDB");
 require("./portal/deployment").validateProductionConfig();
 
@@ -21,6 +22,35 @@ app.use(
     credentials: true,
   }),
 );
+
+// Health check endpoint for deployment verification and uptime monitoring
+app.get(["/health", "/api/v1/health"], async (req, res) => {
+  const dbStates = {
+    0: "disconnected",
+    1: "connected",
+    2: "connecting",
+    3: "disconnecting",
+  };
+  let dbStatus = dbStates[mongoose.connection.readyState] || "unknown";
+
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await connectDB();
+      dbStatus = dbStates[mongoose.connection.readyState] || "unknown";
+    } catch (err) {
+      dbStatus = `error: ${err.message || "connection failed"}`;
+    }
+  }
+
+  const isHealthy = mongoose.connection.readyState === 1;
+
+  res.status(isHealthy ? 200 : 503).json({
+    status: isHealthy ? "ok" : "degraded",
+    uptime: Math.floor(process.uptime()),
+    timestamp: new Date().toISOString(),
+    database: dbStatus,
+  });
+});
 
 // Vercel invokes this exported Express app directly; it never executes
 // server.js or app.listen(). The promise is shared by warm function requests.

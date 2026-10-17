@@ -40,3 +40,25 @@ The `www` and `api` subdomains share the same site, so keep `COOKIE_SAME_SITE=la
 Import the repository in Vercel with `server` as the Root Directory. The included `vercel.json` deploys `app.js` as the Express Function; do not deploy `server.js`, because it calls `app.listen()` for local development only. Set every production environment variable from `.env.example` in the Vercel project before deploying. The Express app opens and reuses a MongoDB connection for warm function instances.
 
 Set `MONGO_MAX_POOL_SIZE=10` for Vercel. Each Vercel function instance has its own MongoDB pool, so this cap protects Atlas from a burst of cold instances opening Mongoose's larger default pools.
+
+## Health check
+
+Test server and database connectivity at any time:
+
+```text
+GET /health
+GET /api/v1/health
+```
+
+Returns `200 OK` when both the Express server and MongoDB are fully connected:
+
+```json
+{
+  "status": "ok",
+  "uptime": 42,
+  "timestamp": "2026-10-18T01:45:00.000Z",
+  "database": "connected"
+}
+```
+
+If the database is unreachable or misconfigured, it returns `503 Service Unavailable` with details in the `database` property instead of crashing the serverless instance.
