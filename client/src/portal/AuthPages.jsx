@@ -2,6 +2,11 @@ import { useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
+import {
+  firebaseConfigured,
+  signInWithGooglePopup,
+  signOutOfFirebase,
+} from "./firebase";
 import "./portal.css";
 
 function AuthArt() {
@@ -29,31 +34,11 @@ export function GoogleLogin() {
     navigate = useNavigate();
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
-  const configured =
-    import.meta.env.VITE_FIREBASE_API_KEY &&
-    import.meta.env.VITE_FIREBASE_PROJECT_ID &&
-    import.meta.env.VITE_FIREBASE_AUTH_DOMAIN &&
-    import.meta.env.VITE_FIREBASE_APP_ID;
   async function login() {
     setBusy(true);
     setError("");
     try {
-      const [
-        { initializeApp, getApps },
-        { getAuth, GoogleAuthProvider, signInWithPopup, signOut },
-      ] = await Promise.all([import("firebase/app"), import("firebase/auth")]);
-      const app =
-        getApps()[0] ||
-        initializeApp({
-          apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-          authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-          projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-          appId: import.meta.env.VITE_FIREBASE_APP_ID,
-        });
-      const auth = getAuth(app),
-        provider = new GoogleAuthProvider();
-      provider.setCustomParameters({ prompt: "select_account" });
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithGooglePopup();
       try {
         const { data } = await portalApi.post("/auth/google", {
           idToken: await result.user.getIdToken(),
@@ -61,7 +46,7 @@ export function GoogleLogin() {
         setUser(data.user);
         navigate(destination, { replace: true });
       } finally {
-        await signOut(auth);
+        await signOutOfFirebase();
       }
     } catch (e) {
       setError(message(e));
@@ -89,13 +74,13 @@ export function GoogleLogin() {
             Continue with your Google account. We’ll assign your permanent CA
             ID, then you can complete your profile and register for events.
           </p>
-          {!configured && (
+          {!firebaseConfigured && (
             <p className="ca-notice">
               Google sign-in is awaiting Firebase configuration. Contact the
               festival administrator.
             </p>
           )}
-          <button disabled={busy || !configured} onClick={login}>
+          <button disabled={busy || !firebaseConfigured} onClick={login}>
             {busy ? "Signing in…" : "Continue with Google"}
           </button>
           {error && (
