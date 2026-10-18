@@ -30,8 +30,13 @@ async function connectDB() {
         minPoolSize: 0,
         maxIdleTimeMS: 30000,
         serverSelectionTimeoutMS: 10000,
+        autoIndex: process.env.NODE_ENV !== "production",
+        autoCreate: process.env.NODE_ENV !== "production",
       })
       .then(async (connection) => {
+        // Production indexes are provisioned by `npm run db:indexes`.
+        // Never put collection/index creation on a cold HTTP request.
+        if (process.env.NODE_ENV === "production") return connection;
         const {
           Participant,
           Staff,
@@ -62,4 +67,4 @@ async function connectDB() {
   return connectionPromise;
 }
 
-module.exports = { connectDB };
+module.exports = { connectDB, databaseUri };

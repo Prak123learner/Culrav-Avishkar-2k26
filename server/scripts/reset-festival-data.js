@@ -11,6 +11,7 @@ const {
   Session,
 } = require("../portal/models");
 const { seedCatalog } = require("../portal/catalog-service");
+const { ensureIndexes } = require("./ensure-indexes");
 
 const CONFIRMATION = "RESET-FESTIVAL-DATA";
 
@@ -44,7 +45,7 @@ async function resetFestivalData() {
     throw new Error("Set ADMIN_EMAIL to the admin account that must be kept");
   requireLocalDevelopmentDatabase(process.env.MONGO);
 
-  await mongoose.connect(process.env.MONGO);
+  await mongoose.connect(process.env.MONGO, { autoIndex: false });
   const adminEmail = process.env.ADMIN_EMAIL.trim().toLowerCase();
   const admin = await Staff.findOne({ email: adminEmail, role: "admin" })
     .select("+passwordHash")
@@ -93,6 +94,10 @@ async function resetFestivalData() {
 
   // Recreates the 20 fixed categories and 116 events with empty unpublished forms.
   const catalog = await seedCatalog();
+
+  // Creates any missing declared indexes; does not remove existing indexes or data.
+  // Uses the reset's existing connection, just like running npm run db:indexes afterward.
+  await ensureIndexes();
 
   console.log(
     [

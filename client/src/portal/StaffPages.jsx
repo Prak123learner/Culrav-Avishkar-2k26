@@ -58,9 +58,7 @@ function StaffWorkspace() {
         {[
           "events",
           "CA ID lookup",
-          ...(staff.role === "admin"
-            ? ["categories", "coordinators", "logs"]
-            : []),
+          ...(staff.role === "admin" ? ["coordinators", "logs"] : []),
         ].map((t) => (
           <button key={t} onClick={() => setTab(t)} aria-pressed={t === tab}>
             {t}
@@ -73,8 +71,6 @@ function StaffWorkspace() {
         <ManageEvents categories={categories.data?.categories || []} />
       ) : tab === "CA ID lookup" ? (
         <ParticipantLookup staff={staff} />
-      ) : tab === "categories" ? (
-        <Categories resource={categories} />
       ) : tab === "logs" && staff.role === "admin" ? (
         <AuditLogs />
       ) : (
@@ -220,98 +216,6 @@ function ParticipantLookup({ staff }) {
           </div>
         </>
       )}
-    </section>
-  );
-}
-function Categories({ resource }) {
-  const [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
-  async function mutate(method, path, body) {
-    setBusy(true);
-    setError("");
-    try {
-      await portalApi[method](path, body);
-      await resource.reload();
-    } catch (e) {
-      setError(message(e));
-    } finally {
-      setBusy(false);
-    }
-  }
-  return (
-    <section>
-      <h2>Festival categories</h2>
-      <form
-        className="ca-card ca-toolbar"
-        onSubmit={(e) => {
-          e.preventDefault();
-          mutate(
-            "post",
-            "/staff/categories",
-            Object.fromEntries(new FormData(e.currentTarget)),
-          );
-        }}
-      >
-        <label>
-          Festival
-          <select name="festival">
-            <option value="avishkar">Avishkar</option>
-            <option value="culrav">Culrav</option>
-          </select>
-        </label>
-        <label>
-          Category name
-          <input name="name" required maxLength={200} />
-        </label>
-        <label>
-          URL slug
-          <input
-            name="slug"
-            required
-            pattern="[a-z0-9]+(-[a-z0-9]+)*"
-            placeholder="cyberquest"
-          />
-        </label>
-        <button disabled={busy}>Create category</button>
-      </form>
-      {error && (
-        <p className="ca-error" role="alert">
-          {error}
-        </p>
-      )}
-      {resource.data?.categories.map((c) => (
-        <form
-          className="ca-card ca-toolbar"
-          key={c._id}
-          onSubmit={(e) => {
-            e.preventDefault();
-            mutate("patch", `/staff/categories/${c._id}`, {
-              name: new FormData(e.currentTarget).get("name"),
-            });
-          }}
-        >
-          <span>
-            {c.festival} / {c.slug}
-          </span>
-          <label>
-            Name
-            <input name="name" defaultValue={c.name} required />
-          </label>
-          <button disabled={busy}>Rename</button>
-          <button
-            type="button"
-            className="ca-secondary"
-            disabled={busy}
-            onClick={() =>
-              mutate("patch", `/staff/categories/${c._id}`, {
-                archived: !c.archived,
-              })
-            }
-          >
-            {c.archived ? "Restore category" : "Archive category"}
-          </button>
-        </form>
-      ))}
     </section>
   );
 }
@@ -479,7 +383,6 @@ function Coordinators({ categories }) {
   );
 }
 function ManageEvents({ categories }) {
-  const { staff } = usePortal();
   const resource = useResource("/staff/events"),
     [editing, setEditing] = useState(null),
     [review, setReview] = useState(null),

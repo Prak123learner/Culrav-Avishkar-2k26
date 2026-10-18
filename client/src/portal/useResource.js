@@ -1,34 +1,31 @@
-import { useCallback, useEffect, useRef, useState } from "react";
-import { portalApi, message } from "./api";
+import { useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { portalApi, message, sessionVersion } from "./api";
+import { usePortal } from "./context";
 export function useResource(path) {
-  const [data, setData] = useState(null),
-    [error, setError] = useState(""),
-    [loading, setLoading] = useState(!!path);
-  const requestId = useRef(0);
+  const { user, staff } = usePortal();
+  const query = useQuery({
+    queryKey: ["portal-resource", user?._id, staff?._id,
+      sessionVersion("participant"), sessionVersion("staff"), path],
+    enabled: !!path,
+    queryFn: async ({ signal }) => (await portalApi.get(path, { signal })).data,
+    staleTime: 0,
+    gcTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: false,
+  });
+  const { refetch } = query;
   const reload = useCallback(async () => {
-    const currentRequest = ++requestId.current;
-    if (!path) {
-      setData(null);
-      setError("");
-      setLoading(false);
-      return;
-    }
-    setLoading(true);
-    setError("");
-    try {
-      const result = await portalApi.get(path);
-      if (currentRequest === requestId.current) setData(result.data);
-    } catch (e) {
-      if (currentRequest === requestId.current) setError(message(e));
-    } finally {
-      if (currentRequest === requestId.current) setLoading(false);
-    }
-  }, [path]);
-  useEffect(() => {
-    reload();
-    return () => {
-      requestId.current += 1;
-    };
-  }, [reload]);
-  return { data, error, loading, reload };
+    if (path) await refetch();
+  }, [path, refetch]);
+  // Never show a cached form or registration eligibility while refreshing.
+  const requireFresh = /^\/(events\/|registration-context|registrations\/|staff\/events)/.test(path || "");
+  return {
+    data: path ? query.data : null,
+    error: query.error ? message(query.error) : "",
+    loading: !!path && (query.isPending || (requireFresh && query.isFetching)),
+    refreshing: query.isFetching,
+    reload,
+  };
 }

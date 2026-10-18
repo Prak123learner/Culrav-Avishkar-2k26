@@ -12,6 +12,8 @@ Run it from the `server` directory. It preserves only the admin configured by `A
 
 The reset script refuses to run when `NODE_ENV=production`, when MongoDB is not local, when the configured admin cannot be verified, or when the exact confirmation argument is missing. It is a backend CLI command and is not exposed through the frontend or an HTTP route.
 
+After reseeding, the reset automatically creates missing declared indexes using the same setup as `npm run db:indexes`. You do not need to run that command separately after a successful reset. Existing indexes are retained. If index setup fails, the command exits with an error; the reset has already happened, so fix the reported issue and run `npm run db:indexes` rather than resetting again.
+
 ## Start a fresh festival database
 
 For a new festival year, keep the current MongoDB connection credentials in `MONGO` but choose a brand-new database name. The command creates that database on first write, creates `culrav@mnnit.ac.in` as the initial admin, prints a new temporary password once, and seeds the fixed categories and empty event forms.

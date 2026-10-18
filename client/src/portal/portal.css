@@ -149,14 +149,21 @@
   border: 1px solid #5bd7f04d;
   border-radius: 18px;
   background: linear-gradient(145deg, #142640e8, #0a101de8);
-  box-shadow: 0 24px 70px #00000075, inset 0 1px #b5f4ff1f;
+  box-shadow:
+    0 24px 70px #00000075,
+    inset 0 1px #b5f4ff1f;
 }
 .ca-session-loading-card::before {
   position: absolute;
   inset: 0;
   content: "";
   pointer-events: none;
-  background: linear-gradient(115deg, transparent 35%, #8ff7ff0d 50%, transparent 65%);
+  background: linear-gradient(
+    115deg,
+    transparent 35%,
+    #8ff7ff0d 50%,
+    transparent 65%
+  );
   animation: ca-session-sheen 2.4s ease-in-out infinite;
 }
 .ca-session-loading-card > * {
@@ -250,6 +257,32 @@
 .ca-toolbar label {
   flex: 1;
   min-width: 160px;
+}
+/* Align actions with controls rather than the combined label/control height. */
+.ca-portal .ca-toolbar:has(> label) {
+  align-items: flex-end;
+}
+.ca-portal .ca-toolbar > label {
+  margin: 0;
+  min-width: min(160px, 100%);
+}
+.ca-portal :is(.ca-toolbar, .ca-response-search) > button {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.ca-portal :is(.ca-toolbar, .ca-response-search) > label > :is(input, select) {
+  height: 48px;
+}
+@media (max-width: 540px) {
+  .ca-portal .ca-toolbar:has(> label) > label {
+    flex-basis: 100%;
+  }
+  .ca-portal .ca-toolbar:has(> label) > button {
+    flex: 1 1 auto;
+  }
 }
 .ca-response-search {
   display: flex;
