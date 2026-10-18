@@ -7,7 +7,7 @@ import { ChangeStaffPassword } from "./AuthPages";
 import { FormFields, AnswerView } from "./FormFields";
 import { ChoiceOptionsEditor } from "./ChoiceOptionsEditor";
 import { AuditLogs } from "./AuditLogs";
-import { PortalLoading } from "./PortalLoading";
+import { PortalLoading, DataLoading } from "./PortalLoading";
 import "./portal.css";
 
 const defaultLinkInstructions =
@@ -66,7 +66,7 @@ function StaffWorkspace() {
         ))}
       </nav>
       {categories.loading ? (
-        <p>Loading categories…</p>
+        <DataLoading label="Loading categories…" />
       ) : tab === "events" ? (
         <ManageEvents categories={categories.data?.categories || []} />
       ) : tab === "CA ID lookup" ? (
@@ -448,7 +448,7 @@ function ManageEvents({ categories }) {
           {resource.error}
         </p>
       )}
-      {resource.loading && <p>Loading subevents…</p>}
+      {resource.loading && <DataLoading label="Loading subevents…" />}
       <label className="ca-event-search">
         Search events or categories
         <input
@@ -1096,7 +1096,9 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                 )}
               </div>
             )}
-          {responseStatus.loading && <p>Checking existing responses…</p>}
+          {responseStatus.loading && (
+            <DataLoading label="Checking existing responses…" compact />
+          )}
           {responseStatus.error && (
             <p className="ca-error" role="alert">
               Could not check existing responses: {responseStatus.error}{" "}
@@ -1276,7 +1278,7 @@ function ResponseReview({ event, category, events = [], onClose }) {
           {error || resource.error}
         </p>
       )}
-      {resource.loading && <p>Loading responses…</p>}
+      {resource.loading && <DataLoading label="Loading responses…" />}
       {!resource.loading && !resource.error && resource.data?.total === 0 && (
         <p>{search ? "No matching responses." : "No responses yet."}</p>
       )}

@@ -72,7 +72,7 @@ Verified: admin/coordinator/participant cookie restoration; eight-hour HttpOnly 
 - [ ] Confirm new indexes finished building in the target MongoDB and inspect `explain("executionStats")` for team membership/invitations, participant history, event response listing and export on representative data.
 - [ ] On the deployed HTTPS site, verify frontend-origin `/api/v1/*` proxying, Firebase authorized domain, login/refresh/logout, registration writes and Excel/CSV exports. Vercel supports the Express backend directly; a two-project setup still needs a frontend rewrite, and the backend entry must connect to MongoDB before serving requests.
 - [ ] In Edge, test popup sign-in on localhost and the deployed frontend. With popups allowed, click Continue with Google and select an account. Expected: Firebase popup uses `culrav-avishkar.firebaseapp.com`, one `POST /auth/google` completes, and the requested event or `/portal` opens. Refresh to verify the backend session cookie survives. A signed-out `/auth/me` 401 before login is expected; a 401 after successful login needs separate cookie investigation.
-- [ ] In a fresh Edge profile with default popup settings, open `/login`. Wait for Preparing sign-in to finish and click Continue with Google once. Repeat with DevTools network throttling. Check first-click and second-click behavior separately. Preparation only settles Firebase auth state and preconnects; it does not guarantee the SDK's popup helper is already loaded. Record the exact Firebase error if the first click still fails.
+- [ ] In a fresh Edge profile with default popup settings, open `/login`. Wait for Preparing sign-in to finish and click Continue with Google once. Repeat with DevTools network throttling. Check first-click and second-click behavior separately. Preparation must finish loading Firebase's popup helper before enabling sign-in; a slow connection must not enable an unprepared popup after five seconds. If preparation fails, retry it without opening a window. The guarded Firebase 12.19 internal preparation adapter must be rechecked before SDK upgrades. Record the exact Firebase error if the first click still fails.
 - [ ] Explicitly block popups for the frontend in Edge, then click Continue with Google. Expected: first failure suggests clicking again; a repeated failure explains the browser's site setting. No full-page redirect or `/auth/google` POST should occur. Allow the popup using the address-bar icon and retry. Close the popup without choosing an account and retry again; the button must become available. Rapidly click the button; only one login attempt should be active.
 - [ ] Open Register Now for an unregistered solo event. Network should show the event resolve request and `/events/:id/my-registration`, with no full `/registrations` request and no `/teams` request. For team events, the team selector still loads `/teams`. Register, revisit as leader and as an accepted member, and confirm both go to the existing registration. Another participant must receive `{ "registration": null }`. Repeat after session expiry; the lookup must return 401. Compare request timings before/after on the deployed backend; Vercel cold starts and Atlas latency remain possible.
 - [ ] Open My Teams, switch to Profile, then return to My Teams. Previously loaded teams should appear immediately while one background request refreshes them. Send an invitation from another account, click Refresh teams, and confirm it appears. Create, accept, decline, remove, and register a team; confirm names, CA IDs, invitations and roster locks remain correct. Test an account with no teams and a legacy registration without `membershipLockedAt`.
@@ -267,6 +267,30 @@ The 17 isolated portal workflow tests and the frontend production build passed o
 - Browser automation could not reach the local preview, so visual inspection remains manual.
 
 ## Test record
+
+### Data loading indicators
+
+- With network throttled, open an event's Register Now link: a themed spinner and skeleton should appear during event resolution and registration checks, without a blank text-only page or a percentage.
+- Check Teams, Registered events, staff Events, Responses, and Audit logs: the loading indicator should disappear when data or an error arrives. Team selection in a registration form should show an inline loader while teams are fetched.
+- Repeat for Avishkar and Culrav registration routes, at mobile width, and with reduced motion enabled. Verify loaders remain readable, do not overflow, and stop animating with reduced motion.
+
+
+### Deployed Edge popup diagnostics
+
+- Deploy the frontend and open `/login?authDebug=1` in Edge. These opt-in browser logs also work in production; no backend `NODE_ENV` change is needed.
+- In DevTools Console, enable Info messages and Preserve log. Filter for `CA auth debug`, wait for preparation, then click Continue with Google once.
+- Capture the sequence from `preparation:start` through `popup:failed` or `backend-login:success`. It records the public auth domain, browser, trusted click, user activation, actual `window.open` timing/result and error codes. It never records popup URLs, tokens, account details or passwords.
+- If `window.open:called` has inactive user activation, the SDK delayed opening past the click activation. If activation is active but `windowReturned` is false, the browser rejected the window despite the click; inspect site popup permissions and browser policies. If `popup:success` appears, investigate the later backend/session stage separately.
+- Verify normal `/login` emits no diagnostic logs. Debug tracing forwards the original `window.open` call unchanged and restores it when the popup operation settles. Remove `?authDebug=1` to disable diagnostics.
+
+
+### Staff navigation and action alignment
+
+- Open `/admin`: confirm there is no Categories tab, while Events still supports festival/category navigation and coordinator assignment still lists categories.
+- Check CA ID lookup, Create team, and response search on desktop: action buttons should line up with the inputs, below their labels.
+- Repeat at a 375px mobile width: controls should wrap without horizontal overflow, clipped labels, or overlapping buttons.
+- Check action-only toolbars (exports, save/cancel, audit pagination) still wrap cleanly and remain usable.
+
 
 | Date | Tester | Section / case | Result  | Notes / issue |
 | ---- | ------ | -------------- | ------- | ------------- |

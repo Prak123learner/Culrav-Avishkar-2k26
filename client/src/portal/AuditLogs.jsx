@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { DataLoading } from "./PortalLoading";
 import { useResource } from "./useResource";
 
 const labels = {
@@ -125,7 +126,7 @@ function AuditLogResults({ query, page, onPage, onActions }) {
           Refresh logs
         </button>
       </div>
-      {resource.loading && <p role="status">Loading audit logs…</p>}
+      {resource.loading && <DataLoading label="Loading audit logs" />}
       {resource.error && (
         <p className="ca-error" role="alert">
           {resource.error}

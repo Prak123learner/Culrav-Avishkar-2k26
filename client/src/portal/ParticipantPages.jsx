@@ -12,7 +12,7 @@ import { useResource } from "./useResource";
 import { useTeams } from "./useTeams";
 import { FormFields, AnswerView } from "./FormFields";
 import { courses, courseYears, branches, branchName } from "./profileOptions";
-import { PortalLoading } from "./PortalLoading";
+import { PortalLoading, DataLoading, DataLoadingPage } from "./PortalLoading";
 import "./portal.css";
 const formatDeadline = (value) =>
   new Intl.DateTimeFormat(undefined, {
@@ -481,7 +481,7 @@ function Teams() {
           {error || resource.error}
         </p>
       )}
-      {resource.loading && <p>Loading teams…</p>}
+      {resource.loading && <DataLoading label="Loading teams…" />}
       <div className="ca-grid">
         {resource.data?.teams.map((t) => {
           const pending = t.pendingIds.some((p) => p._id === user._id),
@@ -591,7 +591,7 @@ export function RegistrationPage({ eventId, eventData = null }) {
   const { user, loading: sessionLoading } = usePortal();
   const resource = useResource(eventData ? null : `/events/${eventId || id}`);
   if (!eventData && resource.loading)
-    return <main className="ca-portal">Loading event…</main>;
+    return <DataLoadingPage label="Preparing event registration" />;
   if (!eventData && resource.error) {
     return (
       <main className="ca-portal">
@@ -623,7 +623,12 @@ export function RegistrationPage({ eventId, eventData = null }) {
 function RegistrationAccess({ event }) {
   const registrations = useResource(`/events/${event._id}/my-registration`);
   if (registrations.loading)
-    return <main className="ca-portal">Checking your registration…</main>;
+    return (
+      <DataLoadingPage
+        label="Preparing your registration"
+        festival={event.categoryId?.festival}
+      />
+    );
   if (registrations.error) {
     return (
       <main className="ca-portal">
@@ -808,6 +813,9 @@ function EventRegistration({ event }) {
                 ) : (
                   <form onSubmit={submit}>
                     <h3>Event registration details</h3>
+                    {event.mode !== "solo" && teams.loading && (
+                      <DataLoading label="Loading your teams" compact />
+                    )}
                     {event.mode !== "solo" && (
                       <label>
                         Select a confirmed team you lead ({event.minTeamSize}–
@@ -934,7 +942,7 @@ function Registrations({ focusRegistrationId, alreadyRegisteredEvent }) {
           {error || resource.error}
         </p>
       )}
-      {resource.loading && <p>Loading registrations…</p>}
+      {resource.loading && <DataLoading label="Loading registrations…" />}
       {resource.data && !resource.data.registrations.length && (
         <p>You have no registrations yet.</p>
       )}

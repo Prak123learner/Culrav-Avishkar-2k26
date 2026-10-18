@@ -1,4 +1,5 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { DataLoadingPage } from "./PortalLoading";
 import { useResource } from "./useResource";
 import { RegistrationPage } from "./ParticipantPages";
 
@@ -67,7 +68,12 @@ export function ResolveEventRegistration() {
   const query = new URLSearchParams({ festival, category, title }).toString();
   const resource = useResource(`/events/resolve?${query}`);
   if (resource.loading) {
-    return <main className="ca-portal">Loading registration…</main>;
+    return (
+      <DataLoadingPage
+        label="Preparing your registration"
+        festival={festival}
+      />
+    );
   }
   if (resource.error) {
     return (
