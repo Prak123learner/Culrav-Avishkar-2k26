@@ -47,10 +47,24 @@ export function prepareGoogleSignIn() {
       link.href = origin;
       document.head.appendChild(link);
     }
-    preparation = auth.authStateReady().catch((error) => {
-      preparation = null;
-      throw error;
-    });
+    preparation = auth
+      .authStateReady()
+      .then(async () => {
+        // Firebase 12.19 initializes this helper lazily on desktop browsers.
+        // That network wait can consume Edge's transient user activation before
+        // window.open. Warm the SDK-owned helper here, never opening a window.
+        // This guarded internal adapter must be rechecked when upgrading Firebase.
+        const resolver = auth._popupRedirectResolver;
+        if (typeof resolver?._initialize !== "function")
+          throw new Error(
+            "Google sign-in preparation is unavailable. Please contact the festival administrator.",
+          );
+        await resolver._initialize(auth);
+      })
+      .catch((error) => {
+        preparation = null;
+        throw error;
+      });
   }
   return preparation;
 }

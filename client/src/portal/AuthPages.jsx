@@ -39,15 +39,36 @@ export function GoogleLogin() {
   const loginInFlight = useRef(false);
   const blockedAttempts = useRef(0);
   const [preparing, setPreparing] = useState(firebaseConfigured);
+  const [preparationFailed, setPreparationFailed] = useState(false);
+  const [preparationAttempt, setPreparationAttempt] = useState(0);
   useEffect(() => {
     if (!firebaseConfigured) return;
     let active = true;
+    setPreparing(true);
+    setPreparationFailed(false);
     // This is preparation only. Never open a popup from an effect or timer.
-    // A slow/unavailable SDK must not leave the button disabled indefinitely.
-    const timeout = setTimeout(() => active && setPreparing(false), 5000);
+    // Offer retry on a slow connection without enabling an unprepared popup.
+    const timeout = setTimeout(() => {
+      if (!active) return;
+      setPreparationFailed(true);
+      setError(
+        "Google sign-in is taking longer to prepare. Check your connection and retry.",
+      );
+    }, 15000);
     prepareGoogleSignIn()
+      .then(() => {
+        if (active) {
+          setPreparationFailed(false);
+          setError("");
+        }
+      })
       .catch(() => {
-        // The click-triggered SDK operation can retry and display its error.
+        if (active) {
+          setPreparationFailed(true);
+          setError(
+            "Unable to prepare Google sign-in. Check your connection and retry.",
+          );
+        }
       })
       .finally(() => {
         clearTimeout(timeout);
@@ -57,9 +78,9 @@ export function GoogleLogin() {
       active = false;
       clearTimeout(timeout);
     };
-  }, []);
+  }, [preparationAttempt]);
   async function login() {
-    if (loginInFlight.current || preparing) return;
+    if (loginInFlight.current || preparing || preparationFailed) return;
     loginInFlight.current = true;
     let firebaseSignedIn = false;
     setBusy(true);
@@ -127,7 +148,9 @@ export function GoogleLogin() {
           )}
           <button
             type="button"
-            disabled={busy || preparing || !firebaseConfigured}
+            disabled={
+              busy || preparing || preparationFailed || !firebaseConfigured
+            }
             onClick={login}
           >
             {busy
@@ -136,6 +159,18 @@ export function GoogleLogin() {
                 ? "Preparing sign-in…"
                 : "Continue with Google"}
           </button>
+          {preparationFailed && (
+            <button
+              type="button"
+              className="ca-secondary"
+              onClick={() => {
+                setError("");
+                setPreparationAttempt((attempt) => attempt + 1);
+              }}
+            >
+              Retry sign-in preparation
+            </button>
+          )}
           {error && (
             <p role="alert" className="ca-error">
               {error}
