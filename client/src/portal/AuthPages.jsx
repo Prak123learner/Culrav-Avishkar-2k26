@@ -9,6 +9,7 @@ import {
   signOutOfFirebase,
 } from "./firebase";
 import { PortalLoading } from "./PortalLoading";
+import { authDiagnostic } from "./authDiagnostics";
 import "./portal.css";
 
 function AuthArt() {
@@ -79,7 +80,13 @@ export function GoogleLogin() {
       clearTimeout(timeout);
     };
   }, [preparationAttempt]);
-  async function login() {
+  async function login(event) {
+    authDiagnostic("button:click", {
+      trustedClick: event.isTrusted,
+      preparing,
+      preparationFailed,
+      inFlight: loginInFlight.current,
+    });
     if (loginInFlight.current || preparing || preparationFailed) return;
     loginInFlight.current = true;
     let firebaseSignedIn = false;
@@ -90,12 +97,18 @@ export function GoogleLogin() {
       const result = await signInWithGooglePopup();
       blockedAttempts.current = 0;
       firebaseSignedIn = true;
+      authDiagnostic("backend-login:start");
       const { data } = await portalApi.post("/auth/google", {
         idToken: await result.user.getIdToken(),
       });
       setUser(data.user);
+      authDiagnostic("backend-login:success");
       navigate(destination, { replace: true });
     } catch (e) {
+      authDiagnostic("login:failed", {
+        code: e?.code,
+        httpStatus: e?.response?.status,
+      });
       if (e?.code === "auth/popup-blocked") blockedAttempts.current += 1;
       const popupErrors = {
         "auth/popup-blocked":

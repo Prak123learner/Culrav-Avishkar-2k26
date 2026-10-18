@@ -1,4 +1,5 @@
 import { getApps, initializeApp } from "firebase/app";
+import { authDiagnostic, tracePopupOpen } from "./authDiagnostics";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -30,6 +31,15 @@ let preparation;
 provider.setCustomParameters({ prompt: "select_account" });
 
 export function prepareGoogleSignIn() {
+  authDiagnostic("preparation:start", {
+    origin: window.location.origin,
+    authDomain: firebaseConfig.authDomain,
+    configured: firebaseConfigured,
+    secureContext: window.isSecureContext,
+    embedded: window.self !== window.top,
+    mode: import.meta.env.MODE,
+    browser: navigator.userAgent,
+  });
   if (!auth)
     return Promise.reject(new Error("Firebase sign-in is not configured"));
   if (!preparation) {
@@ -50,6 +60,7 @@ export function prepareGoogleSignIn() {
     preparation = auth
       .authStateReady()
       .then(async () => {
+        authDiagnostic("preparation:auth-state-ready");
         // Firebase 12.19 initializes this helper lazily on desktop browsers.
         // That network wait can consume Edge's transient user activation before
         // window.open. Warm the SDK-owned helper here, never opening a window.
@@ -60,8 +71,13 @@ export function prepareGoogleSignIn() {
             "Google sign-in preparation is unavailable. Please contact the festival administrator.",
           );
         await resolver._initialize(auth);
+        authDiagnostic("preparation:popup-helper-ready");
       })
       .catch((error) => {
+        authDiagnostic("preparation:failed", {
+          code: error?.code,
+          errorName: error?.name,
+        });
         preparation = null;
         throw error;
       });
@@ -72,7 +88,28 @@ export function prepareGoogleSignIn() {
 export function signInWithGooglePopup() {
   if (!auth) throw new Error("Firebase sign-in is not configured");
   // This runs synchronously from the button click, preserving user activation.
-  return signInWithPopup(auth, provider);
+  authDiagnostic("popup:start");
+  const stopTracing = tracePopupOpen();
+  try {
+    return signInWithPopup(auth, provider)
+      .then(
+        (result) => {
+          authDiagnostic("popup:success");
+          return result;
+        },
+        (error) => {
+          authDiagnostic("popup:failed", {
+            code: error?.code,
+            errorName: error?.name,
+          });
+          throw error;
+        },
+      )
+      .finally(stopTracing);
+  } catch (error) {
+    stopTracing();
+    throw error;
+  }
 }
 
 export function signOutOfFirebase() {
