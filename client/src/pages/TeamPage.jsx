@@ -1,66 +1,122 @@
-import { useState } from "react";
-import { useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import CardTeam from "../components/General/CardTeam";
 import { teamData } from "../data/Team/data.js";
 
+// Classical Greek Laurel Divider
+const LaurelDivider = () => (
+  <div className="flex items-center justify-center gap-2 text-[#8c6536]">
+    <svg
+      viewBox="0 0 80 30"
+      className="h-5 w-14 rotate-180"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M5,15 Q40,5 75,15" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M60,13 Q68,6 74,12 Q66,16 60,13 Z" />
+      <path d="M48,11 Q56,4 62,10 Q54,14 48,11 Z" />
+      <path d="M36,9 Q44,2 50,8 Q42,12 36,9 Z" />
+      <path d="M24,7 Q32,0 38,6 Q30,10 24,7 Z" />
+      <path d="M52,19 Q58,26 64,20 Q58,16 52,19 Z" />
+      <path d="M40,17 Q46,24 52,18 Q46,14 40,17 Z" />
+      <path d="M28,15 Q34,22 40,16 Q34,12 28,15 Z" />
+    </svg>
+    <span className="h-1.5 w-1.5 shrink-0 rotate-45 bg-current" />
+    <svg
+      viewBox="0 0 80 30"
+      className="h-5 w-14"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M5,15 Q40,5 75,15" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M60,13 Q68,6 74,12 Q66,16 60,13 Z" />
+      <path d="M48,11 Q56,4 62,10 Q54,14 48,11 Z" />
+      <path d="M36,9 Q44,2 50,8 Q42,12 36,9 Z" />
+      <path d="M24,7 Q32,0 38,6 Q30,10 24,7 Z" />
+      <path d="M52,19 Q58,26 64,20 Q58,16 52,19 Z" />
+      <path d="M40,17 Q46,24 52,18 Q46,14 40,17 Z" />
+      <path d="M28,15 Q34,22 40,16 Q34,12 28,15 Z" />
+    </svg>
+  </div>
+);
+
 export function TeamPage() {
   const [activeSection, setActiveSection] = useState(teamData[0].id);
+  const activeSectionRef = useRef(activeSection);
+  activeSectionRef.current = activeSection;
   const mainContentRef = useRef(null);
   const sectionRefs = useRef({});
   const isClickScrolling = useRef(false);
   const scrollTimeout = useRef(null);
 
-  // Scroll-spy logic
+  // Scroll-spy logic (optimized: cached geometry + requestAnimationFrame + window scroll)
   useEffect(() => {
-    const contentEl = mainContentRef.current;
-    if (!contentEl) return;
+    let ticking = false;
+    let offsets = [];
 
-    const handleScroll = () => {
-      if (isClickScrolling.current) return;
-
-      let currentSection = "";
-      const offset = 200;
-      const scrollPosition = contentEl.scrollTop;
-
-      for (const team of teamData) {
-        const sectionEl = sectionRefs.current[team.id];
-        if (sectionEl) {
-          if (sectionEl.offsetTop - offset <= scrollPosition) {
-            currentSection = team.id;
-          }
-        }
-      }
-
-      if (currentSection === "" && teamData.length > 0) {
-        currentSection = teamData[0].id;
-      }
-
-      if (currentSection && currentSection !== activeSection) {
-        setActiveSection(currentSection);
-      }
+    const updateOffsets = () => {
+      offsets = teamData.map((team) => {
+        const el = sectionRefs.current[team.id];
+        return {
+          id: team.id,
+          top: el ? el.getBoundingClientRect().top + window.scrollY : 0,
+        };
+      });
     };
 
-    contentEl.addEventListener("scroll", handleScroll);
-    return () => contentEl.removeEventListener("scroll", handleScroll);
-  }, [activeSection, teamData]);
+    // Calculate once on mount and on resize; NEVER on scroll ticks to prevent layout thrashing
+    updateOffsets();
+    window.addEventListener("resize", updateOffsets, { passive: true });
+
+    const handleScroll = () => {
+      if (isClickScrolling.current || ticking) return;
+
+      ticking = true;
+      requestAnimationFrame(() => {
+        ticking = false;
+        const scrollPosition = window.scrollY;
+        const offset = 140;
+
+        let currentSection = "";
+        for (const item of offsets) {
+          if (item.top - offset <= scrollPosition) {
+            currentSection = item.id;
+          }
+        }
+
+        if (currentSection === "" && teamData.length > 0) {
+          currentSection = teamData[0].id;
+        }
+
+        if (currentSection && currentSection !== activeSectionRef.current) {
+          setActiveSection(currentSection);
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("resize", updateOffsets);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleNavClick = (id) => {
     const sectionEl = sectionRefs.current[id];
-    if (sectionEl && mainContentRef.current) {
+    if (sectionEl) {
       setActiveSection(id);
       isClickScrolling.current = true;
 
-      mainContentRef.current.scrollTo({
-        top: sectionEl.offsetTop - 150,
+      const y = sectionEl.getBoundingClientRect().top + window.scrollY - 85;
+      window.scrollTo({
+        top: y,
         behavior: "smooth",
       });
 
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         isClickScrolling.current = false;
-      }, 1000);
+      }, 800);
     }
   };
 
@@ -69,93 +125,154 @@ export function TeamPage() {
   };
 
   return (
-    <div className="flex h-screen w-full fixed text-white font-Anton bg-team pt-18">
-      {/* Overlay for better text visibility */}
-      <div className="absolute inset-0 bg-[#000000]"></div>
+    <div className="relative min-h-screen w-full bg-[#edd8b1] text-[#2c1d0c] pt-16 select-none">
+      {/* High-Resolution Ancient Parchment Background */}
+      <div
+        style={{ transform: "translateZ(0)" }}
+        className="fixed inset-0 pointer-events-none overflow-hidden z-0"
+      >
+        <img
+          src="/media/common/textures/parchment-bg.png"
+          alt="Ancient Parchment"
+          className="w-full h-full object-cover object-center opacity-90"
+        />
+        {/* Soft warm vignette & lighting */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#edd8b1]/60 via-transparent to-[#e8d2a6]/80" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(60,35,15,0.18)_100%)]" />
+      </div>
 
-      {/* --- Desktop Sidebar  --- */}
-      <aside className="hidden md:block w-64 h-full fixed left-0 top-[58px] overflow-y-auto bg-[#0a0a1a] backdrop-blur-md border-r border-[#1a1a3d] p-6 space-y-2 z-20">
-        {teamData.map((team) => (
-          <a
-            key={team.id}
-            onClick={() => handleNavClick(team.id)}
-            className={`relative block w-full text-center font-Anton tracking-wider p-3 rounded-md cursor-pointer transition-colors duration-200 ${
-              activeSection === team.id
-                ? "text-cyan-400"
-                : "text-gray-300 hover:bg-gray-700/50 hover:text-white"
-            }`}
-          >
-            {team.name}
-            <span
-              className={`absolute bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-cyan-400 transition-all duration-300 ease-in-out ${
-                activeSection === team.id ? "w-1/2" : "w-0"
-              }`}
-            ></span>
-          </a>
-        ))}
+      {/* --- Desktop Sidebar (Sacred Council Directory) --- */}
+      <aside
+        style={{ transform: "translateZ(0)" }}
+        className="hidden md:flex flex-col w-64 lg:w-72 h-[calc(100vh-4rem)] fixed left-0 top-16 bg-[#160b04]/95 backdrop-blur-md border-r-2 border-[#b58b4f]/60 z-20 shadow-[4px_0_25px_rgba(20,10,4,0.35)]"
+      >
+
+        {/* Navigation List */}
+        <div className="flex-1 overflow-y-auto p-3 space-y-1.5">
+          {teamData.map((team) => {
+            const isActive = activeSection === team.id;
+            return (
+              <button
+                key={team.id}
+                onClick={() => handleNavClick(team.id)}
+                className={`group relative flex items-center justify-between w-full px-3.5 py-2.5 rounded-sm font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 text-left cursor-pointer ${
+                  isActive
+                    ? "bg-gradient-to-r from-[#381f0d] to-[#251509] text-[#f3cf8a] border-l-4 border-[#c4681f] border-y border-r border-[#b88c4b]/50 shadow-sm pl-4"
+                    : "text-[#d4b48d] hover:text-[#f3cf8a] hover:bg-[#28160a]/80 hover:pl-4 border-l-4 border-transparent"
+                }`}
+              >
+                <span className="truncate pr-2">{team.name}</span>
+                {isActive ? (
+                  <span className="text-[#f3cf8a] text-xs shrink-0">✦</span>
+                ) : (
+                  <span className="text-[10px] text-[#8c6536] shrink-0 group-hover:text-[#d4a259]">
+                    {team.members.length}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </aside>
 
-      {/* --- Mobile Dropdown  --- */}
-      <div className="md:hidden fixed top-[77px] left-0 right-0 z-40 bg-[#0a0a1abb] backdrop-blur-md border-b border-[#1a1a3d] shadow-lg">
-        <div className="relative p-4">
+      {/* --- Mobile Dropdown Navigation --- */}
+      <div className="md:hidden sticky top-16 inset-x-0 z-40 bg-[#160b04]/95 backdrop-blur-md border-b-2 border-[#b58b4f]/70 px-4 py-2.5 shadow-md">
+        <div className="relative">
           <select
             value={activeSection}
             onChange={handleMobileNavChange}
-            className="w-full appearance-none bg-[#0a0a1a] border border-[#ffffff22] text-white font-Anton tracking-wider text-lg p-3 rounded-md focus:outline-none focus:border-[#00e5ff]"
+            className="w-full appearance-none bg-[#241408] border border-[#b58b4f]/60 text-[#f7eedc] font-cinzel font-bold tracking-wider text-xs p-3 rounded-sm focus:outline-none focus:border-[#f3cf8a]"
           >
             {teamData.map((team) => (
-              <option key={team.id} value={team.id}>
-                {team.name}
+              <option key={team.id} value={team.id} className="bg-[#1e1006] text-[#f7eedc]">
+                {team.name} ({team.members.length})
               </option>
             ))}
           </select>
           <ChevronDown
-            size={20}
-            className="absolute right-7 top-1/2 -translate-y-1/2 text-[#00e5ff] pointer-events-none"
+            size={18}
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-[#f3cf8a] pointer-events-none"
           />
         </div>
       </div>
 
-      {/* --- Main Content (Scrollable) --- */}
+      {/* --- Main Content (Full Page Scrolling) --- */}
       <main
         ref={mainContentRef}
-        className="relative w-full h-full overflow-y-auto md:ml-64 pt-20 md:pt-0 scrollbar-hide z-10"
+        className="relative w-full min-h-screen md:pl-64 lg:pl-72 pt-4 md:pt-6 z-10"
       >
-        <div className="p-6 md:pl-8 md:pt-3 max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-24">
+          {/* Masthead Header */}
+          <div className="mb-12 pt-6 text-center">
+            <div className="my-2 flex select-none flex-col items-center justify-center">
+              <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
+                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+                <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#7d5628]">
+                  <span>✦</span>
+                  <span>The Sacred Conclave</span>
+                  <span>✦</span>
+                </div>
+                <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+              </div>
+              <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+                Culrav Avishkar 2026
+              </span>
+            </div>
+          </div>
+
+          {/* Council Sections */}
           {teamData.map((team) => (
             <section
               key={team.id}
               id={team.id}
               ref={(el) => (sectionRefs.current[team.id] = el)}
-              className="mb-16"
+              style={{ contentVisibility: "auto", containIntrinsicSize: "1px 500px" }}
+              className="mb-16 scroll-mt-24"
             >
-              {/* Section Heading */}
-              <motion.h2
-                className="text-2xl md:text-3xl font-Anton tracking-widest mb-8 text-cyan-300 relative inline-block"
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.5 }}
-                transition={{ duration: 0.5 }}
-              >
-                {team.name}
-                <span className="absolute -bottom-2 left-0 w-1/2 h-1 bg-linear-to-r from-[#4acedc] to-[rgb(217,73,230)]"></span>
-              </motion.h2>
+              {/* Section Heading with Classical Greek Lineage */}
+              <div className="flex items-center justify-between gap-3 mb-6 pb-2.5 border-b-2 border-[#b58b4f]/40">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[#a85a18] text-sm">✦</span>
+                  <h2 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-[0.18em] text-[#2c1d0c]">
+                    {team.name}
+                  </h2>
+                </div>
+                <div className="flex items-center gap-2 text-[#7d5628] font-cinzel text-[11px] uppercase tracking-[0.2em] font-semibold">
+                  <span>✦</span>
+                  <span>
+                    {team.members.length} {team.members.length === 1 ? "Archon" : "Archons"}
+                  </span>
+                </div>
+              </div>
 
-              {/* Team Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+              {/* Classical Medallion Portrait Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
                 {team.members.map((member, index) => (
                   <CardTeam
                     key={index}
                     name={member.name}
-                    reg={member.reg}
                     img={member.img}
                   />
                 ))}
               </div>
             </section>
           ))}
+
+          {/* Imperial Footer Plinth inside Scrollable Area */}
+          <div className="mt-16 pt-8 border-t-2 border-[#b58b4f]/40 flex flex-col items-center justify-center text-center pb-8">
+            <span className="font-cinzel text-[11px] font-bold tracking-[0.3em] uppercase text-[#7d5628] flex items-center gap-2">
+              <span>✦</span>
+              <span>Echoes of Olympus</span>
+              <span>✦</span>
+            </span>
+            <p className="font-garamond italic text-sm text-[#5e3f20] mt-1">
+              Two realms. One stage. Culrav Avishkar 2026.
+            </p>
+          </div>
         </div>
       </main>
     </div>
   );
 }
+
+export default TeamPage;

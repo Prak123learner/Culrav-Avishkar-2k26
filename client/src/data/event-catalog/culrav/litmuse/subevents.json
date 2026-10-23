@@ -18,7 +18,16 @@
         "Poem should be an original piece of content.",
         "Participants are allowed to present more than one poem in bound time."
       ],
-      "coords": [],
+      "coords": [
+        {
+          "name": "Ojaswi Shukla",
+          "phone": "9517649459"
+        },
+        {
+          "name": "Sanskar Soni",
+          "phone": "6377847741"
+        }
+      ],
       "fixedKey": "culrav/litmuse/0"
     },
     {
@@ -31,13 +40,22 @@
       ],
       "rules": [
         "The English poetry slam competition will comprise of 3 rounds.",
-        "a. The online Elimination round: Contestants submit entries online; best are chosen.",
-        "b. Impromptu Poetry writing and recitation round: Given a phrase with a literary device, write an original piece impromptu in 30 mins.",
-        "c. Final Round: Recite any original work you feel best represents you.",
+        "Round 1: The online Elimination round: Contestants submit entries online; best are chosen.",
+        "Round 2: Impromptu Poetry writing and recitation round: Given a phrase with a literary device, write an original piece impromptu in 30 mins.",
+        "Final Round: Recite any original work you feel best represents you.",
         "Content shouldn't be explicit or vulgar.",
         "Judging criteria: creativity, structure, literary device usage, overall representation."
       ],
-      "coords": [],
+      "coords": [
+        {
+          "name": "Yash Chaudhary",
+          "phone": "7456008654"
+        },
+        {
+          "name": "Shokhee Gupta",
+          "phone": "9690767391"
+        }
+      ],
       "fixedKey": "culrav/litmuse/1"
     },
     {
@@ -57,7 +75,16 @@
         "Teams press buzzer; order of buzzing determines word to spell immediately.",
         "Team with most correct answers wins."
       ],
-      "coords": [],
+      "coords": [
+        {
+          "name": "Shambhavi Kejriwal",
+          "phone": "9712623382"
+        },
+        {
+          "name": "Kareena Karnani",
+          "phone": "7733990209"
+        }
+      ],
       "fixedKey": "culrav/litmuse/2"
     },
     {
@@ -74,8 +101,42 @@
         "Choice between Comic series: DC and Marvel Universe or Anime-Manga.",
         "Final Round: Gnosis styled quiz during Culrav with diverse questions."
       ],
-      "coords": [],
+      "coords": [
+        {
+          "name": "Tanay Pandey",
+          "phone": "7275878506"
+        },
+        {
+          "name": "Samudraneel Sarkar",
+          "phone": "8337053728"
+        }
+      ],
       "fixedKey": "culrav/litmuse/3"
+    },
+    {
+      "id": 111,
+      "name": "Pariksha pe Charcha",
+      "desc": [
+        "EMPOWER THE FUTURE: LEAD, CREATE AND INSPIRE."
+      ],
+      "rules": [
+        "A Hindi-exclusive event focused on cultural immersion and linguistic celebration. Thought-provoking topics will be given to teams of 5–6 participants.",
+        "Discussion format: teams get 30 seconds to think after the topic is given.",
+        "Each participant gets one minute to express their views.",
+        "Teams get 1.5–2 minutes at the end to share relevant facts or additional insights related to the topic.",
+        "Two minutes are designated for summarizing the discussion."
+      ],
+      "coords": [
+        {
+          "name": "Aditya Kumar",
+          "phone": "9084131378"
+        },
+        {
+          "name": "Shivam Ranjan",
+          "phone": "9508881326"
+        }
+      ],
+      "fixedKey": "culrav/litmuse/4"
     }
   ]
 }

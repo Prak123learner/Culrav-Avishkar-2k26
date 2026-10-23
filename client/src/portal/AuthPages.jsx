@@ -10,17 +10,18 @@ import {
 } from "./firebase";
 import { PortalLoading } from "./PortalLoading";
 import { authDiagnostic } from "./authDiagnostics";
+import loginArt from "../assets/pages/login/Login_Page.png";
+import loginBg from "../assets/common/backgrounds/Background_of_login_page.png";
 import "./portal.css";
 
 function AuthArt() {
   return (
     <div className="ca-auth-art" aria-hidden="true">
-      <img src="/img/logo_avishkar_culrav.png" alt="" />
-      <div className="ca-auth-art-caption">
-        <span>Culrav × Avishkar</span>
-        <strong>Festival access / 2026</strong>
-      </div>
-      <span className="ca-auth-art-index">CA / 26</span>
+      <img
+        src={loginArt}
+        alt="Festival Access Artwork"
+        className="ca-auth-art-img"
+      />
     </div>
   );
 }
@@ -36,7 +37,8 @@ export function GoogleLogin() {
   const { user, staff, setUser, loading } = usePortal(),
     navigate = useNavigate();
   const [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
+    [busy, setBusy] = useState(false),
+    [completing, setCompleting] = useState(false);
   const loginInFlight = useRef(false);
   const blockedAttempts = useRef(0);
   const [preparing, setPreparing] = useState(firebaseConfigured);
@@ -97,6 +99,7 @@ export function GoogleLogin() {
       const result = await signInWithGooglePopup();
       blockedAttempts.current = 0;
       firebaseSignedIn = true;
+      setCompleting(true);
       authDiagnostic("backend-login:start");
       const { data } = await portalApi.post("/auth/google", {
         idToken: await result.user.getIdToken(),
@@ -130,10 +133,12 @@ export function GoogleLogin() {
         await signOutOfFirebase().catch(() => {});
       }
       loginInFlight.current = false;
+      setCompleting(false);
       setBusy(false);
     }
   }
-  if (loading) return <PortalLoading label="Restoring participant access" />;
+  if (loading || completing)
+    return <PortalLoading label="Opening your participant archive" />;
   if (user) return <Navigate to={destination} replace />;
   if (staff)
     return (
@@ -143,12 +148,21 @@ export function GoogleLogin() {
       />
     );
   return (
-    <main className="ca-portal ca-auth-screen ca-auth-participant">
+    <main
+      className="ca-portal ca-auth-screen ca-auth-participant"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <section className="ca-card ca-auth ca-auth-login ca-auth-participant-card">
         <AuthArt />
         <div className="ca-auth-content">
-          <span className="ca-kicker">Participant portal / 01</span>
-          <h1>Participant sign-in</h1>
+          <span className="ca-kicker">Participant Portal</span>
+          <h1>Participant Sign-in</h1>
           <p>
             Continue with your Google account. We’ll assign your permanent CA
             ID, then you can complete your profile and register for events.
@@ -161,16 +175,19 @@ export function GoogleLogin() {
           )}
           <button
             type="button"
+            className="ca-google-btn"
             disabled={
               busy || preparing || preparationFailed || !firebaseConfigured
             }
             onClick={login}
           >
-            {busy
-              ? "Signing in…"
-              : preparing
-                ? "Preparing sign-in…"
-                : "Continue with Google"}
+            <span>
+              {busy
+                ? "Continue in Google…"
+                : preparing
+                  ? "Preparing sign-in…"
+                  : "Continue with Google"}
+            </span>
           </button>
           {preparationFailed && (
             <button
@@ -189,7 +206,10 @@ export function GoogleLogin() {
               {error}
             </p>
           )}
-          <Link to="/coordinator/login">Coordinator / admin login</Link>
+          <Link to="/coordinator/login">
+            <span>Coordinator / admin login</span>
+            <span>➔</span>
+          </Link>
         </div>
       </section>
     </main>
@@ -225,14 +245,23 @@ export function StaffLogin({ adminLogin = false }) {
       />
     );
   return (
-    <main className="ca-portal ca-staff ca-auth-screen">
+    <main
+      className="ca-portal ca-staff ca-auth-screen"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
       <form onSubmit={submit} className="ca-card ca-auth ca-auth-login">
         <AuthArt />
         <div className="ca-auth-content">
           <span className="ca-kicker">
             {adminLogin ? "Festival administration" : "Coordinator workspace"}
           </span>
-          <h1>{adminLogin ? "Admin login" : "Coordinator login"}</h1>
+          <h1>{adminLogin ? "Admin Login" : "Coordinator Login"}</h1>
           <p>
             Use the email granted access by your administrator. First-time
             accounts must replace their temporary password.
@@ -257,7 +286,10 @@ export function StaffLogin({ adminLogin = false }) {
               {error}
             </p>
           )}
-          <Link to="/login">Participant Google sign-in</Link>
+          <Link to="/login">
+            <span>Participant Google sign-in</span>
+            <span>➔</span>
+          </Link>
         </div>
       </form>
     </main>

@@ -8,7 +8,25 @@ import {
 } from "./api";
 import { PortalContext } from "./context";
 
-function routeSessions(pathname) {
+const SESSION_HINT_KEY = "ca-portal-session";
+
+function readSessionHint(kind) {
+  try {
+    return localStorage.getItem(`${SESSION_HINT_KEY}-${kind}`) || "unknown";
+  } catch {
+    return "unknown";
+  }
+}
+
+function writeSessionHint(kind, state) {
+  try {
+    localStorage.setItem(`${SESSION_HINT_KEY}-${kind}`, state);
+  } catch {
+    /* Session restoration still works on protected routes without storage. */
+  }
+}
+
+function routeSessions(pathname, participantHint, staffHint) {
   if (/^\/(coordinator|admin)(?:\/|$)/.test(pathname))
     return { participant: false, staff: true };
   if (
@@ -16,22 +34,38 @@ function routeSessions(pathname) {
     /^\/(portal|register)(?:\/|$)/.test(pathname)
   )
     return { participant: true, staff: false };
-  return { participant: false, staff: false };
+  // A public page performs one participant check when this browser has no
+  // session history, or restores a session known to exist from another tab.
+  // Known anonymous browsers do not keep calling /auth/me on public routes.
+  return {
+    participant: participantHint !== "anonymous",
+    staff: staffHint === "active",
+  };
 }
 
 export function PortalProvider({ children }) {
   const { pathname } = useLocation();
-  const required = routeSessions(pathname);
   const [user, setUserState] = useState(null),
     [staff, setStaffState] = useState(null),
-    [hydratedPath, setHydratedPath] = useState(null);
+    [hydratedPath, setHydratedPath] = useState(null),
+    [participantHint, setParticipantHint] = useState(() =>
+      readSessionHint("participant"),
+    ),
+    [staffHint, setStaffHint] = useState(() => readSessionHint("staff"));
+  const required = routeSessions(pathname, participantHint, staffHint);
   const setUser = useCallback((value) => {
     advanceSession("participant");
     setUserState(value);
+    const state = value ? "active" : "anonymous";
+    setParticipantHint(state);
+    writeSessionHint("participant", state);
   }, []);
   const setStaff = useCallback((value) => {
     advanceSession("staff");
     setStaffState(value);
+    const state = value ? "active" : "anonymous";
+    setStaffHint(state);
+    writeSessionHint("staff", state);
   }, []);
   useEffect(() => {
     let active = true;
@@ -60,20 +94,53 @@ export function PortalProvider({ children }) {
             : Promise.resolve(null),
         ]);
         if (!active) return;
-        if (u && participantVersion === sessionVersion("participant"))
+        if (u && participantVersion === sessionVersion("participant")) {
           setUserState(u.data.user);
-        if (s && staffVersion === sessionVersion("staff"))
+          setParticipantHint("active");
+          writeSessionHint("participant", "active");
+        }
+        if (s && staffVersion === sessionVersion("staff")) {
           setStaffState(s.data.staff);
+          setStaffHint("active");
+          writeSessionHint("staff", "active");
+        }
       } finally {
         if (active) setHydratedPath(pathname);
       }
     }
     const onStorage = (event) => {
-      if (event.key !== "ca-portal-logout" || !event.newValue) return;
+      if (!event.newValue) return;
+      if (event.key === `${SESSION_HINT_KEY}-participant`) {
+        setParticipantHint(event.newValue);
+        if (event.newValue === "anonymous") {
+          advanceSession("participant");
+          setUserState(null);
+        } else {
+          setHydratedPath(null);
+        }
+        return;
+      }
+      if (event.key === `${SESSION_HINT_KEY}-staff`) {
+        setStaffHint(event.newValue);
+        if (event.newValue === "anonymous") {
+          advanceSession("staff");
+          setStaffState(null);
+        } else {
+          setHydratedPath(null);
+        }
+        return;
+      }
+      if (event.key !== "ca-portal-logout") return;
       try {
         const { kind } = JSON.parse(event.newValue);
-        if (kind === "staff") setStaff(null);
-        if (kind === "participant") setUser(null);
+        if (kind === "staff") {
+          setStaffHint("anonymous");
+          setStaffState(null);
+        }
+        if (kind === "participant") {
+          setParticipantHint("anonymous");
+          setUserState(null);
+        }
       } catch {
         /* Ignore unrelated malformed browser storage. */
       }
@@ -90,6 +157,8 @@ export function PortalProvider({ children }) {
     pathname,
     required.participant,
     required.staff,
+    participantHint,
+    staffHint,
     setUser,
     setStaff,
     staff,

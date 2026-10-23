@@ -7,36 +7,75 @@
   "instagramLink": "",
   "events": [
     {
+      "eventName": "BoardRoom",
+      "registrationLink": "",
+      "eventId": "62",
+      "description": "A consulting-driven event where participants develop product solutions, tackle real-world business crises, and showcase their strategic thinking, problem-solving, and decision-making skills.",
+      "rules": [
+        "3 Rounds:",
+        "Round 1 – Product Problem Solving",
+        "Round 2 – Business Case Study",
+        "Round 3 – Consulting Interview"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Prachi Mittal", "contact": "7457067497" },
+        { "name": "Achala Pandey", "contact": "7984646227" }
+      ],
+      "fixedKey": "avishkar/genesis/0"
+    },
+    {
+      "eventName": "Case n Climb",
+      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLScr3Dzy9wct6ipXjac-l-JiEEBZJUA0aMAavnMMLCPUL8p2Lw/viewform?usp=header",
+      "eventId": "61",
+      "description": "A case-study driven event where participants analyze real-world scenarios and demonstrate their analytical thinking, problem-solving approach, and decision-making abilities.",
+      "rules": [
+        "3 Rounds:",
+        "Round 1 – Aptitude Assessment",
+        "Round 2 – Case Study Analysis & Submission",
+        "Round 3 – Final presentation"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Abhay Tiwari", "contact": "9265153100" },
+        { "name": "Bhumit Vyas", "contact": "9509890126" }
+      ],
+      "fixedKey": "avishkar/genesis/1"
+    },
+    {
       "eventName": "Palladin",
       "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLSd_93_qY-EUZHtTUrrrkQIoPkhgUFvcqqpeslaueileNEPIZw/viewform?usp=publish-editor",
       "eventId": "57",
       "description": "A placement-focused event designed to equip biotechnology students for internships and full-time opportunities. The competition evaluates participants across core biotechnology knowledge, consultancy thinking, and software/application skills — helping them sharpen industry-ready problem-solving and communication abilities.",
       "rules": [
         "Solo participation only",
-        "Round 1  –  Computer-Based Test (Aptitude + Core Biotech Assessment)",
-        "Round 2  –  Group Discussion followed by Personal Interview",
+        "Round 1 – Computer-Based Test (Aptitude + Core Biotech Assessment)",
+        "Round 2 – Group Discussion followed by Personal Interview",
         "Participation is mandatory for all biotechnology students"
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Vaishnavi Srivastava",
-          "contact": "9473815982"
-        },
-        {
-          "name": "Akash Baghel",
-          "contact": "7300894145"
-        },
-        {
-          "name": "Karthik Prakash",
-          "contact": "7306898487"
-        },
-        {
-          "name": "Shree Ram Goliya",
-          "contact": "7427813219"
-        }
+        { "name": "Anisha Nigam", "contact": "6307576457" },
+        { "name": "Avinash", "contact": "6299418639" }
       ],
-      "fixedKey": "avishkar/genesis/0"
+      "fixedKey": "avishkar/genesis/2"
+    },
+    {
+      "eventName": "IQ Odyssey",
+      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLScuyNkvOmCqMUzUZ9r8qkfcc0rgqWKzMreV0iun-qz8__yCIg/viewform?usp=publish-editor",
+      "eventId": "60",
+      "description": "An engaging event that blends current affairs with interactive game-based challenges — designed to make learning more exciting, competitive, and fun.",
+      "rules": [
+        "Participation allowed in Solo or Duo format",
+        "Open to all branches and academic years",
+        "2 Rounds: Round 1 – Quiz based on current affairs, Round 2 – Fast-paced Buzzer Round"
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Abhay Tiwari", "contact": "9265153100" },
+        { "name": "Bhumit Vyas", "contact": "9509890126" }
+      ],
+      "fixedKey": "avishkar/genesis/3"
     },
     {
       "eventName": "Central Dogma",
@@ -52,90 +91,25 @@
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Akhilesh Kumar",
-          "contact": "8384872346"
-        },
-        {
-          "name": "Karthik Prakash",
-          "contact": "7306898487"
-        }
-      ],
-      "fixedKey": "avishkar/genesis/1"
-    },
-    {
-      "eventName": "IQ Odyssey",
-      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLScuyNkvOmCqMUzUZ9r8qkfcc0rgqWKzMreV0iun-qz8__yCIg/viewform?usp=publish-editor",
-      "eventId": "60",
-      "description": "An engaging event that blends current affairs with interactive game-based challenges — designed to make learning more exciting, competitive, and fun.",
-      "rules": [
-        "Participation allowed in Solo or Duo format",
-        "Open to all branches and academic years",
-        "2 Rounds: Round 1 – Quiz based on current affairs, Round 2 – Fast-paced Buzzer Round"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Madan Mohan",
-          "contact": "9548421317"
-        },
-        {
-          "name": "Govind Singh Tanwar",
-          "contact": "7828087932"
-        }
-      ],
-      "fixedKey": "avishkar/genesis/2"
-    },
-    {
-      "eventName": "Case & Climb",
-      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLScr3Dzy9wct6ipXjac-l-JiEEBZJUA0aMAavnMMLCPUL8p2Lw/viewform?usp=header",
-      "eventId": "61",
-      "description": "A case-study driven event where participants analyze real-world scenarios and demonstrate their analytical thinking, problem-solving approach, and decision-making abilities.",
-      "rules": [
-        "3 Rounds in total:",
-        "Round 1 – Aptitude Assessment",
-        "Round 2 – Case Study Analysis & Presentation",
-        "Round 3 – Personal Interview based on solution approach",
-        "Team Size: 1 to 3 members"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Priyanka Yadav",
-          "contact": "705432354"
-        },
-        {
-          "name": "Sukrati Shrivastava",
-          "contact": "7985774994"
-        }
-      ],
-      "fixedKey": "avishkar/genesis/3"
-    },
-    {
-      "eventName": "Dashboarding",
-      "registrationLink": "https://docs.google.com/forms/d/e/1FAIpQLSegk6pd7QlPcuBCas3KdIiLhVUpo-bJ4Ck8tDSebp_OYDEDTg/viewform?usp=publish-editor",
-      "eventId": "62",
-      "description": "The Consultancy & Software Project Competition is a multidisciplinary event that encourages students to think, build, analyse, and present solutions with real-world relevance. The event blends software development and consultancy/data analytics, requiring collaboration between technology and biotechnology domains. Participants will either develop a biotech-related software solution or create analytical dashboards using real datasets, drawing meaningful insights and presenting them through strong storytelling.",
-      "rules": [
-        "This event consists of two categories — Software Development & Consultancy/Dashboard.",
-        "Software Track Rules: Team size 2–3, at least one member must be from Biotechnology, problem statement will be provided, Git & GitHub usage is mandatory, 2 rounds → Idea & Progress Presentation + Final Solution Demonstration.",
-        "Consultancy Track Rules: Team size 2, one participant must be from Biotechnology, dashboard should be built using real data, themes may relate to health/environment/biotech, 3 rounds → BI Tools Quiz + Dashboard Creation + Final Presentation.",
-        "Tools allowed (for Consultancy): Power BI, Tableau, Excel.",
-        "Judging will be based on innovation, design, insights, storytelling, and teamwork.",
-        "Team Size 2-3 members"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Vaishnavi Srivastava",
-          "contact": "9473815982"
-        },
-        {
-          "name": "Priyanka Yadav",
-          "contact": "705432354"
-        }
+        { "name": "Ayush Prajapati", "contact": "8127865333" },
+        { "name": "Snigdha Kirtania", "contact": "8100607156" }
       ],
       "fixedKey": "avishkar/genesis/4"
+    },
+    {
+      "eventName": "BrainWave",
+      "registrationLink": "",
+      "eventId": "brainwave",
+      "description": "Build innovative tech solutions using AI, software development, and data analytics to solve real-world problems.",
+      "rules": [
+        "At least one Biotechnology student must be part of the team."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Priya", "contact": "6284852685" },
+        { "name": "Anisha Nigam", "contact": "6307576457" }
+      ],
+      "fixedKey": "avishkar/genesis/5"
     }
   ]
 }

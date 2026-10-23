@@ -13,7 +13,7 @@ The static-content migration on 17 October was formatted and passed backend synt
 - Fixed catalog: 20 categories, 116 subevents. Do not create or delete real registrations as a testing shortcut. Use clearly named disposable participant accounts and agree on cleanup before using this database for live registration.
 - Firebase web app configuration is entered for `culrav-avishkar`. Google provider enablement, authorized domains and backend service-account configuration must be completed manually using `REGISTRATION_SETUP.md`.
 - No files are uploaded by the portal; attachment questions store links only.
-- [ ] Reset-script safety check: with the backend stopped and a disposable database backup available, run `npm run reset:test-data` without the confirmation argument and expect no deletion. The script must also refuse `NODE_ENV=production`, a non-local MongoDB URI, a missing configured admin, or an invalid retained-admin CA ID. Only an intentional run with `--confirm=RESET-FESTIVAL-DATA` may preserve the configured admin and recreate 20 categories/116 unpublished empty-form events.
+- [ ] Reset-script safety check: with a disposable database backup available, run `npm run reset:festival-data` without the confirmation argument and expect no deletion. It must also refuse a URI without an explicit database name, a missing/mismatched `--database` argument, a missing configured admin, or an invalid retained-admin CA ID. Only an intentional run with matching `--database=<name> --confirm=RESET-FESTIVAL-DATA` may preserve the configured admin and recreate the current catalog as unpublished empty-form events. Check local and Atlas URI formats without resetting the active festival database.
 
 ## Before starting
 

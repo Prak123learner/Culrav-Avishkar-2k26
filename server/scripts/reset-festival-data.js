@@ -26,16 +26,16 @@ function requireExplicitConfirmation() {
   }
 }
 
-function requireLocalDevelopmentDatabase(uri) {
-  if (process.env.NODE_ENV === "production")
-    throw new Error("Reset is disabled when NODE_ENV=production");
+function requireExplicitDatabase(uri) {
   const parsed = new URL(uri);
-  const hosts = parsed.host
-    .split(",")
-    .map((host) => host.replace(/^.*@/, "").replace(/:\d+$/, ""));
-  const localHosts = new Set(["localhost", "127.0.0.1", "[::1]"]);
-  if (!hosts.length || !hosts.every((host) => localHosts.has(host)))
-    throw new Error("Reset is restricted to a local MongoDB database");
+  const database = decodeURIComponent(parsed.pathname.slice(1));
+  if (!database || database.includes("/"))
+    throw new Error("Set an explicit database name in MONGO before resetting");
+  if (!process.argv.includes(`--database=${database}`))
+    throw new Error(
+      `Reset cancelled. Add --database=${database} to confirm the database named in MONGO.`,
+    );
+  return database;
 }
 
 async function resetFestivalData() {
@@ -43,9 +43,11 @@ async function resetFestivalData() {
   if (!process.env.MONGO) throw new Error("Set MONGO before running reset");
   if (!process.env.ADMIN_EMAIL)
     throw new Error("Set ADMIN_EMAIL to the admin account that must be kept");
-  requireLocalDevelopmentDatabase(process.env.MONGO);
+  const database = requireExplicitDatabase(process.env.MONGO);
 
   await mongoose.connect(process.env.MONGO, { autoIndex: false });
+  if (mongoose.connection.name !== database)
+    throw new Error("Connected database does not match --database. Nothing was deleted.");
   const adminEmail = process.env.ADMIN_EMAIL.trim().toLowerCase();
   const admin = await Staff.findOne({ email: adminEmail, role: "admin" })
     .select("+passwordHash")
@@ -92,7 +94,7 @@ async function resetFestivalData() {
     { $set: { categoryIds: [] }, $inc: { sessionVersion: 1 } },
   );
 
-  // Recreates the 20 fixed categories and 116 events with empty unpublished forms.
+  // Recreates the fixed categories and events from the current backend JSON.
   const catalog = await seedCatalog();
 
   // Creates any missing declared indexes; does not remove existing indexes or data.
@@ -101,7 +103,7 @@ async function resetFestivalData() {
 
   console.log(
     [
-      `Reset complete for local database ${mongoose.connection.name}.`,
+      `Reset complete for database ${mongoose.connection.name}.`,
       `Retained admin: ${admin.email} (${admin.caId}).`,
       `Deleted participants: ${participants.deletedCount}.`,
       `Deleted teams: ${teams.deletedCount}.`,

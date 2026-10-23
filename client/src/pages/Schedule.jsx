@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import Card from "../components/General/Card";
-import dummy from "../assets/dummy.png";
-import AvishkarBgMobile from "../assets/Avishkar_bg-mobile.png";
-import AvishkarBG from "../assets/AvishkarBG.png";
+import dummy from "../assets/pages/schedule/dummy.png";
+import AvishkarBgMobile from "../assets/pages/schedule/Avishkar_bg-mobile.png";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
 
 const schedule = [
   {

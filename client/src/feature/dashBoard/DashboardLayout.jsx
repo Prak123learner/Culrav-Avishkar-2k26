@@ -1,13 +1,13 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState } from "react";
 import { User, Menu, X } from "lucide-react";
-import bgDashboard from "../../assets/bg_dashboard.jpg";
+import bgDashboard from "../../assets/common/backgrounds/bg_dashboard.jpg";
 import Sidebar from "./SideBar.jsx";
 import { useSelector } from "react-redux";
 
 export default function DashboardLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const NAVBAR_H = "80px";
+  const NAVBAR_H = "64px";
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -23,7 +23,7 @@ export default function DashboardLayout() {
         {/* Mobile User Icon Toggle */}
         <button
           onClick={toggleSidebar}
-          className={`lg:hidden fixed top-20 left-4 z-50 bg-[#0E1A20]/90
+          className={`lg:hidden fixed top-16 left-4 z-50 bg-[#0E1A20]/90
           backdrop-blur-sm border border-white/20 rounded-full p-3
           hover:bg-[#0E1A20] transition-all duration-200 shadow-lg
           ${isSidebarOpen ? "hidden" : ""}`}
@@ -41,9 +41,9 @@ export default function DashboardLayout() {
         )}
 
         {/* Desktop Layout */}
-        <div className="hidden lg:grid lg:grid-cols-[280px_1fr] lg:gap-0 lg:min-h-[calc(100vh-72px)]">
+        <div className="hidden lg:grid lg:grid-cols-[280px_1fr] lg:gap-0 lg:min-h-[calc(100vh-64px)]">
           {/* Desktop Sidebar */}
-          <aside className="bg-[#0E1A20]/90 backdrop-blur-sm border-r border-white/10 sticky top-[72px] h-[calc(100vh-72px)]">
+          <aside className="bg-[#0E1A20]/90 backdrop-blur-sm border-r border-white/10 sticky top-[64px] h-[calc(100vh-64px)]">
             <div className="h-full p-4">
               <Sidebar />
             </div>
@@ -51,7 +51,7 @@ export default function DashboardLayout() {
 
           {/* Desktop Main Content */}
           <main
-            className="relative min-h-[calc(100vh-72px)]"
+            className="relative min-h-[calc(100vh-64px)]"
             style={{
               backgroundImage: `url(${bgDashboard})`,
               backgroundSize: "cover",

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   Menu,
   X,
   Terminal,
-  Cpu,
-  Music,
   Zap,
+  ChevronLeft,
   ChevronRight,
   Aperture,
+  ArrowUpRight,
   Disc,
   Radio,
   Play,
@@ -18,22 +20,24 @@ import { Link } from "react-router";
 import TimeStampCard from "../components/TimeStampCard";
 // import GallerySection from "./Homepage/GallerySection";
 
+gsap.registerPlugin(ScrollTrigger);
+
 // --- CONFIGURATION: ADD YOUR ASSETS HERE ---
 // Leave as "" to use the futuristic placeholders
 const LOGO_URLS = {
-  main: "/img/logo_avishkar_culrav.png", // e.g., "/logos/combined-logo.png"
-  culrav: "/img/culrav_logo.png", // e.g., "/logos/culrav-logo.png"
-  avishkar: "/img/avishkar_logo.png", // e.g., "/logos/avishkar-logo.png"
+  main: "/media/common/branding/logo_avishkar_culrav.png", // e.g., "/logos/combined-logo.png"
+  culrav: "/media/common/branding/culrav_logo.png", // e.g., "/logos/culrav-logo.png"
+  avishkar: "/media/common/branding/avishkar_logo.png", // e.g., "/logos/avishkar-logo.png"
 };
 
 const VIDEO_URLS = {
-  heroBg: "/videos/hero_video.webm", // e.g., "/videos/cyberpunk-city-loop.mp4"
+  heroBg: "/media/homepage/videos/hero_video.webm", // e.g., "/videos/cyberpunk-city-loop.mp4"
   teaser: "", // e.g., "/videos/fest-teaser.mp4"
 };
 
 const ARTIST_DATA = {
   name: "Javed Ali",
-  image: "/img/javed_ali-1.jpg", // e.g., "/images/artist-main.jpg"
+  image: "/media/homepage/images/javed_ali-1.jpg", // e.g., "/images/artist-main.jpg"
   date: "DAY 03 // 2200 HRS",
 };
 
@@ -85,35 +89,87 @@ const GlitchText = ({
   );
 };
 
-const SectionHeading = ({ number, title }) => (
-  // Added px-4 to ensure text doesn't touch screen edges on very narrow phones
-  // Reduced mb-16 to mb-10 for mobile to reduce gaps
+const SectionHeading = ({
+  number,
+  title,
+  numberColor = "text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-fuchsia-500",
+  titleColor = "text-white",
+  lineClass = "bg-gradient-to-r from-cyan-500 via-white to-fuchsia-500",
+  subtitleColor = "text-gray-500",
+  subtitle = "SYSTEM_OPTIMIZED",
+  // Cinzel / parchment mode — mirrors the Two Realms heading exactly
+  cinzel = false,
+  cinzelLabel = "",
+  cinzelSubtitle = "",
+  cinzelLabelColor = "text-[#7d5628]",
+}) => (
   <div className="text-center mb-10 md:mb-16 relative z-10 px-4">
-    {/* Title Header */}
-    {/* 1. Changed text-4xl to text-3xl for mobile base 
-       2. Added sm:text-4xl for tablets
-       3. Kept md:text-6xl for desktop
-    */}
-    <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-2 tracking-tighter uppercase section-title break-words">
-      {/* Number Span */}
-      {/* Reduced mr-4 to mr-2 on mobile to save horizontal space */}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-xl sm:text-2xl md:text-4xl mr-2 md:mr-4 font-mono">
-        {number}.
-      </span>
-      {title}
-    </h2>
+    {cinzel ? (
+      <>
+        {/* ✦ Label with flanking lines — exact Two Realms pattern */}
+        <div className="my-4 flex select-none flex-col items-center justify-center">
+          <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+            <div
+              className={`font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] ${cinzelLabelColor}`}
+            >
+              <span>✦</span>
+              <span>{cinzelLabel || title}</span>
+              <span>✦</span>
+            </div>
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+          </div>
+          {cinzelSubtitle && (
+            <span
+              className={`font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] ${cinzelLabelColor}`}
+            >
+              {cinzelSubtitle}
+            </span>
+          )}
+        </div>
 
-    {/* Decorative Line */}
-    {/* Reduced width to w-16 on mobile, w-24 on desktop */}
-    <div className="h-1 w-16 md:w-24 bg-gradient-to-r from-cyan-500 via-white to-fuchsia-500 mx-auto skew-x-12"></div>
+        {/* Main h2 — font-cinzel, wide tracking, drop-shadow */}
+        <h2
+          className={`font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] drop-shadow-sm sm:text-5xl md:text-6xl section-title ${titleColor}`}
+        >
+          {number && (
+            <span
+              className={`text-xl sm:text-2xl md:text-4xl mr-2 md:mr-4 ${numberColor}`}
+            >
+              {number}.
+            </span>
+          )}
+          {title}
+        </h2>
 
-    {/* Subtitle */}
-    {/* CRITICAL FIX: tracking-[0.5em] is too wide for mobile and causes scroll issues.
-       Changed to tracking-[0.2em] for mobile, restoring 0.5em on sm/md screens.
-    */}
-    <div className="text-[10px] sm:text-xs font-mono text-gray-500 mt-2 tracking-[0.2em] sm:tracking-[0.5em] transition-all duration-300">
-      SYSTEM_OPTIMIZED
-    </div>
+        {/* Laurel divider — same as Two Realms */}
+        <div className="mt-3 flex justify-center">
+          <LaurelDivider />
+        </div>
+      </>
+    ) : (
+      <>
+        {/* Original tech style */}
+        <h2
+          className={`text-3xl sm:text-4xl md:text-6xl font-black mb-2 tracking-tighter uppercase section-title break-words ${titleColor}`}
+        >
+          <span
+            className={`text-xl sm:text-2xl md:text-4xl mr-2 md:mr-4 font-mono ${numberColor}`}
+          >
+            {number}.
+          </span>
+          {title}
+        </h2>
+        <div
+          className={`h-1 w-16 md:w-24 mx-auto skew-x-12 ${lineClass}`}
+        ></div>
+        <div
+          className={`text-[10px] sm:text-xs font-mono mt-2 tracking-[0.2em] sm:tracking-[0.5em] transition-all duration-300 ${subtitleColor}`}
+        >
+          {subtitle}
+        </div>
+      </>
+    )}
   </div>
 );
 
@@ -187,7 +243,7 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
               >
                 0
                 {["Home", "About", "Artist", "Gallery", "Events"].indexOf(
-                  item
+                  item,
                 ) + 1}{" "}
                 // {item.toUpperCase()}
               </a>
@@ -203,244 +259,298 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      // CHANGE 1: Use h-[100dvh] (Dynamic Viewport Height) to fix mobile address bar issues
-      // CHANGE 2: Added min-h-[600px] to prevent squashing on extremely short screens
-      className="relative h-[100dvh] min-h-[600px] flex items-center justify-center overflow-hidden"
+      className="relative isolate flex h-[100dvh] min-h-[640px] items-center justify-center overflow-hidden bg-[#20130c]"
     >
-      {/* Background Layer */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/40 z-10 bg-[radial-gradient(circle_at_center,transparent_0%,#000_90%)]"></div>
-
-        {VIDEO_URLS.heroBg ? (
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover opacity-100 filter contrast-200 brightness-145"
-          >
-            <source src={VIDEO_URLS.heroBg} type="video/webm" />
-          </video>
-        ) : (
-          <div className="w-full h-full bg-grid-pattern animate-grid-move opacity-30 bg-gradient-to-b from-gray-900 to-black">
-            <div className="absolute inset-0 bg-gradient-to-tr from-cyan-900/20 via-transparent to-fuchsia-900/20 animate-pulse"></div>
-          </div>
-        )}
+      <div className="absolute inset-0 -z-20">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="h-full w-full object-cover object-center"
+          aria-hidden="true"
+        >
+          <source src={VIDEO_URLS.heroBg} type="video/webm" />
+        </video>
       </div>
 
-      {/* Content */}
-      {/* CHANGE 3: Reduced pt-16 to pt-12 for mobile to save vertical space */}
-      <div className="relative z-20 text-center px-4 w-full max-w-7xl mx-auto flex flex-col items-center justify-center h-full pt-12 md:pt-16">
-        {/* Intro Text Badge */}
-        {/* CHANGE 4: Reduced mb-8 to mb-4 on mobile */}
-        <div className="mb-4 md:mb-8 inline-flex items-center gap-3 px-4 py-1 border border-cyan-500/30 rounded-full bg-black/50 backdrop-blur-sm intro-text shadow-[0_0_15px_rgba(34,211,238,0.2)]">
-          <div className="w-2 h-2 bg-green-500 rounded-full animate-ping"></div>
-          <span className="text-cyan-400 font-mono text-xs tracking-[0.2em]">
-            SYSTEM ONLINE // 2025
-          </span>
+      <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-4 pb-12 pt-24 text-center sm:px-6 md:pb-16 md:pt-28">
+        <div className="hero-title absolute inset-0 flex items-center justify-center px-4 sm:px-6">
+          <img
+            src={LOGO_URLS.main}
+            alt="Culrav and Avishkar"
+            className="h-auto max-h-[37vh] w-[82vw] max-w-[610px] object-contain drop-shadow-[0_16px_24px_rgba(47,20,8,0.42)] sm:w-[68vw] md:max-h-[43vh] md:w-[58vw]"
+          />
         </div>
 
-        {/* MAIN LOGO REPLACEMENT */}
-        {/* CHANGE 5: Reduced margins (mb-6) and added max-h constraints so logo doesn't get too tall */}
-        <div className="hero-title mb-6 md:mb-8 w-full flex justify-center">
-          {LOGO_URLS.main ? (
-            <img
-              src={LOGO_URLS.main}
-              alt="Culrav x Avishkar Theme Logo"
-              // CRITICAL FIX: Added max-h-[30vh] md:max-h-[40vh]
-              // This ensures the logo never takes up more than 30% of the screen height, leaving room for buttons
-              className="w-[85vw] max-w-[500px] md:max-w-[700px] lg:max-w-[800px] max-h-[30vh] md:max-h-[40vh] h-auto object-contain drop-shadow-[0_0_25px_rgba(34,211,238,0.25)] filter brightness-110 animate-float"
-            />
-          ) : (
-            <h1 className="text-6xl md:text-9xl font-black text-white tracking-tighter leading-[0.85] mix-blend-difference">
-              <div className="overflow-hidden">
-                <span className="block transform hover:scale-105 transition-transform duration-500 cursor-default">
-                  CULRAV
-                </span>
-              </div>
-              <div className="text-2xl md:text-4xl font-mono text-gray-400 my-2 tracking-[0.5em] opacity-70">
-                ×
-              </div>
-              <div className="overflow-hidden">
-                <span className="block text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-fuchsia-500 transform hover:scale-105 transition-transform duration-500 cursor-default">
-                  AVISHKAR
-                </span>
-              </div>
-            </h1>
-          )}
-        </div>
+        <div className="absolute bottom-10 flex flex-col items-center gap-3 md:bottom-14">
+          <p className="hero-sub rounded-full border border-[#6b3c22]/35 bg-[#fff3d7]/88 px-7 py-2 font-serif text-sm italic tracking-[0.2em] text-[#4a2b1b] shadow-[0_10px_35px_rgba(43,18,8,0.26)] backdrop-blur-md sm:text-base md:px-10 md:text-lg">
+            Where Technology meets Culture, and Legends come alive. Enter the
+            Mythos.
+          </p>
 
-        {/* Subtitle */}
-        <p className="max-w-xl mx-auto text-base md:text-xl text-gray-300 font-mono hero-sub border-l-2 border-fuchsia-500 pl-4 text-left bg-black/30 backdrop-blur-sm p-2 rounded-r-lg">
-          The annual convergence of{" "}
-          <span className="text-cyan-400 font-bold">Technology</span> and{" "}
-          <span className="text-fuchsia-500 font-bold">Culture</span>. Step into
-          the glitch.
-        </p>
-
-        {/* Buttons */}
-        {/* CHANGE 6: Reduced top margin (mt-6) for mobile and gap */}
-        <div className="mt-6 md:mt-10 flex flex-wrap justify-center gap-4 md:gap-6 hero-btns pb-12 md:pb-0">
-          <button className="group relative px-6 py-3 md:px-8 md:py-4 bg-white text-black font-bold tracking-widest overflow-hidden skew-x-[-10deg] hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)]">
-            <div className="absolute inset-0 w-0 bg-cyan-500 transition-all duration-300 ease-out group-hover:w-full opacity-100"></div>
+          <div className="flex flex-wrap items-center justify-center gap-3">
             <Link
-              to={"/login"}
-              className="relative flex items-center gap-2 skew-x-[10deg] text-sm md:text-base"
+              to="/login"
+              className="group inline-flex items-center gap-3 rounded-sm border border-[#e9bd70]/55 bg-[#2b160c]/88 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffe1a8] shadow-[0_10px_30px_rgba(25,10,4,0.36)] backdrop-blur-md transition duration-300 hover:border-[#f6cf8a] hover:bg-[#3a1f10] sm:text-xs"
             >
-              ENTER_WORLD <ChevronRight size={20} />
+              <span className="transition-transform duration-300 group-hover:rotate-45">
+                ✦
+              </span>
+              Enter the Realm
+              <span className="transition-transform duration-300 group-hover:-rotate-45">
+                ✦
+              </span>
             </Link>
-          </button>
-          <a
-            href="https://www.instagram.com/reel/DRSakAxkvsq/?hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3 md:px-8 md:py-4 border border-white/30 hover:border-fuchsia-500 text-white font-mono text-xs md:text-sm tracking-widest hover:bg-fuchsia-500/10 transition-all skew-x-[-10deg] backdrop-blur-md bg-black/20"
-          >
-            <span className="block skew-x-[10deg]">[ WATCH_TEASER ]</span>
-          </a>
-        </div>
-      </div>
 
-      {/* Scroll Indicator */}
-      {/* CHANGE 7: Position adjustment to ensure it doesn't overlap buttons on short screens */}
-      <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-60 animate-bounce z-20 hidden sm:flex">
-        <span className="text-[10px] font-mono tracking-widest text-cyan-500 shadow-black drop-shadow-md">
-          SCROLL
-        </span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-cyan-500 to-transparent"></div>
+            <a
+              href="#teaser"
+              className="group inline-flex items-center gap-3 rounded-sm border border-[#c9934a]/50 bg-[#f5e6c8]/80 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#6b3c1a] shadow-[0_10px_30px_rgba(100,55,15,0.18)] backdrop-blur-md transition duration-300 hover:border-[#d4a55c] hover:bg-[#faf0d8] sm:text-xs"
+            >
+              <span className="transition-transform duration-300 group-hover:scale-125">
+                ▶
+              </span>
+              Witness the Teaser
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
 };
 
+const RealmSeparator = () => (
+  <div className="relative z-30 flex w-full select-none items-center justify-center border-y-2 border-[#b88c4b] bg-[#1b0f05] py-2 shadow-[0_6px_20px_rgba(0,0,0,0.5)]">
+    <div className="flex w-full max-w-6xl items-center justify-center gap-3 px-4 sm:gap-4">
+      <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#b88c4b] to-[#f3cf8a]" />
+      <div className="flex shrink-0 items-center gap-2 text-[#f3cf8a]">
+        <span className="text-xs text-[#e8b663]">✦</span>
+        <span className="h-2.5 w-2.5 rotate-45 border border-[#f3cf8a] bg-[#b88c4b]" />
+        <span className="text-xs text-[#e8b663]">✦</span>
+      </div>
+      <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#b88c4b] to-[#f3cf8a]" />
+    </div>
+  </div>
+);
+
+const LaurelDivider = () => (
+  <div className="flex h-6 w-32 select-none items-center justify-center gap-1 text-[#8c6536]">
+    <svg
+      viewBox="0 0 80 30"
+      className="h-6 w-16 rotate-180"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        d="M5,15 Q40,5 75,15"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path d="M60,13 Q68,6 74,12 Q66,16 60,13 Z" />
+      <path d="M48,11 Q56,4 62,10 Q54,14 48,11 Z" />
+      <path d="M36,9 Q44,2 50,8 Q42,12 36,9 Z" />
+      <path d="M24,7 Q32,0 38,6 Q30,10 24,7 Z" />
+      <path d="M52,19 Q58,26 64,20 Q58,16 52,19 Z" />
+      <path d="M40,17 Q46,24 52,18 Q46,14 40,17 Z" />
+      <path d="M28,15 Q34,22 40,16 Q34,12 28,15 Z" />
+    </svg>
+    <span className="h-2 w-2 shrink-0 rotate-45 bg-current" />
+    <svg
+      viewBox="0 0 80 30"
+      className="h-6 w-16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        d="M5,15 Q40,5 75,15"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+      />
+      <path d="M60,13 Q68,6 74,12 Q66,16 60,13 Z" />
+      <path d="M48,11 Q56,4 62,10 Q54,14 48,11 Z" />
+      <path d="M36,9 Q44,2 50,8 Q42,12 36,9 Z" />
+      <path d="M24,7 Q32,0 38,6 Q30,10 24,7 Z" />
+      <path d="M52,19 Q58,26 64,20 Q58,16 52,19 Z" />
+      <path d="M40,17 Q46,24 52,18 Q46,14 40,17 Z" />
+      <path d="M28,15 Q34,22 40,16 Q34,12 28,15 Z" />
+    </svg>
+  </div>
+);
+
+const CulravRealmIcon = () => (
+  <svg
+    viewBox="0 0 100 100"
+    className="h-14 w-14 text-[#c4681f] sm:h-16 sm:w-16"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <circle
+      cx="50"
+      cy="50"
+      r="17"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    />
+    <circle cx="50" cy="50" r="12" opacity="0.3" />
+    <circle cx="50" cy="50" r="6" />
+    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <polygon points="50,5 53,24 47,24" />
+      <polygon points="95,50 76,53 76,47" />
+      <polygon points="50,95 47,76 53,76" />
+      <polygon points="5,50 24,47 24,53" />
+      <polygon points="82,18 70,33 65,28" />
+      <polygon points="82,82 67,70 72,65" />
+      <polygon points="18,82 33,70 28,65" />
+      <polygon points="18,18 30,33 35,28" />
+    </g>
+  </svg>
+);
+
+const AvishkarRealmIcon = () => (
+  <svg
+    viewBox="0 0 100 100"
+    className="h-14 w-14 text-[#463270] sm:h-16 sm:w-16"
+    fill="currentColor"
+    aria-hidden="true"
+  >
+    <path
+      d="M50 88C30 80 18 60 22 34c2-10 8-18 16-24M50 88c20-8 32-28 28-54-2-10-8-18-16-24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path d="M24 76c-6-2-10-8-6-12 4 0 7 6 6 12Zm4 2c4-4 5-11 0-14-3 4-3 10 0 14ZM18 60c-6-2-9-9-4-13 5 1 7 7 4 13Zm5 2c5-5 5-12 0-15-3 4-2 11 0 15ZM17 44c-6-3-8-11-2-14 5 2 6 9 2 14Zm6 2c4-6 5-13-1-16-3 4-2 11 1 16ZM22 28c-5-5-4-12 2-14 4 4 3 10-2 14Zm7 2c4-7 6-14 0-16-3 4-3 12 0 16Zm4-14c-3-6 0-11 6-10 2 4-1 10-6 10ZM76 76c6-2 10-8 6-12-4 0-7 6-6 12Zm-4 2c-4-4-5-11 0-14 3 4 3 10 0 14Zm10-18c6-2 9-9 4-13-5 1-7 7-4 13Zm-5 2c-5-5-5-12 0-15 3 4 2 11 0 15Zm6-18c6-3 8-11 2-14-5 2-6 9-2 14Zm-6 2c-4-6-5-13 1-16 3 4 2 11-1 16Zm1-18c5-5 4-12-2-14-4 4-3 10 2 14Zm-7 2c-4-7-6-14 0-16 3 4 3 12 0 16Zm-4-14c3-6 0-11-6-10-2 4 1 10 6 10Z" />
+    <circle cx="50" cy="88" r="3.5" />
+  </svg>
+);
+
 const AboutSection = () => {
   return (
-    <section id="about" className="relative py-32 bg-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeading number="01" title="THE_DUALITY" />
+    <section
+      id="about"
+      className="parchment-bg relative flex min-h-[90vh] flex-col justify-center overflow-hidden px-4 pt-20 pb-16 sm:px-6 lg:px-8"
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <img
+          src="/media/homepage/images/the-duality.png"
+          alt=""
+          className="h-full w-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-[#f5e7c8]/10" />
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-          {/* ================= CULRAV CARD (CULTURE) ================= */}
-          <div className="relative group border border-white/10 bg-gradient-to-b from-fuchsia-900/10 to-black hover:border-fuchsia-500/50 transition-all duration-500 overflow-hidden about-card-left min-h-[500px] flex flex-col rounded-sm">
-            {/* Large Background Icon Watermark (Visual Appeal) */}
-            <div className="absolute -right-10 -top-10 text-fuchsia-500/5 group-hover:text-fuchsia-500/10 transition-colors duration-500 rotate-12 pointer-events-none">
-              <Music size={300} strokeWidth={0.5} />
+      <div className="relative z-10 mx-auto w-full max-w-6xl">
+        <div className="mb-10 text-center sm:mb-12">
+          <div className="my-4 flex select-none flex-col items-center justify-center">
+            <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#7d5628]">
+                <span>✦</span>
+                <span>The Duality</span>
+                <span>✦</span>
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+            </div>
+            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+              Different Paths ✦ A Shared Legacy
+            </span>
+          </div>
+
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl">
+            The Two Realms
+          </h2>
+          <div className="mt-3 flex justify-center">
+            <LaurelDivider />
+          </div>
+        </div>
+
+        <div className="about-cards-container relative grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 lg:gap-16">
+          <div className="about-card-left group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.48)] sm:p-10">
+            <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+              <img
+                src="/media/homepage/images/realm-card.png"
+                alt="Culrav realm card"
+                className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+              />
             </div>
 
-            {/* Main Logo Area - Big and Wide */}
-            <div className="relative h-64 md:h-80 w-full flex items-center justify-center p-8 bg-black/20 backdrop-blur-sm border-b border-white/5 group-hover:bg-fuchsia-900/10 transition-colors duration-500">
-              {LOGO_URLS.culrav ? (
+            <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
+              <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center transition-transform duration-300 ease-out group-hover:scale-108">
                 <img
                   src={LOGO_URLS.culrav}
-                  alt="Culrav Logo"
-                  className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(217,70,239,0.3)] group-hover:scale-105 transition-transform duration-500"
+                  alt="Culrav"
+                  className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)]"
                 />
-              ) : (
-                // Fallback Large Typographic Logo
-                <div className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-fuchsia-500/30 rounded-xl group-hover:border-fuchsia-500/60 transition-all bg-black/40">
-                  <Music
-                    className="text-fuchsia-500 mb-4 opacity-50 animate-bounce"
-                    size={60}
-                  />
-                  <span className="text-4xl md:text-5xl font-black text-fuchsia-500 tracking-tighter opacity-80">
-                    CULRAV
-                  </span>
-                </div>
-              )}
-
-              {/* Glitch Overlay on Hover */}
-              <div className="absolute inset-0 bg-fuchsia-500/5 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300 pointer-events-none"></div>
-            </div>
-
-            {/* Content Area */}
-            <div className="p-8 flex flex-col flex-grow relative z-10 bg-black/40 backdrop-blur-sm">
-              <div className="flex items-baseline gap-4 mb-4 border-b border-white/10 pb-4">
-                <h3 className="text-3xl md:text-4xl font-black text-white font-sans tracking-wide uppercase">
-                  CULRAV
-                </h3>
-                <span className="text-fuchsia-500 font-mono text-sm tracking-[0.3em] ml-auto">
-                  10 DEC - 12 DEC
-                </span>
               </div>
-
-              <p className="text-gray-400 font-mono text-sm leading-relaxed flex-grow mb-8">
-                The cultural flagship. Dance battles, fashion shows, and musical
-                nights that reverberate through the campus. Immerse yourself in
-                the rhythm of the future.
+              <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#b86d2a]">
+                <div className="h-px flex-1 bg-current opacity-60" />
+                <span className="text-[10px]">✦</span>
+                <div className="h-px flex-1 bg-current opacity-60" />
+              </div>
+              
+              <p className="font-garamond my-4 max-w-sm text-lg font-semibold italic leading-relaxed text-[#533920] sm:text-xl">
+                The realm of art, expression and celebration.
               </p>
-
-              <Link
-                to={"/culrav"}
-                className="w-full py-4 border border-fuchsia-500/30 bg-fuchsia-500/5 hover:bg-fuchsia-500 hover:text-black text-fuchsia-400 font-bold font-mono uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 group/btn"
-              >
-                <span>EXPLORE EVENTS</span>
-                <ChevronRight
-                  size={18}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </Link>
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#b86d2a]/10 border border-[#b86d2a]/30 text-[#8c4314] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
+                
+                <span>5-7th December 2026</span>
+                
+              </div>
+              <div className="mt-auto w-full max-w-xs pt-6">
+                <Link
+                  to="/culrav"
+                  className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#b87c38] bg-[#f7eedc]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#783709] shadow-sm transition-all hover:bg-[#fae6c6] active:scale-95"
+                >
+                  <span className="pointer-events-none absolute inset-1 border border-[#b87c38]/40" />
+                  <span>Explore Culrav</span>
+                  <ArrowUpRight className="h-4 w-4 text-[#a85a18] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
           </div>
 
-          {/* ================= AVISHKAR CARD (TECH) ================= */}
-          <div className="relative group border border-white/10 bg-gradient-to-b from-cyan-900/10 to-black hover:border-cyan-500/50 transition-all duration-500 overflow-hidden about-card-right min-h-[500px] flex flex-col rounded-sm">
-            {/* Large Background Icon Watermark */}
-            <div className="absolute -right-10 -top-10 text-cyan-500/5 group-hover:text-cyan-500/10 transition-colors duration-500 rotate-12 pointer-events-none">
-              <Cpu size={300} strokeWidth={0.5} />
+          <div className="about-card-right group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.46)] sm:p-10">
+            <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
+              <img
+                src="/media/homepage/images/realm-card.png"
+                alt="Avishkar realm card"
+                className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+              />
             </div>
 
-            {/* Main Logo Area - Big and Wide */}
-            <div className="relative h-64 md:h-80 w-full flex items-center justify-center p-8 bg-black/20 backdrop-blur-sm border-b border-white/5 group-hover:bg-cyan-900/10 transition-colors duration-500">
-              {LOGO_URLS.avishkar ? (
+            <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
+              <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center transition-transform duration-300 ease-out group-hover:scale-108">
                 <img
                   src={LOGO_URLS.avishkar}
-                  alt="Avishkar Logo"
-                  className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(34,211,238,0.3)] group-hover:scale-105 transition-transform duration-500"
+                  alt="Avishkar"
+                  className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)] transition-all duration-300 group-hover:drop-shadow-[0_8px_18px_rgba(110,45,170,0.45)]"
                 />
-              ) : (
-                // Fallback Large Typographic Logo
-                <div className="flex flex-col items-center justify-center w-full h-full border-2 border-dashed border-cyan-500/30 rounded-xl group-hover:border-cyan-500/60 transition-all bg-black/40">
-                  <Cpu
-                    className="text-cyan-500 mb-4 opacity-50 animate-pulse"
-                    size={60}
-                  />
-                  <span className="text-4xl md:text-5xl font-black text-cyan-500 tracking-tighter opacity-80">
-                    AVISHKAR
-                  </span>
-                </div>
-              )}
-
-              {/* Glitch Overlay on Hover */}
-              <div className="absolute inset-0 bg-cyan-500/5 opacity-0 group-hover:opacity-100 mix-blend-overlay transition-opacity duration-300 pointer-events-none"></div>
-            </div>
-
-            {/* Content Area */}
-            <div className="p-8 flex flex-col flex-grow relative z-10 bg-black/40 backdrop-blur-sm">
-              <div className="flex items-baseline gap-4 mb-4 border-b border-white/10 pb-4">
-                <h3 className="text-3xl md:text-4xl font-black text-white font-sans tracking-wide uppercase">
-                  Avishkar
-                </h3>
-                <span className="text-cyan-500 font-mono text-sm tracking-[0.3em] ml-auto ">
-                  7 DEC - 9 DEC
-                </span>
               </div>
-
-              <p className="text-gray-400 font-mono text-sm leading-relaxed flex-grow mb-8">
-                The technical summit. Robo-wars, hackathons, and coding
-                marathons. Where code defines reality and innovation knows no
-                bounds.
-              </p>
-
-              <Link
-                to={"/avishkar"}
-                className="w-full py-4 border border-cyan-500/30 bg-cyan-500/5 hover:bg-cyan-500 hover:text-black text-cyan-400 font-bold font-mono uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 group/btn"
-              >
-                <span>EXPLORE TECH</span>
-                <ChevronRight
-                  size={18}
-                  className="group-hover/btn:translate-x-1 transition-transform"
-                />
-              </Link>
+              <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#64498e]">
+                <div className="h-px flex-1 bg-current opacity-60" />
+                <span className="text-[10px]">✦</span>
+                <div className="h-px flex-1 bg-current opacity-60" />
+              </div>
+              <p className="font-garamond my-4 max-w-sm text-lg font-semibold italic leading-relaxed text-[#44305e] sm:text-xl">
+                The realm of ideas, invention and innovation.
+              </p>              
+              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#64498e]/10 border border-[#64498e]/30 text-[#54327a] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
+                <span>2-4th December 2026</span>
+              </div>
+              <div className="mt-auto w-full max-w-xs pt-6">
+                <Link
+                  to="/avishkar"
+                  className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#765d9e] bg-[#f4effa]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#361e5b] shadow-sm transition-all hover:bg-[#eae0f6] active:scale-95"
+                >
+                  <span className="pointer-events-none absolute inset-1 border border-[#765d9e]/40" />
+                  <span>Explore Avishkar</span>
+                  <ArrowUpRight className="h-4 w-4 text-[#593987] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -450,117 +560,192 @@ const AboutSection = () => {
 };
 
 const GallerySection = () => {
-  // Replace 'src' with your actual local video paths (served from /public/videos)
   const galleryItems = [
-    { id: 1, type: "large", title: "DJKD", src: "/videos/v4.webm" },
-    { id: 2, type: "tall", title: "DJKD", src: "/videos/v2.webm" },
-    // { id: 3, type: "small", title: "TECH_LAB", src: "/videos/v5.webm" },
-    { id: 4, type: "small", title: "Dj Pheonix", src: "/videos/v5.webm" },
-    { id: 5, type: "wide", title: "JULIE", src: "/videos/v1.webm" },
+    {
+      id: 1,
+      act: "ACT",
+      numeral: "I",
+      title: "DJKD",
+      subtitle: "The Celestial Pro-Nite",
+      src: "/media/homepage/videos/v4.webm",
+      gridClass: "md:col-span-2 md:row-span-2",
+    },
+    {
+      id: 2,
+      act: "ACT",
+      numeral: "II",
+      title: "JULIE",
+      subtitle: "Live Stage Revel",
+      src: "/media/homepage/videos/v1.webm",
+      gridClass: "md:col-span-1 md:row-span-2",
+    },
+    {
+      id: 3,
+      act: "ACT",
+      numeral: "III",
+      title: "DJ PHOENIX",
+      subtitle: "The Electronic Odyssey",
+      src: "/media/homepage/videos/v5.webm",
+      gridClass: "md:col-span-1 md:row-span-1",
+    },
+    {
+      id: 4,
+      act: "ACT",
+      numeral: "IV",
+      title: "DJKD",
+      subtitle: "Arena of Legends",
+      src: "/media/homepage/videos/v2.webm",
+      gridClass: "md:col-span-1 md:row-span-1",
+    },
   ];
 
   return (
-    <section id="gallery" className="py-32 bg-gray-900 relative">
-      {/* Animated Grid Background */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none"></div>
-
+    <section
+      id="gallery"
+      className="relative bg-cover bg-center pt-10 pb-8 sm:pt-14 sm:pb-12 overflow-hidden select-none"
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.png')" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <SectionHeading number="02" title="VISUAL_ARCHIVES" />
+        {/* Section Heading matching Two Realms */}
+        <div className="mb-10 text-center sm:mb-14">
+          <div className="my-4 flex select-none flex-col items-center justify-center">
+            <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#7d5628]">
+                <span>✦</span>
+                <span>The Colosseum Chronicles</span>
+                <span>✦</span>
+              </div>
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+            </div>
+            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+              Chronicles of the Realm ✦ Captured in Time
+            </span>
+          </div>
 
-        {/* Masonry / Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 auto-rows-[200px] gap-4">
-          {galleryItems.map((item, idx) => (
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
+            Visual Archives
+          </h2>
+          <div className="mt-3 flex justify-center">
+            <LaurelDivider />
+          </div>
+        </div>
+
+        {/* The Mythological Bento Wall (Asymmetric Classical Mosaic) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[240px] sm:auto-rows-[270px] lg:auto-rows-[280px] gap-4 sm:gap-5">
+          {galleryItems.map((item) => (
             <div
               key={item.id}
-              className={`relative group overflow-hidden border border-gray-800 bg-black cursor-pointer
-        ${item.type === "large" ? "md:col-span-2 md:row-span-2" : ""}
-        ${item.type === "tall" ? "md:col-span-1 md:row-span-2" : ""}
-        ${item.type === "wide" ? "md:col-span-1 md:row-span-2" : ""}
-        ${item.type === "small" ? "md:col-span-1 md:row-span-1" : ""}
-        gallery-item transition-all duration-500 ease-out
-        hover:z-30 hover:scale-[1.03] hover:shadow-[0_0_30px_rgba(34,211,238,0.2)] hover:border-cyan-500/50
-      `}
+              className={`group relative overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-[#140b04] cursor-pointer shadow-[0_10px_25px_rgba(44,29,12,0.18)] transition-all duration-500 ease-out hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] ${item.gridClass} min-h-[260px] md:min-h-0`}
             >
-              {/* Video Element */}
+              {/* Double Inset Arch/Fillet border */}
+              <div className="pointer-events-none absolute inset-2 z-20 rounded-sm border border-[#f3cf8a]/20 transition-colors duration-300 group-hover:border-[#f3cf8a]/60" />
+
+              {/* Top-Left Roman Keystone Badge */}
+              <div className="absolute top-3.5 left-3.5 z-30 flex items-center gap-1.5 px-2.5 py-1 rounded-sm border border-[#f3cf8a]/40 bg-[#2c1d0c]/85 backdrop-blur-sm shadow-sm transition-transform duration-300 group-hover:scale-105">
+                <span className="text-[9px] text-[#f3cf8a]">✦</span>
+                <span className="font-cinzel text-[10px] font-bold tracking-widest text-[#f7eedc]">
+                  {item.act} · {item.numeral}
+                </span>
+              </div>
+
+              {/* Video Element with Orangish Monochromatic Filter (blooms to full color on hover) */}
               <video
                 autoPlay
                 loop
                 muted
                 playsInline
                 preload="auto"
-                onLoadedData={() => console.log("Gallery video loaded:", item.src)}
-                onError={(e) => console.error("Gallery video error:", item.src, e)}
-                className="absolute inset-0 w-full h-full object-cover transition-all duration-700
-
-        /* MOBILE DEFAULTS (Full Color, Full Opacity) */
-        grayscale-0 opacity-100
-
-        /* DESKTOP DEFAULTS (Grayscale, Dimmed -> Color on Hover) */
-        md:grayscale md:opacity-60 md:group-hover:grayscale-0 md:group-hover:opacity-100"
+                className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
               >
                 <source src={item.src} type="video/webm" />
               </video>
 
-              {/* Scanline Overlay */}
-              <div className="absolute inset-0 bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==')] opacity-30 pointer-events-none"></div>
+              {/* Orangish Monochrome Duotone Tint (fades out on hover) */}
+              <div className="pointer-events-none absolute inset-0 z-10 bg-[#d4621a]/30 mix-blend-color opacity-80 group-hover:opacity-0 transition-opacity duration-700" />
 
-              {/* Gradient Overlay */}
+              {/* Classic Vintage Film Scratches & Grain Texture Overlay */}
               <div
-                className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-500
+                className="pointer-events-none absolute inset-0 z-10 bg-cover bg-center opacity-55 mix-blend-screen transition-opacity duration-500 group-hover:opacity-40"
+                style={{
+                  backgroundImage: "url('/media/common/textures/vintage-scratches.png?v=2')",
+                }}
+              />
 
-      /* MOBILE DEFAULT (Light overlay so video is visible) */
-      opacity-30
+              {/* Antique Parchment & Obsidian Vignette Overlay */}
+              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#160b04] via-[#160b04]/30 to-transparent transition-opacity duration-500 opacity-65 md:opacity-80 md:group-hover:opacity-30" />
 
-      /* DESKTOP DEFAULT (Dark overlay -> Light on Hover) */
-      md:opacity-90 md:group-hover:opacity-30"
-              ></div>
-
-              {/* Hover Interaction Content (Big Title) - Keeping this hidden on mobile to not block video */}
-              <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-                <div className="flex items-center gap-2 mb-2">
-                  <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse shadow-[0_0_8px_red]"></div>
-                  <span className="text-cyan-400 font-mono text-[10px] tracking-[0.2em]">
-                    LIVE_FEED_0{idx + 1}
-                  </span>
-                </div>
-                <h4 className="text-white font-black text-2xl uppercase tracking-tighter leading-none drop-shadow-md">
-                  {item.title}
-                </h4>
-              </div>
-
-              {/* Idle State Label - Visible on Mobile, hidden on Desktop Hover */}
-              <div className="absolute bottom-4 left-4 group-hover:opacity-0 transition-opacity duration-300">
-                <span className="text-gray-500 font-mono text-xs tracking-widest border border-gray-700 px-2 py-1 rounded bg-black/50">
-                  [{item.title}]
+              {/* Idle State Label (Bottom-Left) */}
+              <div className="absolute bottom-3.5 left-3.5 z-20 group-hover:opacity-0 transition-opacity duration-300">
+                <span className="font-cinzel text-xs font-bold tracking-wider text-[#f7eedc] bg-[#2c1d0c]/85 border border-[#b88c4b]/50 px-3 py-1 rounded-sm backdrop-blur-sm shadow-sm">
+                  ✦ {item.title}
                 </span>
               </div>
 
-              {/* Corner Tech Accents */}
-              <div className="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                <Aperture className="text-cyan-400 w-6 h-6 animate-spin-slow drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]" />
+              {/* Hover Revealed Pedestal / Inscription */}
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 z-20 flex flex-col justify-end translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-[9px] text-[#f3cf8a]">✦</span>
+                  <span className="font-cinzel text-[10px] uppercase tracking-[0.25em] text-[#d4a259]">
+                    {item.act}
+                  </span>
+                </div>
+                <h3 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-wider text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                  {item.title}
+                </h3>
+                <div className="my-1.5 flex items-center gap-1.5 text-[#f3cf8a]">
+                  <div className="h-px w-8 bg-current opacity-70" />
+                  <span className="text-[8px]">✦</span>
+                  <div className="h-px w-8 bg-current opacity-70" />
+                </div>
+                <p className="font-garamond text-xs sm:text-sm italic text-[#ebdcc0]">
+                  {item.subtitle}
+                </p>
               </div>
-
-              {/* Animated Border Frame */}
-              <div className="absolute inset-0 border-2 border-transparent group-hover:border-cyan-500/30 transition-colors duration-500 pointer-events-none z-20"></div>
             </div>
           ))}
 
-          {/* "View All" Tile */}
+          {/* Fifth Tile: The Imperial Codex / View All Tile */}
           <Link
             to="/gallery"
-            className="md:col-span-1 md:row-span-1 bg-black/50 border border-dashed border-gray-700 backdrop-blur-sm flex flex-col items-center justify-center text-gray-500 hover:text-fuchsia-400 hover:border-fuchsia-500 transition-all cursor-pointer group relative overflow-hidden"
+            className="group relative flex flex-col items-center justify-center p-6 text-center border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a]/90 via-[#1c0e05]/95 to-[#120803] rounded-md shadow-[0_10px_25px_rgba(44,29,12,0.22)] transition-all duration-500 hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] min-h-[260px] md:min-h-0 md:col-span-1 md:row-span-1"
           >
-            <div className="absolute inset-0 bg-fuchsia-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="w-14 h-14 rounded-full border border-current flex items-center justify-center mb-3 group-hover:scale-110 transition-transform relative z-10">
-              <ChevronRight size={24} />
+            {/* Inset Fillet border */}
+            <div className="pointer-events-none absolute inset-2 rounded-sm border border-[#f3cf8a]/20 transition-colors duration-300 group-hover:border-[#f3cf8a]/50" />
+
+            {/* Laurel Medallion Icon */}
+            <div className="w-14 h-14 rounded-full border-2 border-[#b88c4b] bg-[#f7eedc]/10 flex items-center justify-center mb-3 group-hover:scale-110 group-hover:border-[#f3cf8a] group-hover:bg-[#f7eedc]/20 transition-all duration-300 shadow-[0_0_20px_rgba(184,140,75,0.2)]">
+              <ChevronRight className="h-6 w-6 text-[#f3cf8a] transition-transform duration-300 group-hover:translate-x-1" />
             </div>
-            <span className="font-mono text-xs tracking-[0.2em] relative z-10">
-              ACCESS_ALL_LOGS
+
+            <span className="font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#f3cf8a] drop-shadow-sm">
+              Imperial Archives
             </span>
+            <span className="font-garamond text-xs sm:text-sm italic text-[#d4b48d] mt-1.5">
+              Access All Sacred Chronicles
+            </span>
+
+            <div className="mt-3 flex items-center gap-2 text-[#b88c4b]">
+              <div className="h-px w-8 bg-current opacity-60" />
+              <span className="text-[9px] text-[#f3cf8a]">✦</span>
+              <div className="h-px w-8 bg-current opacity-60" />
+            </div>
           </Link>
-          <div className="col-span-2">
-            <TimeStampCard />
-          </div>
+        </div>
+
+        {/* Bottom Imperial Portal Button */}
+        <div className="mt-12 flex justify-center">
+          <Link
+            to="/gallery"
+            className="group/btn relative inline-flex items-center gap-3 border-2 border-[#b88c4b] bg-[#f7eedc]/95 px-8 py-3.5 font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#532e0e] shadow-[0_8px_25px_rgba(80,40,10,0.18)] transition-all hover:bg-[#fae6c6] hover:border-[#8c6536] hover:shadow-[0_14px_35px_rgba(80,40,10,0.28)] hover:-translate-y-0.5 active:scale-95"
+          >
+            <span className="pointer-events-none absolute inset-1 border border-[#b88c4b]/40" />
+            <span className="text-[#a85a18] transition-transform group-hover/btn:-translate-x-1">
+              ✦
+            </span>
+            <span>Explore All Imperial Chronicles</span>
+            <ArrowUpRight className="h-4 w-4 text-[#a85a18] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+          </Link>
         </div>
       </div>
     </section>
@@ -571,95 +756,120 @@ const ArtistSection = () => {
   return (
     <section
       id="artist"
-      className="relative py-16 lg:py-24 bg-black border-y border-white/10 overflow-hidden"
+      className="relative bg-cover bg-center pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 overflow-hidden select-none"
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.png')" }}
     >
-      {/* Decorative Background Text */}
-      <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full text-center pointer-events-none opacity-[0.03]">
-        <span className="text-[15vw] font-black text-white leading-none select-none">
-          HEADLINER
-        </span>
-      </div>
-
-      {/* LAYOUT CHANGES: 
-         1. gap-6: Reduced vertical distance between image and text on mobile (was gap-12).
-         2. items-center: Vertically centers content on desktop.
-      */}
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center relative z-10">
-        {/* --- VISUAL SIDE --- */}
-        <div className="relative group w-full">
-          {/* Mobile Glow Effect (Design Choice): Adds depth since grayscale is off */}
-          <div className="absolute inset-0 bg-fuchsia-500/20 blur-2xl rounded-full transform scale-75 lg:hidden"></div>
-
-          <div
-            className={`
-            relative overflow-hidden border border-white/20 artist-visual
-            aspect-[4/5] lg:aspect-square 
-            
-            /* 3. SIZE & ALIGNMENT: Shrink image on mobile (max-w-[90%]) and center it (mx-auto) */
-            max-w-[90%] mx-auto lg:max-w-none lg:mx-0
-            
-            shadow-2xl shadow-fuchsia-900/20
-          `}
-          >
-            {ARTIST_DATA.image ? (
-              <img
-                src={ARTIST_DATA.image}
-                alt={ARTIST_DATA.name}
-                className="w-full h-full object-cover transition-all duration-700
-                  /* 2. COLOR LOGIC: Normal color on mobile, Grayscale->Color on Desktop */
-                  grayscale-0 lg:grayscale lg:group-hover:grayscale-0"
-              />
-            ) : (
-              <div className="w-full h-full bg-gray-900 relative overflow-hidden">
-                <div
-                  className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1514525253440-b393452e8d26?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center transition-transform duration-1000 group-hover:scale-110
-                  mix-blend-normal opacity-80
-                  lg:mix-blend-luminosity lg:opacity-60"
-                ></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-fuchsia-900/80 to-transparent mix-blend-overlay"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Section Heading matching the Antique Lineup Poster */}
+        <div className="mb-12 text-center sm:mb-16">
+          <div className="my-3 flex select-none flex-col items-center justify-center">
+            <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
+              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#7d5628]">
+                <span>✦</span>
+                <span>The Main Performer</span>
+                <span>✦</span>
               </div>
-            )}
+              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+            </div>
+            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
+              A Night To Remember
+            </span>
+          </div>
 
-            {/* Floating Badge */}
-            <div className="absolute bottom-4 right-4 lg:bottom-6 lg:right-6 bg-white text-black px-3 py-1 lg:px-4 lg:py-2 font-bold font-mono text-xs lg:text-sm transform -rotate-3 group-hover:rotate-0 transition-transform">
-              STAR NIGHT
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.14em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl lg:text-7xl section-title">
+            The Main Performer
+          </h2>
+          <div className="mt-4 flex justify-center">
+            <LaurelDivider />
+          </div>
+        </div>
+
+        {/* The Two Main Performer Cards + Compass Divider */}
+        <div className="artist-cards-container relative max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4 lg:gap-8">
+          {/* --- CULRAV CARD --- */}
+          <div className="artist-card-left group relative w-full max-w-[380px] sm:max-w-[420px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.015]">
+            {/* Card Base Artwork */}
+            <div className="relative overflow-hidden rounded-lg">
+              <img
+                src="/media/homepage/images/card_culrav_clean.png"
+                alt="Culrav Main Performer"
+                className="w-full h-auto object-contain select-none transition-all duration-500 group-hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.42)]"
+              />
+
+              {/* Mystical Sunburst Glow behind Arch on Hover */}
+              <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#e87a28]/15 to-[#f3cf8a]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+
+              {/* Plinth Text Box ("COMING SOON") */}
+              <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
+                <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#934411] group-hover:tracking-[0.3em]">
+                  ✦ COMING SOON ✦
+                </span>
+              </div>
+
+              {/* Bottom Realm Label ("CULRAV" in Pure Text) */}
+              <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
+                <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#8c4314] transition-colors duration-300 group-hover:text-[#ba5a16]">
+                  CULRAV
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* --- CENTER DIVIDER: COMPASS STAR (Desktop Only) --- */}
+          <div className="artist-compass hidden md:flex flex-col items-center justify-center my-auto px-1 lg:px-2 pointer-events-none select-none">
+            <img
+              src="/media/homepage/images/compass_divider.png"
+              alt="Antique Compass Divider"
+              className="h-[420px] lg:h-[480px] w-auto object-contain opacity-85 transition-opacity duration-500 hover:opacity-100"
+            />
+          </div>
+
+          {/* Mobile Divider (Mobile Only) */}
+          <div className="flex md:hidden items-center justify-center gap-3 w-full max-w-xs my-1 select-none">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
+            <span className="text-[#a85a18] text-xs">✦</span>
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
+          </div>
+
+          {/* --- AVISHKAR CARD --- */}
+          <div className="artist-card-right group relative w-full max-w-[380px] sm:max-w-[420px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.015]">
+            {/* Card Base Artwork */}
+            <div className="relative overflow-hidden rounded-lg">
+              <img
+                src="/media/homepage/images/card_avishkar_clean.png"
+                alt="Avishkar Main Performer"
+                className="w-full h-auto object-contain select-none transition-all duration-500 group-hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.38)]"
+              />
+
+              {/* Mystical Amethyst Laurel Glow behind Arch on Hover */}
+              <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#7645a8]/15 to-[#b894e6]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+
+              {/* Plinth Text Box ("COMING SOON") */}
+              <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
+                <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#5c3e7d] group-hover:tracking-[0.3em]">
+                  ✦ COMING SOON ✦
+                </span>
+              </div>
+
+              {/* Bottom Realm Label ("AVISHKAR" in Pure Text) */}
+              <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
+                <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#56377a] transition-colors duration-300 group-hover:text-[#7f4bb5]">
+                  AVISHKAR
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* --- INFO SIDE --- */}
-        {/* 4. ALIGNMENT LOGIC: 
-           'text-center items-center' for Mobile (aligns text with centered image).
-           'lg:text-left lg:items-start' for Desktop.
-        */}
-        <div className="flex flex-col text-center items-center lg:text-left lg:items-start space-y-4 lg:space-y-6 artist-info">
-          <div className="inline-block bg-fuchsia-500/10 text-fuchsia-400 px-3 py-1 text-[10px] lg:text-xs font-mono tracking-widest border border-fuchsia-500/30 backdrop-blur-md">
-            // INCOMING TRANSMISSION
-          </div>
-
-          <h2 className="text-5xl sm:text-6xl md:text-8xl font-black text-white leading-[0.9] tracking-tighter">
-            <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-400 lg:bg-gradient-to-r">
-              THE
+        {/* Bottom Twilight Announcement Plaque */}
+        <div className="mt-12 sm:mt-16 flex justify-center">
+          <div className="inline-flex items-center gap-3 border border-[#b88c4b]/50 bg-[#f7eedc]/90 px-6 py-2.5 rounded-sm shadow-sm">
+            <span className="text-[#a85a18] text-xs">✦</span>
+            <span className="font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#422610]">
+              To Be Unveiled at Twilight
             </span>
-            {/* Ensure GlitchText handles centering if it's a block element, or wrap it */}
-            <span className="text-fuchsia-500 block">{ARTIST_DATA.name}</span>
-          </h2>
-
-          {/* Description - limit width on mobile to prevent it from looking too wide compared to image */}
-          <p className="text-gray-400 font-mono text-xs sm:text-sm md:text-base max-w-sm lg:max-w-md lg:border-l border-gray-700 lg:pl-4">
-            Preparing for auditory override. The biggest night of the year
-            featuring chart-topping beats and immersive visual synthesis.
-          </p>
-
-          <div className="flex items-center gap-4 lg:gap-6 pt-2">
-            <div className="flex items-center gap-2 text-white font-bold text-lg lg:text-xl">
-              <Radio className="text-red-500 animate-pulse w-5 h-5" />
-              <span>LIVE</span>
-            </div>
-            <div className="h-6 lg:h-8 w-[1px] bg-gray-700"></div>
-            <div className="font-mono text-cyan-400 text-sm lg:text-base tracking-wider">
-              {ARTIST_DATA.date}
-            </div>
+            <span className="text-[#a85a18] text-xs">✦</span>
           </div>
         </div>
       </div>
@@ -667,98 +877,341 @@ const ArtistSection = () => {
   );
 };
 
-function Footer() {
-  const GOOGLE_MAP_LINK =
-    "https://www.google.com/maps/place/MNNIT+Allahabad+Campus,+Teliarganj,+Prayagraj,+Uttar+Pradesh+211004/@25.4921509,81.8609172,16z/data=!3m1!4b1!4m6!3m5!1s0x399aca789e0c84a5:0x2c27733a7529bf08!8m2!3d25.4918881!4d81.8675096!16s%2Fg%2F1jkyn0r0s?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D";
-  return (
-    <footer className="bg-black border-t border-white/10 py-16 font-mono text-sm relative overflow-hidden">
-      {/* Footer Glitch Element */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 via-fuchsia-500 to-cyan-500 animate-pulse"></div>
+// --- GREEK DECORATIONS FOR FOOTER ---
+const CompassRose = ({ className = "w-8 h-8 text-[#8c6536]" }) => (
+  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
+    <circle
+      cx="50"
+      cy="50"
+      r="42"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeDasharray="3 3"
+    />
+    <circle
+      cx="50"
+      cy="50"
+      r="34"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1"
+    />
+    <polygon points="50,10 54,46 50,42" fill="currentColor" />
+    <polygon points="50,10 46,46 50,42" fill="currentColor" opacity="0.6" />
+    <polygon points="50,90 54,54 50,58" fill="currentColor" opacity="0.6" />
+    <polygon points="50,90 46,54 50,58" fill="currentColor" />
+    <polygon points="90,50 54,54 58,50" fill="currentColor" />
+    <polygon points="90,50 54,46 58,50" fill="currentColor" opacity="0.6" />
+    <polygon points="10,50 46,54 42,50" fill="currentColor" opacity="0.6" />
+    <polygon points="10,50 46,46 42,50" fill="currentColor" />
+    <polygon points="78,22 53,47 56,44" fill="currentColor" />
+    <polygon points="78,22 47,53 56,44" fill="currentColor" opacity="0.6" />
+    <polygon points="22,78 47,53 44,56" fill="currentColor" />
+    <polygon points="22,78 53,47 44,56" fill="currentColor" opacity="0.6" />
+    <polygon points="78,78 53,53 56,56" fill="currentColor" />
+    <polygon points="78,78 47,47 56,56" fill="currentColor" opacity="0.6" />
+    <polygon points="22,22 47,47 44,44" fill="currentColor" />
+    <polygon points="22,22 53,53 44,44" fill="currentColor" opacity="0.6" />
+    <circle cx="50" cy="50" r="3.5" fill="currentColor" />
+  </svg>
+);
 
-      <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
-        <div className="md:col-span-2">
-          <h3 className="text-2xl font-bold text-white mb-4 tracking-tighter">
-            CULRAV <span className="text-gray-600">x</span> AVISHKAR
-          </h3>
-          <p className="text-gray-500 max-w-xs mb-6">
-            The ultimate technocultural saga. Joining forces to create an
-            experience beyond reality.
-          </p>
-          <div className="flex gap-4">
-            <div className="w-8 h-8 bg-gray-900 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-colors cursor-pointer">
-              {/* <div className="w-1 h-1 bg-white rounded-full"></div>
-               */}
+const CulravSun = ({ className = "w-5 h-5 text-[#c4681f]" }) => (
+  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
+    <circle
+      cx="50"
+      cy="50"
+      r="17"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+    />
+    <circle cx="50" cy="50" r="12" opacity="0.3" />
+    <circle cx="50" cy="50" r="6" />
+    <g stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+      <polygon points="50,5 53,24 47,24" />
+      <polygon points="95,50 76,53 76,47" />
+      <polygon points="50,95 47,76 53,76" />
+      <polygon points="5,50 24,47 24,53" />
+      <polygon points="82,18 70,33 65,28" />
+      <polygon points="82,82 67,70 72,65" />
+      <polygon points="18,82 33,70 28,65" />
+      <polygon points="18,18 30,33 35,28" />
+    </g>
+  </svg>
+);
+
+const AvishkarLaurel = ({ className = "w-5 h-5 text-[#463270]" }) => (
+  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
+    <path
+      d="M50 88C30 80 18 60 22 34c2-10 8-18 16-24M50 88c20-8 32-28 28-54-2-10-8-18-16-24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+    />
+    <path d="M24 76c-6-2-10-8-6-12 4 0 7 6 6 12Zm4 2c4-4 5-11 0-14-3 4-3 10 0 14ZM18 60c-6-2-9-9-4-13 5 1 7 7 4 13Zm5 2c5-5 5-12 0-15-3 4-2 11 0 15ZM17 44c-6-3-8-11-2-14 5 2 6 9 2 14Zm6 2c4-6 5-13-1-16-3 4-2 11 1 16ZM22 28c-5-5-4-12 2-14 4 4 3 10-2 14Zm7 2c4-7 6-14 0-16-3 4-3 12 0 16Zm4-14c-3-6 0-11 6-10 2 4-1 10-6 10ZM76 76c6-2 10-8 6-12-4 0-7 6-6 12Zm-4 2c-4-4-5-11 0-14 3 4 3 10 0 14Zm10-18c6-2 9-9 4-13-5 1-7 7-4 13Zm-5 2c-5-5-5-12 0-15 3 4 2 11 0 15Zm6-18c6-3 8-11 2-14-5 2-6 9-2 14Zm-6 2c-4-6-5-13 1-16 3 4 2 11-1 16Zm1-18c5-5 4-12-2-14-4 4-3 10 2 14Zm-7 2c-4-7-6-14 0-16 3 4 3 12 0 16Zm-4-14c3-6 0-11-6-10-2 4 1 10 6 10Z" />
+    <circle cx="50" cy="88" r="3.5" />
+  </svg>
+);
+
+function Footer() {
+  return (
+    <footer className="relative bg-[#edd8b1] text-[#2c1d0c] pt-16 pb-12 sm:pb-16 overflow-hidden border-t-2 border-[#b58b4f] select-none">
+      {/* High-Resolution Parchment Footer Background from uploaded asset */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <img
+          src="/media/homepage/images/footer-bg.png"
+          onError={(e) => {
+            const target = e.target;
+            if (!target.src.includes("Footer.png")) {
+              target.src = "/Footer.png";
+            }
+          }}
+          alt="Ancient Parchment Footer"
+          className="w-full h-full object-cover object-bottom"
+        />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
+        {/* Main 4-Column Layout matching original positioning */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-14 items-start">
+          {/* Column 1: Brand Lockup (md:col-span-4) */}
+          <div className="md:col-span-4 flex flex-col items-start">
+            {/* Sub-crest: CULRAV x AVISHKAR using IcarusSun & TwinLeaves */}
+            <div className="mt-6 flex items-center gap-6">
+              {/* Culrav Emblem + Label */}
+              <div className="flex flex-col items-center gap-1.5 group cursor-default">
+                <img
+                  src="/media/homepage/images/IcarusSun.png"
+                  alt="Culrav Emblem"
+                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_4px_rgba(160,70,10,0.2)]"
+                />
+                <span className="font-cinzel text-xs font-bold tracking-[0.25em] uppercase text-[#9e4a13]">
+                  Culrav
+                </span>
+              </div>
+
+              {/* Vertical Divider */}
+              <div className="h-10 w-px bg-gradient-to-b from-transparent via-[#8c6536]/60 to-transparent" />
+
+              {/* Avishkar Emblem + Label */}
+              <div className="flex flex-col items-center gap-1.5 group cursor-default">
+                <img
+                  src="/media/homepage/images/TwinLeaves.png"
+                  alt="Avishkar Emblem"
+                  className="w-11 h-11 sm:w-12 sm:h-12 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_4px_rgba(70,30,100,0.2)]"
+                />
+                <span className="font-cinzel text-xs font-bold tracking-[0.25em] uppercase text-[#4d2f70]">
+                  Avishkar
+                </span>
+              </div>
+            </div>
+
+            <p className="font-garamond italic text-lg sm:text-xl text-[#5e3f20] mt-2 tracking-wide">
+              Forged in myth, powered by innovation. An epic convergence of
+              technology and culture.
+            </p>
+          </div>
+
+          {/* Column 2: EXPLORE (md:col-span-3) */}
+          <div className="md:col-span-3 flex flex-col">
+            <div className="mb-4">
+              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
+                Explore
+              </h4>
+              <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
+            </div>
+
+            <nav className="flex flex-col space-y-2 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16]">
               <a
-                href="https://www.instagram.com/culrav/"
-                target="_blank"
-                rel="noreferrer"
+                href="#hero"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
               >
-                <Instagram className="w-5 h-5" />
+                Home
+              </a>
+              <a
+                href="#about"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                The Duality
+              </a>
+              <Link
+                to="/culrav"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                Culrav
+              </Link>
+              <Link
+                to="/avishkar"
+                className="hover:text-[#463270] transition-colors py-0.5"
+              >
+                Avishkar
+              </Link>
+              <a
+                href="#gallery"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                Visual Archives
+              </a>
+              <a
+                href="#artist"
+                className="hover:text-[#463270] transition-colors py-0.5"
+              >
+                Main Performer
+              </a>
+            </nav>
+          </div>
+
+          {/* Center Astrolabe Axis (Between Explore and Connect) */}
+          <div className="hidden lg:flex md:col-span-1 justify-center items-center h-48 pointer-events-none">
+            <div className="flex flex-col items-center h-full justify-between">
+              <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-[#8c6536]" />
+              <CompassRose className="w-8 h-8 text-[#8c6536]" />
+              <div className="w-[1px] h-14 bg-gradient-to-b from-[#8c6536] to-transparent" />
+            </div>
+          </div>
+
+          {/* Column 3: CONNECT (md:col-span-2) */}
+          <div className="md:col-span-2 flex flex-col">
+            <div className="mb-4">
+              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
+                Connect
+              </h4>
+              <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
+            </div>
+
+            <div className="flex flex-col space-y-2 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16]">
+              <a
+                href="https://www.instagram.com/culrav_mnnit/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                Instagram
+              </a>
+              <a
+                href="https://www.youtube.com/@CulravMNNIT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                YouTube
+              </a>
+              <a
+                href="https://discord.gg/mnnit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#463270] transition-colors py-0.5"
+              >
+                Discord
+              </a>
+              <a
+                href="https://www.linkedin.com/school/motilal-nehru-national-institute-of-technology/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-[#463270] transition-colors py-0.5"
+              >
+                LinkedIn
               </a>
             </div>
           </div>
-          <div className="mt-2">Built by Web Team 💓 </div>
-        </div>
 
-        <div>
-          <h4 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">
-            Coordinates
-          </h4>
-          <ul className="space-y-2 text-gray-500">
-            <li>MNNIT Allahabad</li>
-            <li>Prayagraj, India</li>
-            <li>211004</li>
-            <a
-              href={GOOGLE_MAP_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block"
-            >
-              <li className="text-cyan-500 pt-2 cursor-pointer hover:text-cyan-400">
-                GET_DIRECTIONS -&gt;
-              </li>
-            </a>
-          </ul>
-        </div>
+          {/* Column 4: CONTACT & SOCIAL ICONS (md:col-span-2) */}
+          <div className="md:col-span-2 flex flex-col">
+            <div className="mb-4">
+              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
+                Contact
+              </h4>
+              <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
+            </div>
 
-        <div>
-          <h4 className="text-white font-bold mb-4 uppercase tracking-widest text-xs">
-            Important Links
-          </h4>
-          <ul className="space-y-2 text-gray-500">
-            <li className="hover:text-cyan-400 cursor-pointer">
-              <Link to="/login" className="hover:text-cyan-400 cursor-pointer">
-                Register
-              </Link>
-            </li>
-            <li className="hover:text-cyan-400 cursor-pointer">
-              <Link
-                to="/sponsors"
-                className="hover:text-cyan-400 cursor-pointer"
+            <div className="space-y-1.5 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16] mb-5">
+              <p>General Inquiries</p>
+              <p className="font-bold text-[#321c0b]">Culrav / Avishkar</p>
+              <p className="text-xs font-sans text-[#73512b]">
+                sac@mnnit.ac.in
+              </p>
+              <p className="text-xs font-sans text-[#73512b]">
+                Allahabad, UP, India
+              </p>
+            </div>
+
+            {/* Social Icons row */}
+            <div className="flex items-center gap-3 text-[#523315]">
+              {/* Instagram */}
+              <a
+                href="https://www.instagram.com/culrav_mnnit/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#c4681f] transition-all"
+                aria-label="Instagram"
               >
-                Sponser
-              </Link>
-            </li>
-            <li className="hover:text-cyan-400 cursor-pointer">
-              <Link to="/team" className="hover:text-cyan-400 cursor-pointer">
-                Team
-              </Link>
-            </li>
-            <li className="hover:text-cyan-400 cursor-pointer">
-              <Link
-                to="/gallery"
-                className="hover:text-cyan-400 cursor-pointer"
-              >
-                Gallery
-              </Link>
-            </li>
-          </ul>
-        </div>
-      </div>
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 fill-none stroke-current stroke-2"
+                >
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+              </a>
 
-      <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-gray-900 text-center text-gray-600 text-xs flex justify-between items-center">
-        <span>© 2025 FEST_OS. ALL RIGHTS RESERVED.</span>
-        <span className="animate-pulse text-green-500">● SYSTEM STABLE</span>
+              {/* YouTube */}
+              <a
+                href="https://www.youtube.com/@CulravMNNIT"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#c4681f] transition-all"
+                aria-label="YouTube"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </a>
+
+              {/* Discord */}
+              <a
+                href="https://discord.gg/mnnit"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#463270] transition-all"
+                aria-label="Discord"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                </svg>
+              </a>
+
+              {/* LinkedIn */}
+              <a
+                href="https://www.linkedin.com/school/motilal-nehru-national-institute-of-technology/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#463270] transition-all"
+                aria-label="LinkedIn"
+              >
+                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright Line & Web Team Credit */}
+        <div className="border-t border-[#bfa275]/60 pt-6 pb-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase">
+          <p className="flex items-center justify-center gap-1.5">
+            <span>✦</span>
+            <span>© 2026 Echoes of Olympus. All Rights Reserved.</span>
+          </p>
+          <p className="flex items-center justify-center gap-1.5 text-[#5e3f20]">
+            <span>Made with</span>
+            <span className="text-red-600 animate-pulse text-sm">❤️</span>
+            <span>by Web Team</span>
+            <span>✦</span>
+          </p>
+        </div>
       </div>
     </footer>
   );
@@ -768,46 +1221,11 @@ function Footer() {
 
 export default function App() {
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [gsapLoaded, setGsapLoaded] = useState(false);
-
-  // Load GSAP Scripts dynamically
-  useEffect(() => {
-    const loadScript = (src) => {
-      return new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) {
-          resolve();
-          return;
-        }
-        const script = document.createElement("script");
-        script.src = src;
-        script.async = true;
-        script.onload = resolve;
-        script.onerror = reject;
-        document.body.appendChild(script);
-      });
-    };
-
-    Promise.all([
-      loadScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-      ),
-      loadScript(
-        "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
-      ),
-    ])
-      .then(() => {
-        setGsapLoaded(true);
-      })
-      .catch((err) => console.error("GSAP Load Error", err));
-  }, []);
+  const pageRef = useRef(null);
 
   // Trigger Animations
-  useEffect(() => {
-    if (gsapLoaded && window.gsap && window.ScrollTrigger) {
-      const gsap = window.gsap;
-      const ScrollTrigger = window.ScrollTrigger;
-      gsap.registerPlugin(ScrollTrigger);
-
+  useLayoutEffect(() => {
+    const context = gsap.context(() => {
       // Navbar
       gsap.from(".logo-trigger", {
         duration: 1,
@@ -827,73 +1245,172 @@ export default function App() {
         .from(
           ".hero-title",
           { duration: 1, y: 50, opacity: 0, ease: "power4.out" },
-          "-=0.4"
+          "-=0.4",
         )
         .from(
           ".hero-sub",
           { duration: 1, opacity: 0, x: -20, ease: "power2.out" },
-          "-=0.6"
+          "-=0.6",
         )
         .from(
           ".hero-btns",
           { duration: 0.8, opacity: 0, y: 20, ease: "back.out(1.7)" },
-          "-=0.5"
+          "-=0.5",
         );
 
       // Section Titles
       gsap.utils.toArray(".section-title").forEach((title) => {
         gsap.from(title, {
-          scrollTrigger: { trigger: title, start: "top 85%" },
+          scrollTrigger: {
+            trigger: title,
+            start: "top 92%",
+            once: true,
+            fastScrollEnd: true,
+            invalidateOnRefresh: true,
+          },
           y: 30,
-          opacity: 0,
-          duration: 1,
+          autoAlpha: 0,
+          duration: 0.7,
           ease: "power3.out",
+          clearProps: "transform,opacity,visibility",
         });
       });
 
-      // About Cards
-      gsap.from(".about-card-left", {
-        scrollTrigger: { trigger: "#about", start: "top 70%" },
-        x: -50,
-        opacity: 0,
-        duration: 1,
-      });
-      gsap.from(".about-center", {
-        scrollTrigger: { trigger: "#about", start: "top 70%" },
-        scale: 0.9,
-        opacity: 0,
-        duration: 1,
-        delay: 0.2,
-      });
-      gsap.from(".about-card-right", {
-        scrollTrigger: { trigger: "#about", start: "top 70%" },
-        x: 50,
-        opacity: 0,
-        duration: 1,
-        delay: 0.4,
+      // About Cards (The Two Realms: Culrav & Avishkar)
+      const tlAbout = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".about-cards-container",
+          start: "top 96%",
+          once: true,
+          fastScrollEnd: true,
+          invalidateOnRefresh: true,
+        },
       });
 
-      // Artist Section
-      gsap.from(".artist-visual", {
-        scrollTrigger: { trigger: "#artist", start: "top 60%" },
-        scale: 0.95,
-        opacity: 0,
-        duration: 1.2,
+      tlAbout
+        .fromTo(
+          ".about-card-left",
+          {
+            x: -48,
+            autoAlpha: 0,
+            scale: 0.985,
+            willChange: "transform, opacity",
+          },
+          {
+            x: 0,
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility,willChange",
+          },
+          0,
+        )
+        .fromTo(
+          ".about-card-right",
+          {
+            x: 48,
+            autoAlpha: 0,
+            scale: 0.985,
+            willChange: "transform, opacity",
+          },
+          {
+            x: 0,
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.7,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility,willChange",
+          },
+          0.08,
+        );
+
+      // Artist Section (The Main Performer: Culrav & Avishkar Lineup Posters)
+      const tlArtist = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".artist-cards-container",
+          start: "top 96%",
+          once: true,
+          fastScrollEnd: true,
+          invalidateOnRefresh: true,
+        },
       });
-      gsap.from(".artist-info", {
-        scrollTrigger: { trigger: "#artist", start: "top 60%" },
-        x: 50,
-        opacity: 0,
-        duration: 1,
-        delay: 0.3,
-      });
+
+      tlArtist
+        .fromTo(
+          ".artist-card-left",
+          {
+            x: -48,
+            autoAlpha: 0,
+            scale: 0.985,
+            willChange: "transform, opacity",
+          },
+          {
+            x: 0,
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.72,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility,willChange",
+          },
+          0,
+        )
+        .fromTo(
+          ".artist-compass",
+          {
+            scale: 0.88,
+            rotation: -8,
+            autoAlpha: 0,
+            willChange: "transform, opacity",
+          },
+          {
+            scale: 1,
+            rotation: 0,
+            autoAlpha: 1,
+            duration: 0.62,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility,willChange",
+          },
+          0.05,
+        )
+        .fromTo(
+          ".artist-card-right",
+          {
+            x: 48,
+            autoAlpha: 0,
+            scale: 0.985,
+            willChange: "transform, opacity",
+          },
+          {
+            x: 0,
+            autoAlpha: 1,
+            scale: 1,
+            duration: 0.72,
+            ease: "power3.out",
+            clearProps: "transform,opacity,visibility,willChange",
+          },
+          0.08,
+        );
 
       // Gallery Stagger
-    }
-  }, [gsapLoaded]);
+    }, pageRef);
+
+    const refresh = () => ScrollTrigger.refresh();
+    const refreshFrame = window.requestAnimationFrame(refresh);
+    window.addEventListener("load", refresh, { once: true });
+
+    return () => {
+      window.cancelAnimationFrame(refreshFrame);
+      window.removeEventListener("load", refresh);
+      context.revert();
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-black text-gray-100 font-sans selection:bg-cyan-500 selection:text-black overflow-x-hidden">
+    <div
+      ref={pageRef}
+      className="min-h-screen bg-black text-gray-100 font-sans selection:bg-cyan-500 selection:text-black overflow-x-hidden"
+    >
       {/* Styles */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap');
@@ -941,10 +1458,6 @@ export default function App() {
         }
       `}</style>
 
-      {/* Overlay Effects */}
-      <div className="fixed inset-0 z-[60] scanlines opacity-20 pointer-events-none h-screen w-screen"></div>
-      <div className="fixed inset-0 z-[55] pointer-events-none bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]"></div>
-
       {/* <Navbar
         mobileMenuOpen={mobileMenuOpen}
         setMobileMenuOpen={setMobileMenuOpen}
@@ -952,6 +1465,7 @@ export default function App() {
 
       <main>
         <HeroSection />
+        <RealmSeparator />
         <AboutSection />
         <GallerySection />
         <ArtistSection />

@@ -90,7 +90,12 @@ export function AnswerView({ fields, answers }) {
               {f.type === "link" &&
               typeof value === "string" &&
               /^https?:\/\//i.test(value) ? (
-                <a href={value} target="_blank" rel="noopener noreferrer">
+                <a
+                  className="ca-submitted-link"
+                  href={value}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   Open submitted link ↗
                 </a>
               ) : Array.isArray(value) ? (

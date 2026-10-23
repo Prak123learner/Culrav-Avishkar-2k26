@@ -19,7 +19,7 @@
         "Participants are required to submit a maximum of 10 photos (minimum 5 photos).",
         "Judging Criteria: Relevance to the theme, Clarity of Storyline, Composition, Creativity, and Editing.",
         "Participants have to depict a story based on the given theme through a series of photos. You can send a PDF file containing the theme, the title and an overall photo-story description of maximum 30 words along with the photos.",
-        "Camera resolution should be at least 3.2 megapixels (any camera may be used: DSLRs, SLRs, mobile cameras, etc.). Photographs must be clicked on a date later than 01-01-2025.",
+        "Camera resolution should be at least 3.2 megapixels (any camera may be used: DSLRs, SLRs, mobile cameras, etc.). Photographs must be clicked on a date later than 01-01-2026.",
         "Make sure that your camera date is set before you click a picture.",
         "In photo editing only global editing is allowed, i.e., cropping and adjustment of hue/saturation and brightness/contrast levels are allowed. Photo-morphing, manipulations or local editing is not allowed.",
         "Do not include your credentials (name, address etc.) or watermarks in the picture or the frame. Such photos will be disqualified.",
@@ -33,16 +33,16 @@
       ],
       "coords": [
         {
-          "name": "Ankit Raj",
-          "phone": "9680905523"
+          "name": "Harsh Singhal",
+          "phone": "8923066601"
         },
         {
-          "name": "Lavanyaa Belokar",
-          "phone": "9730548528"
+          "name": "Tanish Gupta",
+          "phone": "9870783693"
         },
         {
-          "name": "Anisha Singh",
-          "phone": "8858823202"
+          "name": "Krishna Sharma",
+          "phone": "8818800861"
         }
       ],
       "fixedKey": "culrav/darkroom/0"
@@ -58,7 +58,7 @@
         "Participants are required to submit a maximum of 3 submissions under one or more themes: Life in Black and White, Euphoria, Colours.",
         "Judging Criteria: Relevance to theme, Composition, Concept, Technical Accuracy, Creativity and Editing.",
         "Camera resolution should be at least 3.2 megapixels (any cameras may be used: DSLRs, SLRs, mobile cameras, etc.).",
-        "Photographs must be clicked later than or on 01-01-2025.",
+        "Photographs must be clicked later than or on 01-01-2026.",
         "The entry must be submitted in a folder with the pictures and a text file containing the caption (not more than 30 words).",
         "Participants can be asked to submit the original photographs too.",
         "Make sure that your camera date is set before you click a picture.",
@@ -68,7 +68,7 @@
         "The decision of judges will be final and binding.",
         "Media House of MNNIT reserves the right to share any of the submissions on its page as well as on allied handles with due credits of the creator.",
         "Any sign of plagiarism will lead to disqualification.",
-        "Entries can be shared using Drive by uploading on Google Drive or any other such website (like OneDrive, etc.) and sharing it in the Google form provided.",
+        "Entries can be shared using Drive by uploading on Google Drive or any other such website (like OneDrive, etc.) and sharing it in the registration form on the Culrav Avishkar Official website.",
         "The name of the folder should be 'FullName_Year_RegistrationNumber'.",
         "The folder should contain the submissions under the selected one or more themes along with a text file containing the captions for the respective photos.",
         "The caption for each photo should not be more than 30 words.",
@@ -76,31 +76,23 @@
       ],
       "coords": [
         {
-          "name": "Ashmit Pramanik",
-          "phone": "9832055882"
+          "name": "Harsh Singhal",
+          "phone": "8923066601"
         },
         {
-          "name": "Mukesh Akula",
-          "phone": "7993960865"
+          "name": "Krishna Sharma",
+          "phone": "8818800861"
         },
         {
-          "name": "Saachi Pandey",
-          "phone": "7905466289"
-        },
-        {
-          "name": "Sammed Tare",
-          "phone": "7820985938"
-        },
-        {
-          "name": "Tanish Gupta",
-          "phone": "99999999999"
+          "name": "Nikhil",
+          "phone": "9118466238"
         }
       ],
       "fixedKey": "culrav/darkroom/1"
     },
     {
       "id": 9,
-      "name": "Sales-Pitch",
+      "name": "Sales Pitch",
       "desc": ["Revolutionize your marketing with design: Attend our event."],
       "rules": [
         "Rounds: Direct online finals.",
@@ -117,21 +109,21 @@
         "Anything relevant can be added. Bonus points for creativity and ideas.",
         "The decision of judges will be final and binding.",
         "No external PSD, AI or any other project files to be used.",
-        "Rename your entry as '(Your Registration Number) - Team_Name'. Participants have to submit their entry in Google Drive format in the Google form attached below by keeping the access Open To All.",
+        "Rename your entry as '(Your Registration Number) - Team_Name'. Participants have to submit their entry in Google Drive format in the registration form on the Culrav Avishkar official website by keeping the access Open To All.",
         "Participants are expected to send their portfolio in one of the following formats: jpeg, .tiff, .png, .pdf."
       ],
       "coords": [
         {
-          "name": "Arpit Gami",
-          "phone": "7987035960"
+          "name": "Anisha Singh",
+          "phone": "8858823202"
         },
         {
-          "name": "Shikhar Gupta",
-          "phone": "6386680769"
+          "name": "Prakhar Patni",
+          "phone": "8767937119"
         },
         {
-          "name": "Siddhi Prasad",
-          "phone": "9348938647"
+          "name": "Saakshi Matale",
+          "phone": "9561828335"
         }
       ],
       "fixedKey": "culrav/darkroom/2"
@@ -153,22 +145,21 @@
         "Photos to be used for photo composition/manipulation: To be announced.",
         "Submissions:",
         "Participants are expected to send their submissions in one of the following formats: jpeg, .tiff, .png, .pdf.",
-        "Please mail your submission to mhm.mnnit@gmail.com. The subject of the mail should be 'Layers: your_name'. Mails with improper subjects will not be accepted.",
-        "Entries can also be shared by uploading on Google Drive or any other such website and emailing the link to mhm.mnnit@gmail.com with the subject of the email to be 'Layers: your_name'.",
+        "Entries can be shared by uploading on Google Drive or any other such website and attaching the link to the provided registration form",
         "Team Size: Solo."
       ],
       "coords": [
         {
-          "name": "Manav Bhatt",
-          "phone": "8791865158"
+          "name": "Ayush Kumar",
+          "phone": "7897092845"
         },
         {
-          "name": "Khushi Singh",
-          "phone": "8976528050"
+          "name": "Anisha Singh",
+          "phone": "8858823202"
         },
         {
-          "name": "Suvendra Singh",
-          "phone": "9557017770"
+          "name": "Sankalp Bansal",
+          "phone": "9548254674"
         }
       ],
       "fixedKey": "culrav/darkroom/3"
@@ -193,28 +184,27 @@
         "Plagiarism is strictly prohibited.",
         "Soundtracks (no max time limit) and stock footage (time limit: max of 15 seconds) can be borrowed, but with due credits.",
         "Submissions:",
-        "Please mail your entries to mhm.mnnit@gmail.com. The subject of the mail should be 'B-Roll: your_name'. Mails with improper subjects will not be accepted.",
-        "Entries can also be shared using Google Drive or any other such website and emailing the link to mhm.mnnit@gmail.com with the subject of the email to be 'B-Roll: your_name'."
+        "Entries can be shared using Google Drive or any other such website and attaching the link to the provided registration form."
       ],
       "coords": [
         {
-          "name": "Sreyia Gupta",
-          "phone": "8849846339"
+          "name": "Vishesh Vigh",
+          "phone": "9205266380"
         },
         {
-          "name": "Satyam Prajapati",
-          "phone": "9452549006"
+          "name": "Khyati Jain",
+          "phone": "8435478765"
         },
         {
-          "name": "Aritra Mahara",
-          "phone": "8250015439"
+          "name": "Abhishek Jha",
+          "phone": "8368866357"
         }
       ],
       "fixedKey": "culrav/darkroom/4"
     },
     {
       "id": 12,
-      "name": "Short-Film",
+      "name": "Short Film",
       "desc": [
         "Fancy yourself as a filmmaker? Create a captivating narrative by using visuals and dialogues that will keep the audience engaged."
       ],
@@ -230,17 +220,20 @@
         "Sound tracks (no max time limit) and stock footage (time limit: max of 1 min 30 seconds) can be borrowed, but with due credits.",
         "Team Size: 1–4.",
         "Submissions:",
-        "The subject of the mail should be \"ShortFilm: your_name\". Mails with improper subjects will not be accepted.",
-        "Entries can also be shared using Drive by uploading on Google Drive or any other such website and emailing the link to mhm.mnnit@gmail.com with the subject of the email to be \"Shortfilm: your_name / Link\"."
+        "Entries can be shared using Drive by uploading on Google Drive or any other such website and and attaching the link to the provided registration form"
       ],
       "coords": [
         {
-          "name": "Aditya Sharma",
-          "phone": "7878589193"
+          "name": "Vishesh Vigh",
+          "phone": "9205266380"
         },
         {
-          "name": "Vaibhawi Ranjan",
-          "phone": "7004621331"
+          "name": "Khyati Jain",
+          "phone": "8435478765"
+        },
+        {
+          "name": "Abhishek Jha",
+          "phone": "8368866357"
         }
       ],
       "fixedKey": "culrav/darkroom/5"

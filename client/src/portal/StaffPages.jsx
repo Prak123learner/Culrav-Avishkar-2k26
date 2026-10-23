@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
 import { useResource } from "./useResource";
@@ -7,7 +7,12 @@ import { ChangeStaffPassword } from "./AuthPages";
 import { FormFields, AnswerView } from "./FormFields";
 import { ChoiceOptionsEditor } from "./ChoiceOptionsEditor";
 import { AuditLogs } from "./AuditLogs";
-import { PortalLoading, DataLoading } from "./PortalLoading";
+import {
+  PortalLoading,
+  DataLoading,
+  CategoriesSkeleton,
+  SubeventsSkeleton,
+} from "./PortalLoading";
 import "./portal.css";
 
 const defaultLinkInstructions =
@@ -34,19 +39,31 @@ function StaffWorkspace() {
   const { staff } = usePortal(),
     [tab, setTab] = useState("events");
   const categories = useResource("/staff/categories");
+  const tabs = [
+    ["events", "I", "Events"],
+    ["CA ID lookup", "II", "CA ID lookup"],
+    ...(staff.role === "admin"
+      ? [
+          ["coordinators", "III", "Coordinators"],
+          ["logs", "IV", "Audit logs"],
+        ]
+      : []),
+  ];
   return (
     <main className="ca-portal ca-staff">
       <header className="ca-heading ca-workspace-heading">
-        <div>
-          <span className="ca-kicker">Festival operations / 2026</span>
-          <p>
-            {staff.caId} · {staff.email}
-          </p>
-          <h1>
-            {staff.role === "admin"
-              ? "Festival administration"
-              : "Coordinator workspace"}
-          </h1>
+        <div className="ca-staff-identity">
+          <div className="ca-staff-heading-copy">
+            <span className="ca-kicker">Festival operations · 2026</span>
+            <p>
+              {staff.caId} · {staff.email}
+            </p>
+            <h1>
+              {staff.role === "admin"
+                ? "Festival administration"
+                : "Coordinator workspace"}
+            </h1>
+          </div>
         </div>
       </header>
       {categories.error && (
@@ -54,19 +71,26 @@ function StaffWorkspace() {
           {categories.error}
         </p>
       )}
-      <nav className="ca-tabs">
-        {[
-          "events",
-          "CA ID lookup",
-          ...(staff.role === "admin" ? ["coordinators", "logs"] : []),
-        ].map((t) => (
-          <button key={t} onClick={() => setTab(t)} aria-pressed={t === tab}>
-            {t}
+      <nav
+        className="ca-tabs ca-staff-tabs ca-archive-tabs"
+        style={{ "--archive-tab-count": tabs.length }}
+      >
+        {tabs.map(([key, numeral, label]) => (
+          <button
+            key={key}
+            className="ca-tab-button"
+            onClick={() => setTab(key)}
+            aria-pressed={key === tab}
+          >
+            <span className="ca-tab-numeral" aria-hidden="true">
+              {numeral}
+            </span>
+            <span>{label}</span>
           </button>
         ))}
       </nav>
       {categories.loading ? (
-        <DataLoading label="Loading categories…" />
+        <CategoriesSkeleton />
       ) : tab === "events" ? (
         <ManageEvents categories={categories.data?.categories || []} />
       ) : tab === "CA ID lookup" ? (
@@ -387,9 +411,10 @@ function ManageEvents({ categories }) {
     [editing, setEditing] = useState(null),
     [review, setReview] = useState(null),
     [reviewCategory, setReviewCategory] = useState(null),
-    [festival, setFestival] = useState(""),
-    [categoryId, setCategoryId] = useState(""),
     [search, setSearch] = useState("");
+  const [selection, setSelection] = useSearchParams();
+  const festival = selection.get("festival") || "";
+  const categoryId = selection.get("category") || "";
   const query = search.trim().toLowerCase();
   const events = resource.data?.events || [];
   const matches = (value) => value.toLowerCase().includes(query);
@@ -403,8 +428,7 @@ function ManageEvents({ categories }) {
       )
     : events.filter((event) => event.categoryId?._id === categoryId);
   function openCategory(category) {
-    setFestival(category.festival);
-    setCategoryId(category._id);
+    setSelection({ festival: category.festival, category: category._id });
     setSearch("");
   }
   if (editing)
@@ -432,8 +456,20 @@ function ManageEvents({ categories }) {
         onClose={() => setReviewCategory(null)}
       />
     );
+  if (resource.loading)
+    return (
+      <section className="ca-realm-directory" aria-busy="true">
+        <h2>Festival events</h2>
+        <p>
+          Existing event names, categories, descriptions, rules and public
+          contacts are maintained in the static event catalog. Manage
+          participation settings and registration forms here.
+        </p>
+        <SubeventsSkeleton />
+      </section>
+    );
   return (
-    <section>
+    <section className="ca-realm-directory">
       <h2>Festival events</h2>
       <p>
         Existing event names, categories, descriptions, rules and public
@@ -448,7 +484,6 @@ function ManageEvents({ categories }) {
           {resource.error}
         </p>
       )}
-      {resource.loading && <DataLoading label="Loading subevents…" />}
       <label className="ca-event-search">
         Search events or categories
         <input
@@ -462,8 +497,7 @@ function ManageEvents({ categories }) {
         <button
           className="ca-secondary"
           onClick={() => {
-            setFestival("");
-            setCategoryId("");
+            setSelection({});
             setSearch("");
           }}
         >
@@ -475,7 +509,7 @@ function ManageEvents({ categories }) {
             <button
               className="ca-secondary"
               onClick={() => {
-                setCategoryId("");
+                setSelection({ festival });
                 setSearch("");
               }}
             >
@@ -494,25 +528,35 @@ function ManageEvents({ categories }) {
       </nav>
       {!query && !festival && (
         <div className="ca-grid">
-          {["avishkar", "culrav"].map((name) => (
+          {["avishkar", "culrav"].map((name, index) => (
             <button
               className="ca-festival-tile"
               data-festival={name}
               key={name}
-              onClick={() => setFestival(name)}
+              onClick={() => setSelection({ festival: name })}
             >
-              <span>
-                {name === "avishkar"
-                  ? "Technical festival"
-                  : "Cultural festival"}
+              <span className="ca-realm-order" aria-hidden="true">
+                {index === 0 ? "I" : "II"}
               </span>
-              <strong>{name === "avishkar" ? "Avishkar" : "Culrav"}</strong>
-              <span>
-                {
-                  categories.filter((category) => category.festival === name)
-                    .length
-                }{" "}
-                categories →
+              <span className="ca-realm-copy">
+                <small>
+                  {name === "avishkar"
+                    ? "Technical festival"
+                    : "Cultural festival"}
+                </small>
+                <strong>{name === "avishkar" ? "Avishkar" : "Culrav"}</strong>
+                <span className="ca-realm-divider" aria-hidden="true" />
+                <span className="ca-realm-count">
+                  {
+                    categories.filter(
+                      (category) => category.festival === name,
+                    ).length
+                  }{" "}
+                  categories
+                </span>
+              </span>
+              <span className="ca-realm-enter">
+                Enter realm <span aria-hidden="true">→</span>
               </span>
             </button>
           ))}
@@ -745,11 +789,11 @@ function EventEditor({ event, categories, onClose, onSaved }) {
   }
   return (
     <section>
-      <div className="ca-heading">
-        <h2>{draft.title}</h2>
+      <div className="ca-heading ca-editor-heading">
         <button className="ca-secondary" onClick={onClose}>
           Back
         </button>
+        <h2>{draft.title}</h2>
       </div>
       <form onSubmit={save} className="ca-card ca-form">
         <p>
@@ -1182,11 +1226,11 @@ function ResponseReview({ event, category, events = [], onClose }) {
   }
   return (
     <section>
-      <div className="ca-heading">
-        <h2>{category?.name || event.title} · Responses</h2>
+      <div className="ca-heading ca-editor-heading">
         <button className="ca-secondary" onClick={onClose}>
           Back
         </button>
+        <h2>{category?.name || event.title} · Responses</h2>
       </div>
       <div className="ca-toolbar">
         {category && (

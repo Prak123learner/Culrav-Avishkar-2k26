@@ -1,0 +1,105 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "gnosomania",
+  "categoryName": "Gnosomania",
+  "eventName": "Gnosomania",
+  "tagline": "",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "India Quiz",
+      "registrationLink": "",
+      "eventId": "63",
+      "description": "India Quiz: Test your knowledge of India’s history, culture, geography, heritage, and current affairs.",
+      "rules": [
+        "Open to all branches.",
+        "Cross-year teams are allowed.",
+        "Participants may compete solo or in a team of up to 3 people.",
+        "The quiz has two parts: Qualifiers and Finals.",
+        "The top 8 teams qualify for the Finals."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anaranyo Sarkar", "contact": "9748891158" },
+        { "name": "Shreyansh Rathi", "contact": "9131904757" }
+      ],
+      "fixedKey": "avishkar/gnosomania/0"
+    },
+    {
+      "eventName": "Sci-Biz-Tech Quiz",
+      "registrationLink": "",
+      "eventId": "64",
+      "description": "Sci-Biz-Tech Quiz: Challenge yourself with questions on science, business, technology, innovation, and emerging trends.",
+      "rules": [
+        "Open to all branches.",
+        "Cross-year teams are allowed.",
+        "Participants may compete solo or in a team of up to 3 people.",
+        "The quiz has two parts: Qualifiers and Finals.",
+        "The top 8 teams qualify for the Finals."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anaranyo Sarkar", "contact": "9748891158" },
+        { "name": "Shreyansh Rathi", "contact": "9131904757" }
+      ],
+      "fixedKey": "avishkar/gnosomania/1"
+    },
+    {
+      "eventName": "MELA Quiz",
+      "registrationLink": "",
+      "eventId": "65",
+      "description": "MELA Quiz: Music, Entertainment, Literature, Art Quiz. Everything all at once.",
+      "rules": [
+        "Open to all branches.",
+        "Cross-year teams are allowed.",
+        "Participants may compete solo or in a team of up to 3 people.",
+        "The quiz has two parts: Qualifiers and Finals.",
+        "The top 8 teams qualify for the Finals."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anaranyo Sarkar", "contact": "9748891158" },
+        { "name": "Shreyansh Rathi", "contact": "9131904757" }
+      ],
+      "fixedKey": "avishkar/gnosomania/2"
+    },
+    {
+      "eventName": "General Quiz",
+      "registrationLink": "",
+      "eventId": "66",
+      "description": "Everything about every topic that you can or cannot imagine — a not-so-general General Quiz.",
+      "rules": [
+        "Open to all branches.",
+        "Cross-year teams are allowed.",
+        "Participants may compete solo or in a team of up to 3 people.",
+        "The quiz has two parts: Qualifiers and Finals.",
+        "The top 8 teams qualify for the Finals."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anaranyo Sarkar", "contact": "9748891158" },
+        { "name": "Shreyansh Rathi", "contact": "9131904757" }
+      ],
+      "fixedKey": "avishkar/gnosomania/3"
+    },
+    {
+      "eventName": "Sports Quiz",
+      "registrationLink": "",
+      "eventId": "67",
+      "description": "Sports Quiz: Test your knowledge of sports, legendary athletes, major tournaments, records, and sporting events.",
+      "rules": [
+        "Open to all branches.",
+        "Cross-year teams are allowed.",
+        "Participants may compete solo or in a team of up to 3 people.",
+        "The quiz has two parts: Qualifiers and Finals.",
+        "The top 8 teams qualify for the Finals."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anaranyo Sarkar", "contact": "9748891158" },
+        { "name": "Shreyansh Rathi", "contact": "9131904757" }
+      ],
+      "fixedKey": "avishkar/gnosomania/4"
+    }
+  ]
+}

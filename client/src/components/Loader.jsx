@@ -1,119 +1,87 @@
 import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { Terminal } from "lucide-react"; // Using Terminal icon for thematic flair
 
-export default function CyberpunkEllipsisLoader({ onComplete }) {
-  const loaderRef = useRef(null); // Reference for the main loader container
-  const dotsRef = useRef([]); // Reference for the three individual dots
+const MEANDER_PATH =
+  "M0 14h18V2h24v24H6V10h24v8H18v-4h24v12h24V2h24v24H54V10h24v8H66v-4h24v12h24V2h24v24h-36V10h24v8h-12v-4h24";
+
+export default function OracleScrollLoader({ onComplete }) {
+  const loaderRef = useRef(null);
 
   useEffect(() => {
-    // GSAP timeline for the loader exit animation
-    const exitTimeline = gsap.timeline({
-      paused: true, // Start paused, we'll play it on "completion"
-      onComplete: () => {
-        if (onComplete) onComplete(); // Call the parent's onComplete function
-      },
-    });
-
-    exitTimeline.to(loaderRef.current, {
-      opacity: 0,
-      y: -50, // Slide up as it fades out
-      duration: 0.7,
-      ease: "power2.in",
-      delay: 0.5, // Small delay before fading out after dots finish their cycle
-    });
-
-    // GSAP timeline for the dots animation
-    const dotsTimeline = gsap.timeline({ repeat: -1 }); // Infinite repeat
-
-    // Animate each dot to float up and down sequentially
-    dotsTimeline
-      .to(dotsRef.current[0], { y: -8, duration: 0.3, ease: "sine.inOut" })
-      .to(
-        dotsRef.current[1],
-        { y: -8, duration: 0.3, ease: "sine.inOut" },
-        "-=0.2"
-      ) // Staggered start
-      .to(
-        dotsRef.current[2],
-        { y: -8, duration: 0.3, ease: "sine.inOut" },
-        "-=0.2"
-      )
-      // Animate them back down
-      .to(
-        dotsRef.current[0],
-        { y: 0, duration: 0.3, ease: "sine.inOut" },
-        "+=0.1"
-      )
-      .to(
-        dotsRef.current[1],
-        { y: 0, duration: 0.3, ease: "sine.inOut" },
-        "-=0.2"
-      )
-      .to(
-        dotsRef.current[2],
-        { y: 0, duration: 0.3, ease: "sine.inOut" },
-        "-=0.2"
-      );
-
-    // Simulate loading time (e.g., 3-5 seconds)
-    const simulatedLoadTime = Math.random() * (2000 - 1000) + 1000; // 1 to 2 seconds for testing purposes
-    // For real app, this would be determined by actual asset loading.
-
-    // Once the simulated load is done, play the exit animation
-    const timer = setTimeout(() => {
-      exitTimeline.play();
-    }, simulatedLoadTime);
+    const revealTimer = window.setTimeout(() => {
+      loaderRef.current?.classList.add("oracle-loader-leaving");
+    }, 3150);
+    const completionTimer = window.setTimeout(() => {
+      onComplete?.();
+    }, 3750);
 
     return () => {
-      clearTimeout(timer);
-      dotsTimeline.kill(); // Clean up GSAP timelines on unmount
-      exitTimeline.kill();
+      window.clearTimeout(revealTimer);
+      window.clearTimeout(completionTimer);
     };
   }, [onComplete]);
 
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 flex flex-col items-center justify-center bg-black backdrop-blur-md text-white z-[100] font-mono p-4"
+      className="oracle-loader"
+      role="status"
+      aria-live="polite"
+      aria-label="Opening Culrav Avishkar"
     >
-      {/* Background Circuit Grid (subtle, responsive) */}
-      <div
-        className="absolute inset-0 opacity-10"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(192, 38, 211, 0.1) 1px, transparent 1px)",
-          backgroundSize: "40px 40px", // Smaller grid for mobile, scales up naturally
-        }}
-      ></div>
+      <div className="oracle-loader-haze" />
+      <div className="oracle-loader-stars" />
 
-      <div className="relative z-10 flex flex-col items-center justify-center space-y-4">
-        {/* Title: Data Stream */}
-        <div className="flex items-center justify-center text-center tracking-widest uppercase">
-          <Terminal className="w-5 h-5 md:w-8 md:h-8 mr-2 md:mr-3 text-cyan-400 drop-shadow-[0_0_8px_rgba(6,182,212,0.8)]" />
-          <div className="text-2xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-fuchsia-400 drop-shadow-[0_0_10px_rgba(6,182,212,0.6)]">
-            LOADING
+      <div className="oracle-scroll-stage">
+        <div className="oracle-scroll-shadow" />
+        <div className="oracle-scroll">
+          <div className="oracle-scroll-sheet">
+            <span className="oracle-scroll-roll oracle-scroll-roll-top">
+              <span className="oracle-scroll-roll-paper" />
+            </span>
+            <span className="oracle-scroll-roll oracle-scroll-roll-bottom">
+              <span className="oracle-scroll-roll-paper" />
+            </span>
+
+            <div className="oracle-scroll-viewport">
+              <div className="oracle-scroll-surface">
+                <Meander className="oracle-meander oracle-meander-top" />
+
+                <div className="oracle-scroll-content">
+                  <span className="oracle-eyebrow">Echoes of Olympus</span>
+                  <img
+                    src="/media/common/branding/logo_avishkar_culrav.png"
+                    alt="Culrav Avishkar"
+                    className="oracle-logo"
+                  />
+                  <p className="oracle-copy">The realms awaken</p>
+                </div>
+
+                <Meander className="oracle-meander oracle-meander-bottom" />
+              </div>
+            </div>
           </div>
         </div>
-
-        {/* Ellipsis Dots Container */}
-        <div className="flex items-end space-x-2 h-8">
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              ref={(el) => (dotsRef.current[i] = el)}
-              className="text-fuchsia-400 text-3xl md:text-5xl font-bold leading-none origin-bottom"
-              style={{ display: "inline-block" }} // Needed for GSAP transform
-            >
-              .
-            </span>
-          ))}
-        </div>
-
-        <p className="mt-4 text-xs md:text-sm text-fuchsia-400 tracking-wider text-center max-w-xs md:max-w-none">
-          SYSTEM SYNCHRONIZATION IN PROGRESS
-        </p>
       </div>
+      <span className="sr-only">Loading the festival experience</span>
     </div>
   );
+}
+
+function Meander({ className }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 138 28"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      <path d={MEANDER_PATH} fill="none" vectorEffect="non-scaling-stroke" />
+    </svg>
+  );
+}
+
+import { RouteSuspenseLoader } from "./NavigationPortalLoader";
+
+export function RouteLoader() {
+  return <RouteSuspenseLoader />;
 }

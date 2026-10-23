@@ -1,16 +1,16 @@
 # Culrav–Avishkar backend
 
-## Reset local festival test data
+## Reset festival data
 
-Stop the backend and back up the local MongoDB database before running this command:
+Back up the target MongoDB database before running this command. Run it from your own machine with `MONGO` pointing to the database you intend to reset; it works with local MongoDB or Atlas. Include the database name in the URI (for example, `/culrav_avishkar`):
 
 ```powershell
-npm run reset:test-data -- --confirm=RESET-FESTIVAL-DATA
+npm run reset:festival-data -- --database=culrav_avishkar --confirm=RESET-FESTIVAL-DATA
 ```
 
-Run it from the `server` directory. It preserves only the admin configured by `ADMIN_EMAIL`, including that admin's password and CA ID. It removes other portal accounts, teams, registrations, responses, sessions and audit records, then recreates the 20 categories and 116 events with empty unpublished forms.
+Run it from the `server` directory, replacing `culrav_avishkar` with the exact database name in `MONGO`. It preserves only the admin configured by `ADMIN_EMAIL`, including that admin's password and CA ID. It removes other portal accounts, teams, registrations, responses, sessions and audit records, then recreates the categories and events from the current `portal/registration-catalog.json` with empty unpublished forms. Update that JSON before running the reset when changing the event catalog.
 
-The reset script refuses to run when `NODE_ENV=production`, when MongoDB is not local, when the configured admin cannot be verified, or when the exact confirmation argument is missing. It is a backend CLI command and is not exposed through the frontend or an HTTP route.
+The reset refuses to run without the exact confirmation argument, an explicit database name in `MONGO`, a matching `--database` argument, or a verified admin account. It is a backend CLI command, not an HTTP route or frontend feature. It does not run automatically during deployment. Stop the backend or put registration on hold while the reset is in progress so requests do not write into partially reset data.
 
 After reseeding, the reset automatically creates missing declared indexes using the same setup as `npm run db:indexes`. You do not need to run that command separately after a successful reset. Existing indexes are retained. If index setup fails, the command exits with an error; the reset has already happened, so fix the reported issue and run `npm run db:indexes` rather than resetting again.
 

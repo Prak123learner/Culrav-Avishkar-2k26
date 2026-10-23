@@ -2,14 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import { Aperture, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
-import dj from "/videos/dj.webm";
-import posterDj from "/img/dj.webp";
-import f3 from "/videos/f3.webm";
-import posterF3 from "/img/f3.webp";
-import f4 from "/videos/f4.webm";
-import posterF4 from "/img/f4.webp";
-import f1 from "/videos/f1.webm";
-import posterF1 from "/img/f1.webp";
+import dj from "/media/homepage/videos/dj.webm";
+import posterDj from "/media/homepage/images/dj.webp";
+import f3 from "/media/homepage/videos/f3.webm";
+import posterF3 from "/media/homepage/images/f3.webp";
+import f4 from "/media/homepage/videos/f4.webm";
+import posterF4 from "/media/homepage/images/f4.webp";
+import f1 from "/media/homepage/videos/f1.webm";
+import posterF1 from "/media/homepage/images/f1.webp";
 import SectionHeading from "../../components/SectionHeading";
 import TimeStampCard from "../../components/TimeStampCard";
 // -----------------------------------------------------

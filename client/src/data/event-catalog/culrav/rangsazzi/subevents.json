@@ -8,7 +8,9 @@
     {
       "id": 20,
       "name": "PAINT THE WAY",
-      "desc": ["THE WORLD IS YOUR CANVAS, PAINT IT WITHOUT INHIBITIONS."],
+      "desc": [
+        "A team road-painting challenge where creativity transforms the streets into vibrant works of art."
+      ],
       "rules": [
         "This is a team event with a minimum size of 4 and a maximum size of 5.",
         "Time limit is 3 hrs.",
@@ -21,20 +23,12 @@
       ],
       "coords": [
         {
-          "name": "Tanishka Thakur",
-          "phone": "7089526552"
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
         },
         {
-          "name": "Rishiraj Poswal",
-          "phone": "7668816959"
-        },
-        {
-          "name": "Subham Kumar Choudhary",
-          "phone": "8507666101"
-        },
-        {
-          "name": "Meemansha Singh",
-          "phone": "6389574220"
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
         }
       ],
       "fixedKey": "culrav/rangsazzi/0"
@@ -42,7 +36,9 @@
     {
       "id": 21,
       "name": "LET’S FACE IT",
-      "desc": ["Brushing on smiles, one face at a time."],
+      "desc": [
+        "A face-painting challenge where partners bring an on-the-spot theme to life through artistic expression."
+      ],
       "rules": [
         "A team of 2 members will be allowed.",
         "Time limit is 2 hours.",
@@ -53,20 +49,12 @@
       ],
       "coords": [
         {
-          "name": "Abhay Agrawal",
-          "phone": "9695666222"
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
         },
         {
-          "name": "Shiksha Vishwakarma",
-          "phone": "6387054430"
-        },
-        {
-          "name": "Abhineet Agarwal",
-          "phone": "8791179718"
-        },
-        {
-          "name": "Simran Behera",
-          "phone": "7011206149"
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
         }
       ],
       "fixedKey": "culrav/rangsazzi/1"
@@ -74,7 +62,9 @@
     {
       "id": 22,
       "name": "SWADDLE",
-      "desc": ["FROM PAPER TO RUNWAY, CREATIVITY UNFOLDS."],
+      "desc": [
+        "A creative fashion challenge where teams transform everyday materials into unique outfits."
+      ],
       "rules": [
         "This is a team event with a minimum size of 2 and a maximum size of 4. One team member will act as the model, while another will be tasked with designing the outfit.",
         "Time limit is 3 hours.",
@@ -86,20 +76,12 @@
       ],
       "coords": [
         {
-          "name": "Meemansha Singh",
-          "phone": "6389574220"
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
         },
         {
-          "name": "Shiksha Vishwakarma",
-          "phone": "6387054430"
-        },
-        {
-          "name": "Subham Kr Chaudhary",
-          "phone": "8507666101"
-        },
-        {
-          "name": "Karun",
-          "phone": "9667176881"
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
         }
       ],
       "fixedKey": "culrav/rangsazzi/2"
@@ -107,7 +89,9 @@
     {
       "id": 23,
       "name": "BLIND ART",
-      "desc": ["ART TRANSCENDS SIGHT, BORN FROM THE HEART."],
+      "desc": [
+        "A team challenge where one member creates art blindfolded while their partner guides them using verbal instructions."
+      ],
       "rules": [
         "A team of 2 members will be allowed.",
         "Time limit is 1.5 hours.",
@@ -121,12 +105,12 @@
       ],
       "coords": [
         {
-          "name": "Tanishka Thakur",
-          "phone": "7089526552"
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
         },
         {
-          "name": "Abhay Agrawal",
-          "phone": "9695666222"
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
         }
       ],
       "fixedKey": "culrav/rangsazzi/3"
@@ -134,7 +118,9 @@
     {
       "id": 24,
       "name": "Momento Vinci",
-      "desc": ["SKETCHING MOMENTS, ETCHING MEMORIES."],
+      "desc": [
+        "A solo sketching event where participants capture the beauty of the campus through their artistic perspective."
+      ],
       "rules": [
         "This is a solo event.",
         "Time limit is 2 hours.",
@@ -145,15 +131,69 @@
       ],
       "coords": [
         {
-          "name": "Abhineet Agarwal",
-          "phone": "8791179718"
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
         },
         {
-          "name": "Rishiraj Poswal",
-          "phone": "7668816959"
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
         }
       ],
       "fixedKey": "culrav/rangsazzi/4"
+    },
+    {
+      "id": 25,
+      "name": "Finger Print",
+      "desc": [
+        "Finger Print is a solo painting challenge where participants use only their fingers to bring an on-the-spot theme to life through creativity and imagination."
+      ],
+      "rules": [
+        "This is a solo event.",
+        "Time limit is 2 hours.",
+        "Participants must make a painting with their fingers only, based on a theme given on the spot.",
+        "Participants are strictly prohibited from using brushes or anything in place of fingers to paint. All logistics will be provided on the spot; no additional logistics may be used.",
+        "Evaluation will be based on the judges' discretion and interpretation of the artwork, including portrayal of the theme, creativity, and overall presentation.",
+        "Use of outside aids is strictly prohibited and may lead to disqualification.",
+        "The coordinators may change the rules as needed."
+      ],
+      "coords": [
+        {
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
+        },
+        {
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
+        }
+      ],
+      "fixedKey": "culrav/rangsazzi/5"
+    },
+    {
+      "id": 26,
+      "name": "Stroke Shuffle",
+      "desc": [
+        "Stroke Shuffle is a team painting challenge where three members rotate across canvases every 15 minutes to create collaborative masterpieces."
+      ],
+      "rules": [
+        "A team of 3 members is allowed.",
+        "Time limit is 1.5 hours.",
+        "The theme will be announced on the spot.",
+        "Each team will receive 3 canvases. The canvases circulate among team members in a specified order every 15 minutes so each member works on a different canvas; each canvas must be completed within the allotted time.",
+        "All logistics will be provided on the spot. Participants may bring their own stationery with coordinator approval.",
+        "Evaluation will be based on the judges' discretion and interpretation of the artwork, including portrayal of the theme, creativity, and overall presentation.",
+        "The coordinators may change the rules as needed."
+      ],
+      "coords": [
+        {
+          "name": "Kallol Mondal",
+          "phone": "9547291634"
+        },
+        {
+          "name": "Harsh Sharma",
+          "phone": "7906051208"
+        }
+      ],
+      "fixedKey": "culrav/rangsazzi/6"
     }
   ]
 }

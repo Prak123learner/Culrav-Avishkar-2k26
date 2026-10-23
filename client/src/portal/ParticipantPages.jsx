@@ -12,7 +12,15 @@ import { useResource } from "./useResource";
 import { useTeams } from "./useTeams";
 import { FormFields, AnswerView } from "./FormFields";
 import { courses, courseYears, branches, branchName } from "./profileOptions";
-import { PortalLoading, DataLoading, DataLoadingPage } from "./PortalLoading";
+import {
+  PortalLoading,
+  DataLoading,
+  DataLoadingPage,
+  TeamsSkeleton,
+  RegistrationsSkeleton,
+} from "./PortalLoading";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
+import CulravBG from "../assets/common/backgrounds/CulravBG.png";
 import "./portal.css";
 const formatDeadline = (value) =>
   new Intl.DateTimeFormat(undefined, {
@@ -36,7 +44,8 @@ const complete = (u) =>
 function Guard({ children, requireComplete = false }) {
   const { user, loading } = usePortal();
   const location = useLocation();
-  if (loading) return <PortalLoading label="Restoring participant access" />;
+  if (loading)
+    return <PortalLoading label="Opening your participant archive" />;
   if (user && requireComplete && !complete(user)) {
     return (
       <Navigate
@@ -49,7 +58,13 @@ function Guard({ children, requireComplete = false }) {
   return user ? (
     children
   ) : (
-    <Navigate to="/login" state={{ returnTo: location.pathname }} replace />
+    <Navigate
+      to="/login"
+      state={{
+        returnTo: `${location.pathname}${location.search}${location.hash}`,
+      }}
+      replace
+    />
   );
 }
 export function ParticipantHome() {
@@ -90,12 +105,14 @@ function Workspace() {
     navigate(location.pathname, { replace: true, state: null });
   }, [location.pathname, location.state, navigate]);
   return (
-    <main className="ca-portal ca-participant">
+    <main className="ca-portal ca-participant" data-active-tab={tab}>
       <header className="ca-heading ca-workspace-heading">
-        <div>
-          <span className="ca-kicker">Participant access / 2026</span>
-          <p>{user.caId}</p>
-          <h1>Welcome, {user.name}</h1>
+        <div className="ca-workspace-identity">
+          <div className="ca-workspace-copy">
+            <span className="ca-kicker">Citizen of the two realms · 2026</span>
+            <p>{user.caId}</p>
+            <h1>Welcome, {user.name}</h1>
+          </div>
         </div>
         <button
           className="ca-secondary"
@@ -109,10 +126,24 @@ function Workspace() {
           {error}
         </p>
       )}
-      <nav className="ca-tabs">
-        {["profile", "registrations", "teams"].map((t) => (
-          <button key={t} onClick={() => setTab(t)} aria-pressed={tab === t}>
-            {t === "registrations" ? "Registered events" : t}
+      <nav
+        className="ca-tabs ca-archive-tabs"
+        style={{ "--archive-tab-count": 3 }}
+      >
+        {[
+          ["profile", "I", "Profile"],
+          ["registrations", "II", "Registered events"],
+          ["teams", "III", "Teams"],
+        ].map(([key, numeral, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            aria-pressed={tab === key}
+          >
+            <span className="ca-tab-numeral" aria-hidden="true">
+              {numeral}
+            </span>
+            <span>{label}</span>
           </button>
         ))}
       </nav>
@@ -198,7 +229,6 @@ function Profile() {
   }
   return (
     <form className="ca-card ca-form" onSubmit={requestConfirmation}>
-      <h2>Your participant profile</h2>
       {location.state?.profileRequired && !complete(user) && (
         <p role="status" className="ca-notice">
           Complete your profile before opening the registration form. Saving
@@ -449,20 +479,21 @@ function Teams() {
     }
   }
   return (
-    <section>
-      <h2>Your teams & invitations</h2>
-      <button
-        className="ca-secondary"
-        disabled={busy || resource.refreshing}
-        onClick={() => resource.reload().catch((e) => setError(message(e)))}
-      >
-        {resource.refreshing ? "Refreshing teams…" : "Refresh teams"}
-      </button>
-      <p>
-        Invite members using their CA IDs. Every member must accept before the
-        leader registers. After a team is registered for an event, its roster is
-        locked. Create another team if you need a different roster.
-      </p>
+    <section className="ca-participant-panel ca-teams-panel">
+      <div className="ca-panel-actions">
+        <p>
+          Invite members using their CA IDs. Every member must accept before the
+          leader registers. After a team is registered for an event, its roster
+          is locked. Create another team if you need a different roster.
+        </p>
+        <button
+          className="ca-secondary"
+          disabled={busy || resource.refreshing}
+          onClick={() => resource.reload().catch((e) => setError(message(e)))}
+        >
+          {resource.refreshing ? "Refreshing teams…" : "Refresh teams"}
+        </button>
+      </div>
       <form
         className="ca-toolbar"
         onSubmit={(e) => {
@@ -481,15 +512,27 @@ function Teams() {
           {error || resource.error}
         </p>
       )}
-      {resource.loading && <DataLoading label="Loading teams…" />}
+      {resource.loading && <TeamsSkeleton />}
       <div className="ca-grid">
-        {resource.data?.teams.map((t) => {
+        {resource.data?.teams.map((t, index) => {
           const pending = t.pendingIds.some((p) => p._id === user._id),
             leader = t.leaderId === user._id;
           return (
-            <article className="ca-card" key={t._id}>
-              <h3>{t.name}</h3>
-              {t.locked && <p>Roster locked after event registration.</p>}
+            <article className="ca-card ca-team-record" key={t._id}>
+              <div className="ca-record-title">
+                <span aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <small>Team record</small>
+                  <h3>{t.name}</h3>
+                </div>
+              </div>
+              {t.locked && (
+                <p className="ca-record-status">
+                  Roster sealed after registration
+                </p>
+              )}
               {pending ? (
                 <div className="ca-toolbar">
                   <button
@@ -511,16 +554,50 @@ function Teams() {
                   </button>
                 </div>
               ) : (
-                <>
-                  <ul>
-                    {t.memberIds.map((p) => (
-                      <li key={p._id}>
-                        {p.name} · {p.caId}
-                        {p._id === t.leaderId
-                          ? " · Leader"
-                          : (leader || p._id === user._id) && (
+                <div className="ca-team-body">
+                  <div className="ca-team-members-section">
+                    <p className="ca-team-subheading">Team Roster</p>
+                    <ul className="ca-team-members-list">
+                      {t.memberIds.map((p) => (
+                        <li key={p._id} className="ca-team-member-item">
+                          <span className="ca-team-member-info">
+                            <strong className="ca-team-member-name">{p.name}</strong>
+                            <span className="ca-team-caid">{p.caId}</span>
+                            {p._id === t.leaderId && (
+                              <span className="ca-team-leader-badge">Leader</span>
+                            )}
+                          </span>
+                          {(leader || p._id === user._id) && p._id !== t.leaderId && (
+                            <button
+                              className="ca-inline ca-team-remove-btn"
+                              disabled={busy || t.locked}
+                              onClick={() =>
+                                action(`/teams/${t._id}/remove`, {
+                                  memberId: p._id,
+                                })
+                              }
+                            >
+                              {leader ? "Remove" : "Leave"}
+                            </button>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  {t.pendingIds.length > 0 && (
+                    <div className="ca-team-pending-section">
+                      <p className="ca-team-subheading">Pending Invitations</p>
+                      <ul className="ca-team-members-list">
+                        {t.pendingIds.map((p) => (
+                          <li key={p._id} className="ca-team-member-item ca-team-pending-item">
+                            <span className="ca-team-member-info">
+                              <span className="ca-team-member-name">{p.name}</span>
+                              <span className="ca-team-caid">{p.caId}</span>
+                            </span>
+                            {leader && (
                               <button
-                                className="ca-inline"
+                                className="ca-inline ca-team-remove-btn"
                                 disabled={busy || t.locked}
                                 onClick={() =>
                                   action(`/teams/${t._id}/remove`, {
@@ -528,56 +605,45 @@ function Teams() {
                                   })
                                 }
                               >
-                                {leader ? "Remove" : "Leave"}
+                                Cancel
                               </button>
                             )}
-                      </li>
-                    ))}
-                  </ul>
-                  <p>Pending invitations:</p>
-                  <ul>
-                    {t.pendingIds.map((p) => (
-                      <li key={p._id}>
-                        {p.name} · {p.caId}
-                        {leader && (
-                          <button
-                            className="ca-inline"
-                            disabled={busy || t.locked}
-                            onClick={() =>
-                              action(`/teams/${t._id}/remove`, {
-                                memberId: p._id,
-                              })
-                            }
-                          >
-                            Cancel
-                          </button>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                  {leader && (
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {leader && !t.locked && (
                     <form
+                      className="ca-team-invite-form"
                       onSubmit={(e) => {
                         e.preventDefault();
+                        const form = e.currentTarget;
+                        const input = form.elements.namedItem("caId");
                         action(`/teams/${t._id}/invite`, {
-                          caId: new FormData(e.currentTarget).get("caId"),
+                          caId: input.value,
+                        }).then(() => {
+                          form.reset();
                         });
                       }}
                     >
-                      <label>
-                        Invite by CA ID
-                        <input
-                          name="caId"
-                          placeholder="CA-2026-000001"
-                          required
-                        />
+                      <label className="ca-team-invite-label">
+                        <span>Invite by CA ID</span>
+                        <div className="ca-team-invite-row">
+                          <input
+                            name="caId"
+                            placeholder="CA-2026-000001"
+                            required
+                          />
+                          <button type="submit" disabled={busy || t.locked}>
+                            Invite
+                          </button>
+                        </div>
                       </label>
-                      <button disabled={busy || t.locked}>
-                        Invite participant
-                      </button>
                     </form>
                   )}
-                </>
+                </div>
               )}
             </article>
           );
@@ -586,9 +652,31 @@ function Teams() {
     </section>
   );
 }
-export function RegistrationPage({ eventId, eventData = null }) {
+export function RegistrationPage({
+  eventId,
+  eventData = null,
+  registrationData,
+  teamsData,
+}) {
+  return (
+    <Guard requireComplete>
+      <RegistrationPageContent
+        eventId={eventId}
+        eventData={eventData}
+        registrationData={registrationData}
+        teamsData={teamsData}
+      />
+    </Guard>
+  );
+}
+
+function RegistrationPageContent({
+  eventId,
+  eventData = null,
+  registrationData,
+  teamsData,
+}) {
   const { id } = useParams();
-  const { user, loading: sessionLoading } = usePortal();
   const resource = useResource(eventData ? null : `/events/${eventId || id}`);
   if (!eventData && resource.loading)
     return <DataLoadingPage label="Preparing event registration" />;
@@ -603,9 +691,7 @@ export function RegistrationPage({ eventId, eventData = null }) {
     );
   }
   const event = eventData || resource.data?.event;
-  if (!event?.formPublished && !sessionLoading && !user) {
-    return <Navigate to="/coming-soon" replace />;
-  }
+  if (!event) return <Navigate to="/coming-soon" replace />;
   if (!eventData && !eventId && event.categoryId?.slug) {
     return (
       <Navigate
@@ -615,13 +701,18 @@ export function RegistrationPage({ eventId, eventData = null }) {
     );
   }
   return (
-    <Guard requireComplete>
-      <RegistrationAccess key={event._id} event={event} />
-    </Guard>
+    <RegistrationAccess
+      key={event._id}
+      event={event}
+      registrationData={registrationData}
+      teamsData={teamsData}
+    />
   );
 }
-function RegistrationAccess({ event }) {
-  const registrations = useResource(`/events/${event._id}/my-registration`);
+function RegistrationAccess({ event, registrationData, teamsData }) {
+  const registrations = useResource(
+    registrationData === undefined ? `/events/${event._id}/my-registration` : null,
+  );
   if (registrations.loading)
     return (
       <DataLoadingPage
@@ -639,7 +730,10 @@ function RegistrationAccess({ event }) {
       </main>
     );
   }
-  const existing = registrations.data?.registration;
+  const existing =
+    registrationData === undefined
+      ? registrations.data?.registration
+      : registrationData;
   if (existing) {
     return (
       <Navigate
@@ -653,13 +747,23 @@ function RegistrationAccess({ event }) {
       />
     );
   }
-  if (!event.formPublished) return <Navigate to="/coming-soon" replace />;
-  return <EventRegistration event={event} />;
+  if (!event.formPublished) {
+    return (
+      <Navigate
+        to="/coming-soon"
+        replace
+        state={{ eventTitle: event?.title, festival: event?.categoryId?.festival }}
+      />
+    );
+  }
+  return <EventRegistration event={event} teamsData={teamsData} />;
 }
-function EventRegistration({ event }) {
+function EventRegistration({ event, teamsData }) {
   const id = event._id,
-    teams = useTeams(event.mode !== "solo"),
+    loadedTeams = useTeams(event.mode !== "solo" && teamsData === undefined),
     { user } = usePortal();
+  const teams =
+    teamsData === undefined ? loadedTeams : { data: { teams: teamsData }, loading: false };
   const location = useLocation();
   const navigate = useNavigate();
   const registrationOpen =
@@ -697,175 +801,299 @@ function EventRegistration({ event }) {
       setBusy(false);
     }
   }
+  const isCulrav = event?.categoryId?.festival === "culrav";
+  const bgImage = isCulrav ? CulravBG : AvishkarBG;
+
   return (
     <main
-      className="ca-portal ca-registration"
+      className="ca-portal ca-registration min-h-screen w-full relative text-[#241104] overflow-x-hidden font-sans select-none"
       data-festival={event.categoryId.festival}
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center top",
+        backgroundAttachment: "fixed",
+      }}
     >
-      <div className="ca-registration-content">
+      {/* Gentle Olympian atmospheric veil - bright, warm, classical sunlit glow */}
+      <div className="fixed inset-0 pointer-events-none bg-gradient-to-b from-[#3b1e0d]/42 via-[#6f3918]/18 to-[#2b1509]/34 z-0" />
+
+      {/* Main Container */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-28">
+        {/* Back Link */}
         <Link
-          className="ca-registration-back"
+          className="ca-registration-back inline-flex items-center gap-2.5 px-4 py-2 border-2 border-[#b88c4b] hover:border-[#8c521f] bg-[#fffdf8]/95 hover:bg-[#faebd0] text-[#4d260f] hover:text-[#241104] font-cinzel text-xs font-bold uppercase tracking-[0.18em] transition-all duration-200 shadow-sm mb-8 group rounded-xs"
           to={`/${event.categoryId.festival}/${event.categoryId.slug}`}
         >
-          <span aria-hidden="true">←</span>
-          Back to {event.categoryId.name}
+          <span className="transition-transform duration-200 group-hover:-translate-x-1 text-sm text-[#8c521f]">←</span>
+          <span>Back to {event.categoryId.name}</span>
         </Link>
+
         {event && (
           <>
-            <header className="ca-heading ca-registration-heading">
-              <div>
-                <span className="ca-kicker">Event registration / 2026</span>
-                <p>
-                  {event.categoryId?.festival} / {event.categoryId?.name}
-                </p>
-                <h1>{event.title}</h1>
-              </div>
-              <span>
-                {event.mode === "solo_or_team"
-                  ? "Solo or team"
-                  : event.mode === "team"
-                    ? "Team"
-                    : "Solo"}{" "}
-                registration
+            {/* Masthead Header (Open & Grand - Classical Olympian Hierarchy) */}
+            <header className="ca-registration-masthead text-center max-w-4xl mx-auto mb-10 sm:mb-12">
+              <span className="font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#8c521f] block mb-1">
+                ✦ {event.categoryId?.festival} / {event.categoryId?.name} ✦
               </span>
+
+              <h1 className="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-[0.14em] text-[#241104] my-3 drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
+                {event.title}
+              </h1>
+
+              {/* Classical Laurel Divider */}
+              <div className="flex items-center justify-center gap-3 mt-3 mb-4 text-[#b88c4b]">
+                <div className="h-px w-20 sm:w-36 bg-gradient-to-r from-transparent via-[#b88c4b] to-[#b88c4b]" />
+                <span className="text-xs text-[#a06a28]">✦</span>
+                <div className="h-px w-20 sm:w-36 bg-gradient-to-l from-transparent via-[#b88c4b] to-[#b88c4b]" />
+              </div>
+
+              {/* Registration Mode Badge */}
+              <div className="ca-registration-mode inline-flex items-center gap-2 px-4 py-1.5 border border-[#b88c4b] bg-[#fffdf8]/95 text-[#633512] font-cinzel text-xs font-bold uppercase tracking-[0.18em] shadow-sm rounded-xs">
+                <span>✦</span>
+                <span>
+                  {event.mode === "solo_or_team"
+                    ? "Solo or Team Registration"
+                    : event.mode === "team"
+                      ? `Team Registration (${event.minTeamSize}–${event.maxTeamSize} Members)`
+                      : "Solo Registration"}
+                </span>
+                <span>✦</span>
+              </div>
             </header>
+
+            {/* Registration Notice / Status Banner */}
             {(event.closesAt ||
               event.status !== "published" ||
               (event.opensAt &&
                 new Date(event.opensAt).getTime() > Date.now())) && (
-              <p className="ca-notice">
-                {event.closesAt && (
-                  <>
-                    <strong>Registration closes:</strong>{" "}
-                    {formatDeadline(event.closesAt)}
-                  </>
-                )}
-                {event.status !== "published" &&
-                  " New registration is currently closed."}
-                {event.status === "published" &&
-                  event.opensAt &&
-                  new Date(event.opensAt).getTime() > Date.now() &&
-                  ` Registration opens ${formatDeadline(event.opensAt)}.`}
-                {event.status === "published" &&
-                  event.closesAt &&
-                  new Date(event.closesAt).getTime() <= Date.now() &&
-                  " New registration is closed."}
-              </p>
+              <div className="ca-registration-notice max-w-4xl mx-auto mb-8 p-4 border-2 border-[#b88c4b] bg-[#fbf2df]/95 text-[#3e2311] font-garamond text-base sm:text-lg flex items-center gap-3 shadow-sm rounded-xs">
+                <span className="text-[#a06a28] text-lg">✦</span>
+                <div>
+                  {event.closesAt && (
+                    <span className="font-cinzel font-bold text-sm tracking-wider text-[#7a3e10] mr-2">
+                      REGISTRATION CLOSES: {formatDeadline(event.closesAt)}
+                    </span>
+                  )}
+                  {event.status !== "published" && " New registration is currently closed."}
+                  {event.status === "published" &&
+                    event.opensAt &&
+                    new Date(event.opensAt).getTime() > Date.now() &&
+                    ` Registration opens ${formatDeadline(event.opensAt)}.`}
+                  {event.status === "published" &&
+                    event.closesAt &&
+                    new Date(event.closesAt).getTime() <= Date.now() &&
+                    " New registration is closed."}
+                </div>
+              </div>
             )}
-            <div className="ca-registration-form">
-              <section className="ca-card">
-                <h2>Register</h2>
-                <fieldset>
-                  <legend>Your participant details</legend>
-                  <p>
-                    These saved profile details are included automatically with
-                    your registration.
+
+            {/* The Main Majestic Tablet (Light + High Contrast Hellenic Cartouche) */}
+            <div className="ca-registration-form max-w-4xl mx-auto">
+              <section
+                className="
+                  ca-registration-tablet relative p-6 sm:p-10 lg:p-12
+                  border-2 border-[#b88c4b]
+                  bg-gradient-to-b from-[#fffdfa] via-[#fbf3e4] to-[#f5e6c8]
+                  shadow-[0_24px_70px_rgba(50,25,8,0.2),0_4px_18px_rgba(50,25,8,0.1),inset_0_1px_2px_rgba(255,255,255,0.9)]
+                  rounded-xs
+                "
+                style={{
+                  backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(251, 243, 228, 0.95) 55%, rgba(245, 230, 200, 0.97) 100%), url('/media/common/textures/parchment-bg.png')",
+                  backgroundSize: "cover",
+                }}
+              >
+                {/* Classical Inner Inset Fillet Border */}
+                <div className="pointer-events-none absolute inset-2.5 sm:inset-3 border border-[#b88c4b]/35" />
+
+                {/* Classical Corner Stars */}
+                <div className="pointer-events-none absolute top-3 sm:top-4 left-3 sm:left-4 text-xs text-[#a06a28]">✦</div>
+                <div className="pointer-events-none absolute top-3 sm:top-4 right-3 sm:right-4 text-xs text-[#a06a28]">✦</div>
+                <div className="pointer-events-none absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-xs text-[#a06a28]">✦</div>
+                <div className="pointer-events-none absolute bottom-3 sm:bottom-4 right-3 sm:right-4 text-xs text-[#a06a28]">✦</div>
+
+                {/* Section 1: Participant Profile (Open, Modern Editorial Layout - Light + Contrast) */}
+                <div className="relative z-10 mb-8">
+                  <div className="flex items-center gap-2.5 mb-2">
+                    <span className="text-[#a06a28] text-sm">✦</span>
+                    <h2 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-[0.16em] text-[#241104]">
+                      Participant Profile
+                    </h2>
+                  </div>
+                  <p className="font-garamond italic text-sm sm:text-base text-[#6b421d] mb-6">
+                    These saved profile details are linked automatically to your event registration.
                   </p>
-                  <div className="ca-grid">
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                     {[
                       ["caId", "CA ID"],
-                      ["name", "Full name"],
-                      ["email", "Email"],
-                      ["registrationNumber", "College registration number"],
+                      ["name", "Full Name"],
+                      ["email", "Email Address"],
+                      ["registrationNumber", "College Reg. Number"],
                       ["college", "College"],
                       ["course", "Course"],
                       ["year", "Year"],
                       ["branch", "Branch"],
-                      ["phone", "Phone"],
+                      ["phone", "Phone Number"],
                     ].map(([key, label]) => (
-                      <label key={key}>
-                        {label}
-                        <input
-                          readOnly
-                          value={
-                            key === "branch"
-                              ? branchName(user.branch)
-                              : user[key] || ""
-                          }
-                          placeholder="Complete your profile"
-                        />
-                      </label>
+                      <div
+                        key={key}
+                        className="ca-registration-profile-field flex flex-col gap-1 p-3 bg-gradient-to-br from-[#ffffff] via-[#fffdf9] to-[#faf1df] border border-[#b88c4b]/50 rounded-xs shadow-[0_2px_6px_rgba(70,35,10,0.05)]"
+                      >
+                        <span className="font-cinzel text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-[#854d1d]">
+                          {label}
+                        </span>
+                        <span className="font-garamond text-base sm:text-lg text-[#1f1006] font-bold truncate">
+                          {key === "branch"
+                            ? branchName(user.branch) || "—"
+                            : user[key] || "—"}
+                        </span>
+                      </div>
                     ))}
                   </div>
-                </fieldset>
-                {receipt ? (
-                  <div role="status">
-                    <h3>Registration received</h3>
-                    <p>
-                      Registration ID: <strong>{receipt._id}</strong>
-                    </p>
-                    <Link
-                      to="/portal"
-                      state={{
-                        tab: "registrations",
-                        focusRegistrationId: receipt._id,
-                      }}
+                </div>
+
+                {/* Classical Laurel Divider between Profile & Form */}
+                <div className="relative z-10 flex items-center justify-center gap-3 my-8 text-[#b88c4b]">
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#b88c4b]/50 to-[#b88c4b]/50" />
+                  <span className="text-xs text-[#a06a28]">✦</span>
+                  <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#b88c4b]/50 to-[#b88c4b]/50" />
+                </div>
+
+                {/* Section 2: Registration Submission or Status */}
+                <div className="relative z-10">
+                  {receipt ? (
+                    <div
+                      role="status"
+                      className="ca-registration-state text-center p-8 border-2 border-[#b88c4b] bg-[#fffdf8] shadow-[0_6px_20px_rgba(70,35,10,0.08)] rounded-xs"
                     >
-                      View your registration
-                    </Link>
-                  </div>
-                ) : !complete(user) ? (
-                  <p>
-                    <Link to="/portal" state={{ returnTo: location.pathname }}>
-                      Complete your participant profile first →
-                    </Link>
-                  </p>
-                ) : (
-                  <form onSubmit={submit}>
-                    <h3>Event registration details</h3>
-                    {event.mode !== "solo" && teams.loading && (
-                      <DataLoading label="Loading your teams" compact />
-                    )}
-                    {event.mode !== "solo" && (
-                      <label>
-                        Select a confirmed team you lead ({event.minTeamSize}–
-                        {event.maxTeamSize} members)
-                        <select
-                          required={event.mode === "team"}
-                          value={teamId}
-                          onChange={(e) => setTeamId(e.target.value)}
-                        >
-                          <option value="">
-                            {event.mode === "solo_or_team"
-                              ? "Register individually"
-                              : "Choose team"}
-                          </option>
-                          {teams.data?.teams
-                            .filter((t) => t.leaderId === user._id)
-                            .map((t) => (
-                              <option
-                                key={t._id}
-                                value={t._id}
-                                disabled={!!t.pendingIds.length}
-                              >
-                                {t.name} ({t.memberIds.length} members
-                                {t.pendingIds.length
-                                  ? ", invitations pending"
-                                  : ""}
-                                )
-                              </option>
-                            ))}
-                        </select>
-                        <small>
-                          Create and manage teams from your dashboard.
-                        </small>
-                      </label>
-                    )}
-                    <FormFields
-                      fields={event.fields}
-                      answers={answers}
-                      setAnswers={setAnswers}
-                    />
-                    <button disabled={busy || !registrationOpen}>
-                      {busy ? "Submitting…" : "Submit registration"}
-                    </button>
-                    {error && (
-                      <p className="ca-error" role="alert">
-                        {error}
+                      <span className="text-2xl text-[#a06a28] block mb-2">✦</span>
+                      <h3 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-[0.16em] text-[#241104] mb-3">
+                        Registration Received
+                      </h3>
+                      <p className="font-garamond text-lg text-[#4a2711] mb-6">
+                        Registration ID: <strong className="font-mono text-[#8c521f] font-bold tracking-wider">{receipt._id}</strong>
                       </p>
-                    )}
-                  </form>
-                )}
+                      <Link
+                        to="/portal"
+                        state={{
+                          tab: "registrations",
+                          focusRegistrationId: receipt._id,
+                        }}
+                        className={`
+                          ca-registration-action inline-flex items-center gap-2 px-8 py-3.5
+                          border-2 ${isCulrav ? "border-[#dfa255] bg-[#992510] hover:bg-[#b52f15]" : "border-[#8e4873] bg-[#471E39] hover:bg-[#5e274b]"}
+                          text-[#fffef8] font-cinzel font-black uppercase tracking-[0.2em] text-sm
+                          hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg rounded-xs
+                        `}
+                      >
+                        View Your Registration ➔
+                      </Link>
+                    </div>
+                  ) : !complete(user) ? (
+                    <div className="ca-registration-state text-center p-8 border-2 border-[#b88c4b] bg-[#fffdf8] shadow-[0_6px_20px_rgba(70,35,10,0.08)] rounded-xs">
+                      <span className="text-xl text-[#a06a28] block mb-2">✦</span>
+                      <p className="font-garamond text-lg text-[#3e2311] mb-5">
+                        Please complete your participant profile before registering for events.
+                      </p>
+                      <Link
+                        to="/portal"
+                        state={{ returnTo: location.pathname }}
+                        className={`
+                          ca-registration-action inline-flex items-center gap-2 px-8 py-3.5
+                          border-2 ${isCulrav ? "border-[#dfa255] bg-[#992510] hover:bg-[#b52f15]" : "border-[#8e4873] bg-[#471E39] hover:bg-[#5e274b]"}
+                          text-[#fffef8] font-cinzel font-black uppercase tracking-[0.2em] text-sm
+                          hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg rounded-xs
+                        `}
+                      >
+                        Complete Profile First ➔
+                      </Link>
+                    </div>
+                  ) : (
+                    <form onSubmit={submit} className="ca-registration-fields flex flex-col gap-6">
+                      <div className="flex items-center gap-2.5 mb-1">
+                        <span className="text-[#a06a28] text-sm">✦</span>
+                        <h3 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-[0.16em] text-[#241104]">
+                          Event Registration Details
+                        </h3>
+                      </div>
+
+                      {event.mode !== "solo" && teams.loading && (
+                        <DataLoading label="Loading your teams" compact />
+                      )}
+
+                      {event.mode !== "solo" && (
+                        <div className="flex flex-col gap-2">
+                          <label className="font-cinzel text-xs font-bold uppercase tracking-[0.14em] text-[#6b3810]">
+                            Select a Confirmed Team You Lead ({event.minTeamSize}–{event.maxTeamSize} Members)
+                          </label>
+                          <select
+                            required={event.mode === "team"}
+                            value={teamId}
+                            onChange={(e) => setTeamId(e.target.value)}
+                            className="w-full px-4 py-3 bg-[#ffffff] border-2 border-[#b88c4b]/70 focus:border-[#a85820] text-[#241104] font-garamond text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-[#c99852]/30 shadow-[inset_0_1px_3px_rgba(70,35,10,0.06)] rounded-xs transition-all"
+                          >
+                            <option value="" className="bg-[#ffffff] text-[#241104]">
+                              {event.mode === "solo_or_team"
+                                ? "Register individually"
+                                : "Choose team"}
+                            </option>
+                            {teams.data?.teams
+                              .filter((t) => t.leaderId === user._id)
+                              .map((t) => (
+                                <option
+                                  key={t._id}
+                                  value={t._id}
+                                  disabled={!!t.pendingIds.length}
+                                  className="bg-[#ffffff] text-[#241104]"
+                                >
+                                  {t.name} ({t.memberIds.length} members
+                                  {t.pendingIds.length
+                                    ? ", invitations pending"
+                                    : ""}
+                                  )
+                                </option>
+                              ))}
+                          </select>
+                          <small className="font-garamond italic text-sm text-[#7a461b]">
+                            Create and manage teams from your dashboard.
+                          </small>
+                        </div>
+                      )}
+
+                      <FormFields
+                        fields={event.fields}
+                        answers={answers}
+                        setAnswers={setAnswers}
+                      />
+
+                      <button
+                        type="submit"
+                        disabled={busy || !registrationOpen}
+                        className={`
+                          ca-registration-submit w-full mt-6 py-4 px-8 border-2
+                          ${
+                            isCulrav
+                              ? "border-[#dfa255] bg-[#992510] hover:bg-[#b52f15] shadow-[0_8px_24px_rgba(153,37,16,0.5),inset_0_1px_2px_rgba(255,245,215,0.4)]"
+                              : "border-[#8e4873] bg-[#471E39] hover:bg-[#5e274b] shadow-[0_8px_24px_rgba(71,30,57,0.5),inset_0_1px_2px_rgba(245,215,235,0.4)]"
+                          }
+                          text-[#fffef8] font-cinzel font-black uppercase tracking-[0.24em] text-sm sm:text-base
+                          hover:border-[#ffd977] hover:scale-[1.01] active:scale-[0.99]
+                          disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+                          transition-all duration-200 cursor-pointer select-none rounded-xs
+                        `}
+                      >
+                        {busy ? "Submitting to the Archives…" : "Submit Registration ➔"}
+                      </button>
+
+                      {error && (
+                        <p className="ca-registration-error p-3.5 border-2 border-red-600/70 bg-red-50 text-red-900 font-cinzel text-xs font-bold tracking-wider text-center rounded-xs shadow-sm" role="alert">
+                          {error}
+                        </p>
+                      )}
+                    </form>
+                  )}
+                </div>
               </section>
             </div>
           </>
@@ -924,9 +1152,8 @@ function Registrations({ focusRegistrationId, alreadyRegisteredEvent }) {
     setError("");
   }
   return (
-    <section>
-      <div className="ca-heading">
-        <h2>Registered events</h2>
+    <section className="ca-participant-panel ca-registrations-panel">
+      <div className="ca-panel-actions">
         <button className="ca-secondary" onClick={resource.reload}>
           Refresh
         </button>
@@ -942,18 +1169,26 @@ function Registrations({ focusRegistrationId, alreadyRegisteredEvent }) {
           {error || resource.error}
         </p>
       )}
-      {resource.loading && <DataLoading label="Loading registrations…" />}
+      {resource.loading && <RegistrationsSkeleton />}
       {resource.data && !resource.data.registrations.length && (
         <p>You have no registrations yet.</p>
       )}
-      {resource.data?.registrations.map((r) => (
+      {resource.data?.registrations.map((r, index) => (
         <article
           id={`participant-registration-${r._id}`}
           className="ca-card ca-registration-entry"
           data-focused={r._id === focusRegistrationId || undefined}
           key={r._id}
         >
-          <h3>{r.eventId?.title || "Archived event"}</h3>
+          <div className="ca-record-title">
+            <span aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <div>
+              <small>Event record</small>
+              <h3>{r.eventId?.title || "Archived event"}</h3>
+            </div>
+          </div>
           <p>
             Registration ID: {r._id}
             <br />

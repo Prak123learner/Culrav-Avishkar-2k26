@@ -44,16 +44,12 @@
       ],
       "coords": [
         {
-          "name": "Mansi Maavi",
-          "phone": "9958380777"
+          "name": "Snigdha Kritania",
+          "phone": "8100607156"
         },
         {
-          "name": "Prakhar",
-          "phone": "1234567890"
-        },
-        {
-          "name": "test co",
-          "phone": "0987654321"
+          "name": "Darshit Srivastava",
+          "phone": "8957954341"
         }
       ],
       "fixedKey": "culrav/anunaad/0"
@@ -79,16 +75,12 @@
       ],
       "coords": [
         {
-          "name": "Ankita Pandey",
-          "phone": "8084131840"
+          "name": "Krishna Sharma",
+          "phone": "8818800861"
         },
         {
-          "name": "Prasansha Sthul",
-          "phone": "7620535205"
-        },
-        {
-          "name": "Kabeer Uppal",
-          "phone": "9599691573"
+          "name": "Anirudh Kanwar",
+          "phone": "9462845114"
         }
       ],
       "fixedKey": "culrav/anunaad/1"
@@ -116,12 +108,12 @@
       ],
       "coords": [
         {
-          "name": "Aaruni Awasthi",
-          "phone": "8127767202"
+          "name": "Kartikay Singh",
+          "phone": "7985823294"
         },
         {
-          "name": "Chinmay Malve",
-          "phone": "7757905825"
+          "name": "Gaurav Rastogi",
+          "phone": "8318756882"
         }
       ],
       "fixedKey": "culrav/anunaad/2"
@@ -132,14 +124,14 @@
       "desc": [
         "From soulful ballads to headbanging anthems, we’ve got your rock fix covered!",
         "This is the flagship band event of ANUNAAD’24.",
-        "Two rounds: pre-elims for in-house bands (SWAARANG Day at MP Hall) and a grand finale at Gymkhana Ground.",
+        "Two rounds: pre-elims for in-house bands (SWAARANG Day at MP Hall) and a grand finale at MP Hall.",
         "External participants are selected via video submissions during registration."
       ],
       "rules": [
         "This is a band event.",
         "There will be two rounds:",
         "Pre-elimination round only for in-house (MNNIT) bands, held at MP Hall on SWAARANG Day.",
-        "Final round at the Gymkhana Ground.",
+        "Final round at the MP Hall.",
         "For Pre-Elims (MNNIT bands only): Each band will be given 15 minutes stage time (including soundcheck).",
         "For External Participants: Selection will be based on a video submitted while registering (via form).",
         "The final round will consist of the selected bands and each will be given 25 minutes of stage time – 20 minutes performance + 5 minutes soundcheck.",
@@ -152,16 +144,20 @@
       ],
       "coords": [
         {
-          "name": "Puneet Yadav",
-          "phone": "8004371101"
+          "name": "Ayush Joshi",
+          "phone": "9027991613"
         },
         {
-          "name": "Aditya",
-          "phone": "8863983770"
+          "name": "Rahul Srivastava",
+          "phone": "7369065400"
         },
         {
-          "name": "Moyush",
-          "phone": "9365520268"
+          "name": "Bhavishya Gulati",
+          "phone": "7428109600"
+        },
+        {
+          "name": "Aman Pandey",
+          "phone": "9111603999"
         }
       ],
       "fixedKey": "culrav/anunaad/3"
@@ -187,16 +183,12 @@
       ],
       "coords": [
         {
-          "name": "Rachit Yadav",
-          "phone": "9119800805"
+          "name": "Kumar Aditya",
+          "phone": "6366355733"
         },
         {
-          "name": "Priyanshu Anand",
-          "phone": "9430274017"
-        },
-        {
-          "name": "Manudev Verma",
-          "phone": "9336182425"
+          "name": "Keshav Kumar",
+          "phone": "6202993201"
         }
       ],
       "fixedKey": "culrav/anunaad/4"
@@ -206,11 +198,11 @@
       "name": "Euphony",
       "desc": [
         "Let the acoustic rhythm take you on a journey.",
-        "An acoustic band event with pre-elims and a finale at the Gymkhana Ground."
+        "An acoustic band event with pre-elims and a finale at the MP Hall."
       ],
       "rules": [
         "This is an acoustic band event.",
-        "There will be two rounds: a pre-elimination round held before the main event, and a final round at the Gymkhana Ground.",
+        "There will be two rounds: a pre-elimination round held before the main event, and a final round at the MP Hall.",
         "For the final round, each selected band will be given 15 minutes stage time (including soundcheck).",
         "The final round will consist of the selected bands and each will be given 15 minutes of stage time – 10 minutes performance + 5 minutes soundcheck.",
         "3–5 members are allowed to participate in a band.",
@@ -223,16 +215,12 @@
       ],
       "coords": [
         {
-          "name": "Sneha Sharma",
-          "phone": "8299112458"
+          "name": "Divyansh Agrawal",
+          "phone": "9569090638"
         },
         {
-          "name": "Vishnu Som Sahu",
-          "phone": "8200871791"
-        },
-        {
-          "name": "Deeksha Singh",
-          "phone": "8604907159"
+          "name": "Harshit Chaudhary",
+          "phone": "7571806822"
         }
       ],
       "fixedKey": "culrav/anunaad/5"

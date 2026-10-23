@@ -10,255 +10,225 @@
       "eventName": "QUINTATHALON",
       "registrationLink": "",
       "eventId": "1",
-      "description": "Flagship placement-simulation event that replicates the actual internship and placement interview process for ECE students, helping them assess and improve their technical and behavioural interview skills. Participation is mandatory for ECE students who wish to take part in other events.",
+      "description": "Flagship placement-simulation event replicating the actual internship and placement interview process for ECE students, assessing and sharpening their technical and behavioural interview skills. Participation is mandatory for ECE students who wish to compete in other Electromania events.",
       "rules": [
-        "Mandatory for ECE students to participate in other events.",
+        "Mandatory for ECE students to participate in other Electromania events.",
         "Individual participation only.",
-        "Round 1: Online Assessment – CS/Hardware fundamentals, aptitude and coding.",
+        "Round 1: Online Assessment – CS/Hardware fundamentals, aptitude, and coding (batch-wise, 8 subscriptions).",
         "Round 2: Two offline interviews – one technical and one behavioural.",
-        "Eligibility: 1st, 2nd and 3rd year ECE students only."
+        "Eligibility: 1st, 2nd and 3rd year ECE students only.",
+        "Students must appear in both rounds to qualify and receive certification.",
+        "Any misconduct or malpractice during interviews leads to disqualification.",
+        "Panel evaluation is final and binding."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Aryan Kesharwani",
-          "contact": "8932017623"
-        },
-        {
-          "name": "Saurabh Gupta",
-          "contact": "8168797882"
-        },
-        {
-          "name": "Shresth Gadhwala",
-          "contact": "7679170402"
-        },
-        {
-          "name": "Yogesh Kumar",
-          "contact": "9044412418"
-        },
-        {
-          "name": "Shreyansh Shah",
-          "contact": "8874419806"
-        }
+        { "name": "Dhruv Goyal", "contact": "8218233393" },
+        { "name": "Aaditya", "contact": "8875198106" },
+        { "name": "Ayush Tiwari", "contact": "9919400789" },
+        { "name": "Nishant Tiwari", "contact": "9076826276" }
       ],
       "fixedKey": "avishkar/electromania/0"
     },
     {
-      "eventName": "INNODEV",
+      "eventName": "Innodev",
       "registrationLink": "",
       "eventId": "2",
-      "description": "A software development team event where participants build innovative, AI-powered solutions based on unique problem statements, focusing on creativity, implementation quality and impact.",
+      "description": "The premier Design Team showcase of Electromania celebrating innovation and maker culture. Students showcase working hardware prototypes, embedded/IoT systems, software applications, or interdisciplinary engineering designs.",
       "rules": [
-        "Round 1: Abstract Submission (Online).",
-        "Round 2: Mid-Evaluation (Online).",
-        "Round 3: Final Evaluation (Offline).",
-        "Round 4: Offline Presentation and Q&A.",
-        "Eligibility: 2nd and 3rd year B.Tech All students.",
-        "Each team must have at least one ECE student.",
-        "Team size: 2 to 4 members."
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students (all branches, with at least one ECE student in each team).",
+        "Team size: Individual or teams of 1 to 4 members.",
+        "Projects must be original student work; plagiarized or commercial products are strictly disallowed.",
+        "Teams must present a working prototype, simulation model, or live demo.",
+        "Presentation time: 8–10 minutes followed by Q&A with the judging panel.",
+        "Participants must bring their own laptops and hardware components.",
+        "Projects are evaluated on novelty, technical depth, feasibility, and presentation.",
+        "The decision of the judging panel is final."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Abhishek Kumar Yadav",
-          "contact": "9569456856"
-        },
-        {
-          "name": "Amrisha",
-          "contact": "9329996069"
-        },
-        {
-          "name": "Nandre Harish",
-          "contact": "7995753789"
-        },
-        {
-          "name": "Meemansha Singh",
-          "contact": "6389574220"
-        }
+        { "name": "Ayush Tiwari", "contact": "9919400789" },
+        { "name": "Dhruv Goyal", "contact": "8218233393" },
+        { "name": "Hemant Raj", "contact": "9451178535" },
+        { "name": "Aaditya", "contact": "8875198106" }
       ],
       "fixedKey": "avishkar/electromania/1"
     },
     {
-      "eventName": "CODOTRON",
+      "eventName": "Codotron",
       "registrationLink": "",
       "eventId": "3",
-      "description": "A competitive coding event that evaluates participants on problem-solving ability, debugging skills and teamwork through contest and relay-style rounds.",
+      "description": "A competitive coding contest evaluating problem-solving ability, debugging skills, and teamwork through contest and relay-style rounds. Codotron pushes participants beyond standard coding with high-pressure algorithmic challenges and live code debugging.",
       "rules": [
-        "Round 1: Coding Contest with 5–6 problems.",
-        "Round 2: Debugging Relay Round – participants fix buggy code under time pressure.",
-        "Eligibility: B.Tech 1st, 2nd and 3rd year all branch and M.Tech 1st year.",
+        "Round 1: Coding Contest with 5–6 problems covering DSA and competitive programming.",
+        "Round 2: Debugging Relay Round – participants fix buggy code under time pressure in a relay format.",
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students (all branches).",
         "Each team must have at least one ECE student.",
-        "Team size: 2 to 3 members."
+        "Team size: 2 to 3 members.",
+        "Any form of plagiarism or code sharing leads to immediate disqualification.",
+        "Use of external AI tools or unauthorized assistance is strictly prohibited.",
+        "The decision of organizers and the judging panel is final and binding."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Abhishek Kumar Yadav",
-          "contact": "9569456856"
-        },
-        {
-          "name": "Aryan Kesharwani",
-          "contact": "8932017623"
-        },
-        {
-          "name": "Nandre Harish",
-          "contact": "7995753789"
-        },
-        {
-          "name": "Chirag Murarka",
-          "contact": "6201376048"
-        }
+        { "name": "Dhruv Goyal", "contact": "8218233393" },
+        { "name": "Nishant Tiwari", "contact": "9076826276" },
+        { "name": "Purab Agrawal", "contact": "7559149731" },
+        { "name": "Ansh Maheshwari", "contact": "8077080970" }
       ],
       "fixedKey": "avishkar/electromania/2"
     },
     {
-      "eventName": "KAGGLE SPRINT",
+      "eventName": "RTL Rush",
       "registrationLink": "",
-      "eventId": "4",
-      "description": "An AI/ML Kaggle competition where teams build end-to-end models and compete on a live leaderboard, gaining hands-on exposure to practical machine learning workflows.",
+      "eventId": "6",
+      "description": "The digital hardware design competition testing proficiency in Hardware Description Languages (Verilog/VHDL), simulation, and FPGA synthesis. Teams design, optimize, and synthesize digital systems on FPGA development boards.",
       "rules": [
-        "Round 1: Abstract Submission (Online).",
-        "Round 2: Final Evaluation and Presentation (Offline).",
-        "Eligibility: 1st, 2nd and 3rd year students.",
-        "Team size: 2 to 3 members."
+        "Eligibility: 2nd and 3rd year students of all branches.",
+        "Each team must have at least one ECE student.",
+        "Team size: 3 members.",
+        "Software tools provided: Xilinx Vivado / ModelSim (or equivalent).",
+        "Round 1: Problem-based RTL design using Verilog/VHDL.",
+        "Round 2: FPGA synthesis, timing analysis, and hardware implementation.",
+        "Evaluation is based on timing closure, resource utilization, and passing the provided testbenches.",
+        "Code must be original; unauthorized IP cores or plagiarism lead to immediate disqualification.",
+        "The decision of the judges is final and binding."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Atharva Antapurkar",
-          "contact": "8668897685"
-        },
-        {
-          "name": " Mohammed Haseeb",
-          "contact": ""
-        }
+        { "name": "Kritika", "contact": "9532711307" },
+        { "name": "Yash Raj", "contact": "8052972505" },
+        { "name": "Sudhanshu", "contact": "8433490320" }
       ],
       "fixedKey": "avishkar/electromania/3"
     },
     {
-      "eventName": "MARKETPULSE",
+      "eventName": "AI Sprint",
       "registrationLink": "",
-      "eventId": "5",
-      "description": "A market simulation and strategy game where teams act as companies, make financial and strategic decisions, and trade over multiple simulated quarters. Winners are decided based on market capitalization.",
+      "eventId": "9",
+      "description": "Simulates cutting-edge fresher online assessments used by top tech product firms. Teams receive a realistic, multi-file codebase with intentional functional bugs, along with an ERRORS.md file listing broken behaviours. An on-platform AI chatbot provides architectural advice, documentation, and syntax guidance, but cannot write code directly.",
       "rules": [
-        "Teams role-play as companies in a simulated market.",
-        "Multiple rounds/quarters of trading and decision-making.",
-        "Performance evaluated based on final market capitalization.",
-        "Eligibility: Open to all courses and all years.",
-        "Team size: 2 to 4 members."
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students of all branches.",
+        "Team size: Individual or teams of up to 2 members.",
+        "Conducted offline in computer labs or on personal laptops under invigilation.",
+        "Teams receive a codebase and ERRORS.md detailing all failing behaviours.",
+        "The AI chatbot may only be used for architectural navigation, syntax lookup, and documentation. It will not write or copy-paste code.",
+        "External internet access, public ChatGPT, Claude, and Copilot extensions are strictly prohibited.",
+        "Objective: Fix the maximum errors in ERRORS.md while maintaining zero regression on existing passing tests.",
+        "Evaluation is based on bug-fix accuracy, code cleanliness, and time.",
+        "Automated test runner and evaluator decisions are final."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Akshat Mahanth",
-          "contact": "8935078215"
-        },
-        {
-          "name": "Amrisha",
-          "contact": "9329996069"
-        },
-        {
-          "name": "Shreyansh Shah",
-          "contact": "8874419806"
-        }
+        { "name": "Ayush Tiwari", "contact": "9919400789" },
+        { "name": "Hemant Raj", "contact": "9451178535" },
+        { "name": "Aaditya", "contact": "8875198106" }
       ],
       "fixedKey": "avishkar/electromania/4"
     },
     {
-      "eventName": "RTL RUSH",
+      "eventName": "Circuit of the Day",
       "registrationLink": "",
-      "eventId": "6",
-      "description": "A hardware design event where teams solve digital design problems using Verilog HDL. Separate problem sets for different years, with submissions including code, schematics and waveforms.",
+      "eventId": "7",
+      "description": "A week-long marathon circuit design challenge with daily problems of increasing difficulty. Participants design, simulate, and optimize digital circuits using the mentioned simulators.",
       "rules": [
-        "Problems released one week before Avishkar.",
-        "Participants must design and implement solutions in Verilog HDL.",
-        "Submissions must include Verilog code, schematics and waveforms.",
-        "Separate problems for 2nd and 3rd year students.",
-        "Eligibility: 2nd and 3rd year students.",
+        "Daily circuit problems are released over a week with increasing difficulty.",
+        "Solutions must be submitted in the mentioned format.",
+        "Daily submission deadline: before 3:00 PM on the following day.",
+        "Eligibility: 1st, 2nd and 3rd year students of all branches.",
         "Each team must have at least one ECE student.",
-        "Team size: 2 to 4 members."
+        "Team size: 2 members.",
+        "Late submissions will not be evaluated; strict deadline adherence is required.",
+        "Partial credit is awarded for working sub-circuits.",
+        "Plagiarism between teams leads to disqualification from the entire event.",
+        "Evaluators' scoring and decisions are final."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Akshat Mahanth",
-          "contact": "8935078215"
-        },
-        {
-          "name": "Chetanya Mishra",
-          "contact": "8601877257"
-        },
-        {
-          "name": "Dheeraj Vuddagiri",
-          "contact": "9392899382"
-        }
+        { "name": "Rudraksha", "contact": "9335815479" },
+        { "name": "Kritika", "contact": "9532711307" },
+        { "name": "Yash Raj", "contact": "8052972505" }
       ],
       "fixedKey": "avishkar/electromania/5"
     },
     {
-      "eventName": "CIRCUIT OF THE DAY",
+      "eventName": "Code Wars",
       "registrationLink": "",
-      "eventId": "7",
-      "description": "A week-long circuit design challenge with daily problems of increasing difficulty. Participants design digital circuits and submit their solutions using LogisimEvolution.",
+      "eventId": "10",
+      "description": "A high-energy, head-to-head competitive coding battle. Round 1 tests core software theory. Top qualifiers advance to Round 2—an intense 1-on-1 duel where two coders sit face-to-face across a table racing to solve a live problem faster and cleaner than their opponent.",
       "rules": [
-        "Daily circuit problems released over a week with increasing difficulty.",
-        "Solutions must be submitted using LogisimEvolution.",
-        "Daily submission deadline: before 3 PM on the following day.",
-        "Eligibility: 1st, 2nd and 3rd year students.",
-        "Each team must have at least one ECE student.",
-        "Team size: 2 to 4 members."
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students of all branches.",
+        "Strictly individual participation — no teams.",
+        "Round 1: Written/online eliminator quiz on core software concepts including DSA, OOP, OS, Computer Networks, and DBMS.",
+        "Round 2: Head-to-head live code battle — competitors sit facing each other and receive the problem simultaneously.",
+        "The first correct submission meeting time and space complexity constraints wins.",
+        "Permitted languages: C, C++, Java, and Python.",
+        "Communication between opponents during the live duel is strictly prohibited.",
+        "No AI tools, copilots, or external internet access are allowed.",
+        "In case of ties, sudden-death tiebreaker problems will be administered.",
+        "Judges' decisions on correctness and code quality are final."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Akshat Mahanth",
-          "contact": "8935078215"
-        },
-        {
-          "name": "Chetanya Mishra",
-          "contact": "8601877257"
-        },
-        {
-          "name": "Dheeraj Vuddagiri",
-          "contact": "9392899382"
-        },
-        {
-          "name": "Saurabh Gupta",
-          "contact": "8168797882"
-        }
+        { "name": "Purab Agrawal", "contact": "7559149731" },
+        { "name": "Nishant Tiwari", "contact": "9076826276" },
+        { "name": "Dhruv Goyal", "contact": "8218233393" }
       ],
       "fixedKey": "avishkar/electromania/6"
     },
     {
-      "eventName": "ENCODEWARS",
+      "eventName": "Spice It Up",
       "registrationLink": "",
-      "eventId": "8",
-      "description": "A decoding and puzzle-solving event combining core electronics and software concepts. Participants crack hidden messages in mixed formats like bitstreams, characters and images. Internet use is allowed, but AI tools are strictly prohibited.",
+      "eventId": "11",
+      "description": "An analog circuit design competition that introduces students to transistor-level design, circuit simulation, and performance analysis using Cadence tools. Participants design and simulate analog circuits based on given problem statements, applying fundamental concepts of analog electronics to develop functional and efficient circuit solutions.",
       "rules": [
-        "Problems may contain hidden information in bits, characters, images and other formats.",
-        "Teams race to decode and answer as fast as possible.",
-        "Use of internet allowed for research.",
-        "Use of AI tools is strictly prohibited and monitored.",
-        "Eligibility: 1st, 2nd and 3rd year students.",
+        "Eligibility: 2nd and 3rd year students from all branches are eligible.",
         "Each team must have at least one ECE student.",
-        "Team size: 2 to 4 members."
+        "Team size: 2 to 3 members.",
+        "Cadence Virtuoso and Spectre will be used for schematic design and circuit simulation, subject to tool availability.",
+        "Teams receive a problem statement requiring them to design an analog circuit using the given specifications.",
+        "Teams simulate their designs and verify functionality against the specified requirements.",
+        "Evaluation considers circuit functionality, adherence to specifications, gain, bandwidth, power consumption, stability, and other specified performance parameters.",
+        "Teams must submit their circuit schematics, simulation results, and a brief explanation of their design approach.",
+        "Designs and explanations must be the team's own work. Plagiarism or unauthorized use of another team's work results in disqualification.",
+        "Sharing solutions or interfering with other teams is prohibited.",
+        "Only software tools and resources permitted by the organizers may be used during the event.",
+        "Judges may ask teams to explain their circuit design choices and simulation results.",
+        "Violation of event rules or submission of fraudulent results may lead to disqualification.",
+        "The decision of the judges and organizing committee is final."
       ],
       "PsLink": "",
       "coordinators": [
-        {
-          "name": "Akshat Mahanth",
-          "contact": "8935078215"
-        },
-        {
-          "name": "Atharva Antapurkar",
-          "contact": "8668897685"
-        },
-        {
-          "name": "Soumya Das",
-          "contact": "7866041166"
-        }
+        { "name": "Rudraksha", "contact": "9335815479" },
+        { "name": "Kritika", "contact": "9532711307" },
+        { "name": "Kallol", "contact": "9547291634" }
       ],
       "fixedKey": "avishkar/electromania/7"
+    },
+    {
+      "eventName": "Impromptu",
+      "registrationLink": "",
+      "eventId": "12",
+      "description": "Two-stage event: Round 1 is a pen-paper test, followed by an on-the-spot impromptu challenge testing spontaneous engineering instincts and problem-solving across Software and Hardware tracks, including breadboard circuit design and component debugging.",
+      "rules": [
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students of all branches.",
+        "Strictly impromptu: Problem statements are revealed only at the venue.",
+        "No prior preparation materials, formula sheets, or notes are allowed.",
+        "Team size: Individual or pairs (1 to 2 members).",
+        "Participants can choose the Software track, Hardware track, or both; bonus points are awarded for solving both tracks.",
+        "There is a strict per-problem countdown time limit.",
+        "All hardware components, breadboards, and measuring instruments are provided on-site.",
+        "No internet access or AI tools are allowed.",
+        "Evaluation is based on correctness, speed, methodology, and a live working demo.",
+        "The decisions of the judging panel are final and binding."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Yash Raj", "contact": "8052972505" },
+        { "name": "Kallol", "contact": "9547291634" },
+        { "name": "Sudhanshu", "contact": "8433490320" }
+      ],
+      "fixedKey": "avishkar/electromania/8"
     }
   ]
 }

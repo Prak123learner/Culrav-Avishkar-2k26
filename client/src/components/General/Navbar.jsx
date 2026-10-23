@@ -127,7 +127,7 @@ const NavBar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoutError, setLogoutError] = useState("");
 
-  const { user, staff, logout } = usePortal();
+  const { user, staff, loading: sessionLoading, logout } = usePortal();
   const isAuthenticated = !!user;
   const firstName = user?.name.split(" ")[0];
   const accountPath = staff
@@ -137,12 +137,14 @@ const NavBar = () => {
     : isAuthenticated
       ? "/portal"
       : "/login";
-  const accountLabel = staff
+  const accountLabel = sessionLoading
+    ? "ACCOUNT"
+    : staff
     ? staff.role === "admin"
       ? "ADMIN"
       : "COORDINATOR"
     : isAuthenticated
-      ? `Welcome, ${firstName}!`
+      ? `Welcome, ${firstName}`
       : "LOGIN";
   async function signOutStaff() {
     setLogoutError("");
@@ -195,17 +197,23 @@ const NavBar = () => {
     <>
       <div
         ref={navContainerRef}
-        className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6 "
+        className="fixed inset-x-0 top-0 z-50 h-16 border-x-0 border-t-0 border-b transition-all duration-300"
+        style={{
+          backgroundColor: "rgba(254, 249, 195, 0.18)",
+          borderBottomColor: "rgba(234, 179, 8, 0.2)",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+        }}
       >
         <header className="absolute top-1/2 w-full -translate-y-1/2">
-          <nav className="flex size-full items-center justify-between p-4">
+          <nav className="flex size-full items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
             {/* Logo and Product button */}
             <div className="flex items-center gap-7">
-              <Link to="/">
+              <Link to="/" className="flex items-center">
                 <img
-                  src="/img/logo_avishkar_culrav.png"
+                  src="/media/common/branding/logo_avishkar_culrav.png"
                   alt="logo"
-                  className="w-20"
+                  className="h-10 sm:h-11 w-auto object-contain"
                 />
               </Link>
 
@@ -224,8 +232,13 @@ const NavBar = () => {
                   <Link
                     key={index}
                     to={item.path}
+                    onClick={(e) => {
+                      if (location.pathname === item.path) {
+                        e.preventDefault();
+                      }
+                    }}
                     className={clsx("nav-hover-btn", {
-                      "text-blue-400": location.pathname === item.path,
+                      "text-[#321A0A]": location.pathname === item.path,
                     })}
                   >
                     {item.name}
@@ -233,8 +246,14 @@ const NavBar = () => {
                 ))}
                 <Link
                   to={accountPath}
+                  aria-busy={sessionLoading}
+                  onClick={(event) => {
+                    if (sessionLoading || location.pathname === accountPath) {
+                      event.preventDefault();
+                    }
+                  }}
                   className={clsx("nav-hover-btn", {
-                    "text-blue-400": location.pathname === accountPath,
+                    "text-[#321A0A]": location.pathname === accountPath,
                   })}
                 >
                   {accountLabel}
@@ -279,7 +298,7 @@ const NavBar = () => {
               >
                 <span
                   className={clsx(
-                    "w-6 h-0.5 bg-white transition-all duration-300",
+                    "w-6 h-0.5 bg-[#321A0A] transition-all duration-300",
                     {
                       "rotate-45 translate-y-2": isMobileMenuOpen,
                     },
@@ -287,7 +306,7 @@ const NavBar = () => {
                 />
                 <span
                   className={clsx(
-                    "w-6 h-0.5 bg-white transition-all duration-300",
+                    "w-6 h-0.5 bg-[#321A0A] transition-all duration-300",
                     {
                       "opacity-0": isMobileMenuOpen,
                     },
@@ -295,7 +314,7 @@ const NavBar = () => {
                 />
                 <span
                   className={clsx(
-                    "w-6 h-0.5 bg-white transition-all duration-300",
+                    "w-6 h-0.5 bg-[#321A0A] transition-all duration-300",
                     {
                       "-rotate-45 -translate-y-2": isMobileMenuOpen,
                     },
@@ -307,7 +326,7 @@ const NavBar = () => {
         </header>
       </div>
       {logoutError && (
-        <p className="fixed top-24 right-6 z-50 ca-error" role="alert">
+        <p className="fixed top-20 right-6 z-50 ca-error" role="alert">
           {logoutError}
         </p>
       )}
@@ -331,7 +350,7 @@ const NavBar = () => {
         {/* Menu Content */}
         <div
           className={clsx(
-            "absolute top-24 right-4 left-4 bg-black/95 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl transform transition-all duration-300",
+            "absolute top-20 right-4 left-4 bg-black/95 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl transform transition-all duration-300",
             {
               "translate-y-0 opacity-100": isMobileMenuOpen,
               "-translate-y-4 opacity-0": !isMobileMenuOpen,
@@ -343,6 +362,12 @@ const NavBar = () => {
               <Link
                 key={index}
                 to={item.path}
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  if (location.pathname === item.path) {
+                    e.preventDefault();
+                  }
+                }}
                 className={clsx(
                   "px-4 py-3 text-base font-medium rounded-lg transition-all duration-300",
                   {
@@ -358,6 +383,13 @@ const NavBar = () => {
             ))}
             <Link
               to={accountPath}
+              aria-busy={sessionLoading}
+              onClick={(event) => {
+                setIsMobileMenuOpen(false);
+                if (sessionLoading || location.pathname === accountPath) {
+                  event.preventDefault();
+                }
+              }}
               className={clsx(
                 "px-4 py-3 text-base font-medium rounded-lg transition-all duration-300",
                 {

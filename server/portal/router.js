@@ -389,6 +389,85 @@ router.get(
   }),
 );
 
+async function teamsForParticipant(participantId) {
+  const teams = await FestTeam.find({
+    $or: [{ memberIds: participantId }, { pendingIds: participantId }],
+  }).lean();
+  if (!teams.length) return [];
+  const participantIds = [
+    ...new Set(
+      teams.flatMap((team) =>
+        [...team.memberIds, ...team.pendingIds].map(String),
+      ),
+    ),
+  ];
+  const unlockedIds = teams
+    .filter((team) => !team.membershipLockedAt)
+    .map((team) => team._id);
+  const [participants, registeredTeamIds] = await Promise.all([
+    Participant.find({ _id: { $in: participantIds } })
+      .select("name caId college")
+      .lean(),
+    unlockedIds.length
+      ? Registration.distinct("teamId", { teamId: { $in: unlockedIds } })
+      : Promise.resolve([]),
+  ]);
+  const byId = new Map(
+    participants.map((participant) => [String(participant._id), participant]),
+  );
+  const registeredIds = new Set(registeredTeamIds.map(String));
+  return teams.map((team) => ({
+    ...team,
+    memberIds: team.memberIds.map((id) => byId.get(String(id))).filter(Boolean),
+    pendingIds: team.pendingIds
+      .map((id) => byId.get(String(id)))
+      .filter(Boolean)
+      .map(({ _id, name, caId }) => ({ _id, name, caId })),
+    locked: !!team.membershipLockedAt || registeredIds.has(String(team._id)),
+  }));
+}
+
+router.get(
+  "/registration-context",
+  a.participant,
+  async(async (req, res) => {
+    const festival = v.text(req.query.festival, 30, true);
+    const slug = v.text(req.query.category, 100, true);
+    const title = v.text(req.query.title, 200, true);
+    v.check(["avishkar", "culrav"].includes(festival), "Invalid festival");
+    v.check(/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug), "Invalid category");
+    const category = await Category.findOne({
+      festival,
+      slug,
+      archived: false,
+    });
+    if (!category)
+      return res.json({ event: null, registration: null, teams: [] });
+    const event = await Subevent.findOne({
+      categoryId: category._id,
+      title,
+      status: { $in: ["published", "closed", "cancelled"] },
+    });
+    if (!event) return res.json({ event: null, registration: null, teams: [] });
+    const [registration, teams] = await Promise.all([
+      Registration.findOne({
+        eventId: event._id,
+        memberIds: req.participant._id,
+      })
+        .select("_id")
+        .lean(),
+      event.mode === "solo"
+        ? Promise.resolve([])
+        : teamsForParticipant(req.participant._id),
+    ]);
+    res.json({
+      event: publicEventView(event, category),
+      registration,
+      teams,
+    });
+  }),
+);
+
 router.get(
   "/staff/categories",
   a.staff,
@@ -988,51 +1067,7 @@ router.get(
   "/teams",
   a.participant,
   async(async (req, res) => {
-    const teams = await FestTeam.find({
-      $or: [
-        { memberIds: req.participant.id },
-        { pendingIds: req.participant.id },
-      ],
-    }).lean();
-    if (!teams.length) return res.json({ teams: [] });
-    const participantIds = [
-      ...new Set(
-        teams.flatMap((team) =>
-          [...team.memberIds, ...team.pendingIds].map(String),
-        ),
-      ),
-    ];
-    const unlockedIds = teams
-      .filter((team) => !team.membershipLockedAt)
-      .map((team) => team._id);
-    // Resolve all members/invitees in one query. Check older registrations in
-    // parallel, only for teams that do not already have a recorded roster lock.
-    const [participants, registeredTeamIds] = await Promise.all([
-      Participant.find({ _id: { $in: participantIds } })
-        .select("name caId college")
-        .lean(),
-      unlockedIds.length
-        ? Registration.distinct("teamId", { teamId: { $in: unlockedIds } })
-        : Promise.resolve([]),
-    ]);
-    const byId = new Map(
-      participants.map((participant) => [String(participant._id), participant]),
-    );
-    const registeredIds = new Set(registeredTeamIds.map(String));
-    res.json({
-      teams: teams.map((team) => ({
-        ...team,
-        memberIds: team.memberIds
-          .map((id) => byId.get(String(id)))
-          .filter(Boolean),
-        pendingIds: team.pendingIds
-          .map((id) => byId.get(String(id)))
-          .filter(Boolean)
-          .map(({ _id, name, caId }) => ({ _id, name, caId })),
-        locked:
-          !!team.membershipLockedAt || registeredIds.has(String(team._id)),
-      })),
-    });
+    res.json({ teams: await teamsForParticipant(req.participant._id) });
   }),
 );
 router.post(

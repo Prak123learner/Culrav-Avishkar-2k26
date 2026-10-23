@@ -171,45 +171,51 @@
       },
       {
         "fixedKey": "avishkar/electromania/1",
-        "title": "INNODEV",
-        "minTeamSize": 2,
+        "title": "Innodev",
+        "minTeamSize": 1,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/electromania/2",
-        "title": "CODOTRON",
-        "minTeamSize": 1,
+        "title": "Codotron",
+        "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/electromania/3",
-        "title": "KAGGLE SPRINT",
+        "title": "RTL Rush",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/electromania/5",
+        "title": "Circuit of the Day",
+        "minTeamSize": 2,
+        "maxTeamSize": 2
+      },
+      {
+        "fixedKey": "avishkar/electromania/4",
+        "title": "AI Sprint",
+        "minTeamSize": 1,
+        "maxTeamSize": 2
+      },
+      {
+        "fixedKey": "avishkar/electromania/6",
+        "title": "Code Wars",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "avishkar/electromania/7",
+        "title": "Spice It Up",
         "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/electromania/4",
-        "title": "MARKETPULSE",
-        "minTeamSize": 2,
-        "maxTeamSize": 4
-      },
-      {
-        "fixedKey": "avishkar/electromania/5",
-        "title": "RTL RUSH",
-        "minTeamSize": 2,
-        "maxTeamSize": 4
-      },
-      {
-        "fixedKey": "avishkar/electromania/6",
-        "title": "CIRCUIT OF THE DAY",
-        "minTeamSize": 2,
-        "maxTeamSize": 4
-      },
-      {
-        "fixedKey": "avishkar/electromania/7",
-        "title": "ENCODEWARS",
-        "minTeamSize": 2,
-        "maxTeamSize": 4
+        "fixedKey": "avishkar/electromania/8",
+        "title": "Impromptu",
+        "minTeamSize": 1,
+        "maxTeamSize": 2
       }
     ]
   },
@@ -220,32 +226,75 @@
     "events": [
       {
         "fixedKey": "avishkar/genesis/0",
-        "title": "Palladin",
+        "title": "BoardRoom",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/genesis/1",
-        "title": "Central Dogma",
-        "minTeamSize": 3,
+        "title": "Case n Climb",
+        "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/genesis/2",
-        "title": "IQ Odyssey",
+        "title": "Palladin",
         "minTeamSize": 1,
-        "maxTeamSize": 2
+        "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/genesis/3",
-        "title": "Case & Climb",
-        "minTeamSize": 1,
+        "title": "IQ Odyssey",
+        "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/genesis/4",
-        "title": "Dashboarding",
+        "title": "Central Dogma",
         "minTeamSize": 2,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/genesis/5",
+        "title": "BrainWave",
+        "minTeamSize": 3,
+        "maxTeamSize": 4
+      }
+    ]
+  },
+  {
+    "festival": "avishkar",
+    "slug": "gnosomania",
+    "name": "Gnosomania",
+    "events": [
+      {
+        "fixedKey": "avishkar/gnosomania/0",
+        "title": "India Quiz",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/gnosomania/1",
+        "title": "Sci-Biz-Tech Quiz",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/gnosomania/2",
+        "title": "MELA Quiz",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/gnosomania/3",
+        "title": "General Quiz",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/gnosomania/4",
+        "title": "Sports Quiz",
+        "minTeamSize": 1,
         "maxTeamSize": 3
       }
     ]
@@ -404,45 +453,51 @@
     "events": [
       {
         "fixedKey": "avishkar/nirmaan/0",
-        "title": "COGNIZANCE ",
+        "title": "Cognizance",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/nirmaan/1",
-        "title": "LINKIDGE",
+        "title": "Ziggurare",
         "minTeamSize": 3,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/nirmaan/2",
-        "title": "CONSTRENGTHO",
-        "minTeamSize": 4,
-        "maxTeamSize": 4
+        "title": "Let It Flow",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/nirmaan/3",
-        "title": "ZIGGURARE",
+        "title": "Linkidge",
         "minTeamSize": 3,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/nirmaan/4",
-        "title": "CODIGO",
+        "title": "Codigo",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/nirmaan/5",
-        "title": "CaseFlow",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
+        "title": "StrataGem",
+        "minTeamSize": 2,
+        "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/nirmaan/6",
-        "title": "SAMADHAN",
-        "minTeamSize": 3,
+        "title": "Bounding Box",
+        "minTeamSize": 2,
         "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/nirmaan/7",
+        "title": "Survivor Series",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
       }
     ]
   },
@@ -527,38 +582,50 @@
     "events": [
       {
         "fixedKey": "avishkar/rasayans/0",
-        "title": "Chemethlon",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
-      },
-      {
-        "fixedKey": "avishkar/rasayans/1",
-        "title": "ChemExpo",
-        "minTeamSize": 1,
+        "title": "Code Indrome",
+        "minTeamSize": 3,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/rasayans/2",
-        "title": "Simulenz 2.0",
-        "minTeamSize": 1,
+        "fixedKey": "avishkar/rasayans/1",
+        "title": "Pareto's Pivot",
+        "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
+        "fixedKey": "avishkar/rasayans/2",
+        "title": "Marketing Nexus",
+        "minTeamSize": 2,
+        "maxTeamSize": 4
+      },
+      {
         "fixedKey": "avishkar/rasayans/3",
-        "title": "Quizzeria",
+        "title": "Simulenz",
         "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/rasayans/4",
-        "title": "CodeKinetics",
-        "minTeamSize": 2,
+        "title": "ChemExpo",
+        "minTeamSize": 3,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/rasayans/5",
-        "title": "Data Vision",
-        "minTeamSize": 2,
+        "title": "Hazopium",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/rasayans/6",
+        "title": "Chemethlon",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "avishkar/rasayans/7",
+        "title": "Scavenger Hunt",
+        "minTeamSize": 3,
         "maxTeamSize": 4
       }
     ]
@@ -662,9 +729,9 @@
       },
       {
         "fixedKey": "culrav/darkroom/2",
-        "title": "Sales-Pitch",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
+        "title": "Sales Pitch",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
       },
       {
         "fixedKey": "culrav/darkroom/3",
@@ -680,7 +747,7 @@
       },
       {
         "fixedKey": "culrav/darkroom/5",
-        "title": "Short-Film",
+        "title": "Short Film",
         "minTeamSize": 1,
         "maxTeamSize": 4
       }
@@ -713,7 +780,13 @@
         "fixedKey": "culrav/litmuse/3",
         "title": "Laccuzzi",
         "minTeamSize": 1,
-        "maxTeamSize": 1
+        "maxTeamSize": 2
+      },
+      {
+        "fixedKey": "culrav/litmuse/4",
+        "title": "Pariksha pe Charcha",
+        "minTeamSize": 5,
+        "maxTeamSize": 6
       }
     ]
   },
@@ -782,6 +855,18 @@
         "title": "Momento Vinci",
         "minTeamSize": 1,
         "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "culrav/rangsazzi/5",
+        "title": "Finger Print",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "culrav/rangsazzi/6",
+        "title": "Stroke Shuffle",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
       }
     ]
   },
@@ -793,8 +878,8 @@
       {
         "fixedKey": "culrav/razzmatazz/0",
         "title": "DESI SYNC",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
+        "minTeamSize": 4,
+        "maxTeamSize": 25
       },
       {
         "fixedKey": "culrav/razzmatazz/1",

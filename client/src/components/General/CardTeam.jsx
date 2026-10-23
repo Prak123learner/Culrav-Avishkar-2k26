@@ -1,57 +1,79 @@
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, memo } from "react";
 
-
-const CardTeam = ({ name, img }) => {
-  const [isHovered, setIsHovered] = useState(false);
- // const [imgSrc, setImgSrc] = useState(convertDriveUrl(driveUrl) || FALLBACK_IMG);
-
-  const handleImgError = () => {
-    setImgSrc(FALLBACK_IMG); // use fallback only once
-  };
-
-  const cardVariants = {
-    inactive: { borderColor: "rgba(255,255,255,0.1)", boxShadow: "0 0 0px rgba(110,231,183,0)" },
-    active: {
-      borderColor: "rgba(110,231,183,0.5)",
-      boxShadow: "0 25px 50px -12px rgba(110,231,183,0.1)",
-    },
-  };
-
-  const imageVariants = {
-    inactive: { scale: 1, filter: "brightness(1) blur(0px)" },
-    active: { scale: 1.05, filter: "brightness(0.75) blur(2px)" },
-  };
+const CardTeam = memo(({ name, img, role }) => {
+  const [hasError, setHasError] = useState(false);
 
   return (
-    <motion.div
-      className="relative w-full aspect-square rounded-3xl overflow-hidden cursor-default border bg-black/30 backdrop-blur-sm"
-      animate={isHovered ? "active" : "inactive"}
-      variants={cardVariants}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileTap={{ scale: 0.97 }}
+    <div
+      style={{ contentVisibility: "auto", containIntrinsicSize: "220px 293px" }}
+      className="group relative flex flex-col overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a] via-[#1a0e05] to-[#120803] shadow-[0_8px_20px_rgba(44,29,12,0.16)] transition-all duration-400 ease-out hover:z-20 hover:-translate-y-1.5 hover:border-[#f3cf8a] hover:shadow-[0_16px_32px_rgba(184,140,75,0.32)] aspect-[3/4] cursor-default select-none"
     >
-      <motion.img
-        src={img}
-        onError={handleImgError} // 🔥 prevents infinite loading / flicker
-        alt={name}
-        className="absolute inset-0 w-full h-full object-cover"
-        animate={isHovered ? "active" : "inactive"}
-        variants={imageVariants}
-        transition={{ duration: 0.5 }}
-      />
+      {/* Classical Double Inset Fillet Border */}
+      <div className="pointer-events-none absolute inset-1.5 z-20 rounded-xs border border-[#f3cf8a]/25 transition-colors duration-300 group-hover:border-[#f3cf8a]/60" />
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 z-10">
-        <motion.h3
-          className="text-white font-anton tracking-wider text-lg sm:text-xl drop-shadow-md"
-          animate={{ y: isHovered ? "-1.2rem" : 0 }}
-        >
-          {name}
-        </motion.h3>
+      {/* Top Roman Corner Ornaments */}
+      <div className="pointer-events-none absolute top-2 left-2 z-20 text-[8px] text-[#f3cf8a]/60 transition-colors group-hover:text-[#f3cf8a]">
+        ✦
       </div>
-    </motion.div>
+      <div className="pointer-events-none absolute top-2 right-2 z-20 text-[8px] text-[#f3cf8a]/60 transition-colors group-hover:text-[#f3cf8a]">
+        ✦
+      </div>
+
+      {/* Member Portrait Image */}
+      <div className="relative w-full h-full overflow-hidden">
+        {!hasError && img ? (
+          <img
+            src={img}
+            alt={name}
+            onError={() => setHasError(true)}
+            className="h-full w-full object-cover object-top transition-all duration-500 ease-out group-hover:scale-108 group-hover:brightness-105"
+            loading="lazy"
+          />
+        ) : (
+          /* Classical Marble Olympian Silhouette Fallback */
+          <div className="flex h-full w-full flex-col items-center justify-center bg-[#251509] p-4 text-[#b88c4b]/50">
+            <svg viewBox="0 0 100 100" className="h-16 w-16 fill-current opacity-70">
+              <circle cx="50" cy="35" r="20" />
+              <path d="M15 90 C15 65 30 55 50 55 C70 55 85 65 85 90 Z" />
+            </svg>
+            <span className="font-cinzel text-[10px] tracking-widest uppercase mt-2 text-[#d4b48d]/60">
+              Archon
+            </span>
+          </div>
+        )}
+
+        {/* Top Soft Vignette */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-[#140b04]/70 via-transparent to-transparent z-10" />
+
+        {/* Bottom Cartouche Gradient */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#140b04] via-[#140b04]/85 to-transparent z-10" />
+      </div>
+
+      {/* Bottom Inscription Plinth */}
+      <div className="absolute inset-x-0 bottom-0 p-3 z-20 flex flex-col items-center text-center">
+        {role && (
+          <span className="font-cinzel text-[9px] uppercase tracking-[0.2em] text-[#d4a259] font-bold drop-shadow-sm flex items-center justify-center gap-1 mb-0.5 line-clamp-1">
+            <span className="text-[7px]">✦</span>
+            <span>{role}</span>
+            <span className="text-[7px]">✦</span>
+          </span>
+        )}
+
+        <h3 className="font-cinzel text-xs sm:text-sm font-bold tracking-wider text-[#f7eedc] transition-colors group-hover:text-[#f3cf8a] drop-shadow-md line-clamp-1">
+          {name}
+        </h3>
+
+        {/* Underline Flourish on Hover */}
+        <div className="mt-1 flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="h-px w-5 bg-[#b88c4b]/70" />
+          <span className="text-[7px] text-[#f3cf8a]">✦</span>
+          <div className="h-px w-5 bg-[#b88c4b]/70" />
+        </div>
+      </div>
+    </div>
   );
-};
+});
+
+CardTeam.displayName = "CardTeam";
 
 export default CardTeam;
