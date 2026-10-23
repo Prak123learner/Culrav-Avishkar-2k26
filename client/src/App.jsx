@@ -6,6 +6,9 @@ import { TeamPage } from "./pages/TeamPage";
 import Gallery from "./pages/Gallery.jsx";
 import { Toaster } from "sonner";
 import Navbar from "./components/General/Navbar";
+import LashcurryThumbnail from "./assets/pages/gallery/lashcurry.webp";
+import GalleryImg10Thumbnail from "./assets/pages/gallery/galleryImg10.webp";
+import PragatiNagpalThumbnail from "./assets/pages/gallery/pragati nagpal.webp";
 
 import { GoogleLogin, StaffLogin } from "./portal/AuthPages";
 import { ParticipantHome, RegistrationPage } from "./portal/ParticipantPages";
@@ -66,6 +69,33 @@ function App() {
   useEffect(() => {
     localStorage.removeItem("token");
   }, []);
+
+  useEffect(() => {
+    if (showInitialReveal) return undefined;
+
+    const preloadFestivalMedia = () => {
+      [
+        LashcurryThumbnail,
+        GalleryImg10Thumbnail,
+        PragatiNagpalThumbnail,
+      ].forEach((src) => {
+        const image = new Image();
+        image.src = src;
+      });
+    };
+
+    const idleId = window.requestIdleCallback
+      ? window.requestIdleCallback(preloadFestivalMedia, { timeout: 2500 })
+      : window.setTimeout(preloadFestivalMedia, 1200);
+
+    return () => {
+      if (window.cancelIdleCallback && typeof idleId === "number") {
+        window.cancelIdleCallback(idleId);
+      } else {
+        window.clearTimeout(idleId);
+      }
+    };
+  }, [showInitialReveal]);
 
   return (
     <>

@@ -14,10 +14,15 @@ import galleryImg9 from "../assets/pages/gallery/galleryImg9.jpg";
 import galleryImg10 from "../assets/pages/gallery/galleryImg10.webp";
 import galleryImg11 from "../assets/pages/gallery/galleryImg11.jpg";
 import lashcurryImg from "../assets/pages/gallery/lashcurry.webp";
+import lashcurryFullImg from "../assets/pages/gallery/lashcurry-full.webp";
 import pranavSharmaImg from "../assets/pages/gallery/pranav sharma.webp";
+import pranavSharmaFullImg from "../assets/pages/gallery/pranav sharma-full.webp";
 import pragatiNagpalImg from "../assets/pages/gallery/pragati nagpal.webp";
+import pragatiNagpalFullImg from "../assets/pages/gallery/pragati nagpal-full.webp";
 import javedAliImg from "../assets/pages/gallery/javed ali.webp";
 import maahiImg from "../assets/pages/gallery/maahi.webp";
+import maahiFullImg from "../assets/pages/gallery/maahi-full.webp";
+import galleryImg10Full from "../assets/pages/gallery/galleryImg10-full.webp";
 
 // Classical Laurel Divider matching Homepage Visual Archives
 const LaurelDivider = () => (
@@ -94,6 +99,7 @@ const GALLERY_ITEMS = [
   {
     id: 6,
     staticSrc: maahiImg,
+    fullSrc: maahiFullImg,
     title: "Maahi",
     subtitle: "Breakout Pop Voice & Acoustic Melodist",
     act: "UNPLUGGED",
@@ -130,6 +136,7 @@ const GALLERY_ITEMS = [
   {
     id: 3,
     staticSrc: galleryImg10,
+    fullSrc: galleryImg10Full,
     title: "Monali Thakur",
     subtitle: "National Award–Winning Playback Sensation",
     act: "STAR NITE",
@@ -166,6 +173,7 @@ const GALLERY_ITEMS = [
   {
     id: 9,
     staticSrc: pranavSharmaImg,
+    fullSrc: pranavSharmaFullImg,
     title: "Pranav Sharma",
     subtitle: "Observational Comedy & Sharp Wit Maestro",
     act: "STANDUP",
@@ -202,6 +210,7 @@ const GALLERY_ITEMS = [
   {
     id: 12,
     staticSrc: pragatiNagpalImg,
+    fullSrc: pragatiNagpalFullImg,
     title: "Pragati Nagpal",
     subtitle: "Vibrant Pop Sensation & Vocalist",
     act: "POP NITE",
@@ -238,6 +247,7 @@ const GALLERY_ITEMS = [
   {
     id: 15,
     staticSrc: lashcurryImg,
+    fullSrc: lashcurryFullImg,
     title: "Lashcurry",
     subtitle: "MTV Hustle Champion & Desi Hip-Hop Trailblazer",
     act: "HIP HOP",
@@ -438,7 +448,7 @@ const Gallery = () => {
                 {/* Image Section */}
                 <div className="h-[280px] sm:h-[360px] md:h-full md:min-h-[440px] relative bg-black flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-[#b88c4b]/30">
                   <img
-                    src={selectedItem.staticSrc}
+                    src={selectedItem.fullSrc || selectedItem.staticSrc}
                     alt={selectedItem.title}
                     className={`w-full h-full object-cover ${selectedItem.imageClass || "object-center"}`}
                   />

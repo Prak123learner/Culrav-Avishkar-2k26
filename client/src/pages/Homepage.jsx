@@ -262,6 +262,7 @@ const HeroSection = () => {
           muted
           playsInline
           preload="auto"
+          fetchPriority="high"
           className="h-full w-full object-cover object-center"
           aria-hidden="true"
         >

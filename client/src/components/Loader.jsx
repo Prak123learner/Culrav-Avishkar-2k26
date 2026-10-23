@@ -1,12 +1,76 @@
 import { useEffect, useRef } from "react";
+import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
 
 const MEANDER_PATH =
   "M0 14h18V2h24v24H6V10h24v8H18v-4h24v12h24V2h24v24H54V10h24v8H66v-4h24v12h24V2h24v24h-36V10h24v8h-12v-4h24";
+
+// The opening scroll is on screen long enough to warm the browser cache before
+// the homepage is revealed. Keep the hero and backgrounds ahead of the archive
+// videos so the first painted screen is never competing with four video files.
+const HOMEPAGE_HERO_VIDEO = "/media/homepage/videos/hero_video.webm";
+const HOMEPAGE_ARCHIVE_VIDEOS = [
+  "/media/homepage/videos/v4.webm",
+  "/media/homepage/videos/v1.webm",
+  "/media/homepage/videos/v5.webm",
+  "/media/homepage/videos/v2.webm",
+];
+const HOMEPAGE_BACKGROUNDS = [
+  CulravBG,
+  AvishkarBG,
+  "/media/homepage/images/the-duality.webp",
+  "/media/homepage/images/realm-card.webp",
+  "/media/common/textures/parchment-bg.webp",
+  "/media/common/textures/vintage-scratches.webp?v=2",
+  "/media/homepage/images/card_culrav_clean.webp",
+  "/media/homepage/images/card_avishkar_clean.webp",
+  "/media/homepage/images/compass_divider.webp",
+  "/media/homepage/images/footer-bg.webp",
+  "/media/homepage/images/IcarusSun.webp",
+  "/media/homepage/images/TwinLeaves.webp",
+];
+
+function warmHomepageMedia() {
+  // Start the actual hero file immediately. The matching index.html preload is
+  // deduplicated by the browser and gives this request the highest priority.
+  const hero = document.createElement("video");
+  hero.preload = "auto";
+  hero.muted = true;
+  hero.playsInline = true;
+  hero.src = HOMEPAGE_HERO_VIDEO;
+  hero.load();
+
+  // Image objects populate the same memory/disk cache used by CSS background
+  // images and <img> elements when the visitor opens another festival page.
+  HOMEPAGE_BACKGROUNDS.forEach((src) => {
+    const image = new Image();
+    image.decoding = "async";
+    image.src = src;
+  });
+
+  // Archive videos are useful below the fold, but must not delay the hero. A
+  // low-priority prefetch lets the browser fetch them only when bandwidth allows.
+  const videoPrefetchTimer = window.setTimeout(() => {
+    HOMEPAGE_ARCHIVE_VIDEOS.forEach((href) => {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.as = "video";
+      link.href = href;
+      link.type = "video/webm";
+      document.head.appendChild(link);
+    });
+  }, 350);
+
+  return () => {
+    window.clearTimeout(videoPrefetchTimer);
+  };
+}
 
 export default function OracleScrollLoader({ onComplete }) {
   const loaderRef = useRef(null);
 
   useEffect(() => {
+    const stopWarmingMedia = warmHomepageMedia();
     const revealTimer = window.setTimeout(() => {
       loaderRef.current?.classList.add("oracle-loader-leaving");
     }, 3150);
@@ -15,6 +79,7 @@ export default function OracleScrollLoader({ onComplete }) {
     }, 3750);
 
     return () => {
+      stopWarmingMedia();
       window.clearTimeout(revealTimer);
       window.clearTimeout(completionTimer);
     };
