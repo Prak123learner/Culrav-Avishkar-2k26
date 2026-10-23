@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion as Motion } from "framer-motion";
 import { Maximize2, X, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -422,14 +422,14 @@ const Gallery = () => {
       {/* Mythological Classical Modal Dialog */}
       <AnimatePresence>
         {selectedItem && (
-          <motion.div
+          <Motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md"
             onClick={() => setSelectedItem(null)}
           >
-            <motion.div
+            <Motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
@@ -493,8 +493,8 @@ const Gallery = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </Motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </div>
