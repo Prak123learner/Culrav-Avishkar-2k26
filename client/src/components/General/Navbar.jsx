@@ -107,6 +107,7 @@ import { usePortal } from "../../portal/context";
 import { message } from "../../portal/api";
 import clsx from "clsx";
 import gsap from "gsap";
+import { preloadPublicRoute } from "../publicRoutePreload";
 
 // import Button from "../Button";
 import { TiLocationArrow } from "react-icons/ti";
@@ -123,7 +124,7 @@ const NavBar = () => {
   const location = useLocation();
 
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const lastScrollY = useRef(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [logoutError, setLogoutError] = useState("");
 
@@ -165,6 +166,7 @@ const NavBar = () => {
       if (location.pathname === "/team") {
         setIsNavVisible(true);
         navContainerRef.current?.classList.remove("floating-nav");
+        lastScrollY.current = window.scrollY;
         return;
       }
 
@@ -173,20 +175,20 @@ const NavBar = () => {
       if (currentScrollY === 0) {
         setIsNavVisible(true);
         navContainerRef.current?.classList.remove("floating-nav");
-      } else if (currentScrollY > lastScrollY) {
+      } else if (currentScrollY > lastScrollY.current) {
         setIsNavVisible(false);
         navContainerRef.current?.classList.add("floating-nav");
-      } else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY < lastScrollY.current) {
         setIsNavVisible(true);
         navContainerRef.current?.classList.add("floating-nav");
       }
 
-      setLastScrollY(currentScrollY);
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY, location.pathname]);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.pathname === "/team") {
@@ -224,7 +226,7 @@ const NavBar = () => {
           <nav className="flex size-full items-center justify-between px-4 sm:px-6 lg:px-8 py-2">
             {/* Logo and Product button */}
             <div className="flex items-center gap-7">
-              <Link to="/" className="flex items-center">
+              <Link to="/" className="flex items-center" onPointerEnter={() => preloadPublicRoute("/")} onFocus={() => preloadPublicRoute("/")}>
                 <img
                   src="/media/common/branding/logo_avishkar_culrav.png"
                   alt="logo"
@@ -247,6 +249,9 @@ const NavBar = () => {
                   <Link
                     key={index}
                     to={item.path}
+                    onPointerEnter={() => preloadPublicRoute(item.path)}
+                    onFocus={() => preloadPublicRoute(item.path)}
+                    onTouchStart={() => preloadPublicRoute(item.path)}
                     onClick={(e) => {
                       if (location.pathname === item.path) {
                         e.preventDefault();
@@ -377,6 +382,7 @@ const NavBar = () => {
               <Link
                 key={index}
                 to={item.path}
+                onTouchStart={() => preloadPublicRoute(item.path)}
                 onClick={(e) => {
                   setIsMobileMenuOpen(false);
                   if (location.pathname === item.path) {

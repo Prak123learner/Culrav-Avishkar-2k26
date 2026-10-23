@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Maximize2, X, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import galleryImg1 from "../assets/pages/gallery/galleryImg1.jpg";
+import galleryImg1Thumb from "../assets/pages/gallery/galleryImg1-thumb.webp";
 import galleryImg3 from "../assets/pages/gallery/galleryImg3.jpg";
 import galleryImg4 from "../assets/pages/gallery/galleryImg4.jpg";
 import galleryImg5 from "../assets/pages/gallery/galleryImg5.jpg";
@@ -20,9 +21,11 @@ import pranavSharmaFullImg from "../assets/pages/gallery/pranav sharma-full.webp
 import pragatiNagpalImg from "../assets/pages/gallery/pragati nagpal.webp";
 import pragatiNagpalFullImg from "../assets/pages/gallery/pragati nagpal-full.webp";
 import javedAliImg from "../assets/pages/gallery/javed ali.webp";
+import javedAliThumb from "../assets/pages/gallery/javed ali-thumb.webp";
 import maahiImg from "../assets/pages/gallery/maahi.webp";
 import maahiFullImg from "../assets/pages/gallery/maahi-full.webp";
 import galleryImg10Full from "../assets/pages/gallery/galleryImg10-full.webp";
+
 
 // Classical Laurel Divider matching Homepage Visual Archives
 const LaurelDivider = () => (
@@ -74,7 +77,8 @@ const LaurelDivider = () => (
 const GALLERY_ITEMS = [
   {
     id: 1,
-    staticSrc: javedAliImg,
+    staticSrc: javedAliThumb,
+    fullSrc: javedAliImg,
     title: "Javed Ali",
     subtitle: "Maestro of Soulful Sufi & Bollywood Melodies",
     act: "PRO-NITE",
@@ -86,7 +90,8 @@ const GALLERY_ITEMS = [
   },
   {
     id: 2,
-    staticSrc: galleryImg1,
+    staticSrc: galleryImg1Thumb,
+    fullSrc: galleryImg1,
     title: "Mohit Chauhan",
     subtitle: "Soulful Melodies & Timeless Harmonies",
     act: "PRO-NITE",

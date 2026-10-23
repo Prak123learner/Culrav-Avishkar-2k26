@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>COORDINATOR_PARTICIPANT_WALKTHROUGH.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> or <div class="page"></div> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="registration-forms-coordinator-and-participant-walkthrough">Registration forms: coordinator and participant walkthrough</h1>
+<p><strong>Example event: Avishkar → CyberQuest → Softathlon</strong></p>
+<p>The coordinator first collects a project repository. After participants register, she adds a demo-video question and gives existing participants extra time to answer it.</p>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Account</th>
+<th>CA ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coordinator</td>
+<td>Ananya Verma · ananya.verma@example.com</td>
+<td>CA-2026-482731</td>
+</tr>
+<tr>
+<td>Participant</td>
+<td>Aarav Sharma · aarav.sharma@example.com · College reg. no. 20234068</td>
+<td>CA-2026-715284</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-coordinator-creates-the-first-question">1. Coordinator creates the first question</h2>
+<p>Sign in at <code>/coordinator/login</code>. In <strong>Events</strong>, open <strong>Avishkar → CyberQuest → Softathlon</strong>, or search for <strong>Softathlon</strong>. Click <strong>Edit registration form</strong>.</p>
+<p>Click <strong>Add question</strong> and enter:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Label</td>
+<td>GitHub repository link</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>File / folder URL</td>
+</tr>
+<tr>
+<td>Instructions</td>
+<td>Share your project repository. Make sure coordinators can open the link and read the README.</td>
+</tr>
+<tr>
+<td>Required</td>
+<td>Checked</td>
+</tr>
+</tbody>
+</table>
+<p>Name, email, CA ID and saved profile details are attached automatically; do not add questions asking for them again.</p>
+<p><img src="docs/registration-walkthrough/images/01-create-question-desktop.jpg" alt="Coordinator creates a required repository-link question"></p>
+<h2 id="2-set-the-closing-time-and-publish">2. Set the closing time and publish</h2>
+<p>Set <strong>Registration closes</strong> to <strong>Required Deadline</strong>. Tick <strong>Publish registration form</strong>, then click <strong>Save subevent &amp; form</strong>. Keep <strong>Allow answer edits while registration is open</strong> checked if participants should be able to correct their initial answers before closing.</p>
+<p>This date stops <strong>new registrations</strong>. It is optional: leaving it blank keeps registration open while the event and form remain published. The date/time fields use the coordinator's local time; this example uses IST.</p>
+<p><img src="docs/registration-walkthrough/images/02-deadline-publish-desktop.jpg" alt="Closing time, publication checkbox and save button"></p>
+<p>After saving, the event card says <strong>Registration form published</strong>, and its edit button becomes <strong>Update registration form</strong>.</p>
+<p><img src="docs/registration-walkthrough/images/03-published-event-desktop.jpg" alt="Softathlon registration form is published"></p>
+<h2 id="3-participant-opens-and-fills-the-form">3. Participant opens and fills the form</h2>
+<p>Aarav signs in with Google, completes and confirms his profile, opens the public Softathlon event and clicks <strong>Register Now</strong>. The registration page shows the closing time.</p>
+<p><img src="docs/registration-walkthrough/images/04-prefilled-profile-desktop.jpg" alt="Participant opens Softathlon registration"></p>
+<p>His saved participant details are included automatically. For this example, he chooses <strong>Register individually</strong> and enters:</p>
+<p><code>https://github.com/aarav-sharma/campus-connect</code></p>
+<p>Then he clicks <strong>Submit registration</strong>. Softathlon supports solo or team entries; a team leader would instead select a confirmed team they lead.</p>
+<p><img src="docs/registration-walkthrough/images/05-first-response-desktop.jpg" alt="Participant enters a repository URL and submits"></p>
+<h2 id="4-registration-is-recorded">4. Registration is recorded</h2>
+<p>The page displays <strong>Registration received</strong> with a registration ID. <strong>View your registration</strong> opens the entry in <strong>Registered events</strong>. No coordinator approval is required.</p>
+<p><img src="docs/registration-walkthrough/images/06-registration-received-desktop.jpg" alt="Registration receipt and link to the participant dashboard"></p>
+<h2 id="5-coordinator-adds-a-demo-video-question-later">5. Coordinator adds a demo-video question later</h2>
+<p>Ananya opens Softathlon → <strong>Update registration form</strong>, leaves the repository question unchanged, and clicks <strong>Add question</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Label</td>
+<td>Demo video link</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>File / folder URL</td>
+</tr>
+<tr>
+<td>Instructions</td>
+<td>Share a 2-minute project demo. Make sure the video URL is accessible to coordinators; for Drive, use Anyone with the link can view.</td>
+</tr>
+<tr>
+<td>Required</td>
+<td>Checked</td>
+</tr>
+</tbody>
+</table>
+<p><img src="docs/registration-walkthrough/images/07-add-demo-question-desktop.jpg" alt="Coordinator adds the required demo-video question"></p>
+<p>Because responses already exist, the editor displays <strong>Existing participants need to review this form</strong>. She sets <strong>Deadline for existing participants to submit updated answers</strong> to <strong>27 October 2026, 8:00 PM</strong>, then clicks <strong>Update published form</strong>.</p>
+<p><img src="docs/registration-walkthrough/images/08-update-deadline-desktop.jpg" alt="Separate deadline for existing participants and update button"></p>
+<table>
+<thead>
+<tr>
+<th>Deadline</th>
+<th>Who it affects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25 October, 8:00 PM</td>
+<td>New participants/teams must register before this time.</td>
+</tr>
+<tr>
+<td>27 October, 8:00 PM</td>
+<td>Already registered participants can submit the requested updated answers until this time. This does not reopen new registrations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="6-participant-sees-the-update-notice">6. Participant sees the update notice</h2>
+<p>Aarav opens <strong>My portal → Registered events</strong>, or refreshes that tab if it was already open. His existing Softathlon entry now says:</p>
+<blockquote>
+<p>Softathlon form has been updated. Please review and submit your updated answers.</p>
+</blockquote>
+<p>The notice includes the <strong>27 October, 8:00 PM</strong> deadline and a <strong>Review updated form</strong> button. His earlier registration remains recorded.</p>
+<p><img src="docs/registration-walkthrough/images/09-participant-notice-desktop.jpg" alt="Participant sees the form-update notice and review deadline"></p>
+<h2 id="7-participant-answers-the-new-question">7. Participant answers the new question</h2>
+<p>Click <strong>Review updated form</strong>. The unchanged repository answer is already filled in. The new <strong>Demo video link</strong> field needs an answer.</p>
+<p>Aarav enters the example video URL, checks its sharing permissions, and clicks <strong>Submit updated form</strong>.</p>
+<p><img src="docs/registration-walkthrough/images/10-submit-updated-answers-desktop.jpg" alt="Existing repository answer is retained and participant supplies a video URL"></p>
+<h2 id="8-both-sides-see-the-completed-response">8. Both sides see the completed response</h2>
+<p>The review notice disappears. <strong>Registered events</strong> now shows both submitted links under the same registration ID.</p>
+<p><img src="docs/registration-walkthrough/images/11-updated-response-saved-desktop.jpg" alt="Participant sees both answers after submitting the update"></p>
+<p>Ananya opens Softathlon → <strong>Responses</strong> and sees Aarav's profile and both links in one registration. <strong>Earlier form responses</strong> preserves the prior submission. She can use <strong>Download Excel</strong> or <strong>Download CSV</strong> to export responses.</p>
+<p><img src="docs/registration-walkthrough/images/12-coordinator-responses-desktop.jpg" alt="Coordinator sees the updated registration and earlier-response history"></p>
+<h3 id="remember">Remember</h3>
+<ul>
+<li>Add a new question when requesting an additional item. Unchanged question answers carry forward; changed questions may require fresh answers.</li>
+<li>For team registrations, the leader submits and updates answers. Members must accept invitations before registration; registering locks the team roster.</li>
+<li>Participants should revisit or refresh Registered events for notices; this walkthrough does not rely on an email notification.</li>
+<li>A URL being accepted does not prove the file is accessible. Participants must check sharing permissions before submitting.</li>
+<li>Someone missing the updated-answer deadline keeps their earlier submission on record; coordinators apply the event's announced eligibility/elimination rules.</li>
+</ul>
+<h2 id="9-create-a-team-for-team-events">9. Create a team for team events</h2>
+<p>Open <strong>My portal → Teams</strong>. Enter a team name and click <strong>Create team</strong>. The person who creates the team becomes its <strong>leader</strong>. Invite members using their CA IDs; each member opens their own Teams tab, refreshes if needed, and accepts the invitation.</p>
+<p>In this example, <strong>Code Catalysts</strong> has <strong>Aarav Sharma</strong> as leader and <strong>Isha Gupta</strong> as a confirmed member.</p>
+<p><strong>For a team event, only the team leader needs to fill and submit the registration form.</strong> Once all invitations are accepted and the team meets the event's size requirements, the leader opens the event's <strong>Register Now</strong> form, selects the team, and submits once for everyone. Members do not fill separate forms for the same team entry. Later form updates are also answered by the leader.</p>
+<p><img src="docs/registration-walkthrough/images/13-teams-desktop.jpg" alt="Teams page showing team creation, leader, confirmed member and invitation controls"></p>
+
+</body>
+</html>

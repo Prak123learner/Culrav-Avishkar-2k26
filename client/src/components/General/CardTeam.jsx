@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import { Instagram } from "lucide-react";
 
-const CardTeam = memo(({ name, img, role, instagram }) => {
+const CardTeam = memo(({ name, img, role, instagram, eager = false }) => {
   const [hasError, setHasError] = useState(false);
 
   return (
@@ -28,7 +28,8 @@ const CardTeam = memo(({ name, img, role, instagram }) => {
             alt={name}
             onError={() => setHasError(true)}
             className="h-full w-full object-cover object-top transition-all duration-500 ease-out group-hover:scale-108 group-hover:brightness-105"
-            loading="lazy"
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={eager ? "high" : "auto"}
           />
         ) : (
           /* Classical Marble Olympian Silhouette Fallback */

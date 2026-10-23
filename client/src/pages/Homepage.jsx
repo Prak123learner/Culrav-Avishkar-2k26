@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router";
 
 import TimeStampCard from "../components/TimeStampCard";
+import { preloadPublicRoute } from "../components/publicRoutePreload";
 // import GallerySection from "./Homepage/GallerySection";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -498,6 +499,8 @@ const AboutSection = () => {
               <div className="mt-auto w-full max-w-xs pt-6">
                 <Link
                   to="/culrav"
+                  onPointerEnter={() => preloadPublicRoute("/culrav")}
+                  onFocus={() => preloadPublicRoute("/culrav")}
                   className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#b87c38] bg-[#f7eedc]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#783709] shadow-sm transition-all hover:bg-[#fae6c6] active:scale-95"
                 >
                   <span className="pointer-events-none absolute inset-1 border border-[#b87c38]/40" />
@@ -539,6 +542,8 @@ const AboutSection = () => {
               <div className="mt-auto w-full max-w-xs pt-6">
                 <Link
                   to="/avishkar"
+                  onPointerEnter={() => preloadPublicRoute("/avishkar")}
+                  onFocus={() => preloadPublicRoute("/avishkar")}
                   className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#765d9e] bg-[#f4effa]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#361e5b] shadow-sm transition-all hover:bg-[#eae0f6] active:scale-95"
                 >
                   <span className="pointer-events-none absolute inset-1 border border-[#765d9e]/40" />
@@ -553,6 +558,57 @@ const AboutSection = () => {
     </section>
   );
 };
+
+function ArchiveVideo({ src }) {
+  const containerRef = useRef(null);
+  const videoRef = useRef(null);
+  const [nearViewport, setNearViewport] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element || !window.IntersectionObserver) {
+      setNearViewport(true);
+      setHasLoaded(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setNearViewport(entry.isIntersecting);
+        if (entry.isIntersecting) setHasLoaded(true);
+      },
+      { rootMargin: "500px 0px" },
+    );
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (nearViewport) {
+      videoRef.current?.play().catch(() => {});
+    } else {
+      videoRef.current?.pause();
+    }
+  }, [nearViewport]);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0">
+      {hasLoaded && (
+        <video
+          ref={videoRef}
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
+        >
+          <source src={src} type="video/webm" />
+        </video>
+      )}
+    </div>
+  );
+}
 
 const GallerySection = () => {
   const galleryItems = [
@@ -645,16 +701,7 @@ const GallerySection = () => {
               </div>
 
               {/* Video Element with Orangish Monochromatic Filter (blooms to full color on hover) */}
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="auto"
-                className="absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
-              >
-                <source src={item.src} type="video/webm" />
-              </video>
+              <ArchiveVideo src={item.src} />
 
               {/* Orangish Monochrome Duotone Tint (fades out on hover) */}
               <div className="pointer-events-none absolute inset-0 z-10 bg-[#d4621a]/30 mix-blend-color opacity-80 group-hover:opacity-0 transition-opacity duration-700" />

@@ -2,9 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
 import { useImagePreloader } from "../components/useImagePreloader";
+import { routeCriticalImages } from "../components/routeCriticalImages";
+import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
-import image from "../assets/pages/culrav/CULRAV LOGO.png";
+import image from "../assets/pages/culrav/CULRAV LOGO-display.webp";
 
 // Culrav Cultural Event Cards (Pairs: Without Hover & With Hover)
 import AnunaadWithoutHover from "../assets/pages/culrav/cards/Anunaad_Without_Hover.webp";
@@ -30,6 +32,7 @@ import RazzmatazzWithHover from "../assets/pages/culrav/cards/Razzmatazz_with_ho
 
 import CulravButtonPlaque from "../assets/pages/culrav/cards/CulravButtonCrop.webp";
 
+
 function CulravEventCard({ event, onClick, eager }) {
   const clipPathStyle =
     event.customClip || "inset(4.7% 2.8% 4.7% 2.3% round 8px)";
@@ -39,6 +42,8 @@ function CulravEventCard({ event, onClick, eager }) {
       role="button"
       tabIndex={0}
       onClick={onClick}
+      onPointerEnter={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
+      onFocus={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
       className="group relative w-full max-w-[340px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(70,25,5,0.28)] hover:drop-shadow-[0_22px_45px_rgba(190,80,15,0.45)] focus:outline-none rounded-lg"
     >
@@ -173,11 +178,7 @@ function CulravEvent() {
       customClip: "inset(2.6% 2.6% 4.0% 2.3% round 8px)",
     },
   ];
-  const criticalAssetsReady = useImagePreloader([
-    CulravBG,
-    image,
-    ...events.slice(0, 3).map((event) => event.withoutHover),
-  ]);
+  const criticalAssetsReady = useImagePreloader(routeCriticalImages["/culrav"]);
 
   if (!criticalAssetsReady) {
     return <RouteSuspenseLoader />;

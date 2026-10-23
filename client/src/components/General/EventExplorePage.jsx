@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ArrowLeft, X } from "lucide-react";
-import {
-  EventRegistrationLink,
-  eventRegistrationPath,
-} from "../../portal/EventRegistrationLink";
+import { EventRegistrationLink } from "../../portal/EventRegistrationLink";
 import AvishkarBG from "../../assets/common/backgrounds/AvishkarBG.webp";
 import CulravBG from "../../assets/common/backgrounds/CulravBG.webp";
+
+const Motion = motion;
 
 export default function EventExplorePage({
   data,
@@ -122,7 +121,7 @@ export default function EventExplorePage({
         {/* Sub-Events Cards Grid (Authentic Warm Parchment Tablets - Compact Sleek Height) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {events.map((event, idx) => (
-            <motion.div
+            <Motion.div
               key={event.id}
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
@@ -185,7 +184,7 @@ export default function EventExplorePage({
                   </button>
                 </div>
               </div>
-            </motion.div>
+            </Motion.div>
           ))}
         </div>
       </div>
@@ -193,7 +192,7 @@ export default function EventExplorePage({
       {/* --- Subevent Explore Page (Full-Screen Slide-Up Warm Parchment Panel Extending Behind Navbar) --- */}
       <AnimatePresence>
         {selected && (
-          <motion.div
+          <Motion.div
             initial={{ y: "100%" }}
             animate={{ y: 0 }}
             exit={{ y: "100%" }}
@@ -216,7 +215,7 @@ export default function EventExplorePage({
             <div className="pointer-events-none fixed inset-x-3 sm:inset-x-5 top-20 bottom-3 sm:bottom-5 border-2 border-[#b88c4b]/35 z-10" />
 
             {/* Modal Top-Left Back Button */}
-            <motion.button
+            <Motion.button
               type="button"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -231,7 +230,7 @@ export default function EventExplorePage({
               <ArrowLeft className={`w-4 h-4 ${arrowColor}`} />
               <span className="hidden sm:inline">Back to {categoryTitle}</span>
               <span className="sm:hidden">Back</span>
-            </motion.button>
+            </Motion.button>
 
             
 
@@ -387,7 +386,7 @@ export default function EventExplorePage({
               category={catSlug}
               title={selected.title}
             />
-          </motion.div>
+          </Motion.div>
         )}
       </AnimatePresence>
     </div>

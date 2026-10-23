@@ -1,46 +1,64 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
-function isCached(src) {
+const loadedImages = new Set();
+const imageRequests = new Map();
+
+function isReady(src) {
+  if (loadedImages.has(src)) return true;
   const image = new Image();
   image.src = src;
-  return image.complete && image.naturalWidth > 0;
+  if (image.complete && image.naturalWidth > 0) {
+    loadedImages.add(src);
+    return true;
+  }
+  return false;
 }
 
-/**
- * Holds a route's visual loader only until its above-the-fold images are ready.
- * Cached assets pass synchronously, so returning to that route does not add a
- * loading screen.
- */
+function warmImage(src) {
+  if (isReady(src)) return Promise.resolve();
+  if (imageRequests.has(src)) return imageRequests.get(src);
+
+  const request = new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => {
+      loadedImages.add(src);
+      imageRequests.delete(src);
+      resolve();
+    };
+    image.onerror = () => {
+      imageRequests.delete(src);
+      resolve(); // A missing decorative image must not trap the route.
+    };
+    image.src = src;
+  });
+  imageRequests.set(src, request);
+  return request;
+}
+
+export function warmImages(sources) {
+  return Promise.all(sources.filter(Boolean).map(warmImage));
+}
+
+/** Show the route loader only while its visible images are genuinely cold. */
 export function useImagePreloader(sources) {
-  const sourceKey = useMemo(() => sources.join("|"), [sources]);
-  const [ready, setReady] = useState(() => sources.every(isCached));
+  const sourceKey = sources.join("|");
+  const [ready, setReady] = useState(() => sources.every(isReady));
 
   useEffect(() => {
-    let cancelled = false;
-
-    if (sources.every(isCached)) {
+    let active = true;
+    const requestedSources = sourceKey ? sourceKey.split("|") : [];
+    if (requestedSources.every(isReady)) {
       setReady(true);
-      return undefined;
+    } else {
+      setReady(false);
+      warmImages(requestedSources).then(() => {
+        if (active) setReady(true);
+      });
     }
-
-    setReady(false);
-    let remaining = sources.length;
-    const finish = () => {
-      remaining -= 1;
-      if (remaining === 0 && !cancelled) setReady(true);
-    };
-
-    sources.forEach((src) => {
-      const image = new Image();
-      image.onload = finish;
-      image.onerror = finish;
-      image.src = src;
-    });
-
     return () => {
-      cancelled = true;
+      active = false;
     };
-  }, [sourceKey]); // sourceKey changes whenever the set of required assets does
+  }, [sourceKey]);
 
   return ready;
 }

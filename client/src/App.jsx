@@ -2,22 +2,21 @@ import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Loader, { RouteLoader } from "./components/Loader";
 import ScrollToTop from "./components/ScrollToTop";
-import { TeamPage } from "./pages/TeamPage";
-import Gallery from "./pages/Gallery.jsx";
 import { Toaster } from "sonner";
 import Navbar from "./components/General/Navbar";
-import LashcurryThumbnail from "./assets/pages/gallery/lashcurry.webp";
-import GalleryImg10Thumbnail from "./assets/pages/gallery/galleryImg10.webp";
-import PragatiNagpalThumbnail from "./assets/pages/gallery/pragati nagpal.webp";
-
-import { GoogleLogin, StaffLogin } from "./portal/AuthPages";
-import { ParticipantHome, RegistrationPage } from "./portal/ParticipantPages";
-import { CoordinatorHome } from "./portal/StaffPages";
-import { ResolveEventRegistration } from "./portal/EventRegistrationLink";
 import { PortalProvider } from "./portal/session";
+import { preloadPublicRoute } from "./components/publicRoutePreload";
 
 // lazy loaded pages
 const Homepage = lazy(() => import("./pages/Homepage"));
+const TeamPage = lazy(() => import("./pages/TeamPage").then(({ TeamPage }) => ({ default: TeamPage })));
+const Gallery = lazy(() => import("./pages/Gallery.jsx"));
+const GoogleLogin = lazy(() => import("./portal/AuthPages").then(({ GoogleLogin }) => ({ default: GoogleLogin })));
+const StaffLogin = lazy(() => import("./portal/AuthPages").then(({ StaffLogin }) => ({ default: StaffLogin })));
+const ParticipantHome = lazy(() => import("./portal/ParticipantPages").then(({ ParticipantHome }) => ({ default: ParticipantHome })));
+const RegistrationPage = lazy(() => import("./portal/ParticipantPages").then(({ RegistrationPage }) => ({ default: RegistrationPage })));
+const CoordinatorHome = lazy(() => import("./portal/StaffPages").then(({ CoordinatorHome }) => ({ default: CoordinatorHome })));
+const ResolveEventRegistration = lazy(() => import("./portal/ResolveEventRegistration").then(({ ResolveEventRegistration }) => ({ default: ResolveEventRegistration })));
 const CulravEvent = lazy(() => import("./pages/culravEvent"));
 const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
 const ComingSoonPage = lazy(() => import("./pages/ComingSoonPage.jsx"));
@@ -61,7 +60,7 @@ function RoutePageTransition({ children }) {
 }
 
 function App() {
-  const [showInitialReveal, setShowInitialReveal] = useState(true);
+  const [showInitialReveal, setShowInitialReveal] = useState(() => window.location.pathname === "/");
   const finishInitialReveal = useCallback(() => {
     setShowInitialReveal(false);
   }, []);
@@ -71,30 +70,25 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (showInitialReveal) return undefined;
+    if (showInitialReveal || window.location.pathname !== "/") return undefined;
 
-    const preloadFestivalMedia = () => {
-      [
-        LashcurryThumbnail,
-        GalleryImg10Thumbnail,
-        PragatiNagpalThumbnail,
-      ].forEach((src) => {
-        const image = new Image();
-        image.src = src;
-      });
-    };
-
-    const idleId = window.requestIdleCallback
-      ? window.requestIdleCallback(preloadFestivalMedia, { timeout: 2500 })
-      : window.setTimeout(preloadFestivalMedia, 1200);
-
-    return () => {
-      if (window.cancelIdleCallback && typeof idleId === "number") {
-        window.cancelIdleCallback(idleId);
+    // Warm the small route chunks after the homepage is visible. Images wait
+    // for a visitor's intent so they cannot compete with the hero video.
+    const timer = window.setTimeout(() => {
+      const warmRoutes = () => {
+        const connection = navigator.connection;
+        if (connection?.saveData || /2g/.test(connection?.effectiveType || "")) return;
+        ["/culrav", "/avishkar", "/gallery", "/team"].forEach((path) => {
+          preloadPublicRoute(path);
+        });
+      };
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(warmRoutes, { timeout: 3000 });
       } else {
-        window.clearTimeout(idleId);
+        warmRoutes();
       }
-    };
+    }, 1000);
+    return () => window.clearTimeout(timer);
   }, [showInitialReveal]);
 
   return (

@@ -2,6 +2,11 @@ import { useState, useRef, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import CardTeam from "../components/General/CardTeam";
 import { teamData } from "../data/Team/data.js";
+import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
+import { useImagePreloader } from "../components/useImagePreloader";
+import { routeCriticalImages, teamFirstPortraits } from "../components/routeCriticalImages";
+
+const TEAM_CRITICAL_PORTRAITS = teamFirstPortraits;
 
 // Classical Greek Laurel Divider
 const LaurelDivider = () => (
@@ -55,6 +60,7 @@ export function TeamPage() {
   const sectionRefs = useRef({});
   const isClickScrolling = useRef(false);
   const scrollTimeout = useRef(null);
+  const criticalPortraitsReady = useImagePreloader(routeCriticalImages["/team"]);
 
   // Scroll-spy logic (optimized: cached geometry + requestAnimationFrame + window scroll)
   useEffect(() => {
@@ -106,7 +112,7 @@ export function TeamPage() {
       window.removeEventListener("resize", updateOffsets);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [criticalPortraitsReady]);
 
   const handleNavClick = (id) => {
     const sectionEl = sectionRefs.current[id];
@@ -130,6 +136,10 @@ export function TeamPage() {
   const handleMobileNavChange = (e) => {
     handleNavClick(e.target.value);
   };
+
+  if (!criticalPortraitsReady) {
+    return <RouteSuspenseLoader />;
+  }
 
   return (
     <div className="relative min-h-screen w-full bg-[#edd8b1] text-[#2c1d0c] pt-16 select-none">
@@ -263,14 +273,14 @@ export function TeamPage() {
                       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
                         {[...members]
                           .sort((firstMember, secondMember) => firstMember.name.localeCompare(secondMember.name))
-                          .map((member) => <CardTeam key={member.name} name={member.name} img={member.img} role={member.role} instagram={member.instagram} />)}
+                          .map((member) => <CardTeam key={member.name} name={member.name} img={member.img} role={member.role} instagram={member.instagram} eager={TEAM_CRITICAL_PORTRAITS.includes(member.img)} />)}
                       </div>
                     </div>
                   ))}
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
-                  {team.members.map((member) => <CardTeam key={member.name} name={member.name} img={member.img} />)}
+                  {team.members.map((member) => <CardTeam key={member.name} name={member.name} img={member.img} eager={TEAM_CRITICAL_PORTRAITS.includes(member.img)} />)}
                 </div>
               )}
             </section>
