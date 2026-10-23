@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
+import { useImagePreloader } from "../components/useImagePreloader";
 
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import image from "../assets/pages/culrav/CULRAV LOGO.png";
@@ -28,7 +30,7 @@ import RazzmatazzWithHover from "../assets/pages/culrav/cards/Razzmatazz_with_ho
 
 import CulravButtonPlaque from "../assets/pages/culrav/cards/CulravButtonCrop.webp";
 
-function CulravEventCard({ event, onClick }) {
+function CulravEventCard({ event, onClick, eager }) {
   const clipPathStyle =
     event.customClip || "inset(4.7% 2.8% 4.7% 2.3% round 8px)";
 
@@ -49,7 +51,8 @@ function CulravEventCard({ event, onClick }) {
           clipPath: clipPathStyle,
           WebkitClipPath: clipPathStyle,
         }}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         draggable={false}
       />
 
@@ -170,6 +173,15 @@ function CulravEvent() {
       customClip: "inset(2.6% 2.6% 4.0% 2.3% round 8px)",
     },
   ];
+  const criticalAssetsReady = useImagePreloader([
+    CulravBG,
+    image,
+    ...events.slice(0, 3).map((event) => event.withoutHover),
+  ]);
+
+  if (!criticalAssetsReady) {
+    return <RouteSuspenseLoader />;
+  }
 
   return (
     <section
@@ -209,10 +221,11 @@ function CulravEvent() {
       {/* Grid of Culrav Cultural Cards */}
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-14 justify-items-center">
-          {events.map((event) => (
+          {events.map((event, index) => (
             <CulravEventCard
               key={event.id}
               event={event}
+              eager={index < 3}
               onClick={() => navigate(`/culrav/${event.slug}`)}
             />
           ))}

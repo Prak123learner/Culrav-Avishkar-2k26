@@ -1,6 +1,12 @@
 import { useEffect, useRef } from "react";
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
+import AnunaadCard from "../assets/pages/culrav/cards/Anunaad_Without_Hover.webp";
+import RangmanchCard from "../assets/pages/culrav/cards/Rangmanch_without_hover.webp";
+import DarkroomCard from "../assets/pages/culrav/cards/Darkroom_without_Hover.webp";
+import CyberquestCard from "../assets/pages/avishkar/cards/Cyberquest_without_hover.webp";
+import ElectromaniaCard from "../assets/pages/avishkar/cards/Electromania_withouthover.webp";
+import GenesisCard from "../assets/pages/avishkar/cards/Genesis_without_hover.webp";
 
 const MEANDER_PATH =
   "M0 14h18V2h24v24H6V10h24v8H18v-4h24v12h24V2h24v24H54V10h24v8H66v-4h24v12h24V2h24v24h-36V10h24v8h-12v-4h24";
@@ -28,6 +34,14 @@ const HOMEPAGE_BACKGROUNDS = [
   "/media/homepage/images/footer-bg.webp",
   "/media/homepage/images/IcarusSun.webp",
   "/media/homepage/images/TwinLeaves.webp",
+];
+const REALM_CARD_PREVIEWS = [
+  AnunaadCard,
+  RangmanchCard,
+  DarkroomCard,
+  CyberquestCard,
+  ElectromaniaCard,
+  GenesisCard,
 ];
 
 function warmHomepageMedia() {
@@ -61,8 +75,19 @@ function warmHomepageMedia() {
     });
   }, 350);
 
+  const realmCardPrefetchTimer = window.setTimeout(() => {
+    REALM_CARD_PREVIEWS.forEach((href) => {
+      const link = document.createElement("link");
+      link.rel = "prefetch";
+      link.as = "image";
+      link.href = href;
+      document.head.appendChild(link);
+    });
+  }, 700);
+
   return () => {
     window.clearTimeout(videoPrefetchTimer);
+    window.clearTimeout(realmCardPrefetchTimer);
   };
 }
 

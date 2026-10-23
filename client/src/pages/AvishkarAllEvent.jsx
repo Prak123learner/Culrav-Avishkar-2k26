@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
+import { useImagePreloader } from "../components/useImagePreloader";
 
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
 import image from "../assets/pages/avishkar/avishkarrr.png";
@@ -49,7 +51,7 @@ import RobomaniaWithHover from "../assets/pages/avishkar/cards/Robomania_With_Ho
 
 import ButtonPlaque from "../assets/pages/avishkar/cards/ButtonCrop.webp";
 
-function AvishkarEventCard({ event, onClick }) {
+function AvishkarEventCard({ event, onClick, eager }) {
   return (
     <div
       role="button"
@@ -67,7 +69,8 @@ function AvishkarEventCard({ event, onClick }) {
           clipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
           WebkitClipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
         }}
-        loading="lazy"
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         draggable={false}
       />
 
@@ -242,6 +245,15 @@ function AvishkarEvents() {
       withHover: GnosomaniaWithHover,
     },
   ];
+  const criticalAssetsReady = useImagePreloader([
+    AvishkarBG,
+    image,
+    ...events.slice(0, 3).map((event) => event.withoutHover),
+  ]);
+
+  if (!criticalAssetsReady) {
+    return <RouteSuspenseLoader />;
+  }
 
   return (
     <section
@@ -279,10 +291,11 @@ function AvishkarEvents() {
       {/* Grid of Avishkar Mythological Cards */}
       <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-14 justify-items-center">
-          {events.map((event) => (
+          {events.map((event, index) => (
             <AvishkarEventCard
               key={event.id}
               event={event}
+              eager={index < 3}
               onClick={() => navigate(`/avishkar/${event.slug}`)}
             />
           ))}
