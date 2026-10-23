@@ -6,8 +6,8 @@ import {
   EventRegistrationLink,
   eventRegistrationPath,
 } from "../../portal/EventRegistrationLink";
-import AvishkarBG from "../../assets/common/backgrounds/AvishkarBG.png";
-import CulravBG from "../../assets/common/backgrounds/CulravBG.png";
+import AvishkarBG from "../../assets/common/backgrounds/AvishkarBG.webp";
+import CulravBG from "../../assets/common/backgrounds/CulravBG.webp";
 
 export default function EventExplorePage({
   data,
@@ -131,7 +131,7 @@ export default function EventExplorePage({
               onClick={() => setSelected(event)}
               className="group relative flex flex-col justify-between overflow-hidden border-2 border-[#b88c4b]/80 hover:border-[#96380c] hover:shadow-[0_14px_34px_rgba(150,56,12,0.28)] px-5 py-3.5 sm:px-6 sm:py-4 shadow-[0_8px_22px_rgba(60,30,8,0.16)] transition-all duration-300 cursor-pointer select-none"
               style={{
-                backgroundImage: "url('/media/common/textures/parchment-bg.png')",
+                backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -203,7 +203,7 @@ export default function EventExplorePage({
             {/* High-Resolution Ancient Parchment Background (100% Solid & Opaque - Full Page Behind Navbar) */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
               <img
-                src="/media/common/textures/parchment-bg.png"
+                src="/media/common/textures/parchment-bg.webp"
                 alt="Ancient Parchment"
                 className="w-full h-full object-cover object-center opacity-100"
               />
@@ -313,7 +313,7 @@ export default function EventExplorePage({
                   <div
                     className="relative p-6 sm:p-7 border-2 border-[#b88c4b]/80 shadow-[0_12px_32px_rgba(70,35,10,0.18)] flex flex-col"
                     style={{
-                      backgroundImage: "url('/media/common/textures/parchment-bg.png')",
+                      backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
                       backgroundSize: "cover",
                       backgroundPosition: "center",
                     }}

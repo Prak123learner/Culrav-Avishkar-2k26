@@ -19,8 +19,8 @@ import {
   TeamsSkeleton,
   RegistrationsSkeleton,
 } from "./PortalLoading";
-import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
-import CulravBG from "../assets/common/backgrounds/CulravBG.png";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
+import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import "./portal.css";
 const formatDeadline = (value) =>
   new Intl.DateTimeFormat(undefined, {
@@ -147,16 +147,18 @@ function Workspace() {
           </button>
         ))}
       </nav>
-      {tab === "profile" ? (
-        <Profile />
-      ) : tab === "teams" ? (
-        <Teams />
-      ) : (
-        <Registrations
-          focusRegistrationId={registrationRedirect?.focusRegistrationId}
-          alreadyRegisteredEvent={registrationRedirect?.alreadyRegisteredEvent}
-        />
-      )}
+      <section className="ca-tab-panel" key={tab}>
+        {tab === "profile" ? (
+          <Profile />
+        ) : tab === "teams" ? (
+          <Teams />
+        ) : (
+          <Registrations
+            focusRegistrationId={registrationRedirect?.focusRegistrationId}
+            alreadyRegisteredEvent={registrationRedirect?.alreadyRegisteredEvent}
+          />
+        )}
+      </section>
     </main>
   );
 }
@@ -899,7 +901,7 @@ function EventRegistration({ event, teamsData }) {
                   rounded-xs
                 "
                 style={{
-                  backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(251, 243, 228, 0.95) 55%, rgba(245, 230, 200, 0.97) 100%), url('/media/common/textures/parchment-bg.png')",
+                  backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(251, 243, 228, 0.95) 55%, rgba(245, 230, 200, 0.97) 100%), url('/media/common/textures/parchment-bg.webp')",
                   backgroundSize: "cover",
                 }}
               >

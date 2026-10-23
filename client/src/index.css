@@ -1,10 +1,6 @@
 /* ---------------------------------------------
    1) FONT IMPORTS
 ---------------------------------------------- */
-@import url("https://fonts.cdnfonts.com/css/general-sans");
-
-@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap");
 @import "tailwindcss";
 
 html {
@@ -17,7 +13,7 @@ body {
   width: 100%;
   overflow-x: clip;
   background-color: #dfdff0;
-  font-family: "General Sans", sans-serif;
+  font-family: "GFS Neohellenic", Georgia, serif;
 }
 
 /* Local Fonts */
@@ -31,17 +27,57 @@ body {
   src: url("./assets/common/fonts/Anton-Regular.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "Dalek";
+  src: url("./assets/common/fonts/Dalek.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Trajan Pro 3";
+  src: url("./assets/common/fonts/TrajanPro3-Regular.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Dominica";
+  src: url("./assets/common/fonts/Dominica.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GFS Neohellenic";
+  src: url("./assets/common/fonts/GFSNeohellenic-Regular.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GFS Neohellenic";
+  src: url("./assets/common/fonts/GFSNeohellenic-Bold.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 /* ---------------------------------------------
    2) THEME VARIABLES (Tailwind v4 format)
 ---------------------------------------------- */
 @theme {
   --font-dragz: "Dragz", sans-serif;
   --font-anton: "Anton", sans-serif;
+  --font-dalek: "Dalek", sans-serif;
+  --font-trajan: "Trajan Pro 3", Georgia, serif;
+  --font-dominica: "Dominica", Georgia, serif;
+  --font-neohellenic: "GFS Neohellenic", Georgia, serif;
   --font-zentry: "zentry", sans-serif;
-  --font-general: "general", sans-serif;
+  --font-general: "Dominica", Georgia, serif;
   --font-circular-web: "circular-web", sans-serif;
-  --font-display: "Orbitron", sans-serif;
-  --font-mono: "Share Tech Mono", monospace;
+  --font-display: "Trajan Pro 3", Georgia, serif;
+  --font-mono: "Dominica", Georgia, serif;
+  --font-cinzel: "Trajan Pro 3", Georgia, serif;
+  --font-garamond: "GFS Neohellenic", Georgia, serif;
 
   --radius: 0.625rem;
   --radius-sm: calc(var(--radius) - 4px);
@@ -68,7 +104,7 @@ body {
   width: 100%;
   overflow-x: clip;
   background-color: var(--color-blue-50);
-  font-family: "General Sans", sans-serif;
+  font-family: "GFS Neohellenic", Georgia, serif;
 }
 
 /* Dark mode variables */
@@ -103,13 +139,35 @@ body {
 
 @layer utilities {
   .nav-hover-btn {
-    @apply relative ms-10 font-general text-xs uppercase text-[#321A0A] cursor-pointer
-           after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full 
-           after:origin-bottom-right after:scale-x-0 after:bg-neutral-800 
-           after:transition-transform after:duration-300 
-           after:ease-[cubic-bezier(0.65_0.05_0.36_1)]
-           hover:after:origin-bottom-left hover:after:scale-x-100 
-           dark:after:bg-white;
+    @apply relative ms-7 overflow-hidden rounded-sm px-2 py-1 font-general text-xs font-bold uppercase tracking-[0.14em] text-[#321A0A] cursor-pointer transition-all duration-300;
+    text-shadow: 0 1px 0 rgba(255, 250, 232, 0.6);
+  }
+
+  .nav-hover-btn::after {
+    content: "";
+    position: absolute;
+    inset: 3px;
+    border: 1px solid rgba(132, 73, 24, 0.52);
+    border-radius: 2px;
+    opacity: 0;
+    transform: scale(0.84);
+    transition: opacity 220ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  .nav-hover-btn:hover {
+    color: #65300d;
+    background: linear-gradient(135deg, rgba(255, 248, 225, 0.82), rgba(233, 194, 126, 0.45));
+    box-shadow:
+      inset 0 0 0 1px rgba(155, 91, 31, 0.28),
+      0 6px 16px rgba(91, 45, 14, 0.17);
+    transform: translateY(-1px);
+  }
+
+  .nav-hover-btn:hover::after,
+  .nav-hover-btn:focus-visible::after {
+    opacity: 1;
+    transform: scale(1);
   }
 
   .floating-nav {
@@ -133,10 +191,19 @@ body {
     font-family: var(--font-mono);
   }
   .font-cinzel {
-    font-family: "Cinzel", serif;
+    font-family: "Trajan Pro 3", Georgia, serif;
   }
   .font-garamond {
-    font-family: "Cormorant Garamond", serif;
+    font-family: "GFS Neohellenic", Georgia, serif;
+  }
+  .font-dalek {
+    font-family: "Dalek", sans-serif;
+  }
+  .font-trajan {
+    font-family: "Trajan Pro 3", Georgia, serif;
+  }
+  .font-dominica {
+    font-family: "Dominica", Georgia, serif;
   }
   .parchment-bg {
     background-color: #f4e5c3;
@@ -244,7 +311,7 @@ body {
 }
 
 .bg-team {
-  background-image: url("./assets/common/backgrounds/bg-team.jpg");
+  background-image: url("./assets/common/backgrounds/bg-team.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -450,7 +517,7 @@ body {
       transparent 28% 68%,
       rgba(76, 39, 12, 0.11)
     ),
-    url("/media/common/textures/parchment-bg.png") center / 100% 100% no-repeat;
+    url("/media/common/textures/parchment-bg.webp") center / 100% 100% no-repeat;
   box-shadow: inset 0 0 32px rgba(83, 43, 10, 0.24);
   filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.46));
 }
@@ -498,7 +565,7 @@ body {
       transparent 47%,
       rgba(73, 37, 10, 0.5)
     ),
-    url("/media/common/textures/parchment-bg.png") center 9% / 100% 420%;
+    url("/media/common/textures/parchment-bg.webp") center 9% / 100% 420%;
   box-shadow:
     inset 0 4px 7px rgba(255, 229, 177, 0.22),
     inset 0 -6px 8px rgba(61, 31, 9, 0.46),
@@ -567,7 +634,7 @@ body {
   position: absolute;
   top: calc(50% - var(--oracle-copy-offset));
   left: 50%;
-  font-family: "Cinzel", serif;
+  font-family: "Marcellus SC", Georgia, serif;
   font-size: clamp(0.58rem, 1.5vw, 0.78rem);
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -648,7 +715,7 @@ body {
 }
 
 .route-loader-label {
-  font-family: "Cinzel", serif;
+  font-family: "Marcellus SC", Georgia, serif;
   font-size: 0.7rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -755,7 +822,7 @@ body {
         transparent 47%,
         rgba(73, 37, 10, 0.5)
       ),
-      url("/media/common/textures/parchment-bg.png") 9% center / 420% 100%;
+      url("/media/common/textures/parchment-bg.webp") 9% center / 420% 100%;
     box-shadow:
       inset 4px 0 7px rgba(255, 229, 177, 0.22),
       inset -6px 0 8px rgba(61, 31, 9, 0.46),
@@ -836,5 +903,44 @@ body {
     animation-duration: 1ms;
     animation-iteration-count: 1;
     animation-delay: 0ms;
+  }
+}
+
+@keyframes route-page-rise {
+  from {
+    opacity: 0.96;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.route-page-transition {
+  animation: route-page-rise 360ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.gallery-viewer-open .festival-navbar {
+  background: linear-gradient(
+    90deg,
+    rgba(42, 22, 8, 0.92),
+    rgba(82, 44, 15, 0.9),
+    rgba(42, 22, 8, 0.92)
+  ) !important;
+  border-bottom-color: rgba(243, 207, 138, 0.38) !important;
+}
+
+.gallery-viewer-open .festival-navbar .nav-hover-btn {
+  color: #fff1d3 !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.78);
+}
+
+.gallery-viewer-open .festival-navbar .nav-hover-btn:hover {
+  color: #fff8e8 !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .route-page-transition {
+    animation: none;
   }
 }

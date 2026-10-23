@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
 import image from "../assets/pages/avishkar/avishkarrr.png";
 
 // Avishkar Greek Mythological Event Cards (Pairs: Without Hover & With Hover)
@@ -86,7 +86,7 @@ function AvishkarEventCard({ event, onClick }) {
 
       {/* Event Title (Vertically aligned with the side laurel leaves at ~60%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
-        <h3 className="font-cinzel text-lg sm:text-xl md:text-2xl font-black uppercase tracking-[0.16em] text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
+        <h3 className="font-dalek text-lg sm:text-xl md:text-2xl font-black uppercase tracking-[0.16em] text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
           {event.name}
         </h3>
 
@@ -100,7 +100,7 @@ function AvishkarEventCard({ event, onClick }) {
 
       {/* Event Description (In the open parchment area below the title and divider) */}
       <div className="absolute top-[66%] left-[11%] right-[11%] bottom-[19%] z-20 flex items-center justify-center pointer-events-none text-center">
-        <p className="font-garamond italic text-xs sm:text-sm font-semibold text-[#482d66] group-hover:text-[#28153d] transition-colors px-2 leading-relaxed line-clamp-3">
+        <p className="font-garamond text-xs sm:text-sm font-semibold text-[#482d66] group-hover:text-[#28153d] transition-colors px-2 leading-relaxed line-clamp-3">
           {event.tagline}
         </p>
       </div>
@@ -267,7 +267,7 @@ function AvishkarEvents() {
 
             {/* Description */}
             <div className="w-full md:w-2/3 flex justify-center">
-              <p className="font-garamond italic text-base sm:text-lg font-medium text-center p-6 text-[#faeed8] max-w-2xl leading-relaxed drop-shadow-md">
+              <p className="font-garamond p-6 text-center text-base font-medium leading-relaxed text-[#fff2dc] drop-shadow-[0_2px_8px_rgba(18,7,35,0.9)] sm:text-lg max-w-2xl">
                 Where ancient wisdom meets modern innovation. From hackathons to robotic battles, challenge the limits of possibility, forge bold ideas, and rise among the legends of tomorrow.
               </p>
             </div>

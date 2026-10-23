@@ -1,6 +1,6 @@
-import loginBg from "../assets/common/backgrounds/Background_of_login_page.png";
-import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
-import CulravBG from "../assets/common/backgrounds/CulravBG.png";
+import loginBg from "../assets/common/backgrounds/Background_of_login_page.webp";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
+import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import "./portal.css";
 
 export function DataLoading({

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import CulravBG from "../assets/common/backgrounds/CulravBG.png";
+import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import image from "../assets/pages/culrav/CULRAV LOGO.png";
 
 // Culrav Cultural Event Cards (Pairs: Without Hover & With Hover)
@@ -68,7 +68,7 @@ function CulravEventCard({ event, onClick }) {
 
       {/* Event Title (Vertically aligned at ~58%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
-        <h3 className="font-cinzel text-lg sm:text-xl md:text-2xl font-black uppercase tracking-[0.16em] text-[#361706] group-hover:text-[#612607] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
+        <h3 className="font-dalek text-lg sm:text-xl md:text-2xl font-black uppercase tracking-[0.16em] text-[#361706] group-hover:text-[#612607] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
           {event.name}
         </h3>
 
@@ -82,7 +82,7 @@ function CulravEventCard({ event, onClick }) {
 
       {/* Event Description (In the open parchment area below the title and divider) */}
       <div className="absolute top-[66%] left-[11%] right-[11%] bottom-[19%] z-20 flex items-center justify-center pointer-events-none text-center">
-        <p className="font-garamond italic text-xs sm:text-sm font-semibold text-[#542810] group-hover:text-[#381907] transition-colors px-2 leading-relaxed line-clamp-3">
+        <p className="font-garamond text-xs sm:text-sm font-semibold text-[#542810] group-hover:text-[#381907] transition-colors px-2 leading-relaxed line-clamp-3">
           {event.tagline}
         </p>
       </div>
@@ -195,7 +195,7 @@ function CulravEvent() {
 
             {/* Description */}
             <div className="w-full md:w-2/3 flex justify-center">
-              <p className="font-garamond italic text-base sm:text-lg font-medium text-center p-6 text-[#faeed8] max-w-2xl leading-relaxed drop-shadow-md">
+              <p className="font-garamond p-6 text-center text-base font-medium leading-relaxed text-[#fff1d3] drop-shadow-[0_2px_8px_rgba(28,10,2,0.9)] sm:text-lg max-w-2xl">
                 The cultural mainframe glitches into a three-day celebration of
                 pure artistic expression. From high-voltage music and dazzling dance
                 to theatre and fine arts, step into the ultimate cultural spectacle.

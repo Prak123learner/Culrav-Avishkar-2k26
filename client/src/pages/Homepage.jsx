@@ -35,12 +35,6 @@ const VIDEO_URLS = {
   teaser: "", // e.g., "/videos/fest-teaser.mp4"
 };
 
-const ARTIST_DATA = {
-  name: "Javed Ali",
-  image: "/media/homepage/images/javed_ali-1.jpg", // e.g., "/images/artist-main.jpg"
-  date: "DAY 03 // 2200 HRS",
-};
-
 // --- SVG PLACEHOLDERS (Fallbacks) ---
 
 const CombinedLogoPlaceholder = ({ className }) => (
@@ -285,15 +279,15 @@ const HeroSection = () => {
         </div>
 
         <div className="absolute bottom-10 flex flex-col items-center gap-3 md:bottom-14">
-          <p className="hero-sub rounded-full border border-[#6b3c22]/35 bg-[#fff3d7]/88 px-7 py-2 font-serif text-sm italic tracking-[0.2em] text-[#4a2b1b] shadow-[0_10px_35px_rgba(43,18,8,0.26)] backdrop-blur-md sm:text-base md:px-10 md:text-lg">
+          <p className="hero-sub rounded-full border border-[#6b3c22]/35 bg-[#fff3d7]/88 px-7 py-2 font-trajan text-sm tracking-[0.2em] text-[#4a2b1b] shadow-[0_10px_35px_rgba(43,18,8,0.26)] backdrop-blur-md sm:text-base md:px-10 md:text-lg">
             Where Technology meets Culture, and Legends come alive. Enter the
             Mythos.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3">
+          <div className="hero-btns flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/login"
-              className="group inline-flex items-center gap-3 rounded-sm border border-[#e9bd70]/55 bg-[#2b160c]/88 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffe1a8] shadow-[0_10px_30px_rgba(25,10,4,0.36)] backdrop-blur-md transition duration-300 hover:border-[#f6cf8a] hover:bg-[#3a1f10] sm:text-xs"
+              className="group inline-flex items-center gap-3 rounded-sm border border-[#e9bd70]/55 bg-[#2b160c]/88 px-7 py-3 font-trajan text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffe1a8] shadow-[0_10px_30px_rgba(25,10,4,0.36)] backdrop-blur-md transition duration-300 hover:border-[#f6cf8a] hover:bg-[#3a1f10] sm:text-xs"
             >
               <span className="transition-transform duration-300 group-hover:rotate-45">
                 ✦
@@ -306,7 +300,7 @@ const HeroSection = () => {
 
             <a
               href="#teaser"
-              className="group inline-flex items-center gap-3 rounded-sm border border-[#c9934a]/50 bg-[#f5e6c8]/80 px-7 py-3 text-[10px] font-semibold uppercase tracking-[0.28em] text-[#6b3c1a] shadow-[0_10px_30px_rgba(100,55,15,0.18)] backdrop-blur-md transition duration-300 hover:border-[#d4a55c] hover:bg-[#faf0d8] sm:text-xs"
+              className="group inline-flex items-center gap-3 rounded-sm border border-[#c9934a]/50 bg-[#f5e6c8]/80 px-7 py-3 font-trajan text-[10px] font-semibold uppercase tracking-[0.28em] text-[#6b3c1a] shadow-[0_10px_30px_rgba(100,55,15,0.18)] backdrop-blur-md transition duration-300 hover:border-[#d4a55c] hover:bg-[#faf0d8] sm:text-xs"
             >
               <span className="transition-transform duration-300 group-hover:scale-125">
                 ▶
@@ -436,7 +430,7 @@ const AboutSection = () => {
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <img
-          src="/media/homepage/images/the-duality.png"
+          src="/media/homepage/images/the-duality.webp"
           alt=""
           className="h-full w-full object-cover object-center"
         />
@@ -469,10 +463,10 @@ const AboutSection = () => {
         </div>
 
         <div className="about-cards-container relative grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 lg:gap-16">
-          <div className="about-card-left group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.48)] sm:p-10">
+          <div className="about-card-left group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-[filter] duration-300 ease-out hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.48)] sm:p-10">
             <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
               <img
-                src="/media/homepage/images/realm-card.png"
+                src="/media/homepage/images/realm-card.webp"
                 alt="Culrav realm card"
                 className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
               />
@@ -492,7 +486,7 @@ const AboutSection = () => {
                 <div className="h-px flex-1 bg-current opacity-60" />
               </div>
               
-              <p className="font-garamond my-4 max-w-sm text-lg font-semibold italic leading-relaxed text-[#533920] sm:text-xl">
+              <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#533920] sm:text-xl">
                 The realm of art, expression and celebration.
               </p>
               <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#b86d2a]/10 border border-[#b86d2a]/30 text-[#8c4314] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
@@ -513,10 +507,10 @@ const AboutSection = () => {
             </div>
           </div>
 
-          <div className="about-card-right group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.46)] sm:p-10">
+          <div className="about-card-right group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-[filter] duration-300 ease-out hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.46)] sm:p-10">
             <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
               <img
-                src="/media/homepage/images/realm-card.png"
+                src="/media/homepage/images/realm-card.webp"
                 alt="Avishkar realm card"
                 className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
               />
@@ -535,7 +529,7 @@ const AboutSection = () => {
                 <span className="text-[10px]">✦</span>
                 <div className="h-px flex-1 bg-current opacity-60" />
               </div>
-              <p className="font-garamond my-4 max-w-sm text-lg font-semibold italic leading-relaxed text-[#44305e] sm:text-xl">
+              <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#44305e] sm:text-xl">
                 The realm of ideas, invention and innovation.
               </p>              
               <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#64498e]/10 border border-[#64498e]/30 text-[#54327a] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
@@ -603,7 +597,7 @@ const GallerySection = () => {
     <section
       id="gallery"
       className="relative bg-cover bg-center pt-10 pb-8 sm:pt-14 sm:pb-12 overflow-hidden select-none"
-      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.png')" }}
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.webp')" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching Two Realms */}
@@ -668,7 +662,7 @@ const GallerySection = () => {
               <div
                 className="pointer-events-none absolute inset-0 z-10 bg-cover bg-center opacity-55 mix-blend-screen transition-opacity duration-500 group-hover:opacity-40"
                 style={{
-                  backgroundImage: "url('/media/common/textures/vintage-scratches.png?v=2')",
+                  backgroundImage: "url('/media/common/textures/vintage-scratches.webp?v=2')",
                 }}
               />
 
@@ -757,7 +751,7 @@ const ArtistSection = () => {
     <section
       id="artist"
       className="relative bg-cover bg-center pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 overflow-hidden select-none"
-      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.png')" }}
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.webp')" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching the Antique Lineup Poster */}
@@ -788,13 +782,13 @@ const ArtistSection = () => {
         {/* The Two Main Performer Cards + Compass Divider */}
         <div className="artist-cards-container relative max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4 lg:gap-8">
           {/* --- CULRAV CARD --- */}
-          <div className="artist-card-left group relative w-full max-w-[380px] sm:max-w-[420px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.015]">
+          <div className="artist-card-left group relative w-full max-w-[380px] sm:max-w-[420px] transition-[filter] duration-500 ease-out">
             {/* Card Base Artwork */}
             <div className="relative overflow-hidden rounded-lg">
               <img
-                src="/media/homepage/images/card_culrav_clean.png"
+                src="/media/homepage/images/card_culrav_clean.webp"
                 alt="Culrav Main Performer"
-                className="w-full h-auto object-contain select-none transition-all duration-500 group-hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.42)]"
+                className="w-full h-auto object-contain select-none transition-all duration-500 ease-out group-hover:scale-[1.015] group-hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.42)]"
               />
 
               {/* Mystical Sunburst Glow behind Arch on Hover */}
@@ -819,7 +813,7 @@ const ArtistSection = () => {
           {/* --- CENTER DIVIDER: COMPASS STAR (Desktop Only) --- */}
           <div className="artist-compass hidden md:flex flex-col items-center justify-center my-auto px-1 lg:px-2 pointer-events-none select-none">
             <img
-              src="/media/homepage/images/compass_divider.png"
+              src="/media/homepage/images/compass_divider.webp"
               alt="Antique Compass Divider"
               className="h-[420px] lg:h-[480px] w-auto object-contain opacity-85 transition-opacity duration-500 hover:opacity-100"
             />
@@ -833,13 +827,13 @@ const ArtistSection = () => {
           </div>
 
           {/* --- AVISHKAR CARD --- */}
-          <div className="artist-card-right group relative w-full max-w-[380px] sm:max-w-[420px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.015]">
+          <div className="artist-card-right group relative w-full max-w-[380px] sm:max-w-[420px] transition-[filter] duration-500 ease-out">
             {/* Card Base Artwork */}
             <div className="relative overflow-hidden rounded-lg">
               <img
-                src="/media/homepage/images/card_avishkar_clean.png"
+                src="/media/homepage/images/card_avishkar_clean.webp"
                 alt="Avishkar Main Performer"
-                className="w-full h-auto object-contain select-none transition-all duration-500 group-hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.38)]"
+                className="w-full h-auto object-contain select-none transition-all duration-500 ease-out group-hover:scale-[1.015] group-hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.38)]"
               />
 
               {/* Mystical Amethyst Laurel Glow behind Arch on Hover */}
@@ -961,7 +955,7 @@ function Footer() {
       {/* High-Resolution Parchment Footer Background from uploaded asset */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
-          src="/media/homepage/images/footer-bg.png"
+          src="/media/homepage/images/footer-bg.webp"
           onError={(e) => {
             const target = e.target;
             if (!target.src.includes("Footer.png")) {
@@ -983,7 +977,7 @@ function Footer() {
               {/* Culrav Emblem + Label */}
               <div className="flex flex-col items-center gap-1.5 group cursor-default">
                 <img
-                  src="/media/homepage/images/IcarusSun.png"
+                  src="/media/homepage/images/IcarusSun.webp"
                   alt="Culrav Emblem"
                   className="w-11 h-11 sm:w-12 sm:h-12 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_4px_rgba(160,70,10,0.2)]"
                 />
@@ -998,7 +992,7 @@ function Footer() {
               {/* Avishkar Emblem + Label */}
               <div className="flex flex-col items-center gap-1.5 group cursor-default">
                 <img
-                  src="/media/homepage/images/TwinLeaves.png"
+                  src="/media/homepage/images/TwinLeaves.webp"
                   alt="Avishkar Emblem"
                   className="w-11 h-11 sm:w-12 sm:h-12 object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-[0_2px_4px_rgba(70,30,100,0.2)]"
                 />
@@ -1008,7 +1002,7 @@ function Footer() {
               </div>
             </div>
 
-            <p className="font-garamond italic text-lg sm:text-xl text-[#5e3f20] mt-2 tracking-wide">
+            <p className="font-garamond text-lg sm:text-xl text-[#5e3f20] mt-2 tracking-wide">
               Forged in myth, powered by innovation. An epic convergence of
               technology and culture.
             </p>
@@ -1228,34 +1222,27 @@ export default function App() {
     const context = gsap.context(() => {
       // Navbar
       gsap.from(".logo-trigger", {
-        duration: 1,
-        y: -30,
+        duration: 0.55,
+        y: -14,
         opacity: 0,
         ease: "power3.out",
       });
 
       // Hero
-      const tl = gsap.timeline();
-      tl.from(".intro-text", {
-        duration: 0.8,
-        opacity: 0,
-        scale: 0.8,
-        delay: 0.2,
-      })
-        .from(
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+      tl.from(
           ".hero-title",
-          { duration: 1, y: 50, opacity: 0, ease: "power4.out" },
-          "-=0.4",
+          { duration: 0.82, y: 28, opacity: 0 },
         )
         .from(
           ".hero-sub",
-          { duration: 1, opacity: 0, x: -20, ease: "power2.out" },
-          "-=0.6",
+          { duration: 0.52, opacity: 0, y: 14 },
+          "-=0.3",
         )
         .from(
           ".hero-btns",
-          { duration: 0.8, opacity: 0, y: 20, ease: "back.out(1.7)" },
-          "-=0.5",
+          { duration: 0.48, opacity: 0, y: 12 },
+          "-=0.22",
         );
 
       // Section Titles
@@ -1263,7 +1250,7 @@ export default function App() {
         gsap.from(title, {
           scrollTrigger: {
             trigger: title,
-            start: "top 92%",
+            start: "top 88%",
             once: true,
             fastScrollEnd: true,
             invalidateOnRefresh: true,
@@ -1280,7 +1267,7 @@ export default function App() {
       const tlAbout = gsap.timeline({
         scrollTrigger: {
           trigger: ".about-cards-container",
-          start: "top 96%",
+          start: "top 88%",
           once: true,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
@@ -1291,17 +1278,15 @@ export default function App() {
         .fromTo(
           ".about-card-left",
           {
-            x: -48,
+            y: 28,
             autoAlpha: 0,
-            scale: 0.985,
             willChange: "transform, opacity",
           },
           {
-            x: 0,
+            y: 0,
             autoAlpha: 1,
-            scale: 1,
-            duration: 0.7,
-            ease: "power3.out",
+            duration: 0.76,
+            ease: "power2.out",
             clearProps: "transform,opacity,visibility,willChange",
           },
           0,
@@ -1309,27 +1294,25 @@ export default function App() {
         .fromTo(
           ".about-card-right",
           {
-            x: 48,
+            y: 28,
             autoAlpha: 0,
-            scale: 0.985,
             willChange: "transform, opacity",
           },
           {
-            x: 0,
+            y: 0,
             autoAlpha: 1,
-            scale: 1,
-            duration: 0.7,
-            ease: "power3.out",
+            duration: 0.76,
+            ease: "power2.out",
             clearProps: "transform,opacity,visibility,willChange",
           },
-          0.08,
+          0.1,
         );
 
       // Artist Section (The Main Performer: Culrav & Avishkar Lineup Posters)
       const tlArtist = gsap.timeline({
         scrollTrigger: {
           trigger: ".artist-cards-container",
-          start: "top 96%",
+          start: "top 88%",
           once: true,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
@@ -1340,17 +1323,15 @@ export default function App() {
         .fromTo(
           ".artist-card-left",
           {
-            x: -48,
+            y: 28,
             autoAlpha: 0,
-            scale: 0.985,
             willChange: "transform, opacity",
           },
           {
-            x: 0,
+            y: 0,
             autoAlpha: 1,
-            scale: 1,
-            duration: 0.72,
-            ease: "power3.out",
+            duration: 0.76,
+            ease: "power2.out",
             clearProps: "transform,opacity,visibility,willChange",
           },
           0,
@@ -1368,7 +1349,7 @@ export default function App() {
             rotation: 0,
             autoAlpha: 1,
             duration: 0.62,
-            ease: "power3.out",
+            ease: "power2.out",
             clearProps: "transform,opacity,visibility,willChange",
           },
           0.05,
@@ -1376,20 +1357,18 @@ export default function App() {
         .fromTo(
           ".artist-card-right",
           {
-            x: 48,
+            y: 28,
             autoAlpha: 0,
-            scale: 0.985,
             willChange: "transform, opacity",
           },
           {
-            x: 0,
+            y: 0,
             autoAlpha: 1,
-            scale: 1,
-            duration: 0.72,
-            ease: "power3.out",
+            duration: 0.76,
+            ease: "power2.out",
             clearProps: "transform,opacity,visibility,willChange",
           },
-          0.08,
+          0.1,
         );
 
       // Gallery Stagger
@@ -1413,13 +1392,6 @@ export default function App() {
     >
       {/* Styles */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Share+Tech+Mono&display=swap');
-        
-        :root {
-          --font-display: 'Orbitron', sans-serif;
-          --font-mono: 'Share Tech Mono', monospace;
-        }
-        
         .font-sans { font-family: var(--font-display); }
         .font-mono { font-family: var(--font-mono); }
 

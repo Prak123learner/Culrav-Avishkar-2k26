@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 import { useState } from "react";
 import { User, Menu, X } from "lucide-react";
-import bgDashboard from "../../assets/common/backgrounds/bg_dashboard.jpg";
+import bgDashboard from "../../assets/common/backgrounds/bg_dashboard.webp";
 import Sidebar from "./SideBar.jsx";
 import { useSelector } from "react-redux";
 

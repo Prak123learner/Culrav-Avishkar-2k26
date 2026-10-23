@@ -3,7 +3,7 @@ import gsap from "gsap";
 import Card from "../components/General/Card";
 import dummy from "../assets/pages/schedule/dummy.png";
 import AvishkarBgMobile from "../assets/pages/schedule/Avishkar_bg-mobile.png";
-import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.png";
+import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
 
 const schedule = [
   {

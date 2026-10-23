@@ -1,12 +1,13 @@
 import React, { useState, memo } from "react";
+import { Instagram } from "lucide-react";
 
-const CardTeam = memo(({ name, img, role }) => {
+const CardTeam = memo(({ name, img, role, instagram }) => {
   const [hasError, setHasError] = useState(false);
 
   return (
     <div
       style={{ contentVisibility: "auto", containIntrinsicSize: "220px 293px" }}
-      className="group relative flex flex-col overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a] via-[#1a0e05] to-[#120803] shadow-[0_8px_20px_rgba(44,29,12,0.16)] transition-all duration-400 ease-out hover:z-20 hover:-translate-y-1.5 hover:border-[#f3cf8a] hover:shadow-[0_16px_32px_rgba(184,140,75,0.32)] aspect-[3/4] cursor-default select-none"
+      className="group relative flex flex-col overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a] via-[#1a0e05] to-[#120803] shadow-[0_8px_20px_rgba(44,29,12,0.16)] transition-all duration-400 ease-out hover:z-20 hover:-translate-y-1.5 hover:border-[#f3cf8a] hover:shadow-[0_16px_32px_rgba(184,140,75,0.32)] cursor-default select-none"
     >
       {/* Classical Double Inset Fillet Border */}
       <div className="pointer-events-none absolute inset-1.5 z-20 rounded-xs border border-[#f3cf8a]/25 transition-colors duration-300 group-hover:border-[#f3cf8a]/60" />
@@ -20,7 +21,7 @@ const CardTeam = memo(({ name, img, role }) => {
       </div>
 
       {/* Member Portrait Image */}
-      <div className="relative w-full h-full overflow-hidden">
+      <div className="relative aspect-[3/4] w-full overflow-hidden">
         {!hasError && img ? (
           <img
             src={img}
@@ -51,17 +52,21 @@ const CardTeam = memo(({ name, img, role }) => {
 
       {/* Bottom Inscription Plinth */}
       <div className="absolute inset-x-0 bottom-0 p-3 z-20 flex flex-col items-center text-center">
-        {role && (
-          <span className="font-cinzel text-[9px] uppercase tracking-[0.2em] text-[#d4a259] font-bold drop-shadow-sm flex items-center justify-center gap-1 mb-0.5 line-clamp-1">
-            <span className="text-[7px]">✦</span>
-            <span>{role}</span>
-            <span className="text-[7px]">✦</span>
-          </span>
-        )}
-
         <h3 className="font-cinzel text-xs sm:text-sm font-bold tracking-wider text-[#f7eedc] transition-colors group-hover:text-[#f3cf8a] drop-shadow-md line-clamp-1">
           {name}
         </h3>
+        {instagram && (
+          <a
+            href={`https://www.instagram.com/${instagram}/`}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-1 inline-flex items-center gap-1 font-general text-[9px] font-bold tracking-wider text-[#f7eedc]/80 transition-colors hover:text-[#f3cf8a]"
+            aria-label={`${name} on Instagram`}
+          >
+            <Instagram size={11} aria-hidden="true" />
+            <span>Instagram</span>
+          </a>
+        )}
 
         {/* Underline Flourish on Hover */}
         <div className="mt-1 flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">

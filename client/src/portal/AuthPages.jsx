@@ -11,7 +11,7 @@ import {
 import { PortalLoading } from "./PortalLoading";
 import { authDiagnostic } from "./authDiagnostics";
 import loginArt from "../assets/pages/login/Login_Page.png";
-import loginBg from "../assets/common/backgrounds/Background_of_login_page.png";
+import loginBg from "../assets/common/backgrounds/Background_of_login_page.webp";
 import "./portal.css";
 
 function AuthArt() {

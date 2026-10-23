@@ -7,17 +7,17 @@ import galleryImg1 from "../assets/pages/gallery/galleryImg1.jpg";
 import galleryImg3 from "../assets/pages/gallery/galleryImg3.jpg";
 import galleryImg4 from "../assets/pages/gallery/galleryImg4.jpg";
 import galleryImg5 from "../assets/pages/gallery/galleryImg5.jpg";
-import galleryImg6 from "../assets/pages/gallery/galleryImg6.jpg";
-import galleryImg7 from "../assets/pages/gallery/galleryImg7.jpg";
-import galleryImg8 from "../assets/pages/gallery/galleryImg8.jpg";
+import galleryImg6 from "../assets/pages/gallery/galleryImg6.webp";
+import galleryImg7 from "../assets/pages/gallery/galleryImg7.webp";
+import galleryImg8 from "../assets/pages/gallery/galleryImg8.webp";
 import galleryImg9 from "../assets/pages/gallery/galleryImg9.jpg";
-import galleryImg10 from "../assets/pages/gallery/galleryImg10.jpg";
+import galleryImg10 from "../assets/pages/gallery/galleryImg10.webp";
 import galleryImg11 from "../assets/pages/gallery/galleryImg11.jpg";
-import lashcurryImg from "../assets/pages/gallery/lashcurry.jpg";
-import pranavSharmaImg from "../assets/pages/gallery/pranav sharma.jpg";
-import pragatiNagpalImg from "../assets/pages/gallery/pragati nagpal.jpg";
-import javedAliImg from "../assets/pages/gallery/javed ali.jpg";
-import maahiImg from "../assets/pages/gallery/maahi.jpg";
+import lashcurryImg from "../assets/pages/gallery/lashcurry.webp";
+import pranavSharmaImg from "../assets/pages/gallery/pranav sharma.webp";
+import pragatiNagpalImg from "../assets/pages/gallery/pragati nagpal.webp";
+import javedAliImg from "../assets/pages/gallery/javed ali.webp";
+import maahiImg from "../assets/pages/gallery/maahi.webp";
 
 // Classical Laurel Divider matching Homepage Visual Archives
 const LaurelDivider = () => (
@@ -262,13 +262,16 @@ const Gallery = () => {
 
     if (selectedItem) {
       document.body.style.overflow = "hidden";
+      document.body.classList.add("gallery-viewer-open");
       window.addEventListener("keydown", handleKeyDown);
     } else {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("gallery-viewer-open");
     }
 
     return () => {
       document.body.style.overflow = "unset";
+      document.body.classList.remove("gallery-viewer-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [selectedItem]);
@@ -279,7 +282,7 @@ const Gallery = () => {
       <div
         className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/media/common/textures/parchment-bg.png')",
+          backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
           transform: "translate3d(0, 0, 0)",
           backfaceVisibility: "hidden",
         }}

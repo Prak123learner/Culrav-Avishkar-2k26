@@ -206,15 +206,15 @@ export function TabTransitionLoader() {
     // Reset scroll to top
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
-    // Hold loader visible so the user experiences the realm portal seal
+    // Keep enough time for the seal to register without delaying the destination.
     const leaveTimer = setTimeout(() => {
       setTransitionState((prev) => ({ ...prev, leaving: true }));
-    }, 550);
+    }, 320);
 
     // Complete transition after smooth 280ms fade out
     const endTimer = setTimeout(() => {
       setTransitionState((prev) => ({ ...prev, active: false }));
-    }, 850);
+    }, 520);
 
     return () => {
       clearTimeout(leaveTimer);

@@ -160,6 +160,14 @@ const NavBar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // The Team directory sidebar begins directly below the navigation bar.
+      // Keep that boundary stable while its own page navigation is in use.
+      if (location.pathname === "/team") {
+        setIsNavVisible(true);
+        navContainerRef.current?.classList.remove("floating-nav");
+        return;
+      }
+
       const currentScrollY = window.scrollY;
 
       if (currentScrollY === 0) {
@@ -178,7 +186,14 @@ const NavBar = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, [lastScrollY, location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname === "/team") {
+      setIsNavVisible(true);
+      navContainerRef.current?.classList.remove("floating-nav");
+    }
+  }, [location.pathname]);
 
   useEffect(() => {
     gsap.to(navContainerRef.current, {
@@ -197,7 +212,7 @@ const NavBar = () => {
     <>
       <div
         ref={navContainerRef}
-        className="fixed inset-x-0 top-0 z-50 h-16 border-x-0 border-t-0 border-b transition-all duration-300"
+        className="festival-navbar fixed inset-x-0 top-0 z-50 h-16 border-x-0 border-t-0 border-b transition-all duration-300"
         style={{
           backgroundColor: "rgba(254, 249, 195, 0.18)",
           borderBottomColor: "rgba(234, 179, 8, 0.2)",
@@ -369,7 +384,7 @@ const NavBar = () => {
                   }
                 }}
                 className={clsx(
-                  "px-4 py-3 text-base font-medium rounded-lg transition-all duration-300",
+                  "px-4 py-3 font-general text-base font-bold tracking-[0.12em] rounded-lg transition-all duration-300",
                   {
                     "text-blue-400 bg-blue-500/10":
                       location.pathname === item.path,
@@ -391,7 +406,7 @@ const NavBar = () => {
                 }
               }}
               className={clsx(
-                "px-4 py-3 text-base font-medium rounded-lg transition-all duration-300",
+                "px-4 py-3 font-general text-base font-bold tracking-[0.12em] rounded-lg transition-all duration-300",
                 {
                   "text-blue-400 bg-blue-500/10":
                     location.pathname === accountPath,
@@ -404,7 +419,7 @@ const NavBar = () => {
             </Link>
             {staff && (
               <button
-                className="px-4 py-3 text-left text-base font-medium text-white rounded-lg hover:text-blue-300 hover:bg-white/5"
+                className="px-4 py-3 text-left font-general text-base font-bold tracking-[0.12em] text-white rounded-lg hover:text-blue-300 hover:bg-white/5"
                 onClick={signOutStaff}
               >
                 SIGN OUT

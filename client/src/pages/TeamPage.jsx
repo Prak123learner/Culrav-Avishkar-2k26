@@ -40,6 +40,13 @@ const LaurelDivider = () => (
   </div>
 );
 
+const groupMembersByRole = (members) =>
+  members.reduce((groups, member) => {
+    const role = member.role || "Council";
+    groups[role] = [...(groups[role] || []), member];
+    return groups;
+  }, {});
+
 export function TeamPage() {
   const [activeSection, setActiveSection] = useState(teamData[0].id);
   const activeSectionRef = useRef(activeSection);
@@ -132,7 +139,7 @@ export function TeamPage() {
         className="fixed inset-0 pointer-events-none overflow-hidden z-0"
       >
         <img
-          src="/media/common/textures/parchment-bg.png"
+          src="/media/common/textures/parchment-bg.webp"
           alt="Ancient Parchment"
           className="w-full h-full object-cover object-center opacity-90"
         />
@@ -246,15 +253,26 @@ export function TeamPage() {
               </div>
 
               {/* Classical Medallion Portrait Grid */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
-                {team.members.map((member, index) => (
-                  <CardTeam
-                    key={index}
-                    name={member.name}
-                    img={member.img}
-                  />
-                ))}
-              </div>
+              {team.members.some((member) => member.role) ? (
+                <div className="space-y-10">
+                  {Object.entries(groupMembersByRole(team.members))
+                    .sort(([firstRole], [secondRole]) => firstRole.localeCompare(secondRole))
+                    .map(([role, members]) => (
+                    <div key={role}>
+                      <h3 className="mb-4 border-l-2 border-[#a85a18] pl-3 font-cinzel text-sm font-bold uppercase tracking-[0.16em] text-[#70401d]">{role}</h3>
+                      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
+                        {[...members]
+                          .sort((firstMember, secondMember) => firstMember.name.localeCompare(secondMember.name))
+                          .map((member) => <CardTeam key={member.name} name={member.name} img={member.img} role={member.role} instagram={member.instagram} />)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
+                  {team.members.map((member) => <CardTeam key={member.name} name={member.name} img={member.img} />)}
+                </div>
+              )}
             </section>
           ))}
 

@@ -89,17 +89,19 @@ function StaffWorkspace() {
           </button>
         ))}
       </nav>
-      {categories.loading ? (
-        <CategoriesSkeleton />
-      ) : tab === "events" ? (
-        <ManageEvents categories={categories.data?.categories || []} />
-      ) : tab === "CA ID lookup" ? (
-        <ParticipantLookup staff={staff} />
-      ) : tab === "logs" && staff.role === "admin" ? (
-        <AuditLogs />
-      ) : (
-        <Coordinators categories={categories.data?.categories || []} />
-      )}
+      <section className="ca-tab-panel" key={tab}>
+        {categories.loading ? (
+          <CategoriesSkeleton />
+        ) : tab === "events" ? (
+          <ManageEvents categories={categories.data?.categories || []} />
+        ) : tab === "CA ID lookup" ? (
+          <ParticipantLookup staff={staff} />
+        ) : tab === "logs" && staff.role === "admin" ? (
+          <AuditLogs />
+        ) : (
+          <Coordinators categories={categories.data?.categories || []} />
+        )}
+      </section>
     </main>
   );
 }

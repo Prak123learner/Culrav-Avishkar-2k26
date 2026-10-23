@@ -1,5 +1,5 @@
 import { Suspense, lazy, useCallback, useEffect, useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Loader, { RouteLoader } from "./components/Loader";
 import ScrollToTop from "./components/ScrollToTop";
 import { TeamPage } from "./pages/TeamPage";
@@ -47,6 +47,16 @@ const AerodynamixPage = lazy(() => import("./pages/avishkar/Aerodynamix"));
 const AstrowingPage = lazy(() => import("./pages/avishkar/Astrowing"));
 const RobomaniaPage = lazy(() => import("./pages/avishkar/Robomania"));
 
+function RoutePageTransition({ children }) {
+  const location = useLocation();
+
+  return (
+    <div className="route-page-transition" key={location.pathname}>
+      {children}
+    </div>
+  );
+}
+
 function App() {
   const [showInitialReveal, setShowInitialReveal] = useState(true);
   const finishInitialReveal = useCallback(() => {
@@ -65,7 +75,8 @@ function App() {
         <PortalProvider>
           <Navbar />
           <Suspense fallback={<RouteLoader />}>
-            <Routes>
+            <RoutePageTransition>
+              <Routes>
               <Route index element={<Homepage />} />
 
               {/* Culrav main and sub-events */}
@@ -123,7 +134,8 @@ function App() {
               <Route path="/admin/login" element={<StaffLogin adminLogin />} />
               {/* FALLBACK PAGE */}
               <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+              </Routes>
+            </RoutePageTransition>
           </Suspense>
         </PortalProvider>
       </BrowserRouter>
