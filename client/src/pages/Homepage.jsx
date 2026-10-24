@@ -14,6 +14,7 @@ import {
   Radio,
   Play,
   Instagram,
+  Mail,
 } from "lucide-react";
 import { Link } from "react-router";
 
@@ -106,7 +107,7 @@ const SectionHeading = ({
           <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
             <div
-              className={`font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] ${cinzelLabelColor}`}
+              className={`font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] ${cinzelLabelColor}`}
             >
               <span>✦</span>
               <span>{cinzelLabel || title}</span>
@@ -116,7 +117,7 @@ const SectionHeading = ({
           </div>
           {cinzelSubtitle && (
             <span
-              className={`font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] ${cinzelLabelColor}`}
+              className={`font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] ${cinzelLabelColor}`}
             >
               {cinzelSubtitle}
             </span>
@@ -125,7 +126,7 @@ const SectionHeading = ({
 
         {/* Main h2 — font-cinzel, wide tracking, drop-shadow */}
         <h2
-          className={`font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] drop-shadow-sm sm:text-5xl md:text-6xl section-title ${titleColor}`}
+          className={`font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] drop-shadow-sm sm:text-5xl md:text-6xl section-title ${titleColor}`}
         >
           {number && (
             <span
@@ -250,7 +251,187 @@ const Navbar = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   );
 };
 
+const TeaserModal = ({ onClose, onEnterRealm }) => {
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      id="teaser"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md transition-all duration-300"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="teaser-title"
+    >
+      <div
+        className="relative w-full max-w-4xl overflow-hidden rounded-sm border-2 border-[#b8863b] bg-[#140b05] text-[#faeed7] shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_50px_rgba(184,134,59,0.3)] animate-in fade-in zoom-in-95 duration-200"
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+          backgroundSize: "cover",
+          backgroundBlendMode: "multiply",
+        }}
+      >
+        {/* Inner hairline border */}
+        <div
+          className="pointer-events-none absolute inset-[4px] border border-[#f3cf8a]/30 z-20"
+          aria-hidden="true"
+        />
+
+        {/* 4 Classical Filigree Corner Accents */}
+        <svg
+          className="pointer-events-none absolute left-2 top-2 h-3.5 w-3.5 text-[#e5b869] z-20"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M0 14V0H14" stroke="currentColor" strokeWidth="1.6" />
+          <circle cx="4" cy="4" r="1.5" fill="currentColor" />
+        </svg>
+        <svg
+          className="pointer-events-none absolute right-2 top-2 h-3.5 w-3.5 text-[#e5b869] z-20"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M14 14V0H0" stroke="currentColor" strokeWidth="1.6" />
+          <circle cx="10" cy="4" r="1.5" fill="currentColor" />
+        </svg>
+        <svg
+          className="pointer-events-none absolute bottom-2 left-2 h-3.5 w-3.5 text-[#e5b869] z-20"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M0 0V14H14" stroke="currentColor" strokeWidth="1.6" />
+          <circle cx="4" cy="10" r="1.5" fill="currentColor" />
+        </svg>
+        <svg
+          className="pointer-events-none absolute bottom-2 right-2 h-3.5 w-3.5 text-[#e5b869] z-20"
+          viewBox="0 0 14 14"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M14 0V14H0" stroke="currentColor" strokeWidth="1.6" />
+          <circle cx="10" cy="10" r="1.5" fill="currentColor" />
+        </svg>
+
+        {/* Modal Header */}
+        <div className="relative z-10 flex items-center justify-between border-b border-[#b8863b]/50 bg-[#1c0f07]/90 px-4 py-3 sm:px-6 sm:py-3.5">
+          <div className="flex flex-col">
+            <div className="flex items-center gap-2 text-[10px] sm:text-xs font-cinzel tracking-[0.25em] text-[#e8b663] uppercase">
+              <span>✦</span>
+              <span>Echoes of Olympus</span>
+              <span>✦</span>
+            </div>
+            <h3
+              id="teaser-title"
+              className="font-cinzel text-sm sm:text-lg font-bold tracking-widest text-[#ffe1a8] drop-shadow-sm uppercase"
+            >
+              Witness the Official Teaser
+            </h3>
+          </div>
+
+          <button
+            type="button"
+            onClick={onClose}
+            className="group/close flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full border border-[#b8863b] bg-[#2a160c] text-[#f3cf8a] transition-all hover:border-[#ffd47d] hover:bg-[#b8863b] hover:text-[#1a0e06] hover:rotate-90 cursor-pointer"
+            aria-label="Close Teaser Modal"
+          >
+            <X className="h-4 w-4 transition-transform" />
+          </button>
+        </div>
+
+        {/* Video Player Body */}
+        <div className="relative z-10 bg-black/95 p-2 sm:p-4">
+          <div className="relative aspect-video w-full overflow-hidden rounded-sm border border-[#b8863b]/40 bg-black shadow-inner">
+            <video
+              ref={videoRef}
+              controls
+              autoPlay
+              playsInline
+              preload="auto"
+              className="h-full w-full object-contain"
+            >
+              <source
+                src={VIDEO_URLS.teaser || VIDEO_URLS.heroBg}
+                type="video/webm"
+              />
+              Your browser does not support video playback.
+            </video>
+          </div>
+        </div>
+
+        {/* Modal Footer */}
+        <div className="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-[#b8863b]/50 bg-[#1c0f07]/90 px-4 py-3 sm:px-6">
+          <p className="font-garamond text-xs sm:text-sm text-[#d4b48d] italic text-center sm:text-left">
+            Experience the confluence of Culture & Technology at MNNIT Allahabad.
+          </p>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-end">
+            <a
+              href="https://www.instagram.com/reels/DRSakAxkvsq/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/ig inline-flex items-center gap-2 rounded-sm border border-[#b8863b]/70 bg-[#2b160c] px-4 py-2 font-cinzel text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f3cf8a] transition-all hover:border-[#ffd47d] hover:bg-[#3d1d0c] hover:text-[#fff0cc]"
+            >
+              <Instagram className="h-3.5 w-3.5 text-[#e8b663] transition-transform group-hover/ig:scale-110" />
+              <span>Full Reel</span>
+              <ArrowUpRight className="h-3.5 w-3.5 text-[#e8b663] transition-transform group-hover/ig:-translate-y-0.5 group-hover/ig:translate-x-0.5" />
+            </a>
+
+            <button
+              type="button"
+              onClick={onEnterRealm}
+              className="inline-flex items-center gap-2 rounded-sm border border-[#b8863b] bg-[#b8863b] px-4 py-2 font-cinzel text-[11px] font-bold uppercase tracking-[0.2em] text-[#1b0f06] shadow-sm transition-all hover:bg-[#d4a55c] hover:border-[#d4a55c] cursor-pointer"
+            >
+              <span>Enter Realm</span>
+              <span>↓</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const HeroSection = () => {
+  const [isTeaserOpen, setIsTeaserOpen] = useState(false);
+
+  useEffect(() => {
+    const handleHash = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#teaser") {
+        setIsTeaserOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener("hashchange", handleHash);
+    return () => window.removeEventListener("hashchange", handleHash);
+  }, []);
+
+  const handleEnterRealm = (e) => {
+    e?.preventDefault();
+    const target = document.getElementById("about");
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    } else {
+      window.location.hash = "about";
+    }
+  };
   return (
     <section
       id="home"
@@ -272,46 +453,284 @@ const HeroSection = () => {
       </div>
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-4 pb-12 pt-24 text-center sm:px-6 md:pb-16 md:pt-28">
-        <div className="hero-title absolute inset-0 flex items-center justify-center px-4 sm:px-6">
+        <div className="hero-title absolute inset-0 flex items-center justify-center px-2 sm:px-6">
           <img
             src={LOGO_URLS.main}
             alt="Culrav and Avishkar"
-            className="h-auto max-h-[37vh] w-[82vw] max-w-[610px] object-contain drop-shadow-[0_16px_24px_rgba(47,20,8,0.42)] sm:w-[68vw] md:max-h-[43vh] md:w-[58vw]"
+            className="h-auto max-h-[42vh] w-[92vw] max-w-[610px] object-contain drop-shadow-[0_16px_24px_rgba(47,20,8,0.42)] sm:w-[68vw] sm:max-h-[37vh] md:max-h-[43vh] md:w-[58vw]"
           />
         </div>
 
         <div className="absolute bottom-10 flex flex-col items-center gap-3 md:bottom-14">
-          <p className="hero-sub rounded-full border border-[#6b3c22]/35 bg-[#fff3d7]/88 px-7 py-2 font-trajan text-sm tracking-[0.2em] text-[#4a2b1b] shadow-[0_10px_35px_rgba(43,18,8,0.26)] backdrop-blur-md sm:text-base md:px-10 md:text-lg">
-            Where Technology meets Culture, and Legends come alive. Enter the
-            Mythos.
-          </p>
-
-          <div className="hero-btns flex flex-wrap items-center justify-center gap-3">
-            <Link
-              to="/login"
-              className="group inline-flex items-center gap-3 rounded-sm border border-[#e9bd70]/55 bg-[#2b160c]/88 px-7 py-3 font-trajan text-[10px] font-semibold uppercase tracking-[0.28em] text-[#ffe1a8] shadow-[0_10px_30px_rgba(25,10,4,0.36)] backdrop-blur-md transition duration-300 hover:border-[#f6cf8a] hover:bg-[#3a1f10] sm:text-xs"
+          <div className="hero-sub relative mx-auto flex max-w-3xl items-center justify-center px-2 sm:px-6">
+            {/* Left Tabula Ansata Dovetail Wing */}
+            <div
+              className="pointer-events-none absolute -left-1 top-1/2 hidden -translate-y-1/2 items-center text-[#b8863b] drop-shadow-sm sm:flex"
+              aria-hidden="true"
             >
-              <span className="transition-transform duration-300 group-hover:rotate-45">
-                ✦
-              </span>
-              Enter the Realm
-              <span className="transition-transform duration-300 group-hover:-rotate-45">
-                ✦
-              </span>
-            </Link>
+              <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+                <path
+                  d="M22 0 L6 8 L6 14 L0 17 L6 20 L6 26 L22 34 Z"
+                  fill="#ebd4b0"
+                  stroke="#b8863b"
+                  strokeWidth="1.2"
+                />
+                <circle cx="9" cy="17" r="2.2" fill="#8c5824" />
+              </svg>
+            </div>
 
+            {/* Right Tabula Ansata Dovetail Wing */}
+            <div
+              className="pointer-events-none absolute -right-1 top-1/2 hidden -translate-y-1/2 items-center text-[#b8863b] drop-shadow-sm sm:flex"
+              aria-hidden="true"
+            >
+              <svg width="22" height="34" viewBox="0 0 22 34" fill="none">
+                <path
+                  d="M0 0 L16 8 L16 14 L22 17 L16 20 L16 26 L0 34 Z"
+                  fill="#ebd4b0"
+                  stroke="#b8863b"
+                  strokeWidth="1.2"
+                />
+                <circle cx="13" cy="17" r="2.2" fill="#8c5824" />
+              </svg>
+            </div>
+
+            {/* Main Inscription Stele Plaque */}
+            <div
+              className="relative w-full border border-[#b8863b] bg-[#ebd4b0]/95 px-5 py-2.5 text-center shadow-[0_14px_35px_rgba(20,8,2,0.45),inset_0_0_24px_rgba(138,88,32,0.22)] backdrop-blur-md sm:px-8 sm:py-3.5"
+              style={{
+                backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+                backgroundSize: "cover",
+                backgroundBlendMode: "overlay",
+              }}
+            >
+              {/* Inner Hairline Frame */}
+              <div
+                className="pointer-events-none absolute inset-[3px] border border-[#c89849]/50"
+                aria-hidden="true"
+              />
+
+              {/* 4 Corner Classical Filigree Accents */}
+              <svg
+                className="pointer-events-none absolute left-1.5 top-1.5 h-2.5 w-2.5 text-[#9b6628] sm:h-3 sm:w-3"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M0 14V0H14" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="4" cy="4" r="1.5" fill="currentColor" />
+              </svg>
+              <svg
+                className="pointer-events-none absolute right-1.5 top-1.5 h-2.5 w-2.5 text-[#9b6628] sm:h-3 sm:w-3"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M14 14V0H0" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="10" cy="4" r="1.5" fill="currentColor" />
+              </svg>
+              <svg
+                className="pointer-events-none absolute bottom-1.5 left-1.5 h-2.5 w-2.5 text-[#9b6628] sm:h-3 sm:w-3"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M0 0V14H14" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="4" cy="10" r="1.5" fill="currentColor" />
+              </svg>
+              <svg
+                className="pointer-events-none absolute bottom-1.5 right-1.5 h-2.5 w-2.5 text-[#9b6628] sm:h-3 sm:w-3"
+                viewBox="0 0 14 14"
+                fill="none"
+                aria-hidden="true"
+              >
+                <path d="M14 0V14H0" stroke="currentColor" strokeWidth="1.6" />
+                <circle cx="10" cy="10" r="1.5" fill="currentColor" />
+              </svg>
+
+              {/* Top Center Stele Crest */}
+              <div
+                className="pointer-events-none absolute -top-[7px] left-1/2 flex -translate-x-1/2 items-center gap-1.5 border-x border-[#b8863b] bg-[#ebd4b0] px-2.5 text-[#8c5824]"
+                aria-hidden="true"
+              >
+                <span className="text-[8px] leading-none">✦</span>
+                <span className="h-1.5 w-1.5 rotate-45 bg-[#8c5824]" />
+                <span className="text-[8px] leading-none">✦</span>
+              </div>
+
+              {/* Bottom Center Stele Crest */}
+              <div
+                className="pointer-events-none absolute -bottom-[6px] left-1/2 flex -translate-x-1/2 items-center gap-1.5 border-x border-[#b8863b] bg-[#ebd4b0] px-2 text-[#8c5824]"
+                aria-hidden="true"
+              >
+                <span className="h-1.5 w-1.5 rotate-45 bg-[#8c5824]" />
+              </div>
+
+              {/* Inscribed Epigraphic Motto */}
+              <p className="relative z-10 m-0 font-trajan text-xs font-bold uppercase tracking-[0.2em] text-[#3d220f] drop-shadow-[0_1px_0_rgba(255,255,255,0.4)] sm:text-sm md:text-base">
+                Where Technology meets Culture, and Legends come alive. Enter the Mythos.
+              </p>
+            </div>
+          </div>
+
+          <div className="hero-btns flex flex-wrap items-center justify-center gap-3.5 sm:gap-5">
+            {/* Enter the Realm — Primary Imperial Action */}
             <a
-              href="#teaser"
-              className="group inline-flex items-center gap-3 rounded-sm border border-[#c9934a]/50 bg-[#f5e6c8]/80 px-7 py-3 font-trajan text-[10px] font-semibold uppercase tracking-[0.28em] text-[#6b3c1a] shadow-[0_10px_30px_rgba(100,55,15,0.18)] backdrop-blur-md transition duration-300 hover:border-[#d4a55c] hover:bg-[#faf0d8] sm:text-xs"
+              href="#about"
+              onClick={handleEnterRealm}
+              className="group relative inline-flex h-11 sm:h-12 items-center justify-center gap-3 overflow-hidden rounded-sm border-2 border-[#d4a55c] bg-gradient-to-b from-[#3a1d0d] via-[#241208] to-[#150903] px-6 sm:px-8 py-0 font-cinzel text-[11px] sm:text-xs font-bold uppercase tracking-[0.24em] sm:tracking-[0.28em] text-[#ffe2a8] shadow-[0_12px_32px_rgba(15,6,2,0.65),inset_0_1px_1px_rgba(255,225,160,0.3)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ffd47d] hover:shadow-[0_0_30px_rgba(235,180,80,0.45),0_16px_36px_rgba(20,8,2,0.8)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
             >
-              <span className="transition-transform duration-300 group-hover:scale-125">
-                ▶
+              {/* Inner Hairline Frame */}
+              <span
+                className="pointer-events-none absolute inset-[3px] border border-[#f3cf8a]/35 transition-colors duration-300 group-hover:border-[#f3cf8a]/65"
+                aria-hidden="true"
+              />
+
+              {/* 4 Corner Diamond Rivets */}
+              <span
+                className="pointer-events-none absolute left-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#d4a55c] transition-colors group-hover:text-[#ffe4a0]"
+                aria-hidden="true"
+              >
+                ◆
               </span>
-              Witness the Teaser
+              <span
+                className="pointer-events-none absolute right-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#d4a55c] transition-colors group-hover:text-[#ffe4a0]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+              <span
+                className="pointer-events-none absolute bottom-1 left-1 text-[7px] sm:text-[8px] leading-none text-[#d4a55c] transition-colors group-hover:text-[#ffe4a0]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+              <span
+                className="pointer-events-none absolute bottom-1 right-1 text-[7px] sm:text-[8px] leading-none text-[#d4a55c] transition-colors group-hover:text-[#ffe4a0]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+
+              {/* Radial Center Warm Glow */}
+              <span
+                className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(235,175,70,0.22)_0%,transparent_75%)] opacity-70 transition-opacity duration-300 group-hover:opacity-100"
+                aria-hidden="true"
+              />
+
+              {/* Shimmer Light Sweep */}
+              <span
+                className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/15 to-transparent transition-all duration-1000 ease-out group-hover:left-full"
+                aria-hidden="true"
+              />
+
+              {/* Content */}
+              <span className="relative z-10 flex items-center justify-center gap-2.5 leading-none">
+                <span
+                  className="text-[10px] sm:text-xs text-[#e8b663] transition-transform duration-500 group-hover:rotate-90 group-hover:scale-125 group-hover:text-[#fff0cc] leading-none"
+                  aria-hidden="true"
+                >
+                  ✦
+                </span>
+                <span className="leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                  Enter the Realm
+                </span>
+                <span
+                  className="text-[10px] sm:text-xs text-[#e8b663] transition-transform duration-500 group-hover:-rotate-90 group-hover:scale-125 group-hover:text-[#fff0cc] leading-none"
+                  aria-hidden="true"
+                >
+                  ✦
+                </span>
+              </span>
+            </a>
+
+            {/* Witness the Teaser — Secondary Parchment Stele Action */}
+            <a
+              href="https://www.instagram.com/reels/DRSakAxkvsq/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Witness the Teaser on Instagram Reels"
+              className="group relative inline-flex h-11 sm:h-12 items-center justify-center gap-3 overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-6 sm:px-8 py-0 font-cinzel text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:bg-[#f5dfb8] hover:shadow-[0_0_22px_rgba(200,140,50,0.35),0_14px_32px_rgba(40,15,5,0.3)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
+              style={{
+                backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+                backgroundSize: "cover",
+                backgroundBlendMode: "overlay",
+              }}
+            >
+              {/* Inner Hairline Frame */}
+              <span
+                className="pointer-events-none absolute inset-[3px] border border-[#a87430]/35 transition-colors duration-300 group-hover:border-[#a87430]/65"
+                aria-hidden="true"
+              />
+
+              {/* 4 Corner Diamond Rivets */}
+              <span
+                className="pointer-events-none absolute left-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+              <span
+                className="pointer-events-none absolute right-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+              <span
+                className="pointer-events-none absolute bottom-1 left-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+              <span
+                className="pointer-events-none absolute bottom-1 right-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+                aria-hidden="true"
+              >
+                ◆
+              </span>
+
+              {/* Shimmer Light Sweep */}
+              <span
+                className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-[#ffe7b8]/25 to-transparent transition-all duration-1000 ease-out group-hover:left-full"
+                aria-hidden="true"
+              />
+
+              {/* Content */}
+              <span className="relative z-10 flex items-center justify-center gap-2.5 leading-none">
+                {/* Golden Play Badge */}
+                <span
+                  className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 items-center justify-center rounded-full border border-[#8c5824] bg-gradient-to-b from-[#b8863b] to-[#7a4816] shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-[#5a2e0a] group-hover:shadow-[0_0_8px_rgba(184,134,59,0.7)]"
+                  aria-hidden="true"
+                >
+                  <Play className="h-2 w-2 sm:h-2.5 sm:w-2.5 fill-current text-[#faeed7] ml-0.5" />
+                </span>
+                <span className="leading-none drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                  Witness the Teaser
+                </span>
+              </span>
             </a>
           </div>
         </div>
       </div>
+
+      {isTeaserOpen && (
+        <TeaserModal
+          onClose={() => {
+            setIsTeaserOpen(false);
+            if (window.location.hash === "#teaser") {
+              history.replaceState(
+                null,
+                "",
+                window.location.pathname + window.location.search,
+              );
+            }
+          }}
+          onEnterRealm={(e) => {
+            setIsTeaserOpen(false);
+            handleEnterRealm(e);
+          }}
+        />
+      )}
     </section>
   );
 };
@@ -444,19 +863,19 @@ const AboutSection = () => {
           <div className="my-4 flex select-none flex-col items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#7d5628]">
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7d5628]">
                 <span>✦</span>
                 <span>The Duality</span>
                 <span>✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
               Different Paths ✦ A Shared Legacy
             </span>
           </div>
 
-          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl">
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl">
             The Two Realms
           </h2>
           <div className="mt-3 flex justify-center">
@@ -465,91 +884,203 @@ const AboutSection = () => {
         </div>
 
         <div className="about-cards-container relative grid grid-cols-1 items-stretch gap-8 md:grid-cols-2 lg:gap-16">
-          <div className="about-card-left group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-[filter] duration-300 ease-out hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.48)] sm:p-10">
-            <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
-              <img
-                src="/media/homepage/images/realm-card.webp"
-                alt="Culrav realm card"
-                className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-              />
-            </div>
-
-            <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
-              <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center transition-transform duration-300 ease-out group-hover:scale-108">
+          {/* Culrav Realm Card */}
+          <div className="about-card-left h-full flex flex-col">
+            <div className="group relative flex flex-1 flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-1.5 hover:drop-shadow-[0_24px_48px_rgba(215,95,15,0.48)] sm:p-10">
+              <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
                 <img
-                  src={LOGO_URLS.culrav}
-                  alt="Culrav"
-                  className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)]"
+                  src="/media/homepage/images/realm-card.webp"
+                  alt="Culrav realm card"
+                  className="h-full w-full select-none object-fill"
                 />
               </div>
-              <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#b86d2a]">
-                <div className="h-px flex-1 bg-current opacity-60" />
-                <span className="text-[10px]">✦</span>
-                <div className="h-px flex-1 bg-current opacity-60" />
-              </div>
-              
-              <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#533920] sm:text-xl">
-                The realm of art, expression and celebration.
-              </p>
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#b86d2a]/10 border border-[#b86d2a]/30 text-[#8c4314] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
+
+              <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
+                <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center">
+                  <img
+                    src={LOGO_URLS.culrav}
+                    alt="Culrav"
+                    className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)]"
+                  />
+                </div>
+                <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#b86d2a]">
+                  <div className="h-px flex-1 bg-current opacity-60" />
+                  <span className="text-[10px]">✦</span>
+                  <div className="h-px flex-1 bg-current opacity-60" />
+                </div>
                 
-                <span>5-7th December 2026</span>
-                
-              </div>
-              <div className="mt-auto w-full max-w-xs pt-6">
-                <Link
-                  to="/culrav"
-                  onPointerEnter={() => preloadPublicRoute("/culrav")}
-                  onFocus={() => preloadPublicRoute("/culrav")}
-                  className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#b87c38] bg-[#f7eedc]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#783709] shadow-sm transition-all hover:bg-[#fae6c6] active:scale-95"
-                >
-                  <span className="pointer-events-none absolute inset-1 border border-[#b87c38]/40" />
-                  <span>Explore Culrav</span>
-                  <ArrowUpRight className="h-4 w-4 text-[#a85a18] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
-                </Link>
+                <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#533920] sm:text-xl">
+                  The realm of art, expression and celebration.
+                </p>
+                {/* Festival Dates */}
+                <div className="my-2.5 flex items-center justify-center gap-2.5 font-cinzel text-sm sm:text-base font-black uppercase tracking-[0.22em] text-[#873e10]">
+                  <span className="text-xs text-[#b86d2a] select-none" aria-hidden="true">✦</span>
+                  <span
+                    className="font-black drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]"
+                    style={{ WebkitTextStroke: "0.35px currentColor" }}
+                  >
+                    5-7th December 2026
+                  </span>
+                  <span className="text-xs text-[#b86d2a] select-none" aria-hidden="true">✦</span>
+                </div>
+                <div className="mt-auto w-full max-w-xs pt-6">
+                  <Link
+                    to="/culrav"
+                    onPointerEnter={() => preloadPublicRoute("/culrav")}
+                    onFocus={() => preloadPublicRoute("/culrav")}
+                    className="group/btn relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-sm border-2 border-[#d48938] bg-gradient-to-b from-[#8c380b] via-[#5c2105] to-[#3a1302] px-6 py-3 sm:py-3.5 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#fff0d6] shadow-[0_8px_20px_rgba(110,40,5,0.45),inset_0_1px_1px_rgba(255,190,110,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#f5af5a] hover:from-[#a6430d] hover:via-[#6e2706] hover:to-[#471803] hover:text-white hover:shadow-[0_12px_28px_rgba(220,90,15,0.55),0_0_24px_rgba(235,140,50,0.4),inset_0_1px_2px_rgba(255,220,150,0.6)] active:translate-y-0 active:scale-[0.98] cursor-pointer"
+                  >
+                    {/* Inner Hairline Frame */}
+                    <span
+                      className="pointer-events-none absolute inset-[3px] border border-[#f5b869]/35 transition-colors duration-300 group-hover/btn:border-[#ffd98a]/70"
+                      aria-hidden="true"
+                    />
+
+                    {/* 4 Corner Diamond Rivets */}
+                    <span
+                      className="pointer-events-none absolute left-1 top-1 text-[7px] leading-none text-[#e8a252] transition-colors group-hover/btn:text-[#ffe4a0]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute right-1 top-1 text-[7px] leading-none text-[#e8a252] transition-colors group-hover/btn:text-[#ffe4a0]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute bottom-1 left-1 text-[7px] leading-none text-[#e8a252] transition-colors group-hover/btn:text-[#ffe4a0]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute bottom-1 right-1 text-[7px] leading-none text-[#e8a252] transition-colors group-hover/btn:text-[#ffe4a0]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+
+                    {/* Radial Center Warm Glow */}
+                    <span
+                      className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(245,145,50,0.35)_0%,transparent_75%)] opacity-70 transition-opacity duration-300 group-hover/btn:opacity-100"
+                      aria-hidden="true"
+                    />
+
+                    {/* Shimmer Light Sweep */}
+                    <span
+                      className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000 ease-out group-hover/btn:left-full"
+                      aria-hidden="true"
+                    />
+
+                    {/* Content */}
+                    <span className="relative z-10 flex items-center justify-center gap-2 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+                      <span>Explore Culrav</span>
+                      <ArrowUpRight className="h-4 w-4 text-[#ffd48a] transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 group-hover/btn:text-white" />
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="about-card-right group relative flex flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transition-[filter] duration-300 ease-out hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.46)] sm:p-10">
-            <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
-              <img
-                src="/media/homepage/images/realm-card.webp"
-                alt="Avishkar realm card"
-                className="h-full w-full select-none object-fill transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-              />
-            </div>
-
-            <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
-              <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center transition-transform duration-300 ease-out group-hover:scale-108">
+          {/* Avishkar Realm Card */}
+          <div className="about-card-right h-full flex flex-col">
+            <div className="group relative flex flex-1 flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-1.5 hover:drop-shadow-[0_24px_48px_rgba(110,45,170,0.46)] sm:p-10">
+              <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
                 <img
-                  src={LOGO_URLS.avishkar}
-                  alt="Avishkar"
-                  className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)] transition-all duration-300 group-hover:drop-shadow-[0_8px_18px_rgba(110,45,170,0.45)]"
+                  src="/media/homepage/images/realm-card.webp"
+                  alt="Avishkar realm card"
+                  className="h-full w-full select-none object-fill"
                 />
               </div>
-              <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#64498e]">
-                <div className="h-px flex-1 bg-current opacity-60" />
-                <span className="text-[10px]">✦</span>
-                <div className="h-px flex-1 bg-current opacity-60" />
-              </div>
-              <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#44305e] sm:text-xl">
-                The realm of ideas, invention and innovation.
-              </p>              
-              <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-[#64498e]/10 border border-[#64498e]/30 text-[#54327a] font-cinzel text-xs font-bold tracking-[0.18em] uppercase my-1">
-                <span>2-4th December 2026</span>
-              </div>
-              <div className="mt-auto w-full max-w-xs pt-6">
-                <Link
-                  to="/avishkar"
-                  onPointerEnter={() => preloadPublicRoute("/avishkar")}
-                  onFocus={() => preloadPublicRoute("/avishkar")}
-                  className="group/btn relative flex w-full items-center justify-center gap-2 border border-[#765d9e] bg-[#f4effa]/95 px-6 py-3 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#361e5b] shadow-sm transition-all hover:bg-[#eae0f6] active:scale-95"
-                >
-                  <span className="pointer-events-none absolute inset-1 border border-[#765d9e]/40" />
-                  <span>Explore Avishkar</span>
-                  <ArrowUpRight className="h-4 w-4 text-[#593987] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
-                </Link>
+
+              <div className="relative z-10 flex h-full w-full flex-col items-center text-center">
+                <div className="mb-3 flex h-28 sm:h-32 w-full items-center justify-center">
+                  <img
+                    src={LOGO_URLS.avishkar}
+                    alt="Avishkar"
+                    className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)] transition-all duration-300 group-hover:drop-shadow-[0_8px_18px_rgba(110,45,170,0.45)]"
+                  />
+                </div>
+                <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#64498e]">
+                  <div className="h-px flex-1 bg-current opacity-60" />
+                  <span className="text-[10px]">✦</span>
+                  <div className="h-px flex-1 bg-current opacity-60" />
+                </div>
+                <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#44305e] sm:text-xl">
+                  The realm of ideas, invention and innovation.
+                </p>
+                {/* Festival Dates */}
+                <div className="my-2.5 flex items-center justify-center gap-2.5 font-cinzel text-sm sm:text-base font-black uppercase tracking-[0.22em] text-[#54307a]">
+                  <span className="text-xs text-[#765d9e] select-none" aria-hidden="true">✦</span>
+                  <span
+                    className="font-black drop-shadow-[0_1px_1px_rgba(255,255,255,0.7)]"
+                    style={{ WebkitTextStroke: "0.35px currentColor" }}
+                  >
+                    2-4th December 2026
+                  </span>
+                  <span className="text-xs text-[#765d9e] select-none" aria-hidden="true">✦</span>
+                </div>
+                <div className="mt-auto w-full max-w-xs pt-6">
+                  <Link
+                    to="/avishkar"
+                    onPointerEnter={() => preloadPublicRoute("/avishkar")}
+                    onFocus={() => preloadPublicRoute("/avishkar")}
+                    className="group/btn relative flex w-full items-center justify-center gap-2.5 overflow-hidden rounded-sm border-2 border-[#9364b8] bg-gradient-to-b from-[#4a1e75] via-[#2f104e] to-[#1c0830] px-6 py-3 sm:py-3.5 font-cinzel text-xs font-bold uppercase tracking-[0.25em] text-[#f7eeff] shadow-[0_8px_20px_rgba(40,12,65,0.45),inset_0_1px_1px_rgba(215,160,255,0.4)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b88ee0] hover:from-[#5d2694] hover:via-[#3d1566] hover:to-[#240a3d] hover:text-white hover:shadow-[0_12px_28px_rgba(130,50,195,0.55),0_0_24px_rgba(165,90,240,0.4),inset_0_1px_2px_rgba(235,190,255,0.6)] active:translate-y-0 active:scale-[0.98] cursor-pointer"
+                  >
+                    {/* Inner Hairline Frame */}
+                    <span
+                      className="pointer-events-none absolute inset-[3px] border border-[#c59eeb]/35 transition-colors duration-300 group-hover/btn:border-[#dfc3fa]/70"
+                      aria-hidden="true"
+                    />
+
+                    {/* 4 Corner Diamond Rivets */}
+                    <span
+                      className="pointer-events-none absolute left-1 top-1 text-[7px] leading-none text-[#b88ee0] transition-colors group-hover/btn:text-[#f0d9ff]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute right-1 top-1 text-[7px] leading-none text-[#b88ee0] transition-colors group-hover/btn:text-[#f0d9ff]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute bottom-1 left-1 text-[7px] leading-none text-[#b88ee0] transition-colors group-hover/btn:text-[#f0d9ff]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+                    <span
+                      className="pointer-events-none absolute bottom-1 right-1 text-[7px] leading-none text-[#b88ee0] transition-colors group-hover/btn:text-[#f0d9ff]"
+                      aria-hidden="true"
+                    >
+                      ◆
+                    </span>
+
+                    {/* Radial Center Warm Glow */}
+                    <span
+                      className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(165,85,245,0.35)_0%,transparent_75%)] opacity-70 transition-opacity duration-300 group-hover/btn:opacity-100"
+                      aria-hidden="true"
+                    />
+
+                    {/* Shimmer Light Sweep */}
+                    <span
+                      className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000 ease-out group-hover/btn:left-full"
+                      aria-hidden="true"
+                    />
+
+                    {/* Content */}
+                    <span className="relative z-10 flex items-center justify-center gap-2 leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+                      <span>Explore Avishkar</span>
+                      <ArrowUpRight className="h-4 w-4 text-[#d8b8ff] transition-transform duration-300 group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 group-hover/btn:text-white" />
+                    </span>
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -601,7 +1132,7 @@ function ArchiveVideo({ src }) {
           muted
           playsInline
           preload="metadata"
-          className="h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
+          className="archive-video h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
         >
           <source src={src} type="video/webm" />
         </video>
@@ -611,42 +1142,74 @@ function ArchiveVideo({ src }) {
 }
 
 const GallerySection = () => {
+  const [touchActiveArchive, setTouchActiveArchive] = useState(null);
+  const touchReleaseTimerRef = useRef(null);
+
+  useEffect(
+    () => () => {
+      if (touchReleaseTimerRef.current) {
+        window.clearTimeout(touchReleaseTimerRef.current);
+      }
+    },
+    [],
+  );
+
+  const revealArchiveOnTouch = (event, itemId) => {
+    if (event.pointerType !== "touch") return;
+    if (touchReleaseTimerRef.current) {
+      window.clearTimeout(touchReleaseTimerRef.current);
+    }
+    setTouchActiveArchive(itemId);
+  };
+
+  const keepArchiveRevealed = (event, itemId) => {
+    if (event.pointerType !== "touch") return;
+    if (touchReleaseTimerRef.current) {
+      window.clearTimeout(touchReleaseTimerRef.current);
+    }
+    touchReleaseTimerRef.current = window.setTimeout(() => {
+      setTouchActiveArchive((activeId) =>
+        activeId === itemId ? null : activeId,
+      );
+    }, 1100);
+  };
+
   const galleryItems = [
     {
       id: 1,
       act: "ACT",
       numeral: "I",
-      title: "DJKD",
-      subtitle: "The Celestial Pro-Nite",
-      src: "/media/homepage/videos/v4.webm",
-      gridClass: "md:col-span-2 md:row-span-2",
+      title: "JAVED ALI",
+      subtitle: "Live Stage Revel",
+      src: "/media/homepage/videos/javed-ali.webm",
+      gridClass: "md:col-span-2 lg:col-span-3 md:row-span-2",
     },
     {
       id: 2,
       act: "ACT",
       numeral: "II",
-      title: "JULIE",
-      subtitle: "Live Stage Revel",
-      src: "/media/homepage/videos/v1.webm",
-      gridClass: "md:col-span-1 md:row-span-2",
+      title: "DJ MONIKA",
+      subtitle: "The Celestial Pro-Nite",
+      src: "/media/homepage/videos/dj-monika.webm",
+      gridClass: "md:col-span-1 lg:col-span-3 md:row-span-2",
     },
     {
       id: 3,
       act: "ACT",
       numeral: "III",
-      title: "DJ PHOENIX",
+      title: "PRAGATI NAGPAL",
       subtitle: "The Electronic Odyssey",
-      src: "/media/homepage/videos/v5.webm",
-      gridClass: "md:col-span-1 md:row-span-1",
+      src: "/media/homepage/videos/pragati-nagpal.webm",
+      gridClass: "md:col-span-1 lg:col-span-2 md:row-span-1",
     },
     {
       id: 4,
       act: "ACT",
       numeral: "IV",
-      title: "DJKD",
+      title: "LASHCURRY",
       subtitle: "Arena of Legends",
-      src: "/media/homepage/videos/v2.webm",
-      gridClass: "md:col-span-1 md:row-span-1",
+      src: "/media/homepage/videos/lashcurry.webm",
+      gridClass: "md:col-span-1 lg:col-span-2 md:row-span-1",
     },
   ];
 
@@ -662,19 +1225,19 @@ const GallerySection = () => {
           <div className="my-4 flex select-none flex-col items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#7d5628]">
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7d5628]">
                 <span>✦</span>
                 <span>The Colosseum Chronicles</span>
                 <span>✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
               Chronicles of the Realm ✦ Captured in Time
             </span>
           </div>
 
-          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
             Visual Archives
           </h2>
           <div className="mt-3 flex justify-center">
@@ -683,11 +1246,14 @@ const GallerySection = () => {
         </div>
 
         {/* The Mythological Bento Wall (Asymmetric Classical Mosaic) */}
-        <div className="grid grid-cols-1 md:grid-cols-3 auto-rows-[240px] sm:auto-rows-[270px] lg:auto-rows-[280px] gap-4 sm:gap-5">
+        <div className="archive-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 auto-rows-[240px] sm:auto-rows-[270px] lg:auto-rows-[280px] gap-6 sm:gap-5">
           {galleryItems.map((item) => (
             <div
               key={item.id}
-              className={`group relative overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-[#140b04] cursor-pointer shadow-[0_10px_25px_rgba(44,29,12,0.18)] transition-all duration-500 ease-out hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] ${item.gridClass} min-h-[260px] md:min-h-0`}
+              className={`archive-card group relative overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-[#140b04] cursor-pointer shadow-[0_10px_25px_rgba(44,29,12,0.18)] transition-all duration-500 ease-out hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] ${item.gridClass} min-h-[260px] md:min-h-0 ${touchActiveArchive === item.id ? "archive-card--touch-active" : ""}`}
+              onPointerDown={(event) => revealArchiveOnTouch(event, item.id)}
+              onPointerUp={(event) => keepArchiveRevealed(event, item.id)}
+              onPointerCancel={(event) => keepArchiveRevealed(event, item.id)}
             >
               {/* Double Inset Arch/Fillet border */}
               <div className="pointer-events-none absolute inset-2 z-20 rounded-sm border border-[#f3cf8a]/20 transition-colors duration-300 group-hover:border-[#f3cf8a]/60" />
@@ -701,21 +1267,21 @@ const GallerySection = () => {
               </div>
 
               {/* Video Element with Orangish Monochromatic Filter (blooms to full color on hover) */}
-              <ArchiveVideo src={item.src} />
+              <ArchiveVideo key={item.src} src={item.src} />
 
               {/* Orangish Monochrome Duotone Tint (fades out on hover) */}
-              <div className="pointer-events-none absolute inset-0 z-10 bg-[#d4621a]/30 mix-blend-color opacity-80 group-hover:opacity-0 transition-opacity duration-700" />
+              <div className="archive-color-tint pointer-events-none absolute inset-0 z-10 bg-[#d4621a]/30 mix-blend-color opacity-80 group-hover:opacity-0 transition-opacity duration-700" />
 
               {/* Classic Vintage Film Scratches & Grain Texture Overlay */}
               <div
-                className="pointer-events-none absolute inset-0 z-10 bg-cover bg-center opacity-55 mix-blend-screen transition-opacity duration-500 group-hover:opacity-40"
+                className="archive-scratches pointer-events-none absolute inset-0 z-10 bg-cover bg-center opacity-55 mix-blend-screen transition-opacity duration-500 group-hover:opacity-40"
                 style={{
                   backgroundImage: "url('/media/common/textures/vintage-scratches.webp?v=2')",
                 }}
               />
 
               {/* Antique Parchment & Obsidian Vignette Overlay */}
-              <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#160b04] via-[#160b04]/30 to-transparent transition-opacity duration-500 opacity-65 md:opacity-80 md:group-hover:opacity-30" />
+              <div className="archive-vignette pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-[#160b04] via-[#160b04]/30 to-transparent transition-opacity duration-500 opacity-65 md:opacity-80 md:group-hover:opacity-30" />
 
               {/* Idle State Label (Bottom-Left) */}
               <div className="absolute bottom-3.5 left-3.5 z-20 group-hover:opacity-0 transition-opacity duration-300">
@@ -750,7 +1316,7 @@ const GallerySection = () => {
           {/* Fifth Tile: The Imperial Codex / View All Tile */}
           <Link
             to="/gallery"
-            className="group relative flex flex-col items-center justify-center p-6 text-center border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a]/90 via-[#1c0e05]/95 to-[#120803] rounded-md shadow-[0_10px_25px_rgba(44,29,12,0.22)] transition-all duration-500 hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] min-h-[260px] md:min-h-0 md:col-span-1 md:row-span-1"
+            className="group relative flex flex-col items-center justify-center p-6 text-center border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a]/90 via-[#1c0e05]/95 to-[#120803] rounded-md shadow-[0_10px_25px_rgba(44,29,12,0.22)] transition-all duration-500 hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] min-h-[260px] md:min-h-0 md:col-span-1 lg:col-span-2 md:row-span-1"
           >
             {/* Inset Fillet border */}
             <div className="pointer-events-none absolute inset-2 rounded-sm border border-[#f3cf8a]/20 transition-colors duration-300 group-hover:border-[#f3cf8a]/50" />
@@ -779,14 +1345,66 @@ const GallerySection = () => {
         <div className="mt-12 flex justify-center">
           <Link
             to="/gallery"
-            className="group/btn relative inline-flex items-center gap-3 border-2 border-[#b88c4b] bg-[#f7eedc]/95 px-8 py-3.5 font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#532e0e] shadow-[0_8px_25px_rgba(80,40,10,0.18)] transition-all hover:bg-[#fae6c6] hover:border-[#8c6536] hover:shadow-[0_14px_35px_rgba(80,40,10,0.28)] hover:-translate-y-0.5 active:scale-95"
+            onPointerEnter={() => preloadPublicRoute("/gallery")}
+            onFocus={() => preloadPublicRoute("/gallery")}
+            className="group relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-3.5 sm:px-8 py-0 font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.24em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:bg-[#f5dfb8] hover:shadow-[0_0_22px_rgba(200,140,50,0.35),0_14px_32px_rgba(40,15,5,0.3)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
+            style={{
+              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundSize: "cover",
+              backgroundBlendMode: "overlay",
+            }}
           >
-            <span className="pointer-events-none absolute inset-1 border border-[#b88c4b]/40" />
-            <span className="text-[#a85a18] transition-transform group-hover/btn:-translate-x-1">
-              ✦
+            {/* Inner Hairline Frame */}
+            <span
+              className="pointer-events-none absolute inset-[3px] border border-[#a87430]/35 transition-colors duration-300 group-hover:border-[#a87430]/65"
+              aria-hidden="true"
+            />
+
+            {/* 4 Corner Diamond Rivets */}
+            <span
+              className="pointer-events-none absolute left-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
             </span>
-            <span>Explore All Imperial Chronicles</span>
-            <ArrowUpRight className="h-4 w-4 text-[#a85a18] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+            <span
+              className="pointer-events-none absolute right-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 left-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 right-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+
+            {/* Warm Golden Shimmer Sweep (No harsh white) */}
+            <span
+              className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-[#ffe7b8]/25 to-transparent transition-all duration-1000 ease-out group-hover:left-full"
+              aria-hidden="true"
+            />
+
+            {/* Content — Centered lockup matching Teaser button */}
+            <span className="relative z-10 flex items-center justify-center gap-2.5 leading-none text-center">
+              {/* Golden Action Badge */}
+              <span
+                className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 items-center justify-center rounded-full border border-[#8c5824] bg-gradient-to-b from-[#b8863b] to-[#7a4816] shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-[#5a2e0a] group-hover:shadow-[0_0_8px_rgba(184,134,59,0.7)]"
+                aria-hidden="true"
+              >
+                <ArrowUpRight className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#faeed7] stroke-[2.5] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </span>
+              <span className="whitespace-nowrap leading-none drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                Explore All Imperial Chronicles
+              </span>
+            </span>
           </Link>
         </div>
       </div>
@@ -809,7 +1427,7 @@ const ArtistSection = () => {
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
               <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#7d5628]">
                 <span>✦</span>
-                <span>The Main Performer</span>
+                <span>Celebrity Night</span>
                 <span>✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
@@ -819,7 +1437,7 @@ const ArtistSection = () => {
             </span>
           </div>
 
-          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.14em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl lg:text-7xl section-title">
+          <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.11em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl lg:text-7xl section-title">
             The Main Performer
           </h2>
           <div className="mt-4 flex justify-center">
@@ -830,30 +1448,32 @@ const ArtistSection = () => {
         {/* The Two Main Performer Cards + Compass Divider */}
         <div className="artist-cards-container relative max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-center gap-8 md:gap-4 lg:gap-8">
           {/* --- CULRAV CARD --- */}
-          <div className="artist-card-left group relative w-full max-w-[380px] sm:max-w-[420px] transition-[filter] duration-500 ease-out">
-            {/* Card Base Artwork */}
-            <div className="relative overflow-hidden rounded-lg">
-              <img
-                src="/media/homepage/images/card_culrav_clean.webp"
-                alt="Culrav Main Performer"
-                className="w-full h-auto object-contain select-none transition-all duration-500 ease-out group-hover:scale-[1.015] group-hover:drop-shadow-[0_22px_45px_rgba(215,95,15,0.42)]"
-              />
+          <div className="artist-card-left relative w-full max-w-[380px] sm:max-w-[420px]">
+            {/* Card Base Artwork — Scales Entire Stele on Hover */}
+            <div className="group relative rounded-lg transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:drop-shadow-[0_24px_48px_rgba(215,95,15,0.42)] cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg">
+                <img
+                  src="/media/homepage/images/card_culrav_clean.webp"
+                  alt="Culrav Main Performer"
+                  className="w-full h-auto object-contain select-none"
+                />
 
-              {/* Mystical Sunburst Glow behind Arch on Hover */}
-              <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#e87a28]/15 to-[#f3cf8a]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+                {/* Mystical Sunburst Glow behind Arch on Hover */}
+                <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#e87a28]/15 to-[#f3cf8a]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
 
-              {/* Plinth Text Box ("COMING SOON") */}
-              <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
-                <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#934411] group-hover:tracking-[0.3em]">
-                  ✦ COMING SOON ✦
-                </span>
-              </div>
+                {/* Plinth Text Box ("COMING SOON") */}
+                <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
+                  <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#934411] group-hover:tracking-[0.3em]">
+                    ✦ COMING SOON ✦
+                  </span>
+                </div>
 
-              {/* Bottom Realm Label ("CULRAV" in Pure Text) */}
-              <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
-                <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#8c4314] transition-colors duration-300 group-hover:text-[#ba5a16]">
-                  CULRAV
-                </span>
+                {/* Bottom Realm Label ("CULRAV" in Pure Text) */}
+                <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
+                  <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#8c4314] transition-colors duration-300 group-hover:text-[#ba5a16]">
+                    CULRAV
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -875,30 +1495,32 @@ const ArtistSection = () => {
           </div>
 
           {/* --- AVISHKAR CARD --- */}
-          <div className="artist-card-right group relative w-full max-w-[380px] sm:max-w-[420px] transition-[filter] duration-500 ease-out">
-            {/* Card Base Artwork */}
-            <div className="relative overflow-hidden rounded-lg">
-              <img
-                src="/media/homepage/images/card_avishkar_clean.webp"
-                alt="Avishkar Main Performer"
-                className="w-full h-auto object-contain select-none transition-all duration-500 ease-out group-hover:scale-[1.015] group-hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.38)]"
-              />
+          <div className="artist-card-right relative w-full max-w-[380px] sm:max-w-[420px]">
+            {/* Card Base Artwork — Scales Entire Stele on Hover */}
+            <div className="group relative rounded-lg transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-2 hover:drop-shadow-[0_24px_48px_rgba(110,45,170,0.38)] cursor-pointer">
+              <div className="relative overflow-hidden rounded-lg">
+                <img
+                  src="/media/homepage/images/card_avishkar_clean.webp"
+                  alt="Avishkar Main Performer"
+                  className="w-full h-auto object-contain select-none"
+                />
 
-              {/* Mystical Amethyst Laurel Glow behind Arch on Hover */}
-              <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#7645a8]/15 to-[#b894e6]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
+                {/* Mystical Amethyst Laurel Glow behind Arch on Hover */}
+                <div className="pointer-events-none absolute top-[18%] left-[20%] right-[20%] h-[48%] rounded-t-full bg-gradient-to-t from-transparent via-[#7645a8]/15 to-[#b894e6]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-xl" />
 
-              {/* Plinth Text Box ("COMING SOON") */}
-              <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
-                <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#5c3e7d] group-hover:tracking-[0.3em]">
-                  ✦ COMING SOON ✦
-                </span>
-              </div>
+                {/* Plinth Text Box ("COMING SOON") */}
+                <div className="absolute top-[78.4%] left-[14%] right-[14%] h-[7.8%] flex items-center justify-center pointer-events-none">
+                  <span className="font-cinzel text-xs sm:text-sm md:text-base font-black uppercase tracking-[0.25em] text-[#341e0d] transition-all duration-500 filter blur-[0.4px] group-hover:blur-0 group-hover:text-[#5c3e7d] group-hover:tracking-[0.3em]">
+                    ✦ COMING SOON ✦
+                  </span>
+                </div>
 
-              {/* Bottom Realm Label ("AVISHKAR" in Pure Text) */}
-              <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
-                <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#56377a] transition-colors duration-300 group-hover:text-[#7f4bb5]">
-                  AVISHKAR
-                </span>
+                {/* Bottom Realm Label ("AVISHKAR" in Pure Text) */}
+                <div className="absolute top-[88.8%] inset-x-0 h-[4.2%] flex items-center justify-center pointer-events-none">
+                  <span className="font-cinzel text-xs sm:text-sm font-black uppercase tracking-[0.35em] text-[#56377a] transition-colors duration-300 group-hover:text-[#7f4bb5]">
+                    AVISHKAR
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -906,12 +1528,63 @@ const ArtistSection = () => {
 
         {/* Bottom Twilight Announcement Plaque */}
         <div className="mt-12 sm:mt-16 flex justify-center">
-          <div className="inline-flex items-center gap-3 border border-[#b88c4b]/50 bg-[#f7eedc]/90 px-6 py-2.5 rounded-sm shadow-sm">
-            <span className="text-[#a85a18] text-xs">✦</span>
-            <span className="font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#422610]">
-              To Be Unveiled at Twilight
+          <div
+            className="relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-4 sm:px-8 py-0 font-cinzel text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.18em] sm:tracking-[0.24em] text-[#3d220f] shadow-[0_10px_24px_rgba(35,15,5,0.2),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md box-border select-none pointer-events-none"
+            style={{
+              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundSize: "cover",
+              backgroundBlendMode: "overlay",
+            }}
+          >
+            {/* Inner Hairline Frame */}
+            <span
+              className="pointer-events-none absolute inset-[3px] border border-[#a87430]/35"
+              aria-hidden="true"
+            />
+
+            {/* 4 Corner Diamond Rivets */}
+            <span
+              className="pointer-events-none absolute left-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628]"
+              aria-hidden="true"
+            >
+              ◆
             </span>
-            <span className="text-[#a85a18] text-xs">✦</span>
+            <span
+              className="pointer-events-none absolute right-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 left-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 right-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+
+            {/* Pure Typographic Content — Center Aligned on All Screens */}
+            <div className="relative z-10 flex w-full items-center justify-center text-center leading-none">
+              <span
+                className="hidden sm:inline-block h-px w-5 mr-3 bg-gradient-to-r from-transparent to-[#9b6628]/60"
+                aria-hidden="true"
+              />
+              <span
+                className="font-black text-center whitespace-nowrap leading-none drop-shadow-[0_1px_0_rgba(255,255,255,0.7)]"
+                style={{ WebkitTextStroke: "0.25px currentColor" }}
+              >
+                To Be Unveiled at Twilight
+              </span>
+              <span
+                className="hidden sm:inline-block h-px w-5 ml-3 bg-gradient-to-l from-transparent to-[#9b6628]/60"
+                aria-hidden="true"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -999,7 +1672,7 @@ const AvishkarLaurel = ({ className = "w-5 h-5 text-[#463270]" }) => (
 
 function Footer() {
   return (
-    <footer className="relative bg-[#edd8b1] text-[#2c1d0c] pt-16 pb-12 sm:pb-16 overflow-hidden border-t-2 border-[#b58b4f] select-none">
+    <footer className="relative bg-[#edd8b1] text-[#2c1d0c] pt-10 pb-12 sm:pt-16 sm:pb-16 overflow-hidden border-t-2 border-[#b58b4f] select-none">
       {/* High-Resolution Parchment Footer Background from uploaded asset */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
@@ -1015,13 +1688,13 @@ function Footer() {
         />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-10">
-        {/* Main 4-Column Layout matching original positioning */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 pb-14 items-start">
-          {/* Column 1: Brand Lockup (md:col-span-4) */}
-          <div className="md:col-span-4 flex flex-col items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
+        {/* Main 3-Column Layout: Brand, Explore, and The Imperial Citadel */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-8 sm:gap-8 lg:gap-10 pb-5 sm:pb-14 items-start">
+          {/* Column 1: Brand Lockup (md:col-span-5 lg:col-span-4) */}
+          <div className="sm:col-span-2 md:col-span-4 lg:col-span-4 flex flex-col items-start">
             {/* Sub-crest: CULRAV x AVISHKAR using IcarusSun & TwinLeaves */}
-            <div className="mt-6 flex items-center gap-6">
+            <div className="mt-0 sm:mt-6 flex items-center gap-5 sm:gap-6">
               {/* Culrav Emblem + Label */}
               <div className="flex flex-col items-center gap-1.5 group cursor-default">
                 <img
@@ -1050,63 +1723,67 @@ function Footer() {
               </div>
             </div>
 
-            <p className="font-garamond text-lg sm:text-xl text-[#5e3f20] mt-2 tracking-wide">
+            <p className="font-garamond text-base sm:text-xl text-[#5e3f20] mt-2 tracking-wide">
               Forged in myth, powered by innovation. An epic convergence of
               technology and culture.
             </p>
           </div>
 
-          {/* Column 2: EXPLORE (md:col-span-3) */}
-          <div className="md:col-span-3 flex flex-col">
-            <div className="mb-4">
+          {/* Column 2: EXPLORE (md:col-span-3 lg:col-span-3) */}
+          <div className="sm:col-span-1 md:col-span-3 lg:col-span-3 flex flex-col md:pl-8 lg:pl-16 xl:pl-24">
+            <div className="mb-3 sm:mb-4">
               <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
                 Explore
               </h4>
               <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
             </div>
 
-            <nav className="flex flex-col space-y-2 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16]">
-              <a
-                href="#hero"
-                className="hover:text-[#c4681f] transition-colors py-0.5"
+            <nav className="flex flex-col space-y-1.5 sm:space-y-2 text-[13px] sm:text-base font-garamond font-semibold text-[#4a2e16]">
+              <Link
+                to="/avishkar"
+                onPointerEnter={() => preloadPublicRoute("/avishkar")}
+                className="hover:text-[#463270] transition-colors py-0.5"
               >
-                Home
-              </a>
-              <a
-                href="#about"
-                className="hover:text-[#c4681f] transition-colors py-0.5"
-              >
-                The Duality
-              </a>
+                Avishkar
+              </Link>
               <Link
                 to="/culrav"
+                onPointerEnter={() => preloadPublicRoute("/culrav")}
                 className="hover:text-[#c4681f] transition-colors py-0.5"
               >
                 Culrav
               </Link>
               <Link
-                to="/avishkar"
-                className="hover:text-[#463270] transition-colors py-0.5"
-              >
-                Avishkar
-              </Link>
-              <a
-                href="#gallery"
+                to="/login"
                 className="hover:text-[#c4681f] transition-colors py-0.5"
               >
-                Visual Archives
-              </a>
-              <a
-                href="#artist"
-                className="hover:text-[#463270] transition-colors py-0.5"
+                Register
+              </Link>
+              <Link
+                to="/sponsors"
+                className="hover:text-[#c4681f] transition-colors py-0.5"
               >
-                Main Performer
-              </a>
+                Sponsor
+              </Link>
+              <Link
+                to="/team"
+                onPointerEnter={() => preloadPublicRoute("/team")}
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                Team
+              </Link>
+              <Link
+                to="/gallery"
+                onPointerEnter={() => preloadPublicRoute("/gallery")}
+                className="hover:text-[#c4681f] transition-colors py-0.5"
+              >
+                Gallery
+              </Link>
             </nav>
           </div>
 
-          {/* Center Astrolabe Axis (Between Explore and Connect) */}
-          <div className="hidden lg:flex md:col-span-1 justify-center items-center h-48 pointer-events-none">
+          {/* Center Astrolabe Axis (Between Explore and Citadel) */}
+          <div className="hidden md:flex md:col-span-1 lg:col-span-1 justify-center items-center h-48 pointer-events-none">
             <div className="flex flex-col items-center h-full justify-between">
               <div className="w-[1px] h-14 bg-gradient-to-b from-transparent to-[#8c6536]" />
               <CompassRose className="w-8 h-8 text-[#8c6536]" />
@@ -1114,135 +1791,51 @@ function Footer() {
             </div>
           </div>
 
-          {/* Column 3: CONNECT (md:col-span-2) */}
-          <div className="md:col-span-2 flex flex-col">
-            <div className="mb-4">
+          {/* Column 3: THE IMPERIAL CITADEL & SOCIAL (md:col-span-4 lg:col-span-4) */}
+          <div className="sm:col-span-1 md:col-span-4 lg:col-span-4 flex flex-col">
+            <div className="mb-3 sm:mb-4">
               <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
-                Connect
+                The Imperial Citadel
               </h4>
               <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
             </div>
 
-            <div className="flex flex-col space-y-2 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16]">
-              <a
-                href="https://www.instagram.com/culrav_mnnit/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#c4681f] transition-colors py-0.5"
-              >
-                Instagram
-              </a>
-              <a
-                href="https://www.youtube.com/@CulravMNNIT"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#c4681f] transition-colors py-0.5"
-              >
-                YouTube
-              </a>
-              <a
-                href="https://discord.gg/mnnit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#463270] transition-colors py-0.5"
-              >
-                Discord
-              </a>
-              <a
-                href="https://www.linkedin.com/school/motilal-nehru-national-institute-of-technology/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-[#463270] transition-colors py-0.5"
-              >
-                LinkedIn
-              </a>
-            </div>
-          </div>
-
-          {/* Column 4: CONTACT & SOCIAL ICONS (md:col-span-2) */}
-          <div className="md:col-span-2 flex flex-col">
-            <div className="mb-4">
-              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
-                Contact
-              </h4>
-              <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
-            </div>
-
-            <div className="space-y-1.5 text-sm sm:text-base font-garamond font-semibold text-[#4a2e16] mb-5">
-              <p>General Inquiries</p>
-              <p className="font-bold text-[#321c0b]">Culrav / Avishkar</p>
-              <p className="text-xs font-sans text-[#73512b]">
-                sac@mnnit.ac.in
+            {/* Address of MNNIT Allahabad */}
+            <div className="space-y-1 text-[13px] sm:text-base font-garamond font-semibold text-[#4a2e16] mb-3">
+              <p className="font-bold text-[#321c0b] text-sm sm:text-base">
+                Motilal Nehru National Institute of Technology
               </p>
-              <p className="text-xs font-sans text-[#73512b]">
-                Allahabad, UP, India
+              <p className="text-[#5e3f20] leading-relaxed text-xs sm:text-sm">
+                Teliarganj, Prayagraj (Allahabad)
+                <br />
+                Uttar Pradesh, India — 211004
               </p>
             </div>
 
-            {/* Social Icons row */}
-            <div className="flex items-center gap-3 text-[#523315]">
-              {/* Instagram */}
+            {/* Direct Mail & Instagram Handles */}
+            <div className="space-y-1.5 mb-4 text-[13px] sm:text-sm font-garamond font-semibold text-[#4a2e16]">
               <a
-                href="https://www.instagram.com/culrav_mnnit/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#c4681f] transition-all"
-                aria-label="Instagram"
+                href="mailto:culrav@mnnit.ac.in"
+                className="flex items-center gap-2 hover:text-[#c4681f] transition-colors group/item"
               >
-                <svg
-                  viewBox="0 0 24 24"
-                  className="w-4 h-4 fill-none stroke-current stroke-2"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
+                <Mail className="w-4 h-4 text-[#8c6536] transition-transform group-hover/item:scale-110" />
+                <span>culrav@mnnit.ac.in</span>
               </a>
-
-              {/* YouTube */}
               <a
-                href="https://www.youtube.com/@CulravMNNIT"
+                href="https://www.instagram.com/culrav/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#c4681f] transition-all"
-                aria-label="YouTube"
+                className="flex items-center gap-2 hover:text-[#c4681f] transition-colors group/item"
               >
-                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                </svg>
-              </a>
-
-              {/* Discord */}
-              <a
-                href="https://discord.gg/mnnit"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#463270] transition-all"
-                aria-label="Discord"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                  <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.894.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
-                </svg>
-              </a>
-
-              {/* LinkedIn */}
-              <a
-                href="https://www.linkedin.com/school/motilal-nehru-national-institute-of-technology/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded border border-[#8c6536]/80 flex items-center justify-center hover:bg-[#faeed8] hover:text-[#463270] transition-all"
-                aria-label="LinkedIn"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                </svg>
+                <Instagram className="w-4 h-4 text-[#8c6536] transition-transform group-hover/item:scale-110" />
+                <span>@culrav</span>
               </a>
             </div>
           </div>
         </div>
 
         {/* Copyright Line & Web Team Credit */}
-        <div className="border-t border-[#bfa275]/60 pt-6 pb-2 flex flex-col sm:flex-row items-center justify-between gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase">
+        <div className="border-t border-[#bfa275]/60 pt-4 sm:pt-6 pb-2 -mt-1 sm:mt-0 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase md:px-8 lg:px-16 xl:px-24">
           <p className="flex items-center justify-center gap-1.5">
             <span>✦</span>
             <span>© 2026 Echoes of Olympus. All Rights Reserved.</span>

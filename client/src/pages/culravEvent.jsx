@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
 import { useImagePreloader } from "../components/useImagePreloader";
-import { routeCriticalImages } from "../components/routeCriticalImages";
+import { mobileRouteCriticalImages, routeCriticalImages } from "../components/routeCriticalImages";
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
@@ -33,9 +33,10 @@ import RazzmatazzWithHover from "../assets/pages/culrav/cards/Razzmatazz_with_ho
 import CulravButtonPlaque from "../assets/pages/culrav/cards/CulravButtonCrop.webp";
 
 
-function CulravEventCard({ event, onClick, eager }) {
+function CulravEventCard({ event, onClick, eager, mobile }) {
   const clipPathStyle =
     event.customClip || "inset(4.7% 2.8% 4.7% 2.3% round 8px)";
+  const cardImage = mobile ? event.withHover : event.withoutHover;
 
   return (
     <div
@@ -47,9 +48,9 @@ function CulravEventCard({ event, onClick, eager }) {
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
       className="group relative w-full max-w-[340px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(70,25,5,0.28)] hover:drop-shadow-[0_22px_45px_rgba(190,80,15,0.45)] focus:outline-none rounded-lg"
     >
-      {/* Base Card: Without Hover Variant (Antique Ochre / Terracotta Monochrome) */}
+      {/* Mobile opens directly in colour because touch screens have no hover state. */}
       <img
-        src={event.withoutHover}
+        src={cardImage}
         alt={event.name}
         className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg culrav-card-stone"
         style={{
@@ -61,18 +62,19 @@ function CulravEventCard({ event, onClick, eager }) {
         draggable={false}
       />
 
-      {/* Hover Card: With Hover Variant (Blooms to Full Radiant Color) */}
-      <img
-        src={event.withHover}
-        alt={`${event.name} Active`}
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg culrav-card-stone"
-        style={{
-          clipPath: clipPathStyle,
-          WebkitClipPath: clipPathStyle,
-        }}
-        loading="lazy"
-        draggable={false}
-      />
+      {!mobile && (
+        <img
+          src={event.withHover}
+          alt={`${event.name} Active`}
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg culrav-card-stone"
+          style={{
+            clipPath: clipPathStyle,
+            WebkitClipPath: clipPathStyle,
+          }}
+          loading="lazy"
+          draggable={false}
+        />
+      )}
 
       {/* Event Title (Vertically aligned at ~58%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
@@ -117,6 +119,16 @@ function CulravEventCard({ event, onClick, eager }) {
 
 function CulravEvent() {
   const navigate = useNavigate();
+  const [mobile, setMobile] = React.useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches,
+  );
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 639px)");
+    const update = () => setMobile(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   const events = [
     {
@@ -178,7 +190,9 @@ function CulravEvent() {
       customClip: "inset(2.6% 2.6% 4.0% 2.3% round 8px)",
     },
   ];
-  const criticalAssetsReady = useImagePreloader(routeCriticalImages["/culrav"]);
+  const criticalAssetsReady = useImagePreloader(
+    mobile ? mobileRouteCriticalImages["/culrav"] : routeCriticalImages["/culrav"],
+  );
 
   if (!criticalAssetsReady) {
     return <RouteSuspenseLoader />;
@@ -208,7 +222,7 @@ function CulravEvent() {
 
             {/* Description */}
             <div className="w-full md:w-2/3 flex justify-center">
-              <p className="font-garamond p-6 text-center text-base font-medium leading-relaxed text-[#fff1d3] drop-shadow-[0_2px_8px_rgba(28,10,2,0.9)] sm:text-lg max-w-2xl">
+              <p className="font-garamond p-6 text-center text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] max-w-2xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7)" }}>
                 The cultural mainframe glitches into a three-day celebration of
                 pure artistic expression. From high-voltage music and dazzling dance
                 to theatre and fine arts, step into the ultimate cultural spectacle.
@@ -227,6 +241,7 @@ function CulravEvent() {
               key={event.id}
               event={event}
               eager={index < 3}
+              mobile={mobile}
               onClick={() => navigate(`/culrav/${event.slug}`)}
             />
           ))}

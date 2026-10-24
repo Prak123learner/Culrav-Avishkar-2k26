@@ -62,24 +62,9 @@ export function TeamPage() {
   const scrollTimeout = useRef(null);
   const criticalPortraitsReady = useImagePreloader(routeCriticalImages["/team"]);
 
-  // Scroll-spy logic (optimized: cached geometry + requestAnimationFrame + window scroll)
+  // Scroll-spy logic (dynamic viewport measurement via requestAnimationFrame)
   useEffect(() => {
     let ticking = false;
-    let offsets = [];
-
-    const updateOffsets = () => {
-      offsets = teamData.map((team) => {
-        const el = sectionRefs.current[team.id];
-        return {
-          id: team.id,
-          top: el ? el.getBoundingClientRect().top + window.scrollY : 0,
-        };
-      });
-    };
-
-    // Calculate once on mount and on resize; NEVER on scroll ticks to prevent layout thrashing
-    updateOffsets();
-    window.addEventListener("resize", updateOffsets, { passive: true });
 
     const handleScroll = () => {
       if (isClickScrolling.current || ticking) return;
@@ -87,40 +72,82 @@ export function TeamPage() {
       ticking = true;
       requestAnimationFrame(() => {
         ticking = false;
-        const scrollPosition = window.scrollY;
-        const offset = 140;
+        if (isClickScrolling.current) return;
 
-        let currentSection = "";
-        for (const item of offsets) {
-          if (item.top - offset <= scrollPosition) {
-            currentSection = item.id;
+        // Check if user has reached the very bottom of the page
+        const lastTeam = teamData[teamData.length - 1];
+        const lastEl = lastTeam ? sectionRefs.current[lastTeam.id] : null;
+        const isAtBottom =
+          lastEl &&
+          lastEl.getBoundingClientRect().top < window.innerHeight &&
+          Math.ceil(window.innerHeight + window.scrollY) >=
+            document.documentElement.scrollHeight - 20;
+
+        if (isAtBottom) {
+          const lastId = lastTeam.id;
+          if (lastId !== activeSectionRef.current) {
+            activeSectionRef.current = lastId;
+            setActiveSection(lastId);
+          }
+          return;
+        }
+
+        const headerOffset = 140;
+        let currentSection = teamData[0]?.id || "";
+
+        for (const team of teamData) {
+          const el = sectionRefs.current[team.id];
+          if (!el) continue;
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= headerOffset) {
+            currentSection = team.id;
           }
         }
 
-        if (currentSection === "" && teamData.length > 0) {
-          currentSection = teamData[0].id;
-        }
-
         if (currentSection && currentSection !== activeSectionRef.current) {
+          activeSectionRef.current = currentSection;
           setActiveSection(currentSection);
         }
       });
     };
 
+    const handleUserInteraction = () => {
+      if (isClickScrolling.current) {
+        isClickScrolling.current = false;
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+      }
+    };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll, { passive: true });
+    window.addEventListener("wheel", handleUserInteraction, { passive: true });
+    window.addEventListener("touchmove", handleUserInteraction, { passive: true });
+    window.addEventListener("scrollend", handleUserInteraction, { passive: true });
+
+    // Initial check on mount
+    handleScroll();
+
     return () => {
-      window.removeEventListener("resize", updateOffsets);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+      window.removeEventListener("wheel", handleUserInteraction);
+      window.removeEventListener("touchmove", handleUserInteraction);
+      window.removeEventListener("scrollend", handleUserInteraction);
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
     };
   }, [criticalPortraitsReady]);
 
   const handleNavClick = (id) => {
     const sectionEl = sectionRefs.current[id];
     if (sectionEl) {
+      activeSectionRef.current = id;
       setActiveSection(id);
       isClickScrolling.current = true;
 
-      const y = sectionEl.getBoundingClientRect().top + window.scrollY - 85;
+      // On mobile screens, both the fixed navbar (64px) and the sticky dropdown (~50px)
+      // occupy the top 114px of the viewport, so offset by 128px for clean breathing room.
+      const offset = typeof window !== "undefined" && window.innerWidth < 768 ? 128 : 85;
+      const y = sectionEl.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({
         top: y,
         behavior: "smooth",
@@ -193,7 +220,7 @@ export function TeamPage() {
       </aside>
 
       {/* --- Mobile Dropdown Navigation --- */}
-      <div className="md:hidden sticky top-16 inset-x-0 z-40 bg-[#160b04]/95 backdrop-blur-md border-b-2 border-[#b58b4f]/70 px-4 py-2.5 shadow-md">
+      <div className="md:hidden sticky top-16 inset-x-0 z-30 bg-[#160b04]/95 backdrop-blur-md border-b-2 border-[#b58b4f]/70 px-4 py-2.5 shadow-md">
         <div className="relative">
           <select
             value={activeSection}
@@ -224,14 +251,14 @@ export function TeamPage() {
             <div className="my-2 flex select-none flex-col items-center justify-center">
               <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
                 <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-                <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#7d5628]">
+                <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-[#7d5628]">
                   <span>✦</span>
                   <span>The Sacred Conclave</span>
                   <span>✦</span>
                 </div>
                 <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
               </div>
-              <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+              <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
                 Culrav Avishkar 2026
               </span>
             </div>
@@ -243,14 +270,13 @@ export function TeamPage() {
               key={team.id}
               id={team.id}
               ref={(el) => (sectionRefs.current[team.id] = el)}
-              style={{ contentVisibility: "auto", containIntrinsicSize: "1px 500px" }}
               className="mb-16 scroll-mt-24"
             >
               {/* Section Heading with Classical Greek Lineage */}
               <div className="flex items-center justify-between gap-3 mb-6 pb-2.5 border-b-2 border-[#b58b4f]/40">
                 <div className="flex items-center gap-2.5">
                   <span className="text-[#a85a18] text-sm">✦</span>
-                  <h2 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-[0.18em] text-[#2c1d0c]">
+                  <h2 className="font-cinzel text-xl sm:text-2xl font-black uppercase tracking-[0.14em] text-[#2c1d0c]">
                     {team.name}
                   </h2>
                 </div>
@@ -280,7 +306,7 @@ export function TeamPage() {
                 </div>
               ) : (
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
-                  {team.members.map((member) => <CardTeam key={member.name} name={member.name} img={member.img} eager={TEAM_CRITICAL_PORTRAITS.includes(member.img)} />)}
+                  {team.members.map((member) => <CardTeam key={member.name} name={member.name} img={member.img} instagram={member.instagram} eager={TEAM_CRITICAL_PORTRAITS.includes(member.img)} />)}
                 </div>
               )}
             </section>

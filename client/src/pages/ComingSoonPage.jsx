@@ -102,7 +102,7 @@ export default function ComingSoonPage() {
         </div>
 
         {/* Main Title */}
-        <h1 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-[0.14em] text-[#faeed8] drop-shadow-sm">
+        <h1 className="font-cinzel text-2xl sm:text-3xl md:text-4xl font-black uppercase tracking-[0.11em] text-[#faeed8] drop-shadow-sm">
           {eventName ? (
             <>
               <span className="text-base sm:text-lg block text-[#d4a259] font-bold mb-0.5">

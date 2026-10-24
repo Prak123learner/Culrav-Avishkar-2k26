@@ -1,106 +1,3 @@
-// import { useState } from "react";
-// import { useSelector } from "react-redux";
-// import { useNavigate } from "react-router-dom";
-
-// function Navbar() {
-//   const navigate = useNavigate();
-//   const [isOpen, setIsOpen] = useState(false);
-//   const { isAuthenticated, user } = useSelector((state) => state.auth);
-//   const firstName = user?.name.split(" ")[0];
-
-// const navItems = [
-//   { name: "CULRAV", path: "/culrav" },
-//   { name: "AVISHKAR", path: "/avishkar" },
-//   { name: "GALLERY", path: "/gallery" },
-//   { name: "TEAM", path: "/team" },
-//   { name: "SPONSORS", path: "/sponsors" },
-//   { name: "SCHEDULE", path: "/schedule" },
-// ];
-
-//   const handleNavigation = (path) => {
-//     navigate(path);
-//     setIsOpen(false);
-//   };
-
-//   return (
-//     <nav className="relative top-0 left-0 w-full bg-gradient-to-r from-[#0a0a1a] via-[#101020] to-[#0a0a1a] backdrop-blur-md z-50 shadow-[0_0_25px_rgba(0,255,255,0.1)] border-b border-[#1a1a3d]">
-//       <div className="flex items-center justify-between px-8 md:px-16 py-4">
-//         {/* LOGO */}
-//         <div
-//           onClick={() => navigate("/")}
-//           className="relative w-[110px] h-[45px] bg-white text-black font-bold text-sm cursor-pointer flex items-center justify-center   overflow-hidden"
-//         >
-//           <span className="text-white tracking-widest font-bebas text-lg z-10"></span>
-//           <div className="absolute inset-0  opacity-0 hover:opacity-100 blur-sm transition-opacity duration-500"></div>
-//         </div>
-
-//         {/* Desktop Menu */}
-//         <div className="hidden lg:flex flex-1 justify-between max-w-[70%]">
-//           {navItems.map((item) => (
-//             <div
-//               key={item.name}
-//               onClick={() => handleNavigation(item.path)}
-//               className="group relative cursor-pointer"
-//             >
-//               <h1 className="text-[#d9faff] font-bebas tracking-wider text-lg transition-all duration-300 group-hover:text-[#00e5ff] group-hover:drop-shadow-[0_0_8px_#00e5ff]">
-//                 {item.name}
-//               </h1>
-//               <span className="absolute left-0 bottom-[-3px] w-0 h-0.5 bg-linear-to-r from-[#00e5ff] to-[#7f00ff] transition-all duration-300 group-hover:w-full group-hover:shadow-[0_0_10px_#00e5ff]"></span>
-//             </div>
-//           ))}
-//         </div>
-
-//         {/* REGISTER BUTTON */}
-//         <button
-//           onClick={() =>
-//             navigate(isAuthenticated ? "/dashboard/profile" : "/login")
-//           }
-//           className="hidden md:block bg-gradient-to-r from-[#1ba0af] to-[#7f00ff] text-white font-bold px-8 py-2   hover:scale-105 transition-all duration-300 font-bebas tracking-wider"
-//         >
-//           {isAuthenticated ? `Welcome, ${firstName}!` : "LOGIN"}
-//         </button>
-
-//         {/* Hamburger Icon */}
-//         <button
-//           className="lg:hidden text-[#00e5ff] text-2xl"
-//           onClick={() => setIsOpen(!isOpen)}
-//         >
-//           {isOpen ? "✖" : "☰"}
-//         </button>
-//       </div>
-
-//       {/* Mobile Menu */}
-//       {isOpen && (
-//         <div className="lg:hidden bg-[#0a0a1a]/95 flex flex-col items-center space-y-4 py-6 border-t border-[#1a1a3d] backdrop-blur-md animate-fadeIn">
-//           {navItems.map((item) => (
-//             <div
-//               key={item.name}
-//               onClick={() => handleNavigation(item.path)}
-//               className="group relative cursor-pointer"
-//             >
-//               <h1 className="text-[#d9faff] font-bebas tracking-wider text-lg hover:text-[#00e5ff] transition-colors duration-300 group-hover:drop-shadow-[0_0_8px_#00e5ff]">
-//                 {item.name}
-//               </h1>
-//               <span className="absolute left-0 bottom-[-3px] w-0 h-[2px] bg-gradient-to-r from-[#00e5ff] to-[#7f00ff] transition-all duration-300 group-hover:w-full"></span>
-//             </div>
-//           ))}
-
-//           <button
-//             onClick={() =>
-//               navigate(isAuthenticated ? "/dashboard/profile" : "/login")
-//             }
-//             className="bg-gradient-to-r from-[#00e5ff] to-[#7f00ff] text-white font-bold px-6 py-2 rounded-md hover:shadow-[0_0_20px_#00e5ff] transition-all duration-300 font-bebas tracking-wider"
-//           >
-//             {isAuthenticated ? `Welcome, ${firstName}!` : "LOGIN"}
-//           </button>
-//         </div>
-//       )}
-//     </nav>
-//   );
-// }
-
-// export default Navbar;
-
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { usePortal } from "../../portal/context";
@@ -108,11 +5,13 @@ import { message } from "../../portal/api";
 import clsx from "clsx";
 import gsap from "gsap";
 import { preloadPublicRoute } from "../publicRoutePreload";
+import { Home } from "lucide-react";
 
 // import Button from "../Button";
 import { TiLocationArrow } from "react-icons/ti";
 
 const navItems = [
+  { name: "HOME", path: "/" },
   { name: "AVISHKAR", path: "/avishkar" },
   { name: "CULRAV", path: "/culrav" },
   { name: "GALLERY", path: "/gallery" },
@@ -130,7 +29,6 @@ const NavBar = () => {
 
   const { user, staff, loading: sessionLoading, logout } = usePortal();
   const isAuthenticated = !!user;
-  const firstName = user?.name.split(" ")[0];
   const accountPath = staff
     ? staff.role === "admin"
       ? "/admin"
@@ -145,7 +43,7 @@ const NavBar = () => {
       ? "ADMIN"
       : "COORDINATOR"
     : isAuthenticated
-      ? `Welcome, ${firstName}`
+      ? "PROFILE"
       : "LOGIN";
   async function signOutStaff() {
     setLogoutError("");
@@ -158,18 +56,22 @@ const NavBar = () => {
   }
 
   const navContainerRef = useRef(null);
+  const isTeamPage = location.pathname.replace(/\/+$/, "").toLowerCase() === "/team";
 
   useEffect(() => {
-    const handleScroll = () => {
-      // The Team directory sidebar begins directly below the navigation bar.
-      // Keep that boundary stable while its own page navigation is in use.
-      if (location.pathname === "/team") {
-        setIsNavVisible(true);
-        navContainerRef.current?.classList.remove("floating-nav");
-        lastScrollY.current = window.scrollY;
-        return;
+    // The Team page requires the navbar to remain fixed and stable at all times
+    // so both the desktop directory and mobile dropdown remain aligned.
+    if (isTeamPage) {
+      setIsNavVisible(true);
+      navContainerRef.current?.classList.remove("floating-nav");
+      if (navContainerRef.current) {
+        gsap.killTweensOf(navContainerRef.current);
+        gsap.set(navContainerRef.current, { y: 0, opacity: 1, clearProps: "transform,opacity" });
       }
+      return;
+    }
 
+    const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY === 0) {
@@ -188,22 +90,25 @@ const NavBar = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [location.pathname]);
+  }, [location.pathname, isTeamPage]);
 
   useEffect(() => {
-    if (location.pathname === "/team") {
+    if (isTeamPage) {
       setIsNavVisible(true);
       navContainerRef.current?.classList.remove("floating-nav");
+      if (navContainerRef.current) {
+        gsap.killTweensOf(navContainerRef.current);
+        gsap.set(navContainerRef.current, { y: 0, opacity: 1, clearProps: "transform,opacity" });
+      }
+      return;
     }
-  }, [location.pathname]);
 
-  useEffect(() => {
     gsap.to(navContainerRef.current, {
       y: isNavVisible ? 0 : -100,
       opacity: isNavVisible ? 1 : 0,
       duration: 0.2,
     });
-  }, [isNavVisible]);
+  }, [isNavVisible, isTeamPage]);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -214,7 +119,7 @@ const NavBar = () => {
     <>
       <div
         ref={navContainerRef}
-        className="festival-navbar fixed inset-x-0 top-0 z-50 h-16 border-x-0 border-t-0 border-b transition-all duration-300"
+        className="festival-navbar fixed inset-x-0 top-0 z-[90] h-16 border-x-0 border-t-0 border-b transition-colors duration-300"
         style={{
           backgroundColor: "rgba(254, 249, 195, 0.18)",
           borderBottomColor: "rgba(234, 179, 8, 0.2)",
@@ -233,16 +138,9 @@ const NavBar = () => {
                   className="h-10 sm:h-11 w-auto object-contain"
                 />
               </Link>
-
-              {/* <Button
-                id="product-button"
-                title="Products"
-                rightIcon={<TiLocationArrow />}
-                containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
-              /> */}
             </div>
 
-            {/* Desktop Navigation Links and Audio Button */}
+            {/* Desktop Navigation Links and Mobile Hamburger */}
             <div className="flex h-full items-center">
               <div className="hidden md:block">
                 {navItems.map((item, index) => (
@@ -258,7 +156,7 @@ const NavBar = () => {
                       }
                     }}
                     className={clsx("nav-hover-btn", {
-                      "text-[#321A0A]": location.pathname === item.path,
+                      "nav-item-active": location.pathname === item.path,
                     })}
                   >
                     {item.name}
@@ -273,47 +171,22 @@ const NavBar = () => {
                     }
                   }}
                   className={clsx("nav-hover-btn", {
-                    "text-[#321A0A]": location.pathname === accountPath,
+                    "nav-item-active": location.pathname === accountPath,
                   })}
                 >
                   {accountLabel}
                 </Link>
                 {staff && (
-                  <button className="nav-hover-btn" onClick={signOutStaff}>
+                  <button className="nav-hover-btn cursor-pointer" onClick={signOutStaff}>
                     SIGN OUT
                   </button>
                 )}
               </div>
 
-              {/* Audio Indicator Button */}
-              {/* <button
-                onClick={toggleAudioIndicator}
-                className="ml-10 flex items-center space-x-0.5"
-                aria-label="Toggle audio"
-              >
-                <audio
-                  ref={audioElementRef}
-                  className="hidden"
-                  src="/audio/loop.mp3"
-                  loop
-                />
-                {[1, 2, 3, 4].map((bar) => (
-                  <div
-                    key={bar}
-                    className={clsx("indicator-line", {
-                      active: isIndicatorActive,
-                    })}
-                    style={{
-                      animationDelay: `${bar * 0.1}s`,
-                    }}
-                  />
-                ))}
-              </button> */}
-
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="ml-4 md:hidden flex flex-col gap-1.5 p-2"
+                className="mobile-menu-toggle md:hidden flex flex-col gap-1.5 p-2 cursor-pointer"
                 aria-label="Toggle mobile menu"
               >
                 <span
@@ -354,7 +227,7 @@ const NavBar = () => {
       {/* Mobile Menu Overlay */}
       <div
         className={clsx(
-          "fixed inset-0 z-40 md:hidden transition-all duration-300",
+          "fixed inset-0 z-[80] md:hidden transition-all duration-300",
           {
             "opacity-100 pointer-events-auto": isMobileMenuOpen,
             "opacity-0 pointer-events-none": !isMobileMenuOpen,
@@ -363,14 +236,14 @@ const NavBar = () => {
       >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+          className="absolute inset-0 bg-[#1d0d03]/55 backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}
         />
 
         {/* Menu Content */}
         <div
           className={clsx(
-            "absolute top-20 right-4 left-4 bg-black/95 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl transform transition-all duration-300",
+            "absolute top-20 right-4 left-4 overflow-hidden rounded-2xl border border-[#9b602e]/70 bg-gradient-to-br from-[#fff3d8]/[0.98] via-[#edd09a]/[0.98] to-[#cf9655]/[0.98] p-6 shadow-[0_24px_60px_rgba(45,20,6,0.42)] backdrop-blur-md transform transition-all duration-300",
             {
               "translate-y-0 opacity-100": isMobileMenuOpen,
               "-translate-y-4 opacity-0": !isMobileMenuOpen,
@@ -390,16 +263,17 @@ const NavBar = () => {
                   }
                 }}
                 className={clsx(
-                  "px-4 py-3 font-general text-base font-bold tracking-[0.12em] rounded-lg transition-all duration-300",
+                  "px-4 py-3 font-general text-base font-bold tracking-[0.12em] rounded-lg transition-all duration-300 flex items-center gap-2.5",
                   {
-                    "text-blue-400 bg-blue-500/10":
+                    "text-[#642f10] bg-[#b56d2e]/20 border border-[#9b602e]/45":
                       location.pathname === item.path,
-                    "text-white hover:text-blue-300 hover:bg-white/5":
+                    "text-[#42230f] hover:text-[#6c3210] hover:bg-[#fff4d7]/50":
                       location.pathname !== item.path,
                   },
                 )}
               >
-                {item.name}
+                {item.name === "HOME" && <Home className="w-4 h-4 shrink-0 text-[#8c4f1d]" />}
+                <span>{item.name}</span>
               </Link>
             ))}
             <Link
@@ -414,9 +288,9 @@ const NavBar = () => {
               className={clsx(
                 "px-4 py-3 font-general text-base font-bold tracking-[0.12em] rounded-lg transition-all duration-300",
                 {
-                  "text-blue-400 bg-blue-500/10":
+                  "text-[#642f10] bg-[#b56d2e]/20 border border-[#9b602e]/45":
                     location.pathname === accountPath,
-                  "text-white hover:text-blue-300 hover:bg-white/5":
+                  "text-[#42230f] hover:text-[#6c3210] hover:bg-[#fff4d7]/50":
                     location.pathname !== accountPath,
                 },
               )}
@@ -425,22 +299,13 @@ const NavBar = () => {
             </Link>
             {staff && (
               <button
-                className="px-4 py-3 text-left font-general text-base font-bold tracking-[0.12em] text-white rounded-lg hover:text-blue-300 hover:bg-white/5"
+                className="px-4 py-3 text-left font-general text-base font-bold tracking-[0.12em] text-[#42230f] rounded-lg hover:text-[#6c3210] hover:bg-[#fff4d7]/50 cursor-pointer"
                 onClick={signOutStaff}
               >
                 SIGN OUT
               </button>
             )}
           </div>
-
-          {/* <div className="mt-4 pt-4 border-t border-white/10">
-            <Button
-              id="mobile-product-button"
-              title="Products"
-              rightIcon={<TiLocationArrow />}
-              containerClass="bg-blue-600 text-white w-full flex items-center justify-center gap-2 hover:bg-blue-700"
-            />
-          </div> */}
         </div>
       </div>
     </>

@@ -18,8 +18,17 @@ async function nextCaId() {
     if (
       (await mongoose
         .model("FestParticipant")
-        .exists({ caId: previouslyIssued })) ||
-      (await mongoose.model("FestStaff").exists({ caId: previouslyIssued }))
+        .exists({ caIdSuffix: suffix })) ||
+      (await mongoose.model("FestStaff").exists({ caIdSuffix: suffix })) ||
+      // Compatibility for accounts created before the suffix fields existed.
+      (await mongoose.model("FestParticipant").exists({
+        caIdSuffixReversed: { $exists: false },
+        caId: previouslyIssued,
+      })) ||
+      (await mongoose.model("FestStaff").exists({
+        caIdSuffixReversed: { $exists: false },
+        caId: previouslyIssued,
+      }))
     ) {
       await Code.deleteOne({ _id: suffix });
       continue;
@@ -30,6 +39,8 @@ async function nextCaId() {
 }
 const identity = {
   caId: { type: String, unique: true, immutable: true },
+  caIdSuffix: { type: String, select: false },
+  caIdSuffixReversed: { type: String, select: false },
   name: { type: String, required: true },
   email: {
     type: String,
@@ -70,10 +81,22 @@ const staffSchema = new Schema(
   },
   { timestamps: true },
 );
-for (const schema of [participantSchema, staffSchema])
+staffSchema.index({ role: 1, email: 1 });
+for (const schema of [participantSchema, staffSchema]) {
+  schema.index({ caIdSuffix: 1 });
+  schema.index({ caIdSuffixReversed: 1 });
   schema.pre("validate", async function () {
-    if (this.isNew && !this.caId) this.caId = await nextCaId();
+    if (!this.isNew) return;
+    if (!this.caId) this.caId = await nextCaId();
+    if (this.caId) {
+      const suffix = this.caId.match(/(\d{6})$/)?.[1];
+      if (suffix) {
+        this.caIdSuffix = suffix;
+        this.caIdSuffixReversed = [...suffix].reverse().join("");
+      }
+    }
   });
+}
 const categorySchema = new Schema(
   {
     festival: { type: String, enum: ["avishkar", "culrav"], required: true },
@@ -84,6 +107,7 @@ const categorySchema = new Schema(
   { timestamps: true },
 );
 categorySchema.index({ festival: 1, slug: 1 }, { unique: true });
+categorySchema.index({ archived: 1, festival: 1, name: 1 });
 const questionSchema = new Schema(
   {
     id: { type: String, required: true },
@@ -153,6 +177,8 @@ const eventSchema = new Schema(
 );
 eventSchema.index({ categoryId: 1, title: 1, status: 1 });
 eventSchema.index({ status: 1, title: 1 });
+eventSchema.index({ updatedAt: -1 });
+eventSchema.index({ categoryId: 1, updatedAt: -1 });
 const teamSchema = new Schema(
   {
     name: { type: String, required: true },
@@ -234,8 +260,9 @@ const auditSchema = new Schema(
   { timestamps: true },
 );
 auditSchema.index({ createdAt: -1, _id: -1 });
-auditSchema.index({ staffId: 1, createdAt: -1 });
-auditSchema.index({ action: 1, createdAt: -1 });
+auditSchema.index({ staffId: 1, createdAt: -1, _id: -1 });
+auditSchema.index({ action: 1, createdAt: -1, _id: -1 });
+auditSchema.index({ targetId: 1, createdAt: -1, _id: -1 });
 const sessionSchema = new Schema({
   _id: { type: String, required: true },
   actorId: { type: Schema.Types.ObjectId, required: true },

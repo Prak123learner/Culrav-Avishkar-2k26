@@ -12,6 +12,7 @@ async function run() {
     Subevent,
     FestTeam,
     Registration,
+    Audit,
     Session,
   } = require("./models");
   await Promise.all([
@@ -21,6 +22,7 @@ async function run() {
     Subevent.init(),
     FestTeam.init(),
     Registration.init(),
+    Audit.init(),
     Session.init(),
   ]);
   const email = process.env.ADMIN_EMAIL.trim().toLowerCase();

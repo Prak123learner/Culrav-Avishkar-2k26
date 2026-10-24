@@ -29,6 +29,80 @@ export function DataLoading({
   );
 }
 
+export function CredentialsSkeleton({
+  label = "Generating temporary password…",
+}) {
+  return (
+    <div
+      className="ca-notice ca-credentials-notice ca-credentials-skeleton"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div className="ca-credentials-skeleton-header">
+        <span className="ca-data-spinner" aria-hidden="true" />
+        <span className="ca-credentials-skeleton-label">{label}</span>
+      </div>
+
+      <div className="ca-credentials-body" style={{ marginTop: 12 }}>
+        <span
+          className="ca-skeleton-block"
+          style={{ width: "230px", height: "16px", marginBottom: "10px" }}
+        />
+        <div className="ca-credentials-code-row">
+          <div
+            className="ca-skeleton-code-box"
+            style={{
+              flex: "0 1 360px",
+              height: "42px",
+              background: "#201005",
+              borderRadius: "3px",
+              border: "1px solid #7d491c",
+              padding: "10px 14px",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <span
+              className="ca-skeleton-block"
+              style={{
+                width: "80%",
+                height: "18px",
+                background:
+                  "linear-gradient(100deg, rgba(255, 216, 138, 0.12) 20%, rgba(255, 216, 138, 0.35) 45%, rgba(255, 216, 138, 0.12) 70%)",
+                backgroundSize: "200% 100%",
+              }}
+            />
+          </div>
+          <span
+            className="ca-skeleton-block"
+            style={{ width: "70px", height: "40px", borderRadius: "2px" }}
+          />
+        </div>
+        <span
+          className="ca-skeleton-block"
+          style={{
+            width: "280px",
+            height: "14px",
+            marginTop: "12px",
+            marginBottom: "14px",
+          }}
+        />
+      </div>
+
+      <span
+        className="ca-skeleton-block"
+        style={{
+          width: "160px",
+          height: "38px",
+          borderRadius: "2px",
+          marginTop: "10px",
+        }}
+      />
+    </div>
+  );
+}
+
 export function TeamsSkeleton() {
   return (
     <div className="ca-grid" aria-label="Loading teams" aria-busy="true">
@@ -164,7 +238,7 @@ export function DataLoadingPage({ label = "Preparing your registration", festiva
               <span className="text-xs text-[#a06a28]">✦</span>
               <span className="ca-skeleton-block" style={{ width: 190, height: 20 }} />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4 mb-8">
               {[1, 2, 3, 4, 5, 6].map((idx) => (
                 <div key={idx} className="p-3 bg-gradient-to-br from-[#ffffff] via-[#fffdf9] to-[#faf1df] border border-[#b88c4b]/50 rounded-xs shadow-sm">
                   <span className="ca-skeleton-block" style={{ width: "40%", height: 10, marginBottom: 8 }} />

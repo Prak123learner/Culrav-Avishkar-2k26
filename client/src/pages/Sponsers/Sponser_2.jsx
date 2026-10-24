@@ -118,7 +118,7 @@ export default function SponsorsPage() {
           <div className="pointer-events-none absolute bottom-3 right-3 text-[9px] text-[#f3cf8a]/50">✦</div>
 
           {/* Title */}
-          <h1 className="font-cinzel text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-[0.14em] text-[#faeed8]">
+          <h1 className="font-cinzel text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-[0.11em] text-[#faeed8]">
             SPONSORS WILL BE REVEALED SOON
           </h1>
 

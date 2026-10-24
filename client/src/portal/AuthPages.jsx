@@ -268,7 +268,16 @@ export function StaffLogin({ adminLogin = false }) {
           </p>
           <label>
             Email
-            <input name="email" type="email" autoComplete="username" required />
+            <input
+              name="email"
+              type="email"
+              autoComplete="username"
+              required
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck="false"
+              className="ca-input-email"
+            />
           </label>
           <label>
             Password
@@ -280,7 +289,13 @@ export function StaffLogin({ adminLogin = false }) {
               required
             />
           </label>
-          <button disabled={busy}>{busy ? "Signing in…" : "Sign in"}</button>
+          <button
+            type="submit"
+            disabled={busy}
+            className="w-full flex items-center justify-center text-center cursor-pointer disabled:cursor-not-allowed"
+          >
+            {busy ? "Signing in…" : "Sign in"}
+          </button>
           {error && (
             <p role="alert" className="ca-error">
               {error}
@@ -297,7 +312,7 @@ export function StaffLogin({ adminLogin = false }) {
 }
 
 export function ChangeStaffPassword() {
-  const { staff, setStaff, logout } = usePortal();
+  const { staff, setStaff } = usePortal();
   const [error, setError] = useState(""),
     [busy, setBusy] = useState(false);
   async function submit(e) {
@@ -319,18 +334,23 @@ export function ChangeStaffPassword() {
     }
   }
   return (
-    <main className="ca-portal ca-staff">
-      <form className="ca-card ca-auth" onSubmit={submit}>
+    <main
+      className="ca-portal ca-staff ca-auth-screen ca-change-password-screen"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      <form className="ca-card ca-auth ca-auth-login ca-auth-change-password" onSubmit={submit}>
         <AuthArt />
         <div className="ca-auth-content">
-          <span className="ca-kicker">Account security / First sign-in</span>
+          <span className="ca-kicker">Account Security</span>
           <h1>Set your password</h1>
-          <p>
-            {staff.email} · {staff.caId}
-          </p>
-          <p>
-            You must replace your temporary password before accessing assigned
-            categories.
+          <p className="ca-auth-subline">
+            {staff.email} · Replace your temporary password to continue.
           </p>
           <label>
             Temporary password
@@ -365,13 +385,8 @@ export function ChangeStaffPassword() {
               required
             />
           </label>
-          <button disabled={busy}>Change password</button>
-          <button
-            type="button"
-            className="ca-secondary"
-            onClick={() => logout("staff").catch((e) => setError(message(e)))}
-          >
-            Sign out
+          <button type="submit" disabled={busy} className="ca-primary-btn">
+            {busy ? "Saving…" : "Set Password"}
           </button>
           {error && (
             <p role="alert" className="ca-error">

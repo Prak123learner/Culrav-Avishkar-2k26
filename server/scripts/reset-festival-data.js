@@ -47,7 +47,9 @@ async function resetFestivalData() {
 
   await mongoose.connect(process.env.MONGO, { autoIndex: false });
   if (mongoose.connection.name !== database)
-    throw new Error("Connected database does not match --database. Nothing was deleted.");
+    throw new Error(
+      "Connected database does not match --database. Nothing was deleted.",
+    );
   const adminEmail = process.env.ADMIN_EMAIL.trim().toLowerCase();
   const admin = await Staff.findOne({ email: adminEmail, role: "admin" })
     .select("+passwordHash")
@@ -91,7 +93,14 @@ async function resetFestivalData() {
   // Clears old category references and invalidates any copied admin session token.
   await Staff.updateOne(
     { _id: admin._id },
-    { $set: { categoryIds: [] }, $inc: { sessionVersion: 1 } },
+    {
+      $set: {
+        categoryIds: [],
+        caIdSuffix: suffix,
+        caIdSuffixReversed: [...suffix].reverse().join(""),
+      },
+      $inc: { sessionVersion: 1 },
+    },
   );
 
   // Recreates the fixed categories and events from the current backend JSON.

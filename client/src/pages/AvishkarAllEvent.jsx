@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { RouteSuspenseLoader } from "../components/NavigationPortalLoader";
 import { useImagePreloader } from "../components/useImagePreloader";
-import { routeCriticalImages } from "../components/routeCriticalImages";
+import { mobileRouteCriticalImages, routeCriticalImages } from "../components/routeCriticalImages";
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
@@ -54,7 +54,8 @@ import RobomaniaWithHover from "../assets/pages/avishkar/cards/Robomania_With_Ho
 import ButtonPlaque from "../assets/pages/avishkar/cards/ButtonCrop.webp";
 
 
-function AvishkarEventCard({ event, onClick, eager }) {
+function AvishkarEventCard({ event, onClick, eager, mobile }) {
+  const cardImage = mobile ? event.withHover : event.withoutHover;
   return (
     <div
       role="button"
@@ -65,9 +66,9 @@ function AvishkarEventCard({ event, onClick, eager }) {
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
       className="group relative w-full max-w-[340px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(40,15,65,0.25)] hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.45)] focus:outline-none rounded-lg"
     >
-      {/* Base Card: Without Hover Variant (Monochrome Imperial Purple) */}
+      {/* Mobile opens directly in colour because touch screens have no hover state. */}
       <img
-        src={event.withoutHover}
+        src={cardImage}
         alt={event.name}
         className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg avishkar-card-stone"
         style={{
@@ -79,18 +80,19 @@ function AvishkarEventCard({ event, onClick, eager }) {
         draggable={false}
       />
 
-      {/* Hover Card: With Hover Variant (Blooms to Full Radiant Color) */}
-      <img
-        src={event.withHover}
-        alt={`${event.name} Active`}
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg avishkar-card-stone"
-        style={{
-          clipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
-          WebkitClipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
-        }}
-        loading="lazy"
-        draggable={false}
-      />
+      {!mobile && (
+        <img
+          src={event.withHover}
+          alt={`${event.name} Active`}
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg avishkar-card-stone"
+          style={{
+            clipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
+            WebkitClipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
+          }}
+          loading="lazy"
+          draggable={false}
+        />
+      )}
 
       {/* Event Title (Vertically aligned with the side laurel leaves at ~60%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
@@ -135,6 +137,16 @@ function AvishkarEventCard({ event, onClick, eager }) {
 
 function AvishkarEvents() {
   const navigate = useNavigate();
+  const [mobile, setMobile] = React.useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches,
+  );
+
+  React.useEffect(() => {
+    const query = window.matchMedia("(max-width: 639px)");
+    const update = () => setMobile(query.matches);
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
 
   const events = [
     {
@@ -250,7 +262,9 @@ function AvishkarEvents() {
       withHover: GnosomaniaWithHover,
     },
   ];
-  const criticalAssetsReady = useImagePreloader(routeCriticalImages["/avishkar"]);
+  const criticalAssetsReady = useImagePreloader(
+    mobile ? mobileRouteCriticalImages["/avishkar"] : routeCriticalImages["/avishkar"],
+  );
 
   if (!criticalAssetsReady) {
     return <RouteSuspenseLoader />;
@@ -280,7 +294,7 @@ function AvishkarEvents() {
 
             {/* Description */}
             <div className="w-full md:w-2/3 flex justify-center">
-              <p className="font-garamond p-6 text-center text-base font-medium leading-relaxed text-[#fff2dc] drop-shadow-[0_2px_8px_rgba(18,7,35,0.9)] sm:text-lg max-w-2xl">
+              <p className="font-garamond p-6 text-center text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] max-w-2xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7)" }}>
                 Where ancient wisdom meets modern innovation. From hackathons to robotic battles, challenge the limits of possibility, forge bold ideas, and rise among the legends of tomorrow.
               </p>
             </div>
@@ -297,6 +311,7 @@ function AvishkarEvents() {
               key={event.id}
               event={event}
               eager={index < 3}
+              mobile={mobile}
               onClick={() => navigate(`/avishkar/${event.slug}`)}
             />
           ))}

@@ -16,6 +16,7 @@
     "db:indexes": "node scripts/ensure-indexes.js",
     "migrate:static-content": "node portal/migrate-static-event-content.js",
     "migrate:registration-search": "node scripts/migrate-registration-search.js",
+    "migrate:performance-data": "node scripts/migrate-performance-data.js",
     "initialize:fresh-festival": "node scripts/initialize-fresh-festival-db.js",
     "reset:test-data": "node scripts/reset-festival-data.js",
     "reset:festival-data": "node scripts/reset-festival-data.js"

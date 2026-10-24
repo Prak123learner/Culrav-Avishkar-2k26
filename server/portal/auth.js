@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const mongoose = require("mongoose");
 const { Participant, Staff, Session } = require("./models");
 const { check } = require("./validation");
 const cookie = (kind) => `ca_${kind}_session`;
@@ -50,19 +51,30 @@ async function authenticate(req, kind) {
   }
   check(data.kind === kind, "Wrong session type", 401);
   check(data.jti, "Session revoked", 401);
-  check(
-    await Session.exists({
-      _id: data.jti,
-      actorId: data.id,
-      kind,
-      expiresAt: { $gt: new Date() },
-    }),
-    "Session revoked",
-    401,
-  );
-  const actor = await (kind === "staff" ? Staff : Participant).findById(
-    data.id,
-  );
+  check(mongoose.isValidObjectId(data.id), "Session revoked", 401);
+  const Actor = kind === "staff" ? Staff : Participant;
+  const [actor] = await Session.aggregate([
+    {
+      $match: {
+        _id: data.jti,
+        actorId: new mongoose.Types.ObjectId(data.id),
+        kind,
+        expiresAt: { $gt: new Date() },
+      },
+    },
+    {
+      $lookup: {
+        from: Actor.collection.name,
+        localField: "actorId",
+        foreignField: "_id",
+        as: "actor",
+      },
+    },
+    { $unwind: "$actor" },
+    { $replaceRoot: { newRoot: "$actor" } },
+    { $unset: "passwordHash" },
+    { $limit: 1 },
+  ]);
   check(
     actor &&
       (kind !== "staff" ||
@@ -70,6 +82,10 @@ async function authenticate(req, kind) {
     "Session revoked",
     401,
   );
+  Object.defineProperty(actor, "id", {
+    value: String(actor._id),
+    enumerable: false,
+  });
   return actor;
 }
 async function revoke(req, kind) {
@@ -119,7 +135,7 @@ function categoryAccess(actor, categoryId) {
   );
 }
 function publicActor(actor) {
-  const o = actor.toObject();
+  const o = actor.toObject ? actor.toObject() : { ...actor };
   delete o.passwordHash;
   delete o.firebaseUid;
   delete o.sessionVersion;
@@ -166,11 +182,7 @@ async function verifyFirebase(idToken) {
     "FIREBASE_PRIVATE_KEY is not configured in environment variables",
     503,
   );
-  const {
-    getApps,
-    initializeApp,
-    cert,
-  } = require("firebase-admin/app");
+  const { getApps, initializeApp, cert } = require("firebase-admin/app");
   const { getAuth } = require("firebase-admin/auth");
   if (!getApps().length) {
     try {

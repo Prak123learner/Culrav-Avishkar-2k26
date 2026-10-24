@@ -6,7 +6,6 @@ const CardTeam = memo(({ name, img, role, instagram, eager = false }) => {
 
   return (
     <div
-      style={{ contentVisibility: "auto", containIntrinsicSize: "220px 293px" }}
       className="group relative flex flex-col overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-gradient-to-b from-[#2a170a] via-[#1a0e05] to-[#120803] shadow-[0_8px_20px_rgba(44,29,12,0.16)] transition-all duration-400 ease-out hover:z-20 hover:-translate-y-1.5 hover:border-[#f3cf8a] hover:shadow-[0_16px_32px_rgba(184,140,75,0.32)] cursor-default select-none"
     >
       {/* Classical Double Inset Fillet Border */}
@@ -48,12 +47,15 @@ const CardTeam = memo(({ name, img, role, instagram, eager = false }) => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-[#140b04]/70 via-transparent to-transparent z-10" />
 
         {/* Bottom Cartouche Gradient */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#140b04] via-[#140b04]/85 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#140b04] via-[#140b04]/85 to-transparent z-10" />
       </div>
 
       {/* Bottom Inscription Plinth */}
-      <div className="absolute inset-x-0 bottom-0 p-3 z-20 flex flex-col items-center text-center">
-        <h3 className="font-cinzel text-xs sm:text-sm font-bold tracking-wider text-[#f7eedc] transition-colors group-hover:text-[#f3cf8a] drop-shadow-md line-clamp-1">
+      <div className="absolute inset-x-0 bottom-0 p-2 sm:p-2.5 lg:p-3 z-20 flex flex-col items-center text-center">
+        <h3
+          title={name}
+          className="font-cinzel text-[11px] sm:text-xs lg:text-[13px] font-bold tracking-wide leading-tight sm:leading-snug text-[#f7eedc] transition-colors group-hover:text-[#f3cf8a] drop-shadow-md line-clamp-2 max-w-full px-1"
+        >
           {name}
         </h3>
         {instagram && (

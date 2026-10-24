@@ -100,7 +100,7 @@ export default function EventExplorePage({
 
         {/* Masthead Header */}
         <header className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
-          <h1 className="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-[0.16em] text-[#241104] drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
+          <h1 className="font-cinzel text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-[0.12em] text-[#241104] drop-shadow-[0_2px_8px_rgba(255,255,255,0.85)]">
             {categoryTitle}
           </h1>
 
@@ -236,7 +236,7 @@ export default function EventExplorePage({
 
             {/* Explore Page Header (padded top to start comfortably below the 64px navbar) */}
             <div className="relative z-10 text-center max-w-5xl mx-auto px-4 pt-24 sm:pt-28 mb-8 sm:mb-12">
-              <h1 className="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-[0.14em] text-[#241104] drop-shadow-[0_2px_4px_rgba(255,248,230,0.8)] my-2">
+              <h1 className="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-[0.11em] text-[#241104] drop-shadow-[0_2px_4px_rgba(255,248,230,0.8)] my-2">
                 {selected.title}
               </h1>
               <div className="flex items-center justify-center gap-3 mt-3 text-[#b88c4b]">
@@ -256,7 +256,7 @@ export default function EventExplorePage({
                     <span className="text-[#b84218] text-sm">
                       ✦
                     </span>
-                    <h2 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-[0.14em] text-[#241104]">
+                    <h2 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-[0.11em] text-[#241104]">
                       About the Event
                     </h2>
                   </div>
@@ -273,7 +273,7 @@ export default function EventExplorePage({
                     <span className="text-[#b84218] text-sm">
                       ✦
                     </span>
-                    <h2 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-[0.14em] text-[#241104]">
+                    <h2 className="font-cinzel text-2xl sm:text-3xl font-black uppercase tracking-[0.11em] text-[#241104]">
                       Rules
                     </h2>
                   </div>
@@ -335,7 +335,7 @@ export default function EventExplorePage({
                     </div>
 
                     <div className="relative z-10 flex items-center justify-between pb-3.5 mb-5 border-b border-[#b88c4b]/40">
-                      <h3 className="font-cinzel text-lg sm:text-xl font-black uppercase tracking-[0.16em] text-[#241104]">
+                      <h3 className="font-cinzel text-lg sm:text-xl font-black uppercase tracking-[0.12em] text-[#241104]">
                         Coordinators POC
                       </h3>
                       <span className="text-[#b84218] text-xs">

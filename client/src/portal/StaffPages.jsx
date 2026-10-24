@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Navigate, useSearchParams } from "react-router-dom";
 import { portalApi, message } from "./api";
 import { usePortal } from "./context";
@@ -12,6 +12,7 @@ import {
   DataLoading,
   CategoriesSkeleton,
   SubeventsSkeleton,
+  CredentialsSkeleton,
 } from "./PortalLoading";
 import "./portal.css";
 
@@ -40,12 +41,12 @@ function StaffWorkspace() {
     [tab, setTab] = useState("events");
   const categories = useResource("/staff/categories");
   const tabs = [
-    ["events", "I", "Events"],
-    ["CA ID lookup", "II", "CA ID lookup"],
+    ["events", "I", "Events", "Events"],
+    ["CA ID lookup", "II", "CA ID Lookup", "Lookup"],
     ...(staff.role === "admin"
       ? [
-          ["coordinators", "III", "Coordinators"],
-          ["logs", "IV", "Audit logs"],
+          ["coordinators", "III", "Coordinators", "Coords"],
+          ["logs", "IV", "Audit Logs", "Logs"],
         ]
       : []),
   ];
@@ -72,22 +73,42 @@ function StaffWorkspace() {
         </p>
       )}
       <nav
-        className="ca-tabs ca-staff-tabs ca-archive-tabs"
+        className={`ca-tabs ca-staff-tabs ca-archive-tabs w-full grid ${
+          staff.role === "admin" ? "grid-cols-4" : "grid-cols-2"
+        } gap-1 sm:gap-2.5 lg:gap-4 mb-6 sm:mb-8`}
         style={{ "--archive-tab-count": tabs.length }}
       >
-        {tabs.map(([key, numeral, label]) => (
-          <button
-            key={key}
-            className="ca-tab-button"
-            onClick={() => setTab(key)}
-            aria-pressed={key === tab}
-          >
-            <span className="ca-tab-numeral" aria-hidden="true">
-              {numeral}
-            </span>
-            <span>{label}</span>
-          </button>
-        ))}
+        {tabs.map(([key, numeral, label, mobileLabel]) => {
+          const isActive = key === tab;
+          return (
+            <button
+              key={key}
+              type="button"
+              className={`ca-tab-button group relative flex items-center justify-center gap-1 sm:gap-2 lg:gap-2.5 px-1 sm:px-3 lg:px-4 py-2 sm:py-3 transition-all duration-200 cursor-pointer overflow-hidden border-b-2 text-center select-none ${
+                isActive
+                  ? "border-[#95521e] bg-gradient-to-b from-transparent to-[#975720]/15 text-[#3d2110]"
+                  : "border-[#6f421d]/30 text-[#654329] hover:text-[#3f2413] hover:border-[#94531f] hover:bg-[#fff5d8]/40"
+              }`}
+              onClick={() => setTab(key)}
+              aria-pressed={isActive}
+            >
+              <span
+                aria-hidden="true"
+                className={`ca-tab-numeral hidden sm:grid w-5 h-5 lg:w-6 lg:h-6 shrink-0 place-items-center rounded-full text-[9px] sm:text-[10px] font-cinzel font-bold border ${
+                  isActive
+                    ? "border-[#94531f] bg-[#96541d]/15 text-[#5a3015] shadow-xs"
+                    : "border-[#d1a05b]/60 text-[#8a5429]"
+                }`}
+              >
+                {numeral}
+              </span>
+              <span className="ca-tab-label font-cinzel text-[10.5px] sm:text-xs lg:text-[13px] font-bold uppercase tracking-wider truncate">
+                <span className="ca-tab-label-desktop hidden md:inline">{label}</span>
+                <span className="ca-tab-label-mobile md:hidden">{mobileLabel}</span>
+              </span>
+            </button>
+          );
+        })}
       </nav>
       <section className="ca-tab-panel" key={tab}>
         {categories.loading ? (
@@ -252,19 +273,48 @@ function Coordinators({ categories }) {
     [name, setName] = useState(""),
     [notice, setNotice] = useState(null),
     [error, setError] = useState(""),
-    [busy, setBusy] = useState(false);
-  async function mutate(path, body, method = "post") {
+    [busy, setBusy] = useState(false),
+    [copied, setCopied] = useState(false),
+    [resettingEmail, setResettingEmail] = useState(""),
+    [isResetting, setIsResetting] = useState(false);
+  const credentialsRef = useRef(null);
+  async function mutate(
+    path,
+    body,
+    method = "post",
+    targetEmail = "",
+    isPasswordReset = false,
+  ) {
     setBusy(true);
+    setIsResetting(isPasswordReset);
+    setResettingEmail(targetEmail || "");
     setError("");
     setNotice(null);
+    if (isPasswordReset || method === "post") {
+      setTimeout(() => {
+        credentialsRef.current?.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+      }, 50);
+    }
     try {
       const { data } = await portalApi[method](path, body);
       setNotice(data);
       await resource.reload();
+      if (data?.temporaryPassword) {
+        setTimeout(() => {
+          credentialsRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 50);
+      }
     } catch (e) {
       setError(message(e));
     } finally {
       setBusy(false);
+      setIsResetting(false);
     }
   }
   return (
@@ -278,7 +328,13 @@ function Coordinators({ categories }) {
         className="ca-card ca-form"
         onSubmit={(e) => {
           e.preventDefault();
-          mutate("/staff/coordinators", { email, name, categoryIds: selected });
+          mutate(
+            "/staff/coordinators",
+            { email, name, categoryIds: selected },
+            "post",
+            email,
+            false,
+          );
         }}
       >
         <label>
@@ -323,22 +379,70 @@ function Coordinators({ categories }) {
           </div>
         </fieldset>
         <button disabled={busy || !selected.length}>
-          Grant / update access
+          {busy && !isResetting ? "Granting access…" : "Grant / update access"}
         </button>
       </form>
-      {notice && (
-        <div className="ca-notice" role="status">
-          <p>{notice.delivery}</p>
-          {notice.temporaryPassword && (
-            <>
-              <p>Temporary password (save securely now):</p>
-              <code>{notice.temporaryPassword}</code>
-              <p>Expires in 72 hours. It must be replaced on first login.</p>
-            </>
-          )}
-          <button onClick={() => setNotice(null)}>Dismiss credentials</button>
-        </div>
-      )}
+      <div ref={credentialsRef} className="ca-credentials-anchor">
+        {busy && (isResetting || resettingEmail) ? (
+          <CredentialsSkeleton
+            label={
+              resettingEmail
+                ? `Generating new temporary credentials for ${resettingEmail}…`
+                : "Generating temporary credentials…"
+            }
+          />
+        ) : notice ? (
+          <div className="ca-notice ca-credentials-notice" role="status">
+            {notice.delivery &&
+              !notice.delivery.toLowerCase().includes("smtp") && (
+                <p className="ca-delivery-status">{notice.delivery}</p>
+              )}
+            {notice.temporaryPassword && (
+              <div className="ca-credentials-body">
+                <p className="ca-credentials-title">
+                  Temporary password (save securely now):
+                </p>
+                <div className="ca-credentials-code-row">
+                  <code
+                    title="Click to copy password"
+                    onClick={() => {
+                      navigator.clipboard?.writeText(notice.temporaryPassword);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2500);
+                    }}
+                  >
+                    {notice.temporaryPassword}
+                  </code>
+                  <button
+                    type="button"
+                    className="ca-copy-btn"
+                    onClick={() => {
+                      navigator.clipboard?.writeText(notice.temporaryPassword);
+                      setCopied(true);
+                      setTimeout(() => setCopied(false), 2500);
+                    }}
+                  >
+                    {copied ? "✓ Copied!" : "Copy"}
+                  </button>
+                </div>
+                <p className="ca-credentials-meta">
+                  Expires in 72 hours. It must be replaced on first login.
+                </p>
+              </div>
+            )}
+            <button
+              type="button"
+              className="ca-dismiss-btn"
+              onClick={() => {
+                setNotice(null);
+                setCopied(false);
+              }}
+            >
+              Dismiss credentials
+            </button>
+          </div>
+        ) : null}
+      </div>
       {(error || resource.error) && (
         <p className="ca-error" role="alert">
           {error || resource.error}
@@ -396,10 +500,14 @@ function Coordinators({ categories }) {
                       `/staff/coordinators/${s._id}`,
                       { resetPassword: true },
                       "patch",
+                      s.email,
+                      true,
                     );
                 }}
               >
-                Reset password
+                {busy && resettingEmail === s.email
+                  ? "Resetting…"
+                  : "Reset password"}
               </button>
             </div>
           </article>

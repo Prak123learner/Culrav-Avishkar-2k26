@@ -1,5 +1,5 @@
 import { warmImages } from "./useImagePreloader";
-import { routeCriticalImages } from "./routeCriticalImages";
+import { mobileRouteCriticalImages, routeCriticalImages } from "./routeCriticalImages";
 
 // These match the React.lazy import paths, so navigation reuses the same chunk.
 const routeModules = {
@@ -46,8 +46,12 @@ export function preloadPublicRoute(path, { images = true } = {}) {
   }
 
   return moduleRequests.get(path).then((module) => {
-    if (images && module && routeCriticalImages[path]) {
-      return warmImages(routeCriticalImages[path]);
+    const useMobileImages = window.matchMedia?.("(max-width: 639px)").matches;
+    const criticalImages = useMobileImages
+      ? mobileRouteCriticalImages[path] || routeCriticalImages[path]
+      : routeCriticalImages[path];
+    if (images && module && criticalImages) {
+      return warmImages(criticalImages);
     }
   });
 }

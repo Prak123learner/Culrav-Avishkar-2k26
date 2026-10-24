@@ -44,6 +44,7 @@ async function connectDB() {
           Subevent,
           FestTeam,
           Registration,
+          Audit,
           Session,
         } = require("../portal/models");
         await Promise.all(
@@ -54,6 +55,7 @@ async function connectDB() {
             Subevent,
             FestTeam,
             Registration,
+            Audit,
             Session,
           ].map((model) => model.init()),
         );

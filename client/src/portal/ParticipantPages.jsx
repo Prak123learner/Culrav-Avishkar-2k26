@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   Link,
   Navigate,
@@ -106,6 +107,11 @@ function Workspace() {
   }, [location.pathname, location.state, navigate]);
   return (
     <main className="ca-portal ca-participant" data-active-tab={tab}>
+      {error && (
+        <p className="ca-error" role="alert">
+          {error}
+        </p>
+      )}
       <header className="ca-heading ca-workspace-heading">
         <div className="ca-workspace-identity">
           <div className="ca-workspace-copy">
@@ -121,31 +127,45 @@ function Workspace() {
           Sign out
         </button>
       </header>
-      {error && (
-        <p className="ca-error" role="alert">
-          {error}
-        </p>
-      )}
       <nav
-        className="ca-tabs ca-archive-tabs"
+        className="ca-tabs ca-archive-tabs w-full grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8"
         style={{ "--archive-tab-count": 3 }}
       >
         {[
-          ["profile", "I", "Profile"],
-          ["registrations", "II", "Registered events"],
-          ["teams", "III", "Teams"],
-        ].map(([key, numeral, label]) => (
-          <button
-            key={key}
-            onClick={() => setTab(key)}
-            aria-pressed={tab === key}
-          >
-            <span className="ca-tab-numeral" aria-hidden="true">
-              {numeral}
-            </span>
-            <span>{label}</span>
-          </button>
-        ))}
+          ["profile", "I", "Profile", "Profile"],
+          ["registrations", "II", "Registered Events", "Events"],
+          ["teams", "III", "Teams", "Teams"],
+        ].map(([key, numeral, label, mobileLabel]) => {
+          const isActive = tab === key;
+          return (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setTab(key)}
+              aria-pressed={isActive}
+              className={`group relative flex items-center justify-center gap-1.5 sm:gap-2.5 px-2 sm:px-4 py-2.5 sm:py-3 transition-all duration-200 cursor-pointer overflow-hidden border-0 border-b-2 text-center select-none outline-none focus:outline-none focus-visible:outline-none ${
+                isActive
+                  ? "border-transparent border-b-[#95521e] bg-gradient-to-b from-transparent to-[#975720]/15 text-[#3d2110]"
+                  : "border-transparent border-b-[#6f421d]/30 text-[#654329] hover:text-[#3f2413] hover:border-b-[#94531f] hover:bg-[#fff5d8]/40"
+              }`}
+            >
+              <span
+                aria-hidden="true"
+                className={`ca-tab-numeral hidden sm:grid w-5 h-5 sm:w-6 sm:h-6 shrink-0 place-items-center rounded-full text-[9px] sm:text-[10px] font-cinzel font-bold border ${
+                  isActive
+                    ? "border-[#94531f] bg-[#96541d]/15 text-[#5a3015] shadow-xs"
+                    : "border-[#d1a05b]/60 text-[#8a5429]"
+                }`}
+              >
+                {numeral}
+              </span>
+              <span className="ca-tab-label font-cinzel text-xs sm:text-sm font-bold uppercase tracking-wider truncate">
+                <span className="ca-tab-label-desktop hidden md:inline">{label}</span>
+                <span className="ca-tab-label-mobile md:hidden">{mobileLabel}</span>
+              </span>
+            </button>
+          );
+        })}
       </nav>
       <section className="ca-tab-panel" key={tab}>
         {tab === "profile" ? (
@@ -182,6 +202,23 @@ function Profile() {
     ),
     [otherBranch, setOtherBranch] = useState(user.branch || "");
   const locked = !!user.profileLockedAt || complete(user);
+
+  useEffect(() => {
+    if (!pendingProfile) return;
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape" && !busy) {
+        setPendingProfile(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [pendingProfile, busy]);
+
   function requestConfirmation(e) {
     e.preventDefault();
     if (locked || busy) return;
@@ -383,78 +420,86 @@ function Profile() {
         </button>
       )}
       {saved && <p role="status">Profile saved.</p>}
-      {pendingProfile && (
-        <div
-          className="ca-profile-confirm-backdrop"
-          role="presentation"
-          onKeyDown={(event) => {
-            if (event.key === "Escape" && !busy) setPendingProfile(null);
-          }}
-        >
-          <div
-            className="ca-profile-confirm ca-card"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="ca-profile-confirm-title"
-          >
-            <h3 id="ca-profile-confirm-title">Confirm your profile details</h3>
-            <p>
-              Please check these details before saving. Your name and profile
-              details cannot be edited afterward.
-            </p>
-            <dl>
-              {[
-                ["Name", pendingProfile.name],
-                ["Google email", user.email],
-                ["College", pendingProfile.college],
-                [
-                  "College registration number",
-                  pendingProfile.registrationNumber,
-                ],
-                ["Course", pendingProfile.course],
-                [
-                  "Year",
-                  `${pendingProfile.year}${["st", "nd", "rd", "th"][pendingProfile.year - 1] || "th"} Year`,
-                ],
-                ["Branch", pendingProfile.branch],
-                ["Phone", pendingProfile.phone],
-              ].map(([label, value]) => (
-                <div key={label}>
-                  <dt>{label}</dt>
-                  <dd>{value}</dd>
+      {pendingProfile &&
+        typeof document !== "undefined" &&
+        createPortal(
+          <div className="ca-participant">
+            <div
+              className="ca-profile-confirm-backdrop"
+              role="presentation"
+              onClick={(event) => {
+                if (event.target === event.currentTarget && !busy) {
+                  setPendingProfile(null);
+                }
+              }}
+            >
+              <div
+                className="ca-profile-confirm ca-card"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="ca-profile-confirm-title"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h3 id="ca-profile-confirm-title">Confirm your profile details</h3>
+                <p className="ca-profile-confirm-note">
+                  Check your details before saving. They cannot be edited afterward.
+                </p>
+                <dl className="ca-profile-confirm-grid">
+                  {[
+                    ["Name", pendingProfile.name],
+                    ["Google email", user.email],
+                    ["College", pendingProfile.college],
+                    [
+                      "College reg. no.",
+                      pendingProfile.registrationNumber,
+                    ],
+                    ["Course", pendingProfile.course],
+                    [
+                      "Year",
+                      `${pendingProfile.year}${["st", "nd", "rd", "th"][pendingProfile.year - 1] || "th"} Year`,
+                    ],
+                    ["Branch", pendingProfile.branch],
+                    ["Phone", pendingProfile.phone],
+                  ].map(([label, value]) => (
+                    <div key={label} className="ca-profile-confirm-item">
+                      <dt title={label}>{label}</dt>
+                      <dd title={value}>{value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <label className="ca-choice ca-profile-confirm-choice">
+                  <input
+                    type="checkbox"
+                    autoFocus
+                    checked={acknowledged}
+                    onChange={(event) => setAcknowledged(event.target.checked)}
+                  />
+                  <span>
+                    I have checked these details and understand I cannot edit them after saving.
+                  </span>
+                </label>
+                <div className="ca-toolbar">
+                  <button
+                    type="button"
+                    className="ca-secondary"
+                    disabled={busy}
+                    onClick={() => setPendingProfile(null)}
+                  >
+                    Go back and check
+                  </button>
+                  <button
+                    type="button"
+                    disabled={!acknowledged || busy}
+                    onClick={save}
+                  >
+                    {busy ? "Saving…" : "Confirm and save profile"}
+                  </button>
                 </div>
-              ))}
-            </dl>
-            <label className="ca-choice">
-              <input
-                type="checkbox"
-                autoFocus
-                checked={acknowledged}
-                onChange={(event) => setAcknowledged(event.target.checked)}
-              />
-              I have checked these details and understand I cannot edit them
-              after saving.
-            </label>
-            <div className="ca-toolbar">
-              <button
-                type="button"
-                className="ca-secondary"
-                disabled={busy}
-                onClick={() => setPendingProfile(null)}
-              >
-                Go back and check
-              </button>
-              <button
-                type="button"
-                disabled={!acknowledged || busy}
-                onClick={save}
-              >
-                {busy ? "Saving…" : "Confirm and save profile"}
-              </button>
+              </div>
             </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
       {error && (
         <p role="alert" className="ca-error">
           {error}
@@ -482,8 +527,8 @@ function Teams() {
   }
   return (
     <section className="ca-participant-panel ca-teams-panel">
-      <div className="ca-panel-actions">
-        <p>
+      <div className="ca-panel-actions text-left" style={{ textAlign: "left", justifyContent: "space-between" }}>
+        <p className="text-left text-start self-start" style={{ textAlign: "left", margin: 0 }}>
           Invite members using their CA IDs. Every member must accept before the
           leader registers. After a team is registered for an event, its roster
           is locked. Create another team if you need a different roster.
@@ -926,26 +971,28 @@ function EventRegistration({ event, teamsData }) {
                     These saved profile details are linked automatically to your event registration.
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+                  <div className="grid grid-cols-2 lg:grid-cols-3 gap-2.5 sm:gap-4">
                     {[
                       ["caId", "CA ID"],
                       ["name", "Full Name"],
-                      ["email", "Email Address"],
+                      ["email", "Email Address", "col-span-2 lg:col-span-1"],
                       ["registrationNumber", "College Reg. Number"],
                       ["college", "College"],
                       ["course", "Course"],
                       ["year", "Year"],
                       ["branch", "Branch"],
                       ["phone", "Phone Number"],
-                    ].map(([key, label]) => (
+                    ].map(([key, label, spanClass]) => (
                       <div
                         key={key}
-                        className="ca-registration-profile-field flex flex-col gap-1 p-3 bg-gradient-to-br from-[#ffffff] via-[#fffdf9] to-[#faf1df] border border-[#b88c4b]/50 rounded-xs shadow-[0_2px_6px_rgba(70,35,10,0.05)]"
+                        className={`ca-registration-profile-field flex flex-col gap-0.5 sm:gap-1 p-2.5 sm:p-3 bg-gradient-to-br from-[#ffffff] via-[#fffdf9] to-[#faf1df] border border-[#b88c4b]/50 rounded-xs shadow-[0_2px_6px_rgba(70,35,10,0.05)] overflow-hidden ${
+                          spanClass || ""
+                        }`}
                       >
-                        <span className="font-cinzel text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.14em] text-[#854d1d]">
+                        <span className="font-cinzel text-[9.5px] sm:text-[11px] font-bold uppercase tracking-[0.1em] sm:tracking-[0.14em] text-[#854d1d] truncate">
                           {label}
                         </span>
-                        <span className="font-garamond text-base sm:text-lg text-[#1f1006] font-bold truncate">
+                        <span className="font-garamond text-sm sm:text-lg text-[#1f1006] font-bold truncate">
                           {key === "branch"
                             ? branchName(user.branch) || "—"
                             : user[key] || "—"}

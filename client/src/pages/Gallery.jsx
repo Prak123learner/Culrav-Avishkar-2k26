@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { AnimatePresence, motion as Motion } from "framer-motion";
-import { Maximize2, X, ArrowUpRight } from "lucide-react";
+import { Maximize2, X, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
+import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import galleryImg1 from "../assets/pages/gallery/galleryImg1.jpg";
 import galleryImg1Thumb from "../assets/pages/gallery/galleryImg1-thumb.webp";
@@ -264,8 +265,104 @@ const GALLERY_ITEMS = [
   },
 ];
 
+const galleryImageCache = new Map();
+
+const preloadGalleryImage = (src) => {
+  if (!src || typeof Image === "undefined") return Promise.resolve();
+
+  const cached = galleryImageCache.get(src);
+  if (cached) return cached.promise;
+
+  const image = new Image();
+  image.decoding = "async";
+
+  const record = { image, loaded: false, promise: null };
+  record.promise = new Promise((resolve) => {
+    let settled = false;
+    const finish = (loaded) => {
+      if (settled) return;
+      settled = true;
+      record.loaded = loaded;
+      resolve(loaded);
+    };
+
+    image.onload = () => {
+      if (typeof image.decode === "function") {
+        image.decode().then(() => finish(true)).catch(() => finish(true));
+      } else {
+        finish(true);
+      }
+    };
+    image.onerror = () => finish(false);
+    image.src = src;
+
+    if (image.complete && image.naturalWidth > 0) finish(true);
+  });
+
+  galleryImageCache.set(src, record);
+  return record.promise;
+};
+
+function GalleryViewerImage({ item }) {
+  const fullSrc = item.fullSrc || item.staticSrc;
+  const [fullImageReady, setFullImageReady] = useState(false);
+  const [fullImageFailed, setFullImageFailed] = useState(false);
+
+  useEffect(() => {
+    setFullImageReady(false);
+    setFullImageFailed(false);
+    preloadGalleryImage(fullSrc);
+  }, [fullSrc]);
+
+  return (
+    <div className="absolute inset-0">
+      <img
+        src={item.staticSrc}
+        alt=""
+        aria-hidden="true"
+        className={`absolute inset-0 h-full w-full object-cover ${item.imageClass || "object-center"} scale-[1.02] transition-[opacity,filter] duration-300 ${fullImageReady ? "opacity-0 blur-0" : "opacity-100 blur-[2px]"}`}
+      />
+      <img
+        src={fullSrc}
+        alt={item.title}
+        fetchPriority="high"
+        decoding="async"
+        onLoad={() => setFullImageReady(true)}
+        onError={() => setFullImageFailed(true)}
+        className={`absolute inset-0 h-full w-full object-cover ${item.imageClass || "object-center"} transition-opacity duration-300 ${fullImageReady ? "opacity-100" : "opacity-0"}`}
+      />
+      {!fullImageReady && !fullImageFailed && (
+        <div className="pointer-events-none absolute inset-x-0 bottom-4 z-10 flex justify-center">
+          <span className="rounded-sm border border-[#d4a259]/45 bg-[#241508]/85 px-3 py-1 font-cinzel text-[9px] uppercase tracking-[0.2em] text-[#f3cf8a] shadow-md backdrop-blur-sm">
+            Revealing portrait…
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 const Gallery = () => {
   const [selectedItem, setSelectedItem] = useState(null);
+
+  useEffect(() => {
+    const preloadFullGallery = () => {
+      GALLERY_ITEMS.forEach((item) => {
+        const fullSrc = item.fullSrc || item.staticSrc;
+        if (fullSrc !== item.staticSrc) preloadGalleryImage(fullSrc);
+      });
+    };
+
+    if (typeof window.requestIdleCallback === "function") {
+      const idleId = window.requestIdleCallback(preloadFullGallery, {
+        timeout: 1800,
+      });
+      return () => window.cancelIdleCallback(idleId);
+    }
+
+    const timeoutId = window.setTimeout(preloadFullGallery, 900);
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
   // Lock body scroll when modal is open and handle escape key
   useEffect(() => {
@@ -310,19 +407,19 @@ const Gallery = () => {
           <div className="my-4 flex select-none flex-col items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#7d5628]">
+              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7d5628]">
                 <span>✦</span>
                 <span>The Colosseum Chronicles</span>
                 <span>✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.3em] text-[#876233]">
+            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
               Chronicles of the Realm ✦ Captured in Time
             </span>
           </div>
 
-          <h1 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.16em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
+          <h1 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
             Visual Archives
           </h1>
         </div>
@@ -333,6 +430,12 @@ const Gallery = () => {
             <div
               key={item.id}
               onClick={() => setSelectedItem(item)}
+              onPointerEnter={() =>
+                preloadGalleryImage(item.fullSrc || item.staticSrc)
+              }
+              onPointerDown={() =>
+                preloadGalleryImage(item.fullSrc || item.staticSrc)
+              }
               className={`group relative overflow-hidden rounded-xl border-2 border-[#b88c4b]/50 bg-[#140b04] cursor-pointer shadow-[0_8px_20px_rgba(44,29,12,0.18)] transition-[transform,border-color,box-shadow] duration-300 ease-out hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_16px_36px_rgba(184,140,75,0.4)] ${item.gridClass} min-h-[260px] md:min-h-0 transform-gpu`}
               style={{
                 contain: "paint layout",
@@ -407,14 +510,66 @@ const Gallery = () => {
         <div className="mt-14 flex justify-center">
           <Link
             to="/"
-            className="group/btn relative inline-flex items-center gap-3 border-2 border-[#b88c4b] bg-[#f7eedc]/95 px-8 py-3.5 font-cinzel text-xs sm:text-sm font-bold uppercase tracking-[0.25em] text-[#532e0e] shadow-[0_8px_25px_rgba(80,40,10,0.18)] transition-all hover:bg-[#fae6c6] hover:border-[#8c6536] hover:shadow-[0_14px_35px_rgba(80,40,10,0.28)] hover:-translate-y-0.5 active:scale-95"
+            onPointerEnter={() => preloadPublicRoute("/")}
+            onFocus={() => preloadPublicRoute("/")}
+            className="group relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-4 sm:px-8 py-0 font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.24em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:from-[#f5dcad] hover:via-[#ebd095] hover:to-[#dfbe7e] hover:bg-[#ebd095] hover:shadow-[0_0_24px_rgba(200,140,50,0.45),0_14px_32px_rgba(40,15,5,0.35)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
+            style={{
+              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundSize: "cover",
+              backgroundBlendMode: "overlay",
+            }}
           >
-            <span className="pointer-events-none absolute inset-1 border border-[#b88c4b]/40" />
-            <span className="text-[#a85a18] transition-transform group-hover/btn:-translate-x-1">
-              ✦
+            {/* Inner Hairline Frame */}
+            <span
+              className="pointer-events-none absolute inset-[3px] border border-[#a87430]/35 transition-colors duration-300 group-hover:border-[#a87430]/65"
+              aria-hidden="true"
+            />
+
+            {/* 4 Corner Diamond Rivets */}
+            <span
+              className="pointer-events-none absolute left-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
             </span>
-            <span>Return to Imperial Arena</span>
-            <ArrowUpRight className="h-4 w-4 text-[#a85a18] transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
+            <span
+              className="pointer-events-none absolute right-1 top-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 left-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+            <span
+              className="pointer-events-none absolute bottom-1 right-1 text-[7px] sm:text-[8px] leading-none text-[#9b6628] transition-colors group-hover:text-[#5a2e0a]"
+              aria-hidden="true"
+            >
+              ◆
+            </span>
+
+            {/* Warm Golden Shimmer Sweep (No harsh white) */}
+            <span
+              className="pointer-events-none absolute -inset-full h-auto w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-[#ffe7b8]/25 to-transparent transition-all duration-1000 ease-out group-hover:left-full"
+              aria-hidden="true"
+            />
+
+            {/* Content — Centered lockup matching Teaser/Chronicles standard */}
+            <span className="relative z-10 flex items-center justify-center gap-2.5 leading-none text-center">
+              {/* Golden Action Badge */}
+              <span
+                className="flex h-5 w-5 sm:h-5.5 sm:w-5.5 shrink-0 items-center justify-center rounded-full border border-[#8c5824] bg-gradient-to-b from-[#b8863b] to-[#7a4816] shadow-sm transition-all duration-300 group-hover:scale-110 group-hover:border-[#5a2e0a] group-hover:shadow-[0_0_8px_rgba(184,134,59,0.7)]"
+                aria-hidden="true"
+              >
+                <ArrowLeft className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-[#faeed7] stroke-[2.5] transition-transform duration-300 group-hover:-translate-x-0.5" />
+              </span>
+              <span className="whitespace-nowrap leading-none drop-shadow-[0_1px_0_rgba(255,255,255,0.6)]">
+                Return to Imperial Arena
+              </span>
+            </span>
           </Link>
         </div>
       </div>
@@ -451,11 +606,10 @@ const Gallery = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 max-h-[85vh] overflow-hidden">
                 {/* Image Section */}
-                <div className="h-[280px] sm:h-[360px] md:h-full md:min-h-[440px] relative bg-black flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-[#b88c4b]/30">
-                  <img
-                    src={selectedItem.fullSrc || selectedItem.staticSrc}
-                    alt={selectedItem.title}
-                    className={`w-full h-full object-cover ${selectedItem.imageClass || "object-center"}`}
+                <div className="h-[280px] sm:h-[360px] md:h-full md:min-h-[440px] relative bg-[#241307] flex items-center justify-center overflow-hidden border-b md:border-b-0 md:border-r border-[#b88c4b]/30">
+                  <GalleryViewerImage
+                    key={selectedItem.id}
+                    item={selectedItem}
                   />
                   <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#160b04]/70 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-[#160b04]/70" />
                 </div>

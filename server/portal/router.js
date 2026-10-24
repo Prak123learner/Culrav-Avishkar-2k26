@@ -54,7 +54,7 @@ function cachePublicResponse(res, browserSeconds, cdnSeconds) {
   );
 }
 function publicEventView(event, category = event.categoryId) {
-  const data = event.toObject();
+  const data = event.toObject ? event.toObject() : { ...event };
   if (category?.toObject) data.categoryId = category.toObject();
   else if (category) data.categoryId = category;
   if (data.mode === "solo_or_team") data.minTeamSize = 1;
@@ -115,7 +115,9 @@ async function eventForStaff(req) {
 const audit = (req, action, targetId) =>
   Audit.create({ staffId: req.staff.id, action, targetId: String(targetId) });
 function registrationView(registration, event, includeForm = false) {
-  const data = registration.toObject();
+  const data = registration.toObject
+    ? registration.toObject()
+    : { ...registration };
   // Older registrations may have review decisions. They are all submissions now.
   data.status = "submitted";
   delete data.reviewReason;
@@ -332,10 +334,9 @@ router.post(
 router.get(
   "/categories",
   async(async (req, res) => {
-    const categories = await Category.find({ archived: false }).sort({
-      festival: 1,
-      name: 1,
-    });
+    const categories = await Category.find({ archived: false })
+      .sort({ festival: 1, name: 1 })
+      .lean();
     cachePublicResponse(res, 300, 3600);
     res.json({
       categories,
@@ -350,7 +351,8 @@ router.get(
     const events = await Subevent.find(filter)
       .select("-formVersions")
       .populate("categoryId")
-      .sort({ title: 1 });
+      .sort({ title: 1 })
+      .lean();
     cachePublicResponse(res, 15, 60);
     res.json({ events });
   }),
@@ -367,13 +369,13 @@ router.get(
       festival,
       slug,
       archived: false,
-    });
+    }).lean();
     if (!category) return res.json({ event: null });
     const event = await Subevent.findOne({
       categoryId: category._id,
       title,
       status: { $in: ["published", "closed", "cancelled"] },
-    });
+    }).lean();
     res.json({ event: event ? publicEventView(event, category) : null });
   }),
 );
@@ -383,7 +385,9 @@ router.get(
     const event = await Subevent.findOne({
       _id: req.params.id,
       status: { $in: ["published", "closed", "cancelled"] },
-    }).populate("categoryId");
+    })
+      .populate("categoryId")
+      .lean();
     v.check(event, "Event not found", 404);
     res.json({ event: publicEventView(event) });
   }),
@@ -477,7 +481,9 @@ router.get(
         req.staff.role === "admin"
           ? {}
           : { _id: { $in: req.staff.categoryIds } },
-      ).sort({ name: 1 }),
+      )
+        .sort({ name: 1 })
+        .lean(),
     }),
   ),
 );
@@ -632,7 +638,8 @@ router.get(
     res.json({
       staff: await Staff.find({ role: "coordinator" })
         .sort({ email: 1 })
-        .select("-sessionVersion"),
+        .select("-sessionVersion")
+        .lean(),
     }),
   ),
 );
@@ -646,13 +653,37 @@ router.get(
       /^CA-\d{4}-\d{6}$/.test(query) || /^\d{1,6}$/.test(query),
       "Enter a full CA ID or its last 1–6 digits",
     );
-    const matches = await Participant.find({
-      caId: query.startsWith("CA-") ? query : new RegExp(`${query}$`),
-    })
-      .select("caId name college")
-      .sort({ caId: 1 })
-      .limit(21)
-      .lean();
+    let matches;
+    if (query.startsWith("CA-")) {
+      matches = await Participant.find({ caId: query })
+        .select("caId name college")
+        .limit(21)
+        .lean();
+    } else {
+      const reversed = [...query].reverse().join("");
+      matches = await Participant.find({
+        caIdSuffixReversed: { $regex: `^${reversed}` },
+      })
+        .select("caId name college")
+        .sort({ caId: 1 })
+        .limit(21)
+        .lean();
+      // Preserve lookups during rolling deployments until the migration has
+      // populated suffix fields on every existing account.
+      if (matches.length < 21) {
+        const legacy = await Participant.find({
+          caIdSuffixReversed: { $exists: false },
+          caId: new RegExp(`${query}$`),
+        })
+          .select("caId name college")
+          .sort({ caId: 1 })
+          .limit(21 - matches.length)
+          .lean();
+        matches = [...matches, ...legacy].sort((left, right) =>
+          left.caId.localeCompare(right.caId),
+        );
+      }
+    }
     res.json({ matches: matches.slice(0, 20), more: matches.length > 20 });
   }),
 );
@@ -689,8 +720,7 @@ router.get(
   }),
 );
 async function deliver(actor, password) {
-  if (!process.env.SMTP_HOST)
-    return "SMTP not configured. Share this one-time password with the coordinator securely.";
+  if (!process.env.SMTP_HOST) return "";
   try {
     await sendEmail({
       to: actor.email,
@@ -804,7 +834,8 @@ router.get(
           : { categoryId: { $in: req.staff.categoryIds } },
       )
         .populate("categoryId")
-        .sort({ updatedAt: -1 }),
+        .sort({ updatedAt: -1 })
+        .lean(),
     }),
   ),
 );
@@ -1205,7 +1236,8 @@ router.get(
         "eventId",
         "title status closesAt allowEdits formPublished formVersions currentVersion responseUpdateDeadline",
       )
-      .sort({ createdAt: -1, _id: -1 });
+      .sort({ createdAt: -1, _id: -1 })
+      .lean();
     res.json({
       registrations: registrations.map((registration) =>
         registrationView(registration, registration.eventId, true),
@@ -1416,7 +1448,8 @@ router.get(
         )
         .sort({ createdAt: -1, _id: -1 })
         .skip((page - 1) * 50)
-        .limit(50),
+        .limit(50)
+        .lean(),
       Registration.countDocuments(filter),
     ]);
     res.json({
@@ -1441,7 +1474,8 @@ router.get(
       Registration.find(filter)
         .sort({ createdAt: -1, _id: -1 })
         .skip((page - 1) * 50)
-        .limit(50),
+        .limit(50)
+        .lean(),
       Registration.countDocuments(filter),
     ]);
     res.json({
@@ -1538,17 +1572,30 @@ router.get(
           "\r\n",
       );
     }
+    const legacyLeaderIds = await Registration.distinct("submittedBy", {
+      eventId: event._id,
+      teamId: { $ne: null },
+      $or: [
+        { leaderCaId: { $exists: false } },
+        { leaderCaId: null },
+        { leaderCaId: "" },
+      ],
+    });
+    const legacyLeaders = legacyLeaderIds.length
+      ? await Participant.find({ _id: { $in: legacyLeaderIds } })
+          .select("caId")
+          .lean()
+      : [];
+    const legacyLeaderCaIds = new Map(
+      legacyLeaders.map((leader) => [String(leader._id), leader.caId]),
+    );
     for await (const r of Registration.find({ eventId: event.id })
       .sort({ createdAt: 1, _id: 1 })
       .lean()
       .cursor()) {
       let leaderCaId = r.leaderCaId;
-      if (r.teamId && !leaderCaId) {
-        const leader = await Participant.findById(r.submittedBy)
-          .select("caId")
-          .lean();
-        leaderCaId = leader?.caId;
-      }
+      if (r.teamId && !leaderCaId)
+        leaderCaId = legacyLeaderCaIds.get(String(r.submittedBy));
       const p =
         r.participants.find((person) => person.caId === leaderCaId) ||
         r.participants[0] ||
