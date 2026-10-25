@@ -1001,6 +1001,10 @@ router.put(
         "Invalid registration deadline",
       );
       v.check(
+        !deadline || +deadline > Date.now(),
+        "Registration deadline must be in the future",
+      );
+      v.check(
         !deadline || !event.opensAt || +deadline > +event.opensAt,
         "Registration deadline must be after opening time",
       );

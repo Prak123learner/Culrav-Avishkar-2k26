@@ -46,8 +46,13 @@ function CulravEventCard({ event, onClick, eager, mobile }) {
       onPointerEnter={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
       onFocus={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
-      className="group relative w-full max-w-[340px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(70,25,5,0.28)] hover:drop-shadow-[0_22px_45px_rgba(190,80,15,0.45)] focus:outline-none rounded-lg"
+      className="group relative w-full max-w-[280px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(70,25,5,0.28)] hover:drop-shadow-[0_22px_45px_rgba(190,80,15,0.45)] focus:outline-none rounded-lg"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-[4.7%_2.8%_4.7%_2.3%] rounded-lg shadow-[0_10px_22px_rgba(70,25,5,0.34)]"
+      />
+
       {/* Mobile opens directly in colour because touch screens have no hover state. */}
       <img
         src={cardImage}
@@ -78,21 +83,21 @@ function CulravEventCard({ event, onClick, eager, mobile }) {
 
       {/* Event Title (Vertically aligned at ~58%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
-        <h3 className="font-dalek text-lg sm:text-xl md:text-2xl font-black uppercase tracking-[0.16em] text-[#361706] group-hover:text-[#612607] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
+        <h3 className="font-dalek text-[20px] sm:text-2xl md:text-[23px] font-black uppercase tracking-[0.16em] text-[#361706] group-hover:text-[#612607] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
           {event.name}
         </h3>
 
         {/* Classical Flourish / Star Divider */}
-        <div className="flex items-center justify-center gap-2.5 w-36 sm:w-44 mt-2 sm:mt-1 text-[#995726]/75 group-hover:text-[#c2651b] transition-colors">
+        <div className="flex items-center justify-center gap-2.5 w-36 sm:w-44 mt-1 text-[#995726]/75 group-hover:text-[#c2651b] transition-colors">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#995726] to-[#995726]" />
-          <span className="text-[8px]">✦</span>
+          <span className="text-[8px] sm:text-[10px]">✦</span>
           <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#995726] to-[#995726]" />
         </div>
       </div>
 
       {/* Event Description (In the open parchment area below the title and divider) */}
       <div className="absolute top-[66%] left-[11%] right-[11%] bottom-[19%] z-20 flex items-center justify-center pointer-events-none text-center">
-        <p className="font-garamond text-xs sm:text-sm font-semibold text-[#542810] group-hover:text-[#381907] transition-colors px-2 leading-relaxed line-clamp-3">
+        <p className="font-garamond text-sm sm:text-base font-semibold text-[#542810] group-hover:text-[#381907] transition-colors px-2 leading-relaxed line-clamp-3">
           {event.tagline}
         </p>
       </div>
@@ -108,9 +113,9 @@ function CulravEventCard({ event, onClick, eager, mobile }) {
         />
 
         {/* Text inside Button: ENTER REALM ➔ */}
-        <span className="relative z-10 font-cinzel text-[10px] sm:text-[11px] font-black uppercase tracking-[0.2em] text-[#fbf5ea] group-hover:text-[#ffd977] transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] flex items-center gap-1.5">
+        <span className="relative z-10 font-cinzel text-[11px] sm:text-xs font-black uppercase tracking-[0.2em] text-[#fbf5ea] group-hover:text-[#ffd977] transition-colors drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)] flex items-center gap-1.5">
           <span>Enter Realm</span>
-          <span className="transition-transform duration-300 group-hover:translate-x-1 text-[11px] sm:text-xs">➔</span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1 text-xs sm:text-sm">➔</span>
         </span>
       </div>
     </div>
@@ -220,21 +225,13 @@ function CulravEvent() {
               />
             </div>
 
-            {/* Description */}
-            <div className="w-full md:w-2/3 flex justify-center">
-              <p className="font-garamond p-6 text-center text-base sm:text-lg md:text-xl font-semibold leading-relaxed text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)] max-w-2xl" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7)" }}>
-                The cultural mainframe glitches into a three-day celebration of
-                pure artistic expression. From high-voltage music and dazzling dance
-                to theatre and fine arts, step into the ultimate cultural spectacle.
-              </p>
-            </div>
           </div>
           <div className="w-full h-4"></div>
         </div>
       </div>
 
       {/* Grid of Culrav Cultural Cards */}
-      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-12 mb-24">
+      <div className="w-full max-w-7xl px-4 sm:px-6 lg:px-8 -mt-8 sm:-mt-10 lg:-mt-8 mb-24">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-12 lg:gap-14 justify-items-center">
           {events.map((event, index) => (
             <CulravEventCard

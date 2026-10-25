@@ -851,6 +851,15 @@ function EventEditor({ event, categories, onClose, onSaved }) {
   async function save(e) {
     e.preventDefault();
     if (responseStatus.loading || responseStatus.error) return;
+    if (
+      !admin &&
+      draft.closesAt &&
+      (!Number.isFinite(new Date(draft.closesAt).getTime()) ||
+        new Date(draft.closesAt).getTime() <= Date.now())
+    ) {
+      setError("Registration deadline must be a future date and time.");
+      return;
+    }
     setBusy(true);
     setError("");
     try {
@@ -1149,6 +1158,8 @@ function EventEditor({ event, categories, onClose, onSaved }) {
               Registration closes (your local time)
               <input
                 type="datetime-local"
+                min={dateValue(new Date())}
+                step="60"
                 value={dateValue(draft.closesAt)}
                 onChange={(e) => set("closesAt", e.target.value)}
               />

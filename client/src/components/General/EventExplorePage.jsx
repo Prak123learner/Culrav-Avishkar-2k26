@@ -198,6 +198,7 @@ export default function EventExplorePage({
             exit={{ y: "100%" }}
             transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
             className="fixed inset-0 z-40 overflow-y-auto bg-[#ebd5ab] text-[#241104] select-none"
+            data-lenis-prevent
           >
             {/* High-Resolution Ancient Parchment Background (100% Solid & Opaque - Full Page Behind Navbar) */}
             <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">

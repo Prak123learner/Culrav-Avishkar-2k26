@@ -828,6 +828,19 @@ test("coordinators own both deadlines and a published form needs a registration 
   );
   assert.equal(published.status, 200);
   assert.equal(new Date(published.body.event.closesAt).toISOString(), deadline);
+  assert.equal(
+    (
+      await send(coordinator, "put", `/staff/events/${event._id}`, {
+        description: staffEvent.description,
+        rules: staffEvent.rules,
+        revision: published.body.event.revision,
+        formPublished: true,
+        closesAt: new Date(Date.now() - 60000).toISOString(),
+        fields: [question],
+      })
+    ).status,
+    400,
+  );
   const adminAttempt = await send(admin, "put", `/staff/events/${event._id}`, {
     ...eventBody({ closesAt: new Date(Date.now() + 7200000).toISOString() }),
     revision: published.body.event.revision,

@@ -389,18 +389,7 @@ body {
   place-items: center;
   overflow: hidden;
   isolation: isolate;
-  background:
-    radial-gradient(
-      circle at 50% 42%,
-      rgba(150, 104, 49, 0.19),
-      transparent 31%
-    ),
-    radial-gradient(
-      circle at 50% 120%,
-      rgba(81, 52, 29, 0.35),
-      transparent 48%
-    ),
-    linear-gradient(145deg, #07090c 0%, #101015 48%, #08090d 100%);
+  background: #100b06;
   opacity: 1;
   visibility: visible;
   transition:
@@ -419,6 +408,21 @@ body {
   position: absolute;
   inset: -15%;
   pointer-events: none;
+  z-index: 1;
+}
+
+.oracle-loader-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(135deg, rgba(15, 8, 3, 0.5), rgba(23, 12, 4, 0.2)),
+    url("/media/common/textures/loader-table.webp") center / cover no-repeat;
+  transform: scale(1.03);
+}
+
+.oracle-scroll-stage {
+  z-index: 2;
 }
 
 .oracle-loader-haze {

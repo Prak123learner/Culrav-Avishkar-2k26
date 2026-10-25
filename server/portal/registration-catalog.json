@@ -80,81 +80,63 @@
     "events": [
       {
         "fixedKey": "avishkar/cyberquest/0",
-        "title": "Insomnia",
-        "minTeamSize": 1,
-        "maxTeamSize": 3
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/1",
         "title": "Code of the Day",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
+        "fixedKey": "avishkar/cyberquest/1",
+        "title": "MathRush",
+        "minTeamSize": 2,
+        "maxTeamSize": 2
+      },
+      {
         "fixedKey": "avishkar/cyberquest/2",
-        "title": "Softathlon",
-        "minTeamSize": 1,
-        "maxTeamSize": 3
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/3",
-        "title": "Tux Wars",
-        "minTeamSize": 3,
-        "maxTeamSize": 3
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/4",
-        "title": "CSS Battle",
+        "title": "CodeClash",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
-        "fixedKey": "avishkar/cyberquest/5",
+        "fixedKey": "avishkar/cyberquest/3",
+        "title": "Softathalon",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/cyberquest/4",
         "title": "Dry Run Marathon",
         "minTeamSize": 6,
         "maxTeamSize": 6
       },
       {
-        "fixedKey": "avishkar/cyberquest/6",
-        "title": "Operamania",
+        "fixedKey": "avishkar/cyberquest/5",
+        "title": "Operomania",
         "minTeamSize": 3,
         "maxTeamSize": 6
       },
       {
-        "fixedKey": "avishkar/cyberquest/7",
-        "title": "Debugging Olympics",
-        "minTeamSize": 2,
-        "maxTeamSize": 2
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/8",
-        "title": "Worst UI designs",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/9",
-        "title": "Math Rush",
-        "minTeamSize": 2,
-        "maxTeamSize": 2
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/10",
-        "title": "404",
-        "minTeamSize": 3,
-        "maxTeamSize": 4
-      },
-      {
-        "fixedKey": "avishkar/cyberquest/11",
-        "title": "RAGQUEST",
+        "fixedKey": "avishkar/cyberquest/6",
+        "title": "Who Let The Bots Out",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/cyberquest/12",
-        "title": "CODECLASH",
+        "fixedKey": "avishkar/cyberquest/7",
+        "title": "The Grand Overfit",
         "minTeamSize": 1,
-        "maxTeamSize": 1
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/cyberquest/8",
+        "title": "UXpected Disaster",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/cyberquest/9",
+        "title": "Stack Overkill",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
       }
     ]
   },
@@ -363,49 +345,61 @@
   {
     "festival": "avishkar",
     "slug": "mechrocosm",
-    "name": "Mechrocosm",
+    "name": "Mechaverse",
     "events": [
       {
         "fixedKey": "avishkar/mechrocosm/0",
-        "title": "Triathlon",
+        "title": "AlgoForge",
         "minTeamSize": 1,
-        "maxTeamSize": 1
+        "maxTeamSize": 2
       },
       {
         "fixedKey": "avishkar/mechrocosm/1",
-        "title": "Crack the Case",
-        "minTeamSize": 3,
+        "title": "ModelForge",
+        "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/mechrocosm/2",
-        "title": "Industrial Monopoly",
+        "title": "Game of Codes",
         "minTeamSize": 3,
         "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/mechrocosm/3",
-        "title": "Mechathon",
-        "minTeamSize": 4,
+        "title": "MechMind",
+        "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/mechrocosm/4",
-        "title": "DeSim (Blueprint + Automax)",
-        "minTeamSize": 3,
-        "maxTeamSize": 3
+        "title": "Automax",
+        "minTeamSize": 1,
+        "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/mechrocosm/5",
-        "title": "Turbo Speed Showdown",
-        "minTeamSize": 4,
-        "maxTeamSize": 6
+        "title": "ReVolve",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
       },
       {
         "fixedKey": "avishkar/mechrocosm/6",
-        "title": "Game of Codes",
-        "minTeamSize": 3,
+        "title": "Triathlon",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "avishkar/mechrocosm/7",
+        "title": "Prod-O-Mania",
+        "minTeamSize": 1,
         "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/mechrocosm/8",
+        "title": "Chain of Chaos",
+        "minTeamSize": 3,
+        "maxTeamSize": 4
       }
     ]
   },

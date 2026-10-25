@@ -7,307 +7,94 @@
   "instagramLink": "",
   "events": [
     {
-      "eventName": "Insomnia",
-      "registrationLink": "https://forms.google.com/your-form-link-here",
-      "eventId": "45",
-      "description": "THE FLAGSHIP EVENT OF CYBERQUEST RECORDS PARTICIPATION FROM THE BRIGHTEST BRAINS ACROSS THE COUNTRY. IT IS A COMPETITIVE CODING EVENT WITH PROBLEMS OF VARYING DIFFICULTY LEVELS. YOUNG CODING ENTHUSIASTS PARTICIPATE WITH VIGOR EACH YEAR TO SATIATE THEIR PROGRAMMING APPETITE.",
-      "rules": [
-        "Team size: 1-3",
-        "Team Eligibility: All branches",
-        "All year allowed except final year"
-      ],
+      "eventName": "Code of the Day",
+      "eventId": "46",
+      "description": "A week-long competitive coding event attracting participation from all years and branches. It consists of a set of 7 problems. The participants labor relentlessly to submit efficient solutions to the problem releasing after every 24 hours.",
+      "rules": ["Team size: 1", "Team Eligibility: All branches", "Winners: 3 students overall", "Rounds 7"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "CC Club",
-          "contact": ""
-        }
-      ],
+      "coordinators": [{ "name": "CC Club", "contact": "" }],
       "fixedKey": "avishkar/cyberquest/0"
     },
     {
-      "eventName": "Code of the Day",
-      "registrationLink": "",
-      "eventId": "46",
-      "description": "A WEEK-LONG COMPETITIVE CODING EVENT ATTRACTING PARTICIPATION FROM ALL YEARS AND BRANCHES. IT CONSISTS OF A SET OF 7 PROBLEMS. THE PARTICIPANTS LABOR RELENTLESSLY TO SUBMIT EFFICIENT SOLUTIONS TO THE PROBLEM RELEASING AFTER EVERY 24 HOURS.",
-      "rules": [
-        "Team size: 1",
-        "Team Eligibility: All branches",
-        "Winners: 3 students overall",
-        "Rounds 7"
-      ],
+      "eventName": "MathRush",
+      "eventId": "43",
+      "description": "\"Math is the backbone of engineering\". MathRush is a mathematical puzzle contest in which sound knowledge of mathematics together with the taste of programming will be essential to solve problems. Being a \"zero, either you lead or follow.",
+      "rules": ["Team size: 2", "Team Eligibility: All branches", "Winners: 3 Team overall", "Rounds 2"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "CC Club",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/1"
     },
     {
-      "eventName": "Softathlon",
-      "registrationLink": "https://forms.gle/xhHLob2AcFh5Xmms9",
-      "eventId": "47",
-      "description": "AN EVENT AIMED AT SIMULATING THE SOFTWARE PROFILE-BASED RECRUITMENT PROCEDURE FOR UNDERGRADUATES. IT CONSISTS OF A SERIES OF WRITTEN AND CODING ROUNDS TESTING THE TECHNICAL PROWESS OF THE CANDIDATE. INTERVIEW ROUNDS ALSO FORM AN INTEGRAL PART OF THE EVENT IN WHICH THE STUDENTS ARE JUDGED ON THE KNOWLEDGE AND CONFIDENCE THEY EXUDE.",
-      "rules": [
-        "Team size: 1-3",
-        "Team Eligibility: CSE",
-        "Winners: 3",
-        "Rounds 3"
-      ],
+      "eventName": "CodeClash",
+      "eventId": "46",
+      "description": "A competitive coding tournament featuring an online Codeforces qualifier followed by offline one-on-one knockout battles. Designed to identify the strongest competitive programmers across MCA, B.Tech, and M.Sc students.",
+      "rules": ["Event Format: Online Qualifier + Offline Knockout", "Platform: CC Codeforces Group (participants must have active Codeforces account)", "Two groups shortlisted: 16 participants each", "Strict anti-cheating and plagiarism monitoring", "Offline Round: 1v1 battles — first to solve advances", "Tie-breaker: Earlier accepted submission wins"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Ish Singhal",
-          "contact": ""
-        },
-        {
-          "name": "Ujjawal Baranwal",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/2"
     },
     {
-      "eventName": "Tux Wars",
-      "registrationLink": "",
-      "eventId": "36",
-      "description": "AN EVENT TO TEST THE PRACTICAL ACUMEN IN LINUX COMMAND-LINE TOOLS, SHELL SCRIPTING, AND NETWORKING. THE WRITTEN ROUND TESTS THEORETICAL UNDERSTANDING IN LINUX AND THE PRACTICAL ROUND EXPECTS THE TEAMS TO COMPETE IN A TIME-BOND ENVIRONMENT WHILE WORKING ON SYSTEMS AND APPLYING CONCEPTS.",
-      "rules": [
-        "Team size: 3",
-        "Team Eligibility: All branches",
-        "Winners: 3 Team overall",
-        "Rounds 2"
-      ],
+      "eventName": "Softathalon",
+      "eventId": "47",
+      "description": "An event aimed at simulating the software profile-based recruitment procedure for undergraduates. It consists of a series of written and coding rounds testing the technical prowess of the candidate. Interview rounds also form an integral part of the event in which the students are judged on the knowledge and confidence they exude.",
+      "rules": ["Team size: 1-3", "Team Eligibility: CSE", "Winners: 3", "Rounds 3"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Saurabh Chaudhary",
-          "contact": ""
-        },
-        {
-          "name": "Yash Sharma",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/3"
     },
     {
-      "eventName": "CSS Battle",
-      "registrationLink": "",
-      "eventId": "37",
-      "description": "THE EVENT WILL MAJORLY FOCUS ON THE DESIGNING MINDS OF THE CANDIDATE. THIS WILL CONSIST OF DESIGNING A WEB PAGE CLONE AND MOVING ONTO KNOCKOUTS I.E. CSS BATTLE.",
-      "rules": [
-        "Team size: 1",
-        "Team Eligibility: All branches",
-        "Winners: 3 Team overall",
-        "Rounds 2"
-      ],
+      "eventName": "Dry Run Marathon",
+      "eventId": "38",
+      "description": "Given a list of code the students are expected to dry run the code and provide output fast and accurate which will in turn be used in another set of problems",
+      "rules": ["Team size: 6", "Team Eligibility: All branches", "Winners: 3 Team overall", "Rounds 2"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Ujjawal Baranwal",
-          "contact": ""
-        }
-      ],
+      "coordinators": [{ "name": "Aditya Shukla", "contact": "9026556887" }],
       "fixedKey": "avishkar/cyberquest/4"
     },
     {
-      "eventName": "Dry Run Marathon",
-      "registrationLink": "https://forms.gle/x6XqPiVfUR7aQcvA7",
-      "eventId": "38",
-      "description": "GIVEN A LIST OF CODE THE STUDENTS ARE EXPECTED TO DRY RUN THE CODE AND PROVIDE OUTPUT FAST AND ACCURATE WHICH WILL IN TURN BE USED IN ANOTHER SET OF PROBLEMS",
-      "rules": [
-        "Team size: 6",
-        "Team Eligibility: All branches",
-        "Winners: 3 Team overall",
-        "Rounds 2"
-      ],
+      "eventName": "Operomania",
+      "eventId": "39",
+      "description": "The largest puzzling event of Avishkar galvanizes even the laziest of brains into action and encourages prompt response and witty answers. Operaomnia gauges the ability of participants to play with riddles, puzzles and brain teasers",
+      "rules": ["Team size: 3-6", "Team Eligibility: All branches", "Winners: 3 Team overall", "Rounds 3"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Bishal Kedia",
-          "contact": ""
-        },
-        {
-          "name": "Anvesh Singh",
-          "contact": ""
-        },
-        {
-          "name": "Saurabh Chaudhary",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/5"
     },
     {
-      "eventName": "Operamania",
-      "eventId": "39",
-      "description": "THE LARGEST PUZZLING EVENT OF AVISHKAR GALVANIZES EVEN THE LAZIEST OF BRAINS INTO ACTION AND ENCOURAGES PROMPT RESPONSE AND WITTY ANSWERS. OPERAOMNIA GAUGES THE ABILITY OF PARTICIPANTS TO PLAY WITH RIDDLES, PUZZLES AND BRAIN TEASERS",
-      "rules": [
-        "Team size: 3-6",
-        "Team Eligibility: All branches",
-        "Winners: 3 Team overall",
-        "Rounds 3"
-      ],
+      "eventName": "Who Let The Bots Out",
+      "eventId": "",
+      "description": "Ready to put your Agentic AI skills to the test? Develop an AI agent to tackle a given set of tasks and put it through multiple test cases. The top-performing agents will advance to a final evaluation. Build smart, experiment with your approach, and see how far your agent can go!",
+      "rules": ["Team size: 1-3", "Team eligibility: All branches (Inter-year not allowed)", "Winner: 3 teams overall", "Rounds: 2 (Development + Evaluation)", "Submission: Must provide GitHub repo with detailed README and demo video"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Garv Gupta",
-          "contact": ""
-        },
-        {
-          "name": "Amandeep Singh",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/6"
     },
     {
-      "eventName": "Debugging Olympics",
-      "eventId": "41",
-      "description": "Test your debugging skills in this intense coding challenge. Solve complex problems under time pressure and showcase your ability to identify and fix code issues efficiently.",
-      "rules": [
-        "Team size: 2",
-        "Team Eligibility: All branches",
-        "Winners: 1 Team overall",
-        "Rounds 1"
-      ],
+      "eventName": "The Grand Overfit",
+      "eventId": "",
+      "description": "Get ready to put your ML skills to the test! Participants will tackle a machine learning challenge where the goal is to build, train, and fine-tune models to achieve the best possible results. Experiment with different approaches, squeeze out every bit of accuracy, and climb the leaderboard before time runs out.",
+      "rules": ["Team size: 1-3", "Team eligibility: All branches (Inter-year not allowed)", "Winner: 1 team overall", "Rounds: 1"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Haseeb",
-          "contact": ""
-        },
-        {
-          "name": "Manvith Reddy",
-          "contact": ""
-        }
-      ],
+      "coordinators": [{ "name": "Aditya Shukla", "contact": "9026556887" }],
       "fixedKey": "avishkar/cyberquest/7"
     },
     {
-      "eventName": "Worst UI designs",
-      "eventId": "42",
-      "description": "Showcase your worst UI designs in this hilarious competition. Create the most confusing, counterintuitive, and frustrating user interfaces possible. The most absurd and poorly designed interfaces will win prizes!",
-      "rules": [
-        "Team size: 2",
-        "Team Eligibility: All branches",
-        "Winners: 1",
-        "Rounds 5"
-      ],
+      "eventName": "UXpected Disaster",
+      "eventId": "",
+      "description": "A fun design competition where participants compete to create the worst-looking and most confusing user interface possible. Break design principles, experiment with clashing colors, and build hilariously unusable interfaces. The goal is simple: make bad design look even worse!",
+      "rules": ["Team size: 1-3", "Team eligibility: All branches (Inter-year not allowed)", "Winner: 1 team overall", "Rounds: 1", "Submission: Must provide GitHub repo with demo video"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Ujjawal Barnawal",
-          "contact": ""
-        },
-        {
-          "name": "Saurabh Chaudhary",
-          "contact": ""
-        }
-      ],
+      "coordinators": [{ "name": "Aditya Shukla", "contact": "9026556887" }],
       "fixedKey": "avishkar/cyberquest/8"
     },
     {
-      "eventName": "Math Rush",
-      "registrationLink": "https://forms.gle/YDKzJNAsUS3L64Lt9",
-      "eventId": "43",
-      "description": "\"MATH IS THE BACKBONE OF ENGINEERING\". MATHRUSH IS A MATHEMATICAL PUZZLE CONTEST IN WHICH SOUND KNOWLEDGE OF MATHEMATICS TOGETHER WITH THE TASTE OF PROGRAMMING WILL BE ESSENTIAL TO SOLVE PROBLEMS. BEING A \"ZERO, EITHER YOU LEAD OR FOLLOW.",
-      "rules": [
-        "Team size: 2",
-        "Team Eligibility: All branches",
-        "Winners: 3 Team overall",
-        "Rounds 2"
-      ],
+      "eventName": "Stack Overkill",
+      "eventId": "",
+      "description": "Get ready to dive into a code repository full of bugs, errors, and questionable coding decisions. Your mission? Hunt down those bugs and figure out how to fix them before time runs out! The person who squashes the most bugs in the shortest time takes the crown.",
+      "rules": ["Team size: 1-3", "Team eligibility: All branches (Inter-year not allowed)", "Winner: 1 team overall", "Rounds: 1", "Submission: Must provide GitHub repo with updated code along with a README listing every change and bug found"],
       "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Shantanu Gaur",
-          "contact": ""
-        },
-        {
-          "name": "Iqra Abbasi",
-          "contact": ""
-        },
-        {
-          "name": "Bishal Kedia",
-          "contact": ""
-        }
-      ],
+      "coordinators": [],
       "fixedKey": "avishkar/cyberquest/9"
-    },
-    {
-      "eventName": "404",
-      "registrationLink": "https://forms.gle/py5ZzDzQAV9zR8XR7",
-      "eventId": "44",
-      "description": "THIS QUIZ EXPLORES KEY INNOVATIONS IN COMPUTER SCIENCE, HIGHLIGHTING MAJOR BREAKTHROUGHS, FROM EARLY COMPUTING MACHINES TO GROUNDBREAKING TECHNOLOGIES THAT TRANSFORMED OUR INTERACTION WITH THE DIGITAL WORLD.",
-      "rules": [
-        "Team size: 3-4",
-        "Team Eligibility: All branches",
-        "Winners: 3",
-        "Rounds 2"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Ish Singhal",
-          "contact": ""
-        },
-        {
-          "name": "Yash Sharma",
-          "contact": ""
-        }
-      ],
-      "fixedKey": "avishkar/cyberquest/10"
-    },
-    {
-      "eventName": "RAGQUEST",
-      "eventId": "45",
-      "description": "A hands-on AI event where participants build a Retrieval-Augmented Generation (RAG) chatbot using a curated Knowledge Base, combining retrieval and LLM reasoning. This challenge tests real-world AI skills across development and quiz rounds.",
-      "rules": [
-        "Team size: 1–3",
-        "Eligibility: Open to all branches and all years",
-        "Rounds: 2 (Development Round + Online Quiz Round)",
-        "Bot must use retrieval from provided Knowledge Base",
-        "No hardcoded answers allowed",
-        "Original implementations only",
-        "Submission: Working bot, GitHub repo + detailed README, and demo video"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Application Club",
-          "contact": ""
-        }
-      ],
-      "fixedKey": "avishkar/cyberquest/11"
-    },
-    {
-      "eventName": "CODECLASH",
-      "eventId": "46",
-      "description": "A competitive coding tournament featuring an online Codeforces qualifier followed by offline one-on-one knockout battles. Designed to identify the strongest competitive programmers across MCA, B.Tech, and M.Sc students.",
-      "rules": [
-        "Event Format: Online Qualifier + Offline Knockout",
-        "Platform: CC Codeforces Group (participants must have active Codeforces account)",
-        "Two groups shortlisted: 16 participants each",
-        "Strict anti-cheating and plagiarism monitoring",
-        "Offline Round: 1v1 battles — first to solve advances",
-        "Tie-breaker: Earlier accepted submission wins"
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Bhuwan",
-          "contact": "6202677308"
-        },
-        {
-          "name": "Hariom",
-          "contact": "9758685822"
-        }
-      ],
-      "fixedKey": "avishkar/cyberquest/12"
     }
   ]
 }

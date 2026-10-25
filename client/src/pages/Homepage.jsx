@@ -870,7 +870,7 @@ const AboutSection = () => {
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
+            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
               Different Paths ✦ A Shared Legacy
             </span>
           </div>
@@ -1232,7 +1232,7 @@ const GallerySection = () => {
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-1 text-[11px] uppercase tracking-[0.24em] text-[#876233]">
+            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
               Chronicles of the Realm ✦ Captured in Time
             </span>
           </div>
@@ -1569,7 +1569,7 @@ const ArtistSection = () => {
             </span>
 
             {/* Pure Typographic Content — Center Aligned on All Screens */}
-            <div className="relative z-10 flex w-full items-center justify-center text-center leading-none">
+            <div className="relative z-10 flex h-full w-full items-center justify-center text-center leading-none">
               <span
                 className="hidden sm:inline-block h-px w-5 mr-3 bg-gradient-to-r from-transparent to-[#9b6628]/60"
                 aria-hidden="true"
@@ -1672,7 +1672,7 @@ const AvishkarLaurel = ({ className = "w-5 h-5 text-[#463270]" }) => (
 
 function Footer() {
   return (
-    <footer className="relative bg-[#edd8b1] text-[#2c1d0c] pt-10 pb-12 sm:pt-16 sm:pb-16 overflow-hidden border-t-2 border-[#b58b4f] select-none">
+    <footer className="relative bg-[#edd8b1] text-[#2c1d0c] pt-10 pb-16 sm:pt-16 sm:pb-16 overflow-hidden border-t-2 border-[#b58b4f] select-none">
       {/* High-Resolution Parchment Footer Background from uploaded asset */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
@@ -1690,9 +1690,9 @@ function Footer() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-8 relative z-10">
         {/* Main 3-Column Layout: Brand, Explore, and The Imperial Citadel */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-8 sm:gap-8 lg:gap-10 pb-5 sm:pb-14 items-start">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-12 gap-x-5 gap-y-8 sm:gap-8 lg:gap-10 pb-5 sm:pb-14 items-start">
           {/* Column 1: Brand Lockup (md:col-span-5 lg:col-span-4) */}
-          <div className="sm:col-span-2 md:col-span-4 lg:col-span-4 flex flex-col items-start">
+          <div className="col-span-2 sm:col-span-2 md:col-span-4 lg:col-span-4 flex flex-col items-start">
             {/* Sub-crest: CULRAV x AVISHKAR using IcarusSun & TwinLeaves */}
             <div className="mt-0 sm:mt-6 flex items-center gap-5 sm:gap-6">
               {/* Culrav Emblem + Label */}
@@ -1730,9 +1730,9 @@ function Footer() {
           </div>
 
           {/* Column 2: EXPLORE (md:col-span-3 lg:col-span-3) */}
-          <div className="sm:col-span-1 md:col-span-3 lg:col-span-3 flex flex-col md:pl-8 lg:pl-16 xl:pl-24">
+          <div className="sm:col-span-1 md:col-span-3 lg:col-span-3 flex flex-col md:pl-8 lg:pl-28 xl:pl-48">
             <div className="mb-3 sm:mb-4">
-              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
+              <h4 className="font-cinzel text-[10px] sm:text-xs font-bold tracking-[0.18em] sm:tracking-[0.28em] uppercase text-[#3b220d]">
                 Explore
               </h4>
               <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
@@ -1794,7 +1794,7 @@ function Footer() {
           {/* Column 3: THE IMPERIAL CITADEL & SOCIAL (md:col-span-4 lg:col-span-4) */}
           <div className="sm:col-span-1 md:col-span-4 lg:col-span-4 flex flex-col">
             <div className="mb-3 sm:mb-4">
-              <h4 className="font-cinzel text-xs font-bold tracking-[0.28em] uppercase text-[#3b220d]">
+              <h4 className="font-cinzel text-[10px] sm:text-xs font-bold tracking-[0.18em] sm:tracking-[0.28em] uppercase text-[#3b220d]">
                 The Imperial Citadel
               </h4>
               <div className="h-[1px] w-12 bg-[#8c6536] mt-1.5" />
@@ -1835,7 +1835,7 @@ function Footer() {
         </div>
 
         {/* Copyright Line & Web Team Credit */}
-        <div className="border-t border-[#bfa275]/60 pt-4 sm:pt-6 pb-2 -mt-1 sm:mt-0 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase md:px-8 lg:px-16 xl:px-24">
+        <div className="border-t border-[#bfa275]/60 pt-4 sm:pt-6 pb-2 -mt-3 sm:mt-0 -translate-y-3 sm:translate-y-0 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase md:px-8 lg:px-16 xl:px-24">
           <p className="flex items-center justify-center gap-1.5">
             <span>✦</span>
             <span>© 2026 Echoes of Olympus. All Rights Reserved.</span>

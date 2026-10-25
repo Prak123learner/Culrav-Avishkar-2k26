@@ -91,7 +91,7 @@ const AVISHKAR_SUBEVENTS = {
   genesis: { label: "Entering Genesis Pantheon", subtext: "Bio-Engineering Discoveries & Genetics Conclave" },
   electromania: { label: "Entering Electromania Pantheon", subtext: "Silicon Circuit Mastery & Embedded Hardware" },
   kreedomania: { label: "Entering Kreedomania Pantheon", subtext: "Cyber Athletics & Strategic Esports Arenas" },
-  mechrocosm: { label: "Entering Mechrocosm Pantheon", subtext: "Automotive Precision, CAD & Mechanical Dynamics" },
+  mechrocosm: { label: "Entering Mechaverse Pantheon", subtext: "Mechanical Innovation, Manufacturing & Intelligent Engineering" },
   monopoly: { label: "Entering Monopoly Pantheon", subtext: "Financial Mastery, Stock Markets & Crypto Exchanges" },
   nirmaan: { label: "Entering Nirmaan Pantheon", subtext: "Structural Engineering & Architectural Blueprints" },
   oligopoly: { label: "Entering Oligopoly Pantheon", subtext: "Strategic Case Studies & Corporate Leadership" },

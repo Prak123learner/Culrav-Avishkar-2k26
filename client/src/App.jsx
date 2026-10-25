@@ -2,6 +2,7 @@ import { Suspense, lazy, useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Loader, { RouteLoader } from "./components/Loader";
 import ScrollToTop from "./components/ScrollToTop";
+import SmoothScroll from "./components/SmoothScroll";
 import { Toaster } from "sonner";
 import Navbar from "./components/General/Navbar";
 import { PortalProvider } from "./portal/session";
@@ -95,6 +96,7 @@ function App() {
     <>
       {showInitialReveal && <Loader onComplete={finishInitialReveal} />}
       <BrowserRouter>
+        <SmoothScroll />
         <ScrollToTop />
         <PortalProvider>
           <Navbar />

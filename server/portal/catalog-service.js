@@ -6,10 +6,12 @@ async function seedCatalog() {
     const category = await Category.findOneAndUpdate(
       { festival: item.festival, slug: item.slug },
       {
+        $set: {
+          name: item.name || item.slug,
+        },
         $setOnInsert: {
           festival: item.festival,
           slug: item.slug,
-          name: item.name || item.slug,
         },
       },
       { upsert: true, new: true },
@@ -20,13 +22,15 @@ async function seedCatalog() {
       await Subevent.updateOne(
         { fixedKey: data.fixedKey },
         {
-          $setOnInsert: {
-            fixedKey: data.fixedKey,
-            categoryId: category.id,
+          $set: {
             title: data.title,
             mode: max === 1 ? "solo" : min === 1 ? "solo_or_team" : "team",
             minTeamSize: min,
             maxTeamSize: max,
+          },
+          $setOnInsert: {
+            fixedKey: data.fixedKey,
+            categoryId: category.id,
             configurationRequired: false,
             formPublished: false,
             status: "published",

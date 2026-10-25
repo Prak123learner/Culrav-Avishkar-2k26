@@ -10,27 +10,28 @@
       "eventName": "Chanakya Neeti",
       "registrationLink": "",
       "eventId": "71",
-      "description": "A strategic competition testing analytical skills through quiz, riddles and strategy-based case presentation rounds.",
+      "description": "A three-round competition testing strategic thinking, problem-solving, and analytical skills.",
       "rules": [
-        "Team size: 1–2 members",
-        "Round 1: Brain Buster Blitz – Quiz round testing analytical aptitude",
-        "Round 2: The Riddle Conundrum – Solve 5 riddles in minimum time",
-        "Round 3: Strategic Mastermind – Case Study Presentation (5–7 mins + Q&A)"
+        "Round 1: Brain Buster Blitz (Quiz Round) — both team members collaborate on a quiz of challenging questions, and their combined performance determines advancement.",
+        "Round 2: The Riddle Conundrum — teams solve 5 riddles in the shortest possible time. Teams solving the most riddles in the least time advance.",
+        "Round 3: Strategic Mastermind (Case Study Presentation) — teams are assigned a common case study focused on strategy formulation.",
+        "Teams have 10–12 minutes in total: 5–7 minutes for the presentation and 5 minutes for questions and answers.",
+        "Performance is judged on strategic and analytical skills, and judges ask questions for evaluation."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [{"name":"Akshay Kumar","contact":"8756282848"},{"name":"Harshit Singh","contact":"9140363284"}],
       "fixedKey": "avishkar/monopoly/0"
     },
     {
       "eventName": "Netrivta",
       "registrationLink": "https://forms.gle/TXWsnm6EKZdhv4AJ7",
       "eventId": "72",
-      "description": "A public-speaking and leadership event involving introduction round, debate segment and elocution-based final evaluation.",
+      "description": "Participants receive 2 minutes to introduce themselves, followed by leadership questions. This is not an elimination round.",
       "rules": [
-        "Individual participation",
-        "Round 1: Parichaya – Self introduction + leadership questions",
-        "Round 2: Vaad-Vivad – Debate round on on-spot topic",
-        "Round 3: Vaktavya – Elocution followed by judge Q&A"
+        "Round 1: Parichaya (Introduction) — participants receive 2 minutes to introduce themselves, followed by leadership questions. This is not an elimination round.",
+        "Round 2: Vaad-Vivad (Debate) — participants receive a current topic and must actively participate by clearly presenting their stance without contradicting themselves.",
+        "Debate topics are disclosed at the time of the round, which tests spontaneity and persuasiveness.",
+        "Round 3: Vaktavya (Elocution) — participants receive an elocution topic, followed by questions from the audience or judges based on the speech content."
       ],
       "PsLink": "",
       "coordinators": [],
@@ -55,15 +56,16 @@
       "eventName": "Stall Mart",
       "registrationLink": "",
       "eventId": "74",
-      "description": "A stall-based business competition involving idea pitching, stall execution, revenue generation and market-engagement strategy.",
+      "description": "Stall Mart is a two-round competition where participants showcase creativity, business acumen, and organizational skills by setting up and managing stalls. The event tests ideation, execution, and revenue-generation skills.",
       "rules": [
-        "Team size: 3–4 members",
-        "Round 1: Idea Sprint – Present stall concept, product strategy, audience appeal",
-        "Round 2: Entrepreneur’s Arena – Live stall management and sales performance",
-        "No gambling, objectionable content or unfair means allowed",
-        "Only team members may operate inside stall",
-        "First-come-first-serve stall allotment",
-        "Daily balance sheet maintenance compulsory"
+        "Round 1: Idea Sprint — teams present their stall concept and strategy, including the products or services offered and how they plan to attract customers.",
+        "Round 2: The Entrepreneur’s Arena — teams set up and manage stalls based on their proposed ideas. Stalls may feature artistic creations, games with psychological themes, food, and more.",
+        "Teams must keep their stalls tidy and organized.",
+        "Evaluation is based on revenue generated, productivity, and a task assigned by the Event Coordinators.",
+        "No gambling games, objectionable subjects, or unfair means are permitted.",
+        "Discipline must be maintained, and only members of the participating team may be in the stall.",
+        "Stalls are allotted on a first-come, first-served basis. No disputes will be entertained.",
+        "A daily balance sheet must be maintained."
       ],
       "PsLink": "",
       "coordinators": [],

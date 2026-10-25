@@ -56,11 +56,11 @@ export default function OracleScrollLoader({ onComplete }) {
       aria-live="polite"
       aria-label="Opening Culrav Avishkar"
     >
+      <div className="oracle-loader-backdrop" aria-hidden="true" />
       <div className="oracle-loader-haze" />
       <div className="oracle-loader-stars" />
 
       <div className="oracle-scroll-stage">
-        <div className="oracle-scroll-shadow" />
         <div className="oracle-scroll">
           <div className="oracle-scroll-sheet">
             <span className="oracle-scroll-roll oracle-scroll-roll-top">
