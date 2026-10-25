@@ -4,7 +4,7 @@ import { preloadPublicRoute } from "./publicRoutePreload";
 const MEANDER_PATH =
   "M0 14h18V2h24v24H6V10h24v8H18v-4h24v12h24V2h24v24H54V10h24v8H66v-4h24v12h24V2h24v24h-36V10h24v8h-12v-4h24";
 
-const HOMEPAGE_HERO_VIDEO = "/media/homepage/videos/hero_video.webm";
+const HOMEPAGE_HERO_VIDEO = "/media/homepage/videos/hero-video-20261026.webm";
 
 function warmHomepageMedia() {
   // The hero is the only large request needed behind the opening scroll.

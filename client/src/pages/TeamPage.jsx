@@ -176,7 +176,7 @@ export function TeamPage() {
         className="fixed inset-0 pointer-events-none overflow-hidden z-0"
       >
         <img
-          src="/media/common/textures/parchment-bg.webp"
+          src="/media/common/textures/parchment-bg-20261026.webp"
           alt="Ancient Parchment"
           className="w-full h-full object-cover object-center opacity-90"
         />

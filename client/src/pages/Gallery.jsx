@@ -394,7 +394,7 @@ const Gallery = () => {
       <div
         className="fixed inset-0 pointer-events-none z-0 bg-cover bg-center"
         style={{
-          backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+          backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
           transform: "translate3d(0, 0, 0)",
           backfaceVisibility: "hidden",
         }}
@@ -514,7 +514,7 @@ const Gallery = () => {
             onFocus={() => preloadPublicRoute("/")}
             className="group relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-4 sm:px-8 py-0 font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.24em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:from-[#f5dcad] hover:via-[#ebd095] hover:to-[#dfbe7e] hover:bg-[#ebd095] hover:shadow-[0_0_24px_rgba(200,140,50,0.45),0_14px_32px_rgba(40,15,5,0.35)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
             style={{
-              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
               backgroundSize: "cover",
               backgroundBlendMode: "overlay",
             }}

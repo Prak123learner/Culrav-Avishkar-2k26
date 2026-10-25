@@ -2135,7 +2135,7 @@ ol.list-decimal li {
   border-radius: 2px !important;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.92), rgba(235, 205, 155, 0.94)),
-    url("/media/common/textures/parchment-bg.webp") center / cover !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover !important;
   color: #3e2514 !important;
   box-shadow: 0 18px 45px rgba(22, 8, 2, 0.25), inset 0 0 30px rgba(105, 58, 20, 0.08) !important;
 }
@@ -2349,7 +2349,7 @@ ol.list-decimal li {
   border-radius: 2px;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.9), rgba(226, 190, 132, 0.92)),
-    url("/media/common/textures/parchment-bg.webp") center / cover !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover !important;
   color: #3e2514 !important;
   box-shadow:
     0 22px 50px rgba(22, 8, 2, 0.34),
@@ -2815,7 +2815,7 @@ ol.list-decimal li {
   border-top: 4px double #98612e !important;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.92), rgba(235, 205, 155, 0.94)),
-    url("/media/common/textures/parchment-bg.webp") center / cover !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover !important;
   color: #3e2514 !important;
   box-shadow: 0 16px 40px rgba(22, 8, 2, 0.22), inset 0 0 28px rgba(105, 58, 20, 0.08) !important;
 }
@@ -3233,7 +3233,7 @@ ol.list-decimal li {
   border-color: #91602f;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.94), rgba(225, 188, 128, 0.92)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   color: #3e2514;
   box-shadow:
     0 20px 46px rgba(22, 8, 2, 0.24),
@@ -3271,7 +3271,7 @@ ol.list-decimal li {
   border-top-color: #d3a25d;
   background:
     linear-gradient(135deg, rgba(255, 249, 228, 0.95), rgba(235, 207, 157, 0.94)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   box-shadow: 0 14px 30px rgba(69, 35, 10, 0.14);
 }
 .ca-portal.ca-staff:not(.ca-auth-screen) .ca-data-loading-caption {
@@ -3284,7 +3284,7 @@ ol.list-decimal li {
   border-radius: 2px;
   background:
     linear-gradient(135deg, rgba(255, 248, 226, 0.92), rgba(235, 204, 150, 0.88)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   box-shadow:
     inset 0 0 24px rgba(103, 56, 20, 0.08),
     inset 0 1px rgba(255, 255, 255, 0.78);
@@ -3336,7 +3336,7 @@ ol.list-decimal li {
   border-radius: 2px;
   background:
     linear-gradient(135deg, rgba(255, 253, 246, 0.97), rgba(242, 220, 176, 0.95)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   color: var(--registration-ink);
   box-shadow: 0 18px 42px rgba(63, 31, 8, 0.2);
 }
@@ -3385,7 +3385,7 @@ ol.list-decimal li {
   border-left-width: 5px !important;
   background:
     linear-gradient(135deg, rgba(255, 249, 231, 0.96), rgba(243, 217, 166, 0.94)),
-    url("/media/common/textures/parchment-bg.webp") center / cover !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover !important;
   color: #482913 !important;
   box-shadow: 0 10px 26px rgba(73, 35, 11, 0.14) !important;
 }
@@ -3396,7 +3396,7 @@ ol.list-decimal li {
   border-color: #a66a30 !important;
   background-image:
     radial-gradient(ellipse at 50% 0%, rgba(255, 250, 232, 0.92), rgba(246, 224, 178, 0.97) 54%, rgba(225, 188, 122, 0.98)),
-    url("/media/common/textures/parchment-bg.webp") !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") !important;
   box-shadow:
     0 26px 70px rgba(53, 24, 7, 0.25),
     0 5px 17px rgba(53, 24, 7, 0.14),
@@ -3494,7 +3494,7 @@ ol.list-decimal li {
   border-color: rgba(158, 96, 35, 0.62) !important;
   background:
     linear-gradient(135deg, rgba(251, 231, 187, 0.7), rgba(230, 187, 112, 0.48)),
-    url("/media/common/textures/parchment-bg.webp") center / cover !important;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover !important;
   box-shadow:
     inset 0 1px rgba(255, 251, 232, 0.7),
     0 5px 14px rgba(84, 40, 10, 0.08) !important;
@@ -4377,7 +4377,7 @@ ol.list-decimal li {
   border-radius: 2px;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.9), rgba(225, 188, 128, 0.9)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   color: #3e2514;
   box-shadow:
     0 20px 46px rgba(22, 8, 2, 0.3),
@@ -4928,7 +4928,7 @@ ol.list-decimal li {
   border-radius: 2px;
   background:
     linear-gradient(135deg, rgba(255, 247, 220, 0.94), rgba(221, 181, 119, 0.92)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   color: #3e2514;
   box-shadow:
     0 14px 30px rgba(42, 17, 5, 0.24),
@@ -4977,7 +4977,7 @@ ol.list-decimal li {
   border-color: #6c3b1b;
   background:
     linear-gradient(135deg, rgba(255, 249, 226, 0.97), rgba(229, 191, 130, 0.95)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
   color: #3e2514;
   box-shadow: 0 20px 38px rgba(42, 17, 5, 0.31);
 }
@@ -4985,7 +4985,7 @@ ol.list-decimal li {
 .ca-staff:not(.ca-auth-screen) .ca-category-tile[data-festival="culrav"]:hover:not(:disabled) {
   background:
     linear-gradient(135deg, rgba(255, 249, 226, 0.97), rgba(229, 191, 130, 0.95)),
-    url("/media/common/textures/parchment-bg.webp") center / cover;
+    url("/media/common/textures/parchment-bg-20261026.webp") center / cover;
 }
 
 @media (max-width: 760px) {

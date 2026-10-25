@@ -33,7 +33,7 @@ const LOGO_URLS = {
 };
 
 const VIDEO_URLS = {
-  heroBg: "/media/homepage/videos/hero_video.webm", // e.g., "/videos/cyberpunk-city-loop.mp4"
+  heroBg: "/media/homepage/videos/hero-video-20261026.webm", // e.g., "/videos/cyberpunk-city-loop.mp4"
   teaser: "", // e.g., "/videos/fest-teaser.mp4"
 };
 
@@ -281,7 +281,7 @@ const TeaserModal = ({ onClose, onEnterRealm }) => {
         className="relative w-full max-w-4xl overflow-hidden rounded-sm border-2 border-[#b8863b] bg-[#140b05] text-[#faeed7] shadow-[0_25px_60px_rgba(0,0,0,0.95),0_0_50px_rgba(184,134,59,0.3)] animate-in fade-in zoom-in-95 duration-200"
         onClick={(e) => e.stopPropagation()}
         style={{
-          backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+          backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
         }}
@@ -499,7 +499,7 @@ const HeroSection = () => {
             <div
               className="relative w-full border border-[#b8863b] bg-[#ebd4b0]/95 px-5 py-2.5 text-center shadow-[0_14px_35px_rgba(20,8,2,0.45),inset_0_0_24px_rgba(138,88,32,0.22)] backdrop-blur-md sm:px-8 sm:py-3.5"
               style={{
-                backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+                backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
                 backgroundSize: "cover",
                 backgroundBlendMode: "overlay",
               }}
@@ -652,7 +652,7 @@ const HeroSection = () => {
               aria-label="Witness the Teaser on Instagram Reels"
               className="group relative inline-flex h-11 sm:h-12 items-center justify-center gap-3 overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-6 sm:px-8 py-0 font-cinzel text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] sm:tracking-[0.26em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:bg-[#f5dfb8] hover:shadow-[0_0_22px_rgba(200,140,50,0.35),0_14px_32px_rgba(40,15,5,0.3)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
               style={{
-                backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+                backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
                 backgroundSize: "cover",
                 backgroundBlendMode: "overlay",
               }}
@@ -851,7 +851,7 @@ const AboutSection = () => {
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <img
-          src="/media/homepage/images/the-duality.webp"
+          src="/media/homepage/images/the-duality-20261026.webp"
           alt=""
           className="h-full w-full object-cover object-center"
         />
@@ -889,7 +889,7 @@ const AboutSection = () => {
             <div className="group relative flex flex-1 flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-1.5 hover:drop-shadow-[0_24px_48px_rgba(215,95,15,0.48)] sm:p-10">
               <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
                 <img
-                  src="/media/homepage/images/realm-card.webp"
+                  src="/media/homepage/images/realm-card-20261026.webp"
                   alt="Culrav realm card"
                   className="h-full w-full select-none object-fill"
                 />
@@ -990,7 +990,7 @@ const AboutSection = () => {
             <div className="group relative flex flex-1 flex-col items-center p-7 text-center drop-shadow-[0_14px_30px_rgba(120,50,10,0.32)] transform-gpu transition-all duration-500 ease-out hover:scale-[1.03] hover:-translate-y-1.5 hover:drop-shadow-[0_24px_48px_rgba(110,45,170,0.46)] sm:p-10">
               <div className="pointer-events-none absolute inset-0 -z-0 overflow-hidden">
                 <img
-                  src="/media/homepage/images/realm-card.webp"
+                  src="/media/homepage/images/realm-card-20261026.webp"
                   alt="Avishkar realm card"
                   className="h-full w-full select-none object-fill"
                 />
@@ -1217,7 +1217,7 @@ const GallerySection = () => {
     <section
       id="gallery"
       className="relative bg-cover bg-center pt-10 pb-8 sm:pt-14 sm:pb-12 overflow-hidden select-none"
-      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.webp')" }}
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching Two Realms */}
@@ -1349,7 +1349,7 @@ const GallerySection = () => {
             onFocus={() => preloadPublicRoute("/gallery")}
             className="group relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-3.5 sm:px-8 py-0 font-cinzel text-[10px] sm:text-xs font-bold uppercase tracking-[0.16em] sm:tracking-[0.24em] text-[#422209] shadow-[0_12px_28px_rgba(35,15,5,0.3),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-[#8c5824] hover:bg-[#f5dfb8] hover:shadow-[0_0_22px_rgba(200,140,50,0.35),0_14px_32px_rgba(40,15,5,0.3)] active:translate-y-0 active:scale-[0.98] focus:outline-none cursor-pointer box-border"
             style={{
-              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
               backgroundSize: "cover",
               backgroundBlendMode: "overlay",
             }}
@@ -1417,7 +1417,7 @@ const ArtistSection = () => {
     <section
       id="artist"
       className="relative bg-cover bg-center pt-6 pb-8 sm:pt-10 sm:pb-12 lg:pt-12 lg:pb-14 overflow-hidden select-none"
-      style={{ backgroundImage: "url('/media/common/textures/parchment-bg.webp')" }}
+      style={{ backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching the Antique Lineup Poster */}
@@ -1531,7 +1531,7 @@ const ArtistSection = () => {
           <div
             className="relative inline-flex h-11 sm:h-12 w-auto max-w-[92vw] sm:max-w-none items-center justify-center overflow-hidden rounded-sm border-2 border-[#b8863b] bg-gradient-to-b from-[#fbf2e0]/95 via-[#faeed7]/90 to-[#f3dfbc]/95 px-4 sm:px-8 py-0 font-cinzel text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.18em] sm:tracking-[0.24em] text-[#3d220f] shadow-[0_10px_24px_rgba(35,15,5,0.2),inset_0_1px_1px_rgba(255,255,255,0.7)] backdrop-blur-md box-border select-none pointer-events-none"
             style={{
-              backgroundImage: "url('/media/common/textures/parchment-bg.webp')",
+              backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
               backgroundSize: "cover",
               backgroundBlendMode: "overlay",
             }}
@@ -1676,7 +1676,7 @@ function Footer() {
       {/* High-Resolution Parchment Footer Background from uploaded asset */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
-          src="/media/homepage/images/footer-bg.webp"
+          src="/media/homepage/images/footer-bg-20261026.webp"
           onError={(e) => {
             const target = e.target;
             if (!target.src.includes("Footer.png")) {

@@ -946,7 +946,7 @@ function EventRegistration({ event, teamsData }) {
                   rounded-xs
                 "
                 style={{
-                  backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(251, 243, 228, 0.95) 55%, rgba(245, 230, 200, 0.97) 100%), url('/media/common/textures/parchment-bg.webp')",
+                  backgroundImage: "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.92) 0%, rgba(251, 243, 228, 0.95) 55%, rgba(245, 230, 200, 0.97) 100%), url('/media/common/textures/parchment-bg-20261026.webp')",
                   backgroundSize: "cover",
                 }}
               >

@@ -26,7 +26,7 @@ export const routeCriticalImages = {
   "/culrav": [CulravBG, CulravLogo, AnunaadCard, RangmanchCard, DarkroomCard],
   "/avishkar": [AvishkarBG, AvishkarLogo, CyberquestCard, ElectromaniaCard, GenesisCard],
   "/gallery": [GalleryFirst, GallerySecond],
-  "/team": ["/media/common/textures/parchment-bg.webp", ...teamFirstPortraits],
+  "/team": ["/media/common/textures/parchment-bg-20261026.webp", ...teamFirstPortraits],
 };
 
 export const mobileRouteCriticalImages = {
