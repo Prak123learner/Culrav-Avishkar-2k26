@@ -34,8 +34,6 @@ import CulravButtonPlaque from "../assets/pages/culrav/cards/CulravButtonCrop.we
 
 
 function CulravEventCard({ event, onClick, eager, mobile }) {
-  const clipPathStyle =
-    event.customClip || "inset(4.7% 2.8% 4.7% 2.3% round 8px)";
   const cardImage = mobile ? event.withHover : event.withoutHover;
 
   return (
@@ -46,21 +44,17 @@ function CulravEventCard({ event, onClick, eager, mobile }) {
       onPointerEnter={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
       onFocus={() => preloadPublicRoute(`/culrav/${event.slug}`, { images: false })}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
-      className="group relative w-full max-w-[280px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(70,25,5,0.28)] hover:drop-shadow-[0_22px_45px_rgba(190,80,15,0.45)] focus:outline-none rounded-lg"
+      className="group relative w-full max-w-[280px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] focus:outline-none rounded-lg"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-[4.7%_2.8%_4.7%_2.3%] rounded-lg shadow-[0_10px_22px_rgba(70,25,5,0.34)]"
-      />
-
       {/* Mobile opens directly in colour because touch screens have no hover state. */}
       <img
         src={cardImage}
         alt={event.name}
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg culrav-card-stone"
+        className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         style={{
-          clipPath: clipPathStyle,
-          WebkitClipPath: clipPathStyle,
+          borderRadius: "2px",
+          filter:
+            "drop-shadow(0 12px 12px rgba(57, 23, 10, 0.46)) drop-shadow(0 24px 24px rgba(101, 42, 18, 0.25))",
         }}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : "auto"}
@@ -71,11 +65,8 @@ function CulravEventCard({ event, onClick, eager, mobile }) {
         <img
           src={event.withHover}
           alt={`${event.name} Active`}
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg culrav-card-stone"
-          style={{
-            clipPath: clipPathStyle,
-            WebkitClipPath: clipPathStyle,
-          }}
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out"
+          style={{ borderRadius: "2px" }}
           loading="lazy"
           draggable={false}
         />
@@ -159,7 +150,6 @@ function CulravEvent() {
       tagline: "Photography, Cinematography & Visual Storytelling",
       withoutHover: DarkroomWithoutHover,
       withHover: DarkroomWithHover,
-      customClip: "inset(2.6% 2.6% 4.0% 2.3% round 8px)",
     },
     {
       id: "ce4",
@@ -192,7 +182,6 @@ function CulravEvent() {
       tagline: "Classical, Western & Street Dance Choreography",
       withoutHover: RazzmatazzWithoutHover,
       withHover: RazzmatazzWithHover,
-      customClip: "inset(2.6% 2.6% 4.0% 2.3% round 8px)",
     },
   ];
   const criticalAssetsReady = useImagePreloader(

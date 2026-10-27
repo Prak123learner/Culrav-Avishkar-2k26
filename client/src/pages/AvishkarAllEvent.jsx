@@ -12,8 +12,8 @@ import image from "../assets/pages/avishkar/avishkarrr-display.webp";
 import AstrogynamixWithoutHover from "../assets/pages/avishkar/cards/Astrogynamix_without_hover.webp";
 import AstrogynamixWithHover from "../assets/pages/avishkar/cards/Astrogynamix_with_hover.webp";
 
-import AstrowingWithoutHover from "../assets/pages/avishkar/cards/Astrowing_without_hover.webp";
-import AstrowingWithHover from "../assets/pages/avishkar/cards/Astrowing_with_hover.webp";
+import CosmoconWithoutHover from "../assets/pages/avishkar/cards/Cosmocon_without_hover.webp";
+import CosmoconWithHover from "../assets/pages/avishkar/cards/Cosmocon_with_hover.webp";
 
 import CyberquestWithoutHover from "../assets/pages/avishkar/cards/Cyberquest_without_hover.webp";
 import CyberquestWithHover from "../assets/pages/avishkar/cards/Cyberquest_with_hover.webp";
@@ -52,6 +52,8 @@ import RobomaniaWithoutHover from "../assets/pages/avishkar/cards/Robomania_With
 import RobomaniaWithHover from "../assets/pages/avishkar/cards/Robomania_With_Hover.webp";
 
 import ButtonPlaque from "../assets/pages/avishkar/cards/ButtonCrop.webp";
+import NexusDomainWithoutHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-a.webp";
+import NexusDomainWithHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-b.webp";
 
 
 function AvishkarEventCard({ event, onClick, eager, mobile }) {
@@ -64,21 +66,17 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
       onPointerEnter={() => preloadPublicRoute(`/avishkar/${event.slug}`, { images: false })}
       onFocus={() => preloadPublicRoute(`/avishkar/${event.slug}`, { images: false })}
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && onClick()}
-      className="group relative w-full max-w-[280px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] drop-shadow-[0_12px_28px_rgba(40,15,65,0.25)] hover:drop-shadow-[0_22px_45px_rgba(110,45,170,0.45)] focus:outline-none rounded-lg"
+      className="group relative w-full max-w-[280px] sm:max-w-[360px] aspect-[2/3] cursor-pointer select-none transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-[1.02] focus:outline-none rounded-lg"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-[4.7%_2.8%_4.7%_2.3%] rounded-lg shadow-[0_10px_22px_rgba(40,15,65,0.34)]"
-      />
-
       {/* Mobile opens directly in colour because touch screens have no hover state. */}
       <img
         src={cardImage}
         alt={event.name}
-        className="absolute inset-0 w-full h-full object-contain pointer-events-none rounded-lg avishkar-card-stone"
+        className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         style={{
-          clipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
-          WebkitClipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
+          borderRadius: "2px",
+          filter:
+            "drop-shadow(0 12px 12px rgba(47, 24, 20, 0.45)) drop-shadow(0 24px 24px rgba(77, 39, 24, 0.24))",
         }}
         loading={eager ? "eager" : "lazy"}
         fetchPriority={eager ? "high" : "auto"}
@@ -89,11 +87,7 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
         <img
           src={event.withHover}
           alt={`${event.name} Active`}
-          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out rounded-lg avishkar-card-stone"
-          style={{
-            clipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
-            WebkitClipPath: "inset(4.7% 2.8% 4.7% 2.3% round 8px)",
-          }}
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-600 ease-out"
           loading="lazy"
           draggable={false}
         />
@@ -101,7 +95,13 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
 
       {/* Event Title (Vertically aligned with the side laurel leaves at ~60%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
-        <h3 className="font-dalek text-[20px] sm:text-2xl md:text-[23px] font-black uppercase tracking-[0.16em] text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1">
+        <h3
+          className={`font-dalek sm:text-2xl md:text-[23px] font-black uppercase text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1 ${
+            event.slug === "nexus-domain"
+              ? "text-[17px] tracking-[0.09em] sm:tracking-[0.16em]"
+              : "text-[20px] tracking-[0.16em]"
+          }`}
+        >
           {event.name}
         </h3>
 
@@ -155,6 +155,14 @@ function AvishkarEvents() {
 
   const events = [
     {
+      id: "av0",
+      name: "Nexus Domain",
+      slug: "nexus-domain",
+      tagline: "Technology, Strategy & Intelligent Innovation",
+      withoutHover: NexusDomainWithoutHover,
+      withHover: NexusDomainWithHover,
+    },
+    {
       id: "av1",
       name: "CyberQuest",
       slug: "cyberquest",
@@ -189,7 +197,7 @@ function AvishkarEvents() {
     {
       id: "av5",
       name: "Mechaverse",
-      slug: "mechrocosm",
+      slug: "mechaverse",
       tagline: "Mechanical CAD, Robotics & Automobile Design",
       withoutHover: MechrocosmWithoutHover,
       withHover: MechrocosmWithHover,
@@ -236,19 +244,19 @@ function AvishkarEvents() {
     },
     {
       id: "av11",
-      name: "Aerodynamix",
-      slug: "aerodynamix",
+      name: "Aeroverse",
+      slug: "aeroverse",
       tagline: "Where Fluid Dynamics & Aerial Engineering Soar",
       withoutHover: AstrogynamixWithoutHover,
       withHover: AstrogynamixWithHover,
     },
     {
       id: "av12",
-      name: "Astrowing",
-      slug: "astrowing",
-      tagline: "Explore the Cosmos, Astrophotography & the Universe",
-      withoutHover: AstrowingWithoutHover,
-      withHover: AstrowingWithHover,
+      name: "Cosmocon",
+      slug: "cosmocon",
+      tagline: "Astronomy, Astrophysics & Cosmic Exploration",
+      withoutHover: CosmoconWithoutHover,
+      withHover: CosmoconWithHover,
     },
     {
       id: "av13",

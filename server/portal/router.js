@@ -1022,6 +1022,13 @@ router.put(
         !deadline || Number.isFinite(+deadline),
         "Invalid response update deadline",
       );
+      const deadlineChanged =
+        (deadline ? +deadline : null) !==
+        (event.responseUpdateDeadline ? +event.responseUpdateDeadline : null);
+      v.check(
+        !deadline || !deadlineChanged || +deadline > Date.now(),
+        "Response update deadline must be in the future",
+      );
       data.responseUpdateDeadline = deadline;
     }
     const fields = v.fields(req.body.fields || []);

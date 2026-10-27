@@ -1,0 +1,88 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "nexus-domain",
+  "categoryName": "Nexus Domain",
+  "eventName": "Nexus Domain",
+  "tagline": "Technology, Strategy & Intelligent Innovation",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "Code Shadow",
+      "eventId": "01",
+      "description": "",
+      "rules": [],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Darsh Shah", "contact": "7021860054" }
+      ],
+      "fixedKey": "avishkar/nexus-domain/0"
+    },
+    {
+      "eventName": "Case Comrades",
+      "eventId": "02",
+      "description": "A business, product and analytics based case competition replicating the exact product manager and data analyst recruitment process at top tech firms, assessing and sharpening quantitative, SQL/Python execution, and strategic problem-solving skills.\n\nRound 1: Online Assessment (SQL queries, data cleaning, and core product metrics evaluation)\nRound 2: PPT submission on given problem statement\nRound 3: PPT presentation (defending data-backed product recommendations and business trade-offs before a panel of industry judges)",
+      "rules": [
+        "Team participation only (2–4 members per team).",
+        "Eligibility: All.",
+        "Teams must submit all deliverables in all evaluated rounds and appear in the final round to qualify and receive certification and prizes.",
+        "Any plagiarism in SQL/Python scripts or malpractice during rounds leads to immediate disqualification.",
+        "Panel evaluation and judge decisions are final and binding."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Krish Kumar", "contact": "6204415558" }
+      ],
+      "fixedKey": "avishkar/nexus-domain/1"
+    },
+    {
+      "eventName": "Infinity Sales",
+      "eventId": "03",
+      "description": "Round 1: Online quiz based on the theme: ‘Startups and Entrepreneurship’.\n\nRound 2: Advertisement submission round based on the given problem statement.\n\nRound 3: Qualifiers of Round 2 will be required to present their startup idea using a PowerPoint presentation (not exceeding 10 slides excluding cover and Thank You slides).\n\nThe presentation must address the following questions:\na. What motivated you to take up this startup idea?\nb. Why do you think you will succeed in the chosen industry?\nc. Explain your revenue generation strategy.\nd. Explain your Marketing and Finance strategy.",
+      "rules": [
+        "Team participation only (2–4 members per team).",
+        "Eligibility: All.",
+        "Teams must submit all deliverables and appear in all evaluated rounds to qualify and receive certification and prizes.",
+        "Any plagiarism and AI malpractice during rounds leads to immediate disqualification.",
+        "Panel evaluation and judge decisions are final and binding."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Prakhar Shandilya", "contact": "9315930661" }
+      ],
+      "fixedKey": "avishkar/nexus-domain/2"
+    },
+    {
+      "eventName": "Roboverse",
+      "eventId": "04",
+      "description": "Robo Rescue is a three-round robotics competition where teams navigate obstacles, collect objects, and complete rescue missions using their robots. It tests participants’ engineering skills, problem-solving, precision, and teamwork through progressively challenging tasks.\n\nRound 1: The Initiation – Obstacle Run\nPurpose: Test basic robot control and maneuverability. Teams navigate a simple track with turns, cones and barriers within 3 minutes.\n\nRound 2: The Rescue Mission – Collect & Deliver (top 50% of teams advance)\nPurpose: Test precision, control and basic mechanical design. Teams must collect three lightweight rescue objects from different locations and deliver them to a marked safe zone.\n\nRound 3: Grand Finale\nPurpose: Combine navigation, object handling and strategy. Teams must navigate a more difficult course, collect a designated payload, cross a small ramp or narrow bridge, and deliver it to the final extraction zone.",
+      "rules": [
+        "Team participation only (3–4 members per team).",
+        "Eligibility: All. Robot must fit within 30 × 30 × 30 cm.",
+        "Round 1:\n• One official attempt per team.\n• Touching an obstacle: −5 points.\n• Completing the track: +30 points.",
+        "Round 2:\n• Time limit: 4 minutes.\n• Each successfully delivered object: +20 points.\n• Delivering the difficult-to-reach object: +30 points.\n• Dropped objects outside the zone: 0 points.",
+        "Round 3:\n• Time limit: 5 minutes.\n• Complete the course: +30 points.\n• Deliver the payload: +30 points.\n• Cross the difficult section successfully: +20 points.\n• Finish within 3 minutes: +10 bonus points.\n• Highest score wins; fastest time breaks a tie."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Ayush Kumar", "contact": "7897092845" }
+      ],
+      "fixedKey": "avishkar/nexus-domain/3"
+    },
+    {
+      "eventName": "Vimaan Challenge",
+      "eventId": "05",
+      "description": "Round 1: Flight Test (60 Seconds)\nEach participant must fly their RC plane for 60 seconds.\n\nRound 2: Arena Challenge\nParticipants must drop as many balls as possible into the designated arena during their flight. Points will be awarded based on the number of balls landing inside or near the arena. Bonus points will be awarded for a smooth landing and performing stunts during the flight.",
+      "rules": [
+        "Wingspan Limit: The wingspan of the RC plane must remain within the specified limit.",
+        "Weight-to-Thrust Ratio: The plane’s weight-to-thrust ratio must fall within the permitted range.",
+        "Single Motor: Each RC plane must use only one motor for propulsion.",
+        "Team participation only (3–4 members per team)."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Yash Chauhan", "contact": "7060573476" }
+      ],
+      "fixedKey": "avishkar/nexus-domain/4"
+    }
+  ]
+}

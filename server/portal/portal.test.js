@@ -1389,13 +1389,21 @@ test("deadlines, eligibility, expired passwords and access revocation are enforc
   );
 });
 
-test("fixed catalog import preserves all 116 existing subevents and never overwrites coordinator edits", async () => {
+test("fixed catalog import preserves all catalog subevents and never overwrites coordinator edits", async () => {
   const { seedCatalog } = require("./catalog-service");
-  assert.deepEqual(await seedCatalog(), { categories: 20, subevents: 116 });
+  const fixedCatalog = require("./registration-catalog.json");
+  const expectedSubevents = fixedCatalog.reduce(
+    (total, item) => total + item.events.length,
+    0,
+  );
+  assert.deepEqual(await seedCatalog(), {
+    categories: fixedCatalog.length,
+    subevents: expectedSubevents,
+  });
   const fixed = await models.Subevent.findOne({
     fixedKey: "avishkar/cyberquest/0",
   });
-  assert.equal(fixed.title, "Insomnia");
+  assert.equal(fixed.title, "Code of the Day");
   assert.equal(fixed.description, fixed.sourceData.description);
   fixed.description = "Coordinator edit retained";
   await fixed.save();
@@ -1406,7 +1414,7 @@ test("fixed catalog import preserves all 116 existing subevents and never overwr
   );
   assert.equal(
     await models.Subevent.countDocuments({ fixedKey: { $exists: true } }),
-    116,
+    expectedSubevents,
   );
 });
 

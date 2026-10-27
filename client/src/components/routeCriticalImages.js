@@ -10,10 +10,10 @@ import RangmanchCardColor from "../assets/pages/culrav/cards/Rangmanch_with_hove
 import DarkroomCardColor from "../assets/pages/culrav/cards/Darkroom_with_Hover.webp";
 import CyberquestCard from "../assets/pages/avishkar/cards/Cyberquest_without_hover.webp";
 import ElectromaniaCard from "../assets/pages/avishkar/cards/Electromania_withouthover.webp";
-import GenesisCard from "../assets/pages/avishkar/cards/Genesis_without_hover.webp";
 import CyberquestCardColor from "../assets/pages/avishkar/cards/Cyberquest_with_hover.webp";
 import ElectromaniaCardColor from "../assets/pages/avishkar/cards/Electromania_with_hover.webp";
-import GenesisCardColor from "../assets/pages/avishkar/cards/Genesis_with_hover.webp";
+import NexusDomainCard from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-a.webp";
+import NexusDomainCardColor from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-b.webp";
 import SACPortrait from "../data/Team/sac_president/dr_sushil kumar.png";
 import FacultyPortrait from "../data/Team/Faculty_incharge/SameerSir.jpeg";
 import FacultySecondPortrait from "../data/Team/Faculty_incharge/VP_singh_sir.png";
@@ -24,12 +24,12 @@ export const teamFirstPortraits = [SACPortrait, FacultyPortrait, FacultySecondPo
 
 export const routeCriticalImages = {
   "/culrav": [CulravBG, CulravLogo, AnunaadCard, RangmanchCard, DarkroomCard],
-  "/avishkar": [AvishkarBG, AvishkarLogo, CyberquestCard, ElectromaniaCard, GenesisCard],
+  "/avishkar": [AvishkarBG, AvishkarLogo, NexusDomainCard, CyberquestCard, ElectromaniaCard],
   "/gallery": [GalleryFirst, GallerySecond],
   "/team": ["/media/common/textures/parchment-bg-20261026.webp", ...teamFirstPortraits],
 };
 
 export const mobileRouteCriticalImages = {
   "/culrav": [CulravBG, CulravLogo, AnunaadCardColor, RangmanchCardColor, DarkroomCardColor],
-  "/avishkar": [AvishkarBG, AvishkarLogo, CyberquestCardColor, ElectromaniaCardColor, GenesisCardColor],
+  "/avishkar": [AvishkarBG, AvishkarLogo, NexusDomainCardColor, CyberquestCardColor, ElectromaniaCardColor],
 };

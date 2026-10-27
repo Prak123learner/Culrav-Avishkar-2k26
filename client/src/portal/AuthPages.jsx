@@ -26,6 +26,39 @@ function AuthArt() {
   );
 }
 
+function PasswordField({ label, ...inputProps }) {
+  const [visible, setVisible] = useState(false);
+  const actionLabel = visible ? "Hide password" : "Show password";
+
+  return (
+    <label>
+      {label}
+      <span className="ca-password-field">
+        <input {...inputProps} type={visible ? "text" : "password"} />
+        <button
+          type="button"
+          className="ca-password-toggle"
+          onClick={() => setVisible((current) => !current)}
+          aria-label={actionLabel}
+          aria-pressed={visible}
+          title={actionLabel}
+        >
+          {visible ? (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 3l18 18M10.6 10.7a2 2 0 002.7 2.7M9.9 4.2A10.7 10.7 0 0112 4c5.5 0 9 5.2 9 5.2a14.7 14.7 0 01-2.2 2.7M6.3 6.3C4.2 7.7 3 9.2 3 9.2S6.5 16 12 16a9.3 9.3 0 003.1-.6" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 12s3.5-6 9-6 9 6 9 6-3.5 6-9 6-9-6-9-6z" />
+              <circle cx="12" cy="12" r="2.5" />
+            </svg>
+          )}
+        </button>
+      </span>
+    </label>
+  );
+}
+
 export function GoogleLogin() {
   const location = useLocation();
   const returnTo = location.state?.returnTo;
@@ -206,10 +239,6 @@ export function GoogleLogin() {
               {error}
             </p>
           )}
-          <Link to="/coordinator/login">
-            <span>Coordinator / admin login</span>
-            <span>➔</span>
-          </Link>
         </div>
       </section>
     </main>
@@ -279,16 +308,13 @@ export function StaffLogin({ adminLogin = false }) {
               className="ca-input-email"
             />
           </label>
-          <label>
-            Password
-            <input
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              maxLength={128}
-              required
-            />
-          </label>
+          <PasswordField
+            label="Password"
+            name="password"
+            autoComplete="current-password"
+            maxLength={128}
+            required
+          />
           <button
             type="submit"
             disabled={busy}
@@ -352,39 +378,30 @@ export function ChangeStaffPassword() {
           <p className="ca-auth-subline">
             {staff.email} · Replace your temporary password to continue.
           </p>
-          <label>
-            Temporary password
-            <input
-              name="currentPassword"
-              type="password"
-              autoComplete="current-password"
-              required
-              maxLength={128}
-            />
-          </label>
-          <label>
-            New password
-            <input
-              name="newPassword"
-              type="password"
-              autoComplete="new-password"
-              minLength={12}
-              maxLength={128}
-              required
-            />
-          </label>
+          <PasswordField
+            label="Temporary password"
+            name="currentPassword"
+            autoComplete="current-password"
+            required
+            maxLength={128}
+          />
+          <PasswordField
+            label="New password"
+            name="newPassword"
+            autoComplete="new-password"
+            minLength={12}
+            maxLength={128}
+            required
+          />
           <small>
             Use at least 12 characters including a letter and a number.
           </small>
-          <label>
-            Confirm password
-            <input
-              name="confirm"
-              type="password"
-              autoComplete="new-password"
-              required
-            />
-          </label>
+          <PasswordField
+            label="Confirm password"
+            name="confirm"
+            autoComplete="new-password"
+            required
+          />
           <button type="submit" disabled={busy} className="ca-primary-btn">
             {busy ? "Saving…" : "Set Password"}
           </button>

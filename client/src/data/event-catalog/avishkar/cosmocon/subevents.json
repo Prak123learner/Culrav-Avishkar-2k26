@@ -1,0 +1,91 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "cosmocon",
+  "categoryName": "Cosmocon",
+  "eventName": "Cosmocon",
+  "tagline": "Explore the Universe of Curiosity",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "Eridian Quest",
+      "eventId": "01",
+      "description": "An astronomy quiz and treasure hunt combining astronomical knowledge, astrophysics concepts, scientific trivia, and logical reasoning. Participants decode ciphers, solve location-based puzzles, and navigate a series of campus checkpoints to complete the challenge.",
+      "rules": [
+        "Team Size: 3 members (at least 1 female member is compulsory).",
+        "Qualification: Only the top 10 teams from the Quiz (Round 1) will advance to the Escape/Hunt (Round 2).",
+        "Round 1 Format: Written prelims covering Astronomy basics, Astrophysics concepts, and Sci-Fi trivia.",
+        "Round 2 Format: Teams receive a \"Cipher.\" Decoding it reveals a location. At the location, a physical or logical puzzle must be solved to get the next coordinate."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Divyansh Agarwal", "contact": "9569090638" }
+      ],
+      "fixedKey": "avishkar/cosmocon/0"
+    },
+    {
+      "eventName": "Grace’s Dilemma",
+      "eventId": "02",
+      "description": "A scientific case study challenge focused on theoretical astrophysical scenarios and space-related problems. Participants analyse provided datasets, establish assumptions, apply relevant physical principles, and develop mathematically sound conclusions supported by scientific reasoning.",
+      "rules": [
+        "Eligibility: Open to students of all departments and academic years.",
+        "Team Structure: 1–4 members per team.",
+        "The Challenge: Participants will analyse theoretical astrophysical scenarios and space-related problems using provided datasets, scientific principles, and mathematical reasoning.",
+        "Submission & Evaluation:\nSubmission: Teams must submit a concise, 2-page case study solution proposal.\nFinal Evaluation: Selected teams will present their solutions, respond to an updated scenario, and participate in a Q&A session.",
+        "Judging: Criteria include Scientific Reasoning & Technical Accuracy, Feasibility, Innovation, and Presentation & Defense. The decision of the judges and organizing committee will be final."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Anurag Ranjan", "contact": "6200798368" }
+      ],
+      "fixedKey": "avishkar/cosmocon/1"
+    },
+    {
+      "eventName": "Cosmic Frames",
+      "eventId": "03",
+      "description": "A celestial photography competition inviting participants to capture the beauty of the night sky, astronomical objects, and celestial phenomena. Featuring mobile photography and DSLR/deep-sky categories, the event combines photographic creativity with an appreciation of astronomy.",
+      "rules": [
+        "Eligibility: All branches across all years and courses are allowed.",
+        "Team Structure: Solo.",
+        "Categories: Mobile Photography & DSLR/Deep Sky.",
+        "Originality: All photos must be taken by the participant. Plagiarism will lead to disqualification.",
+        "Editing: Basic color grading/cropping is allowed. Manipulation (adding fake moons/stars via Photoshop) is forbidden.",
+        "Submission: Submit raw files and processed JPEG (if any) with EXIF data visible. Also mention a suitable caption for your submission."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Bhumika Chahar", "contact": "9257944607" }
+      ],
+      "fixedKey": "avishkar/cosmocon/2"
+    },
+    {
+      "eventName": "Project Amaze",
+      "eventId": "04",
+      "description": "An engineering ideathon focused on innovative and feasible solutions to challenges in space exploration and extraterrestrial environments. Participants develop concepts across habitat design, autonomous systems, power systems, and structural engineering, supported by technical representations such as CAD models, flowcharts, circuit diagrams, or code.",
+      "rules": [
+        "Eligibility: Open to all departments across all years.",
+        "Team Structure: Solo to 3 members.",
+        "The Challenge: Detailed Problem Statements will be released 2 days prior. Tracks cover Habitat Design, Autonomous Systems, Power Systems and structural upgrades etc.",
+        "Submission:\nRound 1: Detailed Abstract Submission.\nRound 2: Teams must present a PowerPoint presentation and a conceptual proof (CAD model, Flowchart, Circuit Diagram, or Code).",
+        "Judging: Criteria include Technical Feasibility (40%), Innovation (30%), and Presentation Quality (30%). The decision of the judges and organizing committee will be final."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Abhinav Anand", "contact": "6206876633" }
+      ],
+      "fixedKey": "avishkar/cosmocon/3"
+    },
+    {
+      "eventName": "Galactic Gaze",
+      "eventId": "05",
+      "description": "An astronomical observation experience featuring telescopic views of the Moon, planets, and other observable celestial objects. Participants explore constellations, learn about their mythology, and experience the wonders of the night sky through guided observation.",
+      "rules": [
+        "Eligibility: Open to all departments and years."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Krishna Raj Agrawal", "contact": "7479922089" }
+      ],
+      "fixedKey": "avishkar/cosmocon/4"
+    }
+  ]
+}

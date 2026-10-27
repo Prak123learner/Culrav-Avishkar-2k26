@@ -1,14 +1,229 @@
 {
-  "festival":"avishkar","categorySlug":"mechrocosm","categoryName":"Mechaverse","eventName":"Mechaverse","tagline":"Mechanical Innovation, Manufacturing & Intelligent Engineering","instagramLink":"",
-  "events":[
-    {"eventName":"AlgoForge","registrationLink":"","eventId":"algoforge","description":"A competitive programming and algorithmic problem-solving contest designed to test participants' proficiency in Data Structures and Algorithms, computational thinking, and algorithm analysis. The event goes beyond conventional DSA problems by challenging participants with advanced algorithmic concepts, optimization techniques, and problems requiring efficient and well-reasoned solutions.","rules":["Open to 1st, 2nd and 3rd year students of Engineering and Computational Mechanics, Materials Engineering, and other branches.","Participants can compete individually or in teams of up to 2 members.","The event consists of a coding qualifier followed by an advanced algorithmic round.","Problems cover DSA, competitive programming, heaps, greedy algorithms, divide and conquer, dynamic programming, graph algorithms and other algorithmic techniques.","Solutions are evaluated on correctness, efficiency and time/space complexity.","Plagiarism, code sharing and unauthorized assistance are strictly prohibited.","The judges' and organizers' decision is final and binding."],"coordinators":[{"name":"Harshit Kumar","contact":"7830080485"}],"fixedKey":"avishkar/mechrocosm/0"},
-    {"eventName":"ModelForge","registrationLink":"","eventId":"modelforge","description":"A machine learning challenge where participants explore datasets, identify patterns, develop predictive models and solve an engineering-oriented problem using data science and machine learning techniques. Designed for students across different experience levels, the event encourages practical learning, experimentation, model evaluation and innovative problem-solving.","rules":["Open to 1st, 2nd and 3rd year students of Engineering and Computational Mechanics, Materials Engineering, and other branches.","Team size: 2–3 members. Cross-year teams are allowed.","The event provides a common dataset and a clearly defined prediction task.","Participants analyze the data, build machine learning models and submit predictions with a brief explanation of their approach.","Evaluation considers predictive performance, data analysis, methodology, reproducibility and model interpretation.","Participants must submit their own work and follow the permitted tools and resources policy announced by the organizers.","Plagiarism, manipulation of evaluation data and unauthorized collaboration may lead to disqualification.","The judges' and organizers' decision is final and binding."],"coordinators":[{"name":"Harshit Kumar","contact":"7830080485"}],"fixedKey":"avishkar/mechrocosm/1"},
-    {"eventName":"Game of Codes","registrationLink":"","eventId":"game-of-codes","description":"A coding battle tournament with knockout duels. Solve problems faster than opponents—no AI tools allowed. Clean logic and full test-case passes are required.","rules":["Team of 3, with 1 Mechanical Engineering student compulsory and 2 members from any branch.","No AI models are allowed.","All test cases must pass to be considered correct.","If there are more than 16 teams, an online timed qualifier is held before the offline knockout bracket.","Ranking is based on time and accuracy."],"coordinators":[{"name":"Shiva Bhadauriya","contact":"9519303871"},{"name":"Kunal Singh","contact":"7379563251"}],"fixedKey":"avishkar/mechrocosm/2"},
-    {"eventName":"MechMind","registrationLink":"","eventId":"mechmind","description":"MechMind is an AI/ML-based technical event that challenges participants to apply machine learning, deep learning, and intelligent algorithms to solve real-world engineering problems. It encourages innovation, analytical thinking, and hands-on model development, bridging the gap between mechanical engineering and artificial intelligence.\n\nStage 1: Abstract Submission\nStage 2: Mid-evaluation\nStage 3: Final evaluation","rules":["Team size: 2–4 members, with one optional member from another branch.","The team leader must belong to MECH, PIE, ECM, or Materials Engineering.","Round 1: Abstract submission for the selected problem statement.","Round 2: Mid-term evaluation of project progress.","Round 3: Final evaluation and project demonstration.","Plagiarism is strictly prohibited.","Evaluation is based on innovation, technical implementation, model performance, and presentation.","All submissions must adhere to the prescribed timeline."],"coordinators":[{"name":"Sankalp Sharma","contact":"6350385301"},{"name":"Apoorva Pandey","contact":"8924848507"}],"fixedKey":"avishkar/mechrocosm/3"},
-    {"eventName":"Automax","registrationLink":"","eventId":"automax","description":"","rules":[],"coordinators":[{"name":"Jitendra Singh","contact":"9302289247"},{"name":"Ayush Gupta","contact":"7060399250"},{"name":"Saundarya S. Srivastava","contact":"9696889204"}],"fixedKey":"avishkar/mechrocosm/4"},
-    {"eventName":"ReVolve","registrationLink":"","eventId":"revolve","description":"ReVolve is a hands-on mechanical design challenge designed to test participants' ability to interpret engineering requirements, create accurate CAD models, understand component geometry, and reverse-engineer real mechanical components.\n\nStage 1 – Blueprint to CAD: Participants receive an engineering requirement or drawing and create the component in SolidWorks.\n\nStage 2 – Reverse Engineering: Participants inspect and measure a physical mechanical component using the provided instruments, then recreate it accurately in SolidWorks.\n\nThe competition evaluates the final CAD model, measurement accuracy, engineering judgement, modelling approach, drawing interpretation, and time management.","rules":["The event consists of Blueprint to CAD and Reverse Engineering rounds.","Participants must use SolidWorks for all CAD modelling.","Each round must be completed within the given time limit.","For Reverse Engineering, participants may inspect and measure the component using only the provided instruments.","Participants must not damage, modify, or disassemble the component.","Pre-existing CAD models, online resources, or copied designs are strictly prohibited.","The submitted CAD model must be created during the event and remain editable.","Evaluation is based on accuracy, modelling approach, measurement, and time.","Any form of cheating or plagiarism leads to disqualification.","The judges' decision is final and binding."],"coordinators":[{"name":"Sahl A. Khan","contact":"7454981596"},{"name":"Pranjal Asthana","contact":"9219229480"},{"name":"Sparsh Chitlangia","contact":"8318133352"}],"fixedKey":"avishkar/mechrocosm/5"},
-    {"eventName":"Triathlon","registrationLink":"https://forms.gle/bjyacgDLSEtPQTCM7","eventId":"triathlon","description":"A placement-simulation event designed to provide real-time exposure to campus recruitment. Participants face aptitude rounds, technical/consultancy interviews and behavioural assessments—mimicking real company hiring formats.","rules":["Branches allowed: ME, PIE, ECM, MTE.","Individual participation only.","Compulsory for 1st, 2nd and 3rd year ME/PIE/ECM/Material Engineering students.","Participants may attempt only one track or a specified combination.","Core Track: Rounds 2 and 3.","Consultancy Track: Rounds 1, 2 and 3.","Software Track: Rounds 1, 2 and 3.","Round 1: Aptitude / Technical Screening.","Round 2: HR / Behavioural + Technical Interview.","Round 3: Final Round (Offline)."],"coordinators":[],"fixedKey":"avishkar/mechrocosm/6"},
-    {"eventName":"Prod-O-Mania","registrationLink":"","eventId":"prod-o-mania","description":"A high-intensity product and analytics case competition replicating the product manager and data analyst recruitment process at top tech firms, assessing quantitative, SQL/Python execution, and strategic problem-solving skills.\n\nRound 1: Online Assessment — SQL queries, data cleaning, and core product metrics evaluation.\nRound 2: Puzzles & Guesstimate Round.\nRound 3: Executive Pitch & Personal Interview — defending data-backed product recommendations and business trade-offs before a panel of industry judges.","rules":["Team participation: 1–3 members per team, including one Mechanical Engineering student.","Eligibility: 1st, 2nd, and 3rd year students only.","Teams must submit all deliverables and appear in all evaluated rounds to qualify and receive certification.","Any plagiarism in SQL/Python scripts or malpractice during presentations leads to immediate disqualification.","Panel evaluation and judge decisions are final and binding."],"coordinators":[{"name":"Somay","contact":"9520543599"},{"name":"Hirdesh Mehrotra","contact":"7839076612"}],"fixedKey":"avishkar/mechrocosm/7"},
-    {"eventName":"Chain of Chaos","registrationLink":"","eventId":"chain-of-chaos","description":"A flagship operations-simulation event replicating high-stakes supply chain consulting engagements, assessing quantitative optimization, responsible AI utilization, and live crisis-management skills.\n\nRound 1: Quantitative Supply-Chain Assessment — staged data processing, inventory cost calculations, and network optimization.\nRound 2: Live Disruption & Strategy Round — adapting operational plans in real time under sudden budget, supplier, or capacity constraints.\nRound 3: Executive Defense & Client Q&A — defending analytical assumptions, risk trade-offs, and implementation feasibility against judge questioning.","rules":["Team participation only: 3–4 members per team.","Eligibility: 1st, 2nd, and 3rd year students only.","Teams must participate in both the Quantitative Case Round and the Live Disruption Round to qualify and receive certification.","Any unvalidated AI usage, dataset manipulation, or misconduct during live client Q&A leads to immediate disqualification.","Panel evaluation and client decisions are final and binding."],"coordinators":[{"name":"Siddham","contact":"6376164933"},{"name":"Shivanshu","contact":"8112307186"}],"fixedKey":"avishkar/mechrocosm/8"}
+  "festival": "avishkar",
+  "categorySlug": "mechaverse",
+  "categoryName": "Mechaverse",
+  "eventName": "Mechaverse",
+  "tagline": "Mechanical Innovation, Manufacturing & Intelligent Engineering",
+  "instagramLink": "",
+  "events": [
+    {
+      "eventName": "AlgoForge",
+      "registrationLink": "",
+      "eventId": "algoforge",
+      "description": "A competitive programming and algorithmic problem-solving contest designed to test participants' proficiency in Data Structures and Algorithms, computational thinking, and algorithm analysis. The event goes beyond conventional DSA problems by challenging participants with advanced algorithmic concepts, optimization techniques, and problems requiring efficient and well-reasoned solutions.",
+      "rules": [
+        "Open to 1st, 2nd and 3rd year students of Engineering and Computational Mechanics, Materials Engineering, and other branches.",
+        "Participants can compete individually or in teams of up to 2 members.",
+        "The event consists of a coding qualifier followed by an advanced algorithmic round.",
+        "Problems cover DSA, competitive programming, heaps, greedy algorithms, divide and conquer, dynamic programming, graph algorithms and other algorithmic techniques.",
+        "Solutions are evaluated on correctness, efficiency and time/space complexity.",
+        "Plagiarism, code sharing and unauthorized assistance are strictly prohibited.",
+        "The judges' and organizers' decision is final and binding."
+      ],
+      "coordinators": [
+        {
+          "name": "Harshit Kumar",
+          "contact": "7830080485"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/0"
+    },
+    {
+      "eventName": "ModelForge",
+      "registrationLink": "",
+      "eventId": "modelforge",
+      "description": "A machine learning challenge where participants explore datasets, identify patterns, develop predictive models and solve an engineering-oriented problem using data science and machine learning techniques. Designed for students across different experience levels, the event encourages practical learning, experimentation, model evaluation and innovative problem-solving.",
+      "rules": [
+        "Open to 1st, 2nd and 3rd year students of Engineering and Computational Mechanics, Materials Engineering, and other branches.",
+        "Team size: 2–3 members. Cross-year teams are allowed.",
+        "The event provides a common dataset and a clearly defined prediction task.",
+        "Participants analyze the data, build machine learning models and submit predictions with a brief explanation of their approach.",
+        "Evaluation considers predictive performance, data analysis, methodology, reproducibility and model interpretation.",
+        "Participants must submit their own work and follow the permitted tools and resources policy announced by the organizers.",
+        "Plagiarism, manipulation of evaluation data and unauthorized collaboration may lead to disqualification.",
+        "The judges' and organizers' decision is final and binding."
+      ],
+      "coordinators": [
+        {
+          "name": "Harshit Kumar",
+          "contact": "7830080485"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/1"
+    },
+    {
+      "eventName": "Game of Codes",
+      "registrationLink": "",
+      "eventId": "game-of-codes",
+      "description": "A coding battle tournament with knockout duels. Solve problems faster than opponents—no AI tools allowed. Clean logic and full test-case passes are required.",
+      "rules": [
+        "Team of 3, with 1 Mechanical Engineering student compulsory and 2 members from any branch.",
+        "No AI models are allowed.",
+        "All test cases must pass to be considered correct.",
+        "If there are more than 16 teams, an online timed qualifier is held before the offline knockout bracket.",
+        "Ranking is based on time and accuracy."
+      ],
+      "coordinators": [
+        {
+          "name": "Shiva Bhadauriya",
+          "contact": "9519303871"
+        },
+        {
+          "name": "Kunal Singh",
+          "contact": "7379563251"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/2"
+    },
+    {
+      "eventName": "MechMind",
+      "registrationLink": "",
+      "eventId": "mechmind",
+      "description": "MechMind is an AI/ML-based technical event that challenges participants to apply machine learning, deep learning, and intelligent algorithms to solve real-world engineering problems. It encourages innovation, analytical thinking, and hands-on model development, bridging the gap between mechanical engineering and artificial intelligence.\n\nStage 1: Abstract Submission\nStage 2: Mid-evaluation\nStage 3: Final evaluation",
+      "rules": [
+        "Team size: 2–4 members, with one optional member from another branch.",
+        "The team leader must belong to MECH, PIE, ECM, or Materials Engineering.",
+        "Round 1: Abstract submission for the selected problem statement.",
+        "Round 2: Mid-term evaluation of project progress.",
+        "Round 3: Final evaluation and project demonstration.",
+        "Plagiarism is strictly prohibited.",
+        "Evaluation is based on innovation, technical implementation, model performance, and presentation.",
+        "All submissions must adhere to the prescribed timeline."
+      ],
+      "coordinators": [
+        {
+          "name": "Sankalp Sharma",
+          "contact": "6350385301"
+        },
+        {
+          "name": "Apoorva Pandey",
+          "contact": "8924848507"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/3"
+    },
+    {
+      "eventName": "Automax",
+      "registrationLink": "",
+      "eventId": "automax",
+      "description": "",
+      "rules": [],
+      "coordinators": [
+        {
+          "name": "Jitendra Singh",
+          "contact": "9302289247"
+        },
+        {
+          "name": "Ayush Gupta",
+          "contact": "7060399250"
+        },
+        {
+          "name": "Saundarya S. Srivastava",
+          "contact": "9696889204"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/4"
+    },
+    {
+      "eventName": "ReVolve",
+      "registrationLink": "",
+      "eventId": "revolve",
+      "description": "ReVolve is a hands-on mechanical design challenge designed to test participants' ability to interpret engineering requirements, create accurate CAD models, understand component geometry, and reverse-engineer real mechanical components.\n\nStage 1 – Blueprint to CAD: Participants receive an engineering requirement or drawing and create the component in SolidWorks.\n\nStage 2 – Reverse Engineering: Participants inspect and measure a physical mechanical component using the provided instruments, then recreate it accurately in SolidWorks.\n\nThe competition evaluates the final CAD model, measurement accuracy, engineering judgement, modelling approach, drawing interpretation, and time management.",
+      "rules": [
+        "The event consists of Blueprint to CAD and Reverse Engineering rounds.",
+        "Participants must use SolidWorks for all CAD modelling.",
+        "Each round must be completed within the given time limit.",
+        "For Reverse Engineering, participants may inspect and measure the component using only the provided instruments.",
+        "Participants must not damage, modify, or disassemble the component.",
+        "Pre-existing CAD models, online resources, or copied designs are strictly prohibited.",
+        "The submitted CAD model must be created during the event and remain editable.",
+        "Evaluation is based on accuracy, modelling approach, measurement, and time.",
+        "Any form of cheating or plagiarism leads to disqualification.",
+        "The judges' decision is final and binding."
+      ],
+      "coordinators": [
+        {
+          "name": "Sahl A. Khan",
+          "contact": "7454981596"
+        },
+        {
+          "name": "Pranjal Asthana",
+          "contact": "9219229480"
+        },
+        {
+          "name": "Sparsh Chitlangia",
+          "contact": "8318133352"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/5"
+    },
+    {
+      "eventName": "Triathlon",
+      "registrationLink": "https://forms.gle/bjyacgDLSEtPQTCM7",
+      "eventId": "triathlon",
+      "description": "A placement-simulation event designed to provide real-time exposure to campus recruitment. Participants face aptitude rounds, technical/consultancy interviews and behavioural assessments—mimicking real company hiring formats.",
+      "rules": [
+        "Branches allowed: ME, PIE, ECM, MTE.",
+        "Individual participation only.",
+        "Compulsory for 1st, 2nd and 3rd year ME/PIE/ECM/Material Engineering students.",
+        "Participants may attempt only one track or a specified combination.",
+        "Core Track: Rounds 2 and 3.",
+        "Consultancy Track: Rounds 1, 2 and 3.",
+        "Software Track: Rounds 1, 2 and 3.",
+        "Round 1: Aptitude / Technical Screening.",
+        "Round 2: HR / Behavioural + Technical Interview.",
+        "Round 3: Final Round (Offline)."
+      ],
+      "coordinators": [],
+      "fixedKey": "avishkar/mechaverse/6"
+    },
+    {
+      "eventName": "Prod-O-Mania",
+      "registrationLink": "",
+      "eventId": "prod-o-mania",
+      "description": "A high-intensity product and analytics case competition replicating the product manager and data analyst recruitment process at top tech firms, assessing quantitative, SQL/Python execution, and strategic problem-solving skills.\n\nRound 1: Online Assessment — SQL queries, data cleaning, and core product metrics evaluation.\nRound 2: Puzzles & Guesstimate Round.\nRound 3: Executive Pitch & Personal Interview — defending data-backed product recommendations and business trade-offs before a panel of industry judges.",
+      "rules": [
+        "Team participation: 1–3 members per team, including one Mechanical Engineering student.",
+        "Eligibility: 1st, 2nd, and 3rd year students only.",
+        "Teams must submit all deliverables and appear in all evaluated rounds to qualify and receive certification.",
+        "Any plagiarism in SQL/Python scripts or malpractice during presentations leads to immediate disqualification.",
+        "Panel evaluation and judge decisions are final and binding."
+      ],
+      "coordinators": [
+        {
+          "name": "Somay",
+          "contact": "9520543599"
+        },
+        {
+          "name": "Hirdesh Mehrotra",
+          "contact": "7839076612"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/7"
+    },
+    {
+      "eventName": "Chain of Chaos",
+      "registrationLink": "",
+      "eventId": "chain-of-chaos",
+      "description": "A flagship operations-simulation event replicating high-stakes supply chain consulting engagements, assessing quantitative optimization, responsible AI utilization, and live crisis-management skills.\n\nRound 1: Quantitative Supply-Chain Assessment — staged data processing, inventory cost calculations, and network optimization.\nRound 2: Live Disruption & Strategy Round — adapting operational plans in real time under sudden budget, supplier, or capacity constraints.\nRound 3: Executive Defense & Client Q&A — defending analytical assumptions, risk trade-offs, and implementation feasibility against judge questioning.",
+      "rules": [
+        "Team participation only: 3–4 members per team.",
+        "Eligibility: 1st, 2nd, and 3rd year students only.",
+        "Teams must participate in both the Quantitative Case Round and the Live Disruption Round to qualify and receive certification.",
+        "Any unvalidated AI usage, dataset manipulation, or misconduct during live client Q&A leads to immediate disqualification.",
+        "Panel evaluation and client decisions are final and binding."
+      ],
+      "coordinators": [
+        {
+          "name": "Siddham",
+          "contact": "6376164933"
+        },
+        {
+          "name": "Shivanshu",
+          "contact": "8112307186"
+        }
+      ],
+      "fixedKey": "avishkar/mechaverse/8"
+    }
   ]
 }

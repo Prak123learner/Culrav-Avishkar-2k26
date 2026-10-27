@@ -199,17 +199,19 @@ export function TeamPage() {
               <button
                 key={team.id}
                 onClick={() => handleNavClick(team.id)}
-                className={`group relative flex items-center justify-between w-full px-3.5 py-2.5 rounded-sm font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 text-left cursor-pointer ${
+                className={`group relative flex items-start justify-between w-full px-3.5 py-2.5 rounded-sm font-cinzel text-xs font-bold uppercase tracking-wider transition-all duration-200 text-left cursor-pointer ${
                   isActive
                     ? "bg-gradient-to-r from-[#381f0d] to-[#251509] text-[#f3cf8a] border-l-4 border-[#c4681f] border-y border-r border-[#b88c4b]/50 shadow-sm pl-4"
                     : "text-[#d4b48d] hover:text-[#f3cf8a] hover:bg-[#28160a]/80 hover:pl-4 border-l-4 border-transparent"
                 }`}
               >
-                <span className="truncate pr-2">{team.name}</span>
+                <span className="min-w-0 flex-1 whitespace-normal break-words pr-3 leading-snug">
+                  {team.name}
+                </span>
                 {isActive ? (
-                  <span className="text-[#f3cf8a] text-xs shrink-0">✦</span>
+                  <span className="self-center text-[#f3cf8a] text-xs shrink-0">✦</span>
                 ) : (
-                  <span className="text-[10px] text-[#8c6536] shrink-0 group-hover:text-[#d4a259]">
+                  <span className="self-center text-[10px] text-[#8c6536] shrink-0 group-hover:text-[#d4a259]">
                     {team.members.length}
                   </span>
                 )}

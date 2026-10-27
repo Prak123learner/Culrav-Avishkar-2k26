@@ -1,75 +1,118 @@
 [
   {
     "festival": "avishkar",
-    "slug": "aerodynamix",
-    "name": "Aerodynamix",
+    "slug": "nexus-domain",
+    "name": "Nexus Domain",
     "events": [
       {
-        "fixedKey": "avishkar/aerodynamix/0",
-        "title": "VISIONQUEST",
-        "minTeamSize": 1,
+        "fixedKey": "avishkar/nexus-domain/0",
+        "title": "Code Shadow",
+        "minTeamSize": 3,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/aerodynamix/1",
-        "title": "FALCON",
-        "minTeamSize": 1,
+        "fixedKey": "avishkar/nexus-domain/1",
+        "title": "Case Comrades",
+        "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/aerodynamix/2",
-        "title": "HOVERTROUBLE",
-        "minTeamSize": 1,
+        "fixedKey": "avishkar/nexus-domain/2",
+        "title": "Infinity Sales",
+        "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/aerodynamix/3",
-        "title": "AERONEXUS",
-        "minTeamSize": 1,
+        "fixedKey": "avishkar/nexus-domain/3",
+        "title": "Roboverse",
+        "minTeamSize": 3,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/nexus-domain/4",
+        "title": "Vimaan Challenge",
+        "minTeamSize": 3,
         "maxTeamSize": 4
       }
     ]
   },
   {
     "festival": "avishkar",
-    "slug": "astrowing",
-    "name": "Astrowing",
+    "slug": "aeroverse",
+    "name": "Aeroverse",
     "events": [
       {
-        "fixedKey": "avishkar/astrowing/0",
-        "title": "Starfall Studio",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
-      },
-      {
-        "fixedKey": "avishkar/astrowing/1",
-        "title": "The Death Star Escape",
+        "fixedKey": "avishkar/aeroverse/0",
+        "title": "SkyVision",
         "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/astrowing/2",
-        "title": "The Jedi Trials",
+        "fixedKey": "avishkar/aeroverse/1",
+        "title": "Hover Guardian",
+        "minTeamSize": 2,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/aeroverse/2",
+        "title": "Project Agamotto",
+        "minTeamSize": 2,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/aeroverse/3",
+        "title": "Fight for a Soul",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
-        "fixedKey": "avishkar/astrowing/3",
-        "title": "The Skywalker Night",
-        "minTeamSize": 1,
-        "maxTeamSize": 10
+        "fixedKey": "avishkar/aeroverse/4",
+        "title": "Loki's Glider",
+        "minTeamSize": 2,
+        "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/astrowing/4",
-        "title": "Galactic ThinkTank",
+        "fixedKey": "avishkar/aeroverse/5",
+        "title": "Reality Check",
+        "minTeamSize": 2,
+        "maxTeamSize": 4
+      }
+    ]
+  },
+  {
+    "festival": "avishkar",
+    "slug": "cosmocon",
+    "name": "Cosmocon",
+    "events": [
+      {
+        "fixedKey": "avishkar/cosmocon/0",
+        "title": "Eridian Quest",
+        "minTeamSize": 3,
+        "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/cosmocon/1",
+        "title": "Grace’s Dilemma",
+        "minTeamSize": 1,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/cosmocon/2",
+        "title": "Cosmic Frames",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "avishkar/cosmocon/3",
+        "title": "Project Amaze",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/astrowing/5",
-        "title": "AetherHack",
-        "minTeamSize": 2,
-        "maxTeamSize": 4
+        "fixedKey": "avishkar/cosmocon/4",
+        "title": "Galactic Gaze",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
       }
     ]
   },
@@ -294,7 +337,7 @@
       },
       {
         "fixedKey": "avishkar/kreedomania/1",
-        "title": "BGMI",
+        "title": "Battle Grounds Mobile India",
         "minTeamSize": 4,
         "maxTeamSize": 4
       },
@@ -306,13 +349,13 @@
       },
       {
         "fixedKey": "avishkar/kreedomania/3",
-        "title": "Stumble Guys",
+        "title": "Tekken 8",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/kreedomania/4",
-        "title": "FIFA 23",
+        "title": "Smash Kart",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
@@ -336,67 +379,67 @@
       },
       {
         "fixedKey": "avishkar/kreedomania/8",
-        "title": "Chess",
-        "minTeamSize": 4,
-        "maxTeamSize": 4
+        "title": "Scribble",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
       }
     ]
   },
   {
     "festival": "avishkar",
-    "slug": "mechrocosm",
+    "slug": "mechaverse",
     "name": "Mechaverse",
     "events": [
       {
-        "fixedKey": "avishkar/mechrocosm/0",
+        "fixedKey": "avishkar/mechaverse/0",
         "title": "AlgoForge",
         "minTeamSize": 1,
         "maxTeamSize": 2
       },
       {
-        "fixedKey": "avishkar/mechrocosm/1",
+        "fixedKey": "avishkar/mechaverse/1",
         "title": "ModelForge",
         "minTeamSize": 2,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/mechrocosm/2",
+        "fixedKey": "avishkar/mechaverse/2",
         "title": "Game of Codes",
         "minTeamSize": 3,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/mechrocosm/3",
+        "fixedKey": "avishkar/mechaverse/3",
         "title": "MechMind",
         "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/mechrocosm/4",
+        "fixedKey": "avishkar/mechaverse/4",
         "title": "Automax",
         "minTeamSize": 1,
         "maxTeamSize": 4
       },
       {
-        "fixedKey": "avishkar/mechrocosm/5",
+        "fixedKey": "avishkar/mechaverse/5",
         "title": "ReVolve",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/mechrocosm/6",
+        "fixedKey": "avishkar/mechaverse/6",
         "title": "Triathlon",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
-        "fixedKey": "avishkar/mechrocosm/7",
+        "fixedKey": "avishkar/mechaverse/7",
         "title": "Prod-O-Mania",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/mechrocosm/8",
+        "fixedKey": "avishkar/mechaverse/8",
         "title": "Chain of Chaos",
         "minTeamSize": 3,
         "maxTeamSize": 4
@@ -533,14 +576,14 @@
     "events": [
       {
         "fixedKey": "avishkar/powersurge/0",
-        "title": "Pentathlon",
+        "title": "Pentathalon",
         "minTeamSize": 1,
         "maxTeamSize": 1
       },
       {
         "fixedKey": "avishkar/powersurge/1",
         "title": "Dev or Die",
-        "minTeamSize": 2,
+        "minTeamSize": 1,
         "maxTeamSize": 4
       },
       {
@@ -553,17 +596,23 @@
         "fixedKey": "avishkar/powersurge/3",
         "title": "Circuit Bizz",
         "minTeamSize": 1,
-        "maxTeamSize": 1
+        "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/powersurge/4",
-        "title": "Predefined Hardware",
-        "minTeamSize": 3,
-        "maxTeamSize": 5
+        "title": "Voltage Warfront",
+        "minTeamSize": 4,
+        "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/powersurge/5",
-        "title": "Royal Rumble",
+        "title": "War of Currents",
+        "minTeamSize": 3,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/powersurge/6",
+        "title": "Circuit Cipher",
         "minTeamSize": 1,
         "maxTeamSize": 1
       }

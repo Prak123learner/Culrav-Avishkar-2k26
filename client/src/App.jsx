@@ -40,15 +40,16 @@ const GenesisPage = lazy(() => import("./pages/avishkar/Genesis"));
 const ElectromaniaPage = lazy(() => import("./pages/avishkar/Electromania"));
 const GnosomaniaPage = lazy(() => import("./pages/avishkar/Gnosomania"));
 const KreedomaniaPage = lazy(() => import("./pages/avishkar/Kreedomania"));
-const MechrocosmPage = lazy(() => import("./pages/avishkar/Mechrocosm"));
+const MechaversePage = lazy(() => import("./pages/avishkar/Mechaverse"));
 const MonopolyPage = lazy(() => import("./pages/avishkar/Monopoly"));
 const NirmaanPage = lazy(() => import("./pages/avishkar/Nirmaan"));
 const OligopolyPage = lazy(() => import("./pages/avishkar/Oligopoly"));
 const PowerSurgePage = lazy(() => import("./pages/avishkar/PowerSurge"));
 const RasayansPage = lazy(() => import("./pages/avishkar/Rasayans"));
-const AerodynamixPage = lazy(() => import("./pages/avishkar/Aerodynamix"));
-const AstrowingPage = lazy(() => import("./pages/avishkar/Astrowing"));
+const AeroversePage = lazy(() => import("./pages/avishkar/Aeroverse"));
+const CosmoconPage = lazy(() => import("./pages/avishkar/Cosmocon"));
 const RobomaniaPage = lazy(() => import("./pages/avishkar/Robomania"));
+const NexusDomainPage = lazy(() => import("./pages/avishkar/NexusDomain"));
 
 function RoutePageTransition({ children }) {
   const location = useLocation();
@@ -116,6 +117,10 @@ function App() {
               <Route path="/culrav/razzmatazz" element={<Razzmatazz />} />
 
               {/* Avishkar main and sub-events */}
+              <Route
+                path="/avishkar/nexus-domain"
+                element={<NexusDomainPage />}
+              />
               <Route path="/avishkar/cyberquest" element={<CyberQuestPage />} />
               <Route path="/avishkar/genesis" element={<GenesisPage />} />
               <Route
@@ -126,17 +131,17 @@ function App() {
                 path="/avishkar/kreedomania"
                 element={<KreedomaniaPage />}
               />
-              <Route path="/avishkar/mechrocosm" element={<MechrocosmPage />} />
+              <Route path="/avishkar/mechaverse" element={<MechaversePage />} />
               <Route path="/avishkar/monopoly" element={<MonopolyPage />} />
               <Route path="/avishkar/nirmaan" element={<NirmaanPage />} />
               <Route path="/avishkar/oligopoly" element={<OligopolyPage />} />
               <Route path="/avishkar/powersurge" element={<PowerSurgePage />} />
               <Route path="/avishkar/rasayans" element={<RasayansPage />} />
               <Route
-                path="/avishkar/aerodynamix"
-                element={<AerodynamixPage />}
+                path="/avishkar/aeroverse"
+                element={<AeroversePage />}
               />
-              <Route path="/avishkar/astrowing" element={<AstrowingPage />} />
+              <Route path="/avishkar/cosmocon" element={<CosmoconPage />} />
               <Route path="/avishkar/robomania" element={<RobomaniaPage />} />
               <Route path="/avishkar/gnosomania" element={<GnosomaniaPage />} />
 

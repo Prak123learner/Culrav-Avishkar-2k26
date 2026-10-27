@@ -860,19 +860,16 @@ const AboutSection = () => {
 
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <div className="mb-10 text-center sm:mb-12">
-          <div className="my-4 flex select-none flex-col items-center justify-center">
+          <div className="my-4 flex select-none items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7d5628]">
-                <span>✦</span>
+              <div className="font-cinzel flex shrink-0 items-center gap-2 text-xs font-semibold uppercase leading-none tracking-[0.2em] text-[#7d5628]">
+                <span className="inline-flex items-center leading-none">✦</span>
                 <span>The Duality</span>
-                <span>✦</span>
+                <span className="inline-flex items-center leading-none">✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
-              Different Paths ✦ A Shared Legacy
-            </span>
           </div>
 
           <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl">
@@ -1222,19 +1219,16 @@ const GallerySection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching Two Realms */}
         <div className="mb-10 text-center sm:mb-14">
-          <div className="my-4 flex select-none flex-col items-center justify-center">
+          <div className="my-4 flex select-none items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#7d5628]">
-                <span>✦</span>
+              <div className="font-cinzel flex shrink-0 items-center gap-2 text-xs font-semibold uppercase leading-none tracking-[0.2em] text-[#7d5628]">
+                <span className="inline-flex items-center leading-none">✦</span>
                 <span>The Colosseum Chronicles</span>
-                <span>✦</span>
+                <span className="inline-flex items-center leading-none">✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
-              Chronicles of the Realm ✦ Captured in Time
-            </span>
           </div>
 
           <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.12em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl section-title">
@@ -1422,19 +1416,16 @@ const ArtistSection = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Heading matching the Antique Lineup Poster */}
         <div className="mb-12 text-center sm:mb-16">
-          <div className="my-3 flex select-none flex-col items-center justify-center">
+          <div className="my-3 flex select-none items-center justify-center">
             <div className="flex w-full max-w-xl items-center justify-center gap-3 px-4">
               <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#8c6536] to-[#8c6536]" />
-              <div className="font-cinzel flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-[#7d5628]">
-                <span>✦</span>
+              <div className="font-cinzel flex shrink-0 items-center gap-2 text-xs font-semibold uppercase leading-none tracking-[0.3em] text-[#7d5628]">
+                <span className="inline-flex items-center leading-none">✦</span>
                 <span>Celebrity Night</span>
-                <span>✦</span>
+                <span className="inline-flex items-center leading-none">✦</span>
               </div>
               <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#8c6536] to-[#8c6536]" />
             </div>
-            <span className="font-cinzel mt-2 text-xs sm:text-sm font-semibold uppercase tracking-[0.35em] text-[#7a5732]">
-              A Night To Remember
-            </span>
           </div>
 
           <h2 className="font-cinzel mt-3 text-3xl font-black uppercase tracking-[0.11em] text-[#2c1d0c] drop-shadow-sm sm:text-5xl md:text-6xl lg:text-7xl section-title">
@@ -1837,14 +1828,12 @@ function Footer() {
         {/* Copyright Line & Web Team Credit */}
         <div className="border-t border-[#bfa275]/60 pt-4 sm:pt-6 pb-2 -mt-3 sm:mt-0 -translate-y-3 sm:translate-y-0 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3 text-center text-[11px] sm:text-xs font-cinzel font-semibold tracking-[0.2em] text-[#6e4e2a] uppercase md:px-8 lg:px-16 xl:px-24">
           <p className="flex items-center justify-center gap-1.5">
-            <span>✦</span>
             <span>© 2026 Echoes of Olympus. All Rights Reserved.</span>
           </p>
           <p className="flex items-center justify-center gap-1.5 text-[#5e3f20]">
             <span>Made with</span>
             <span className="text-red-600 animate-pulse text-sm">❤️</span>
             <span>by Web Team</span>
-            <span>✦</span>
           </p>
         </div>
       </div>

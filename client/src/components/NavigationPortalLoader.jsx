@@ -87,18 +87,19 @@ const CULRAV_SUBEVENTS = {
 };
 
 const AVISHKAR_SUBEVENTS = {
+  "nexus-domain": { label: "Entering Nexus Domain Pantheon", subtext: "Technology, Strategy & Intelligent Innovation" },
   cyberquest: { label: "Entering CyberQuest Pantheon", subtext: "Algorithmic Code Battles, Web & AI Architectures" },
   genesis: { label: "Entering Genesis Pantheon", subtext: "Bio-Engineering Discoveries & Genetics Conclave" },
   electromania: { label: "Entering Electromania Pantheon", subtext: "Silicon Circuit Mastery & Embedded Hardware" },
   kreedomania: { label: "Entering Kreedomania Pantheon", subtext: "Cyber Athletics & Strategic Esports Arenas" },
-  mechrocosm: { label: "Entering Mechaverse Pantheon", subtext: "Mechanical Innovation, Manufacturing & Intelligent Engineering" },
+  mechaverse: { label: "Entering Mechaverse Pantheon", subtext: "Mechanical Innovation, Manufacturing & Intelligent Engineering" },
   monopoly: { label: "Entering Monopoly Pantheon", subtext: "Financial Mastery, Stock Markets & Crypto Exchanges" },
   nirmaan: { label: "Entering Nirmaan Pantheon", subtext: "Structural Engineering & Architectural Blueprints" },
   oligopoly: { label: "Entering Oligopoly Pantheon", subtext: "Strategic Case Studies & Corporate Leadership" },
   powersurge: { label: "Entering PowerSurge Pantheon", subtext: "High-Voltage Power Systems & Clean Energy" },
   rasayans: { label: "Entering Rasayans Pantheon", subtext: "Industrial Process Engineering & Chemical Syntheses" },
-  aerodynamix: { label: "Entering Aerodynamix Pantheon", subtext: "Unmanned Aerial Systems & Fluid Mechanics" },
-  astrowing: { label: "Entering Astrowing Pantheon", subtext: "Cosmic Astrophotography & Planetary Observations" },
+  aeroverse: { label: "Entering Aeroverse Pantheon", subtext: "Unmanned Aerial Systems & Fluid Mechanics" },
+  cosmocon: { label: "Entering Cosmocon Pantheon", subtext: "Astronomy, Astrophysics & Cosmic Exploration" },
   robomania: { label: "Entering Robomania Pantheon", subtext: "Combat Bot Wars, Maze Explorers & Autonomous Bots" },
   gnosomania: { label: "Entering Gnosomania Pantheon", subtext: "The Grand Knowledge & Trivia Pantheon" },
 };

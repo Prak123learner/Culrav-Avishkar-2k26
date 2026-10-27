@@ -7,39 +7,22 @@
   "instagramLink": "https://www.instagram.com/powersurge/",
   "events": [
     {
-      "eventName": "Pentathlon",
+      "eventName": "Pentathalon",
       "eventId": "87",
-      "description": "A flagship multi-stage recruitment event simulating campus placements through Online Assessments, Group Discussions, Extempore and Interview rounds. Mandatory for EE students who wish to participate in other events.",
+      "description": "Flagship Event: A competitive event featuring OA (Online Assessment) and interview-based questions across all three domains, designed to test participants’ technical knowledge, problem-solving abilities, and interview readiness.",
       "rules": [
-        "Mandatory for Electrical students to be eligible for participation in other events.",
-        "Flagship recruitment simulation event of PowerSurge.",
-        "Round 1: Online Assessment (Core / Software / Consultancy as per domain selection).",
-        "Round 2: Group Discussion (common for all).",
-        "Round 3: Personal Interview domain-specific.",
-        "Eligibility: 1st, 2nd & 3rd year B.Tech.",
-        "Individual event."
+        "Round 1: Online Assessment – Separate for each domain\n-Hardware:- Questions based on core electrical and electronics subjects.\n-Software:- Questions based on programming and technical concepts.\n- Consultancy:- Questions on logical reasoning, aptitude, data analysis, and basic graphical interpretation.",
+        "Round 2: Interview + Group Discussion (GD) – Evaluates technical knowledge, communication skills, and teamwork. It is necessary for shortlisted students to take part in the interview."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "DEV SHARMA",
-          "contact": ""
+          "name": "Anaranyo",
+          "contact": "9748891158"
         },
         {
-          "name": "AYUSH MAURYA",
-          "contact": ""
-        },
-        {
-          "name": "VEDANT OJHA",
-          "contact": ""
-        },
-        {
-          "name": "KARNIKA SINGH",
-          "contact": ""
-        },
-        {
-          "name": "YATHARTHA TIWARI",
-          "contact": ""
+          "name": "Satvik",
+          "contact": "8840047057"
         }
       ],
       "fixedKey": "avishkar/powersurge/0"
@@ -47,28 +30,42 @@
     {
       "eventName": "Dev or Die",
       "eventId": "88",
-      "description": "A product-development event where participants build impactful digital solutions—from web apps to tech tools. Includes aptitude screening, a development sprint and offline final evaluation.",
+      "description": "A competitive technical event featuring Web Development and Machine Learning (ML) based Problem Statements (PS), challenging participants to apply their technical knowledge, creativity, and problem-solving skills.",
       "rules": [
-        "Round 1: Aptitude screening (elimination).",
-        "Round 2: 10-day Development Sprint with problem statement + evaluation + video submission.",
-        "Round 3: Offline final presentation and demo.",
-        "Eligibility: B.Tech all years except final year + MCA.",
-        "Minimum one EE member in every team.",
-        "Team size: 2–4."
+        "Eligibility: B.Tech students from all branches are eligible to participate.",
+        "Team Formation: Teams must consist of 1–4 members from the same academic year. Inter-year teams are not allowed.",
+        "Problem Statement: The problem statement (PS) will be released one week before the commencement of Avishkar.",
+        "Mid-Evaluation: Mid-evaluation will be conducted three days after the problem statement is released.",
+        "Originality: Projects must be original student work. Plagiarism is strictly prohibited.",
+        "Project Demonstration: Teams must present a working prototype, functional application, or live demo.",
+        "Resources: Participants must arrange their own laptops and other required resources.",
+        "Evaluation Criteria: Projects will be judged on innovation, technical implementation, feasibility, and presentation."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "CHINMAY MALVE",
-          "contact": ""
+          "name": "Shreya",
+          "contact": "7983990877"
         },
         {
-          "name": "TEJASW AGRAWAL",
-          "contact": ""
+          "name": "Vanessa",
+          "contact": "8340519532"
         },
         {
-          "name": "AYUSH GUPTA",
-          "contact": ""
+          "name": "Sahaj",
+          "contact": "7060396463"
+        },
+        {
+          "name": "Ayush",
+          "contact": "6306599440"
+        },
+        {
+          "name": "Hrishi",
+          "contact": "9308509892"
+        },
+        {
+          "name": "Atul",
+          "contact": "9958549278"
         }
       ],
       "fixedKey": "avishkar/powersurge/1"
@@ -76,22 +73,33 @@
     {
       "eventName": "CodeSparks",
       "eventId": "89",
-      "description": "Competitive programming contest featuring algorithmic problems that test logic, time-efficiency and coding precision. Includes interview screening for top finalists.",
+      "description": "A competitive programming (CP) event designed to test participants' coding skills, logical reasoning, and algorithmic problem-solving abilities.",
       "rules": [
-        "Round 1: Coding contest with 5–6 problems (year-wise difficulty separation).",
-        "Round 2: Interview-style evaluation for shortlisted candidates.",
-        "Eligibility: B.Tech except final year + MCA + M.Tech 1st year.",
-        "Individual participation."
+        "Eligibility: Students from all courses are eligible to participate.",
+        "Round 1 – Online Coding Round: Participants will solve programming problems online to test their coding skills and problem-solving abilities.",
+        "Round 2 – Offline Coding Round: Shortlisted participants will compete in an offline coding round to evaluate their programming proficiency and logical thinking.",
+        "Round 3 – Interview: Finalists will undergo an interview to assess their technical knowledge, coding concepts, and problem-solving approach.",
+        "Originality: Participants must submit their own solutions. Plagiarism or any unfair means are strictly prohibited.",
+        "Evaluation: Participants will be judged on coding accuracy, efficiency, problem-solving skills, and technical understanding.",
+        "Judging: The decision of the judging panel will be final."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "Ayushman Tiwari",
-          "contact": ""
+          "name": "Trayambak",
+          "contact": "7269019510"
         },
         {
-          "name": "Keshav Diwakar",
-          "contact": ""
+          "name": "Piyush",
+          "contact": "8108105606"
+        },
+        {
+          "name": "Aditya Ranjan",
+          "contact": "9693066291"
+        },
+        {
+          "name": "Priyanshu",
+          "contact": "7050574425"
         }
       ],
       "fixedKey": "avishkar/powersurge/2"
@@ -99,79 +107,126 @@
     {
       "eventName": "Circuit Bizz",
       "eventId": "90",
-      "description": "A concept-driven event where participants solve circuit-logic problems through bidding, written challenges and interviews—designed for electrical problem-solvers.",
+      "description": "A fun and competitive bidding-based event where participants bid on technical questions they are confident they can answer, combining strategy, knowledge, and quick thinking.",
       "rules": [
-        "Round 1: Auction-style problem allocation.",
-        "Round 2: Pen-and-paper problem solving.",
-        "Round 3: Interview-round evaluation.",
-        "Eligibility: 1st–3rd year students."
+        "Eligibility: Students from all years and branches are eligible to participate.",
+        "Round 1 – Question Bidding: Teams will bid on questions they believe they can answer correctly. The bid amount will be deducted from their points or allotted balance regardless of whether the answer is correct or incorrect.",
+        "Round 2 – Mock IPL Auction: Participants will take part in a mock IPL auction, bidding for players and building their teams strategically.",
+        "Fair Play: Participants must follow the bidding rules and instructions provided by the organizers."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "Umme Sidra",
-          "contact": ""
+          "name": "Anaranyo",
+          "contact": "9748891158"
         },
         {
-          "name": "Akrati Singh",
-          "contact": ""
-        },
-        {
-          "name": "Nikhil Kumar Jadon",
-          "contact": ""
+          "name": "Satvik",
+          "contact": "8840047057"
         }
       ],
       "fixedKey": "avishkar/powersurge/3"
     },
     {
-      "eventName": "Predefined Hardware",
+      "eventName": "Voltage Warfront",
       "eventId": "91",
-      "description": "Hands-on electrical hardware development event. Teams build core electrical engineering solutions based on predefined requirements, with evaluation on execution and innovation.",
+      "description": "A hands-on technical event designed for students interested in core engineering, embedded systems, and hardware development. Participants tackle real-world problem statements and build practical solutions using hardware platforms such as Arduino, sensors, microcontrollers, and other electronic components.",
       "rules": [
-        "Round 1: Mid-evaluation on development progress.",
-        "Round 2: Final demo + technical presentation.",
-        "Eligibility: B.Tech 1st–3rd year.",
-        "Team size: 3–5."
+        "Eligibility: Students from all years are eligible to participate.",
+        "Team Size: Each team must consist of 4 members.",
+        "Rounds: The event will consist of two rounds: Mid-Evaluation and Final Evaluation. Both rounds will contribute to the final score.",
+        "Mid-Evaluation: Teams will present their project progress for evaluation. No PPT presentation is required.",
+        "Final Evaluation: Teams must present a PPT explaining their project and demonstrate the working hardware prototype.",
+        "Resources: Teams must arrange their own hardware components, tools, and other required resources.",
+        "Evaluation Criteria: Projects will be judged on innovation, technical implementation, functionality, and presentation."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "Ratan Kumar",
-          "contact": ""
+          "name": "Prakash",
+          "contact": "7782980911"
         },
         {
-          "name": "Ravula Vasu",
-          "contact": ""
+          "name": "Utkarsh",
+          "contact": "6306633433"
         },
         {
-          "name": "Ishan Singh",
-          "contact": ""
+          "name": "Aansh",
+          "contact": "9336612564"
+        },
+        {
+          "name": "Aabhas",
+          "contact": "8765004748"
+        },
+        {
+          "name": "Rachit",
+          "contact": "9319892323"
         }
       ],
       "fixedKey": "avishkar/powersurge/4"
     },
     {
-      "eventName": "Royal Rumble",
-      "eventId": "93",
-      "description": "A reverse-coding + knockout DSA duel event. Decode logic from output in Round 1; battle 1v1 head-to-head in Round 2 where fastest correct submitter advances.",
+      "eventName": "War of Currents",
+      "eventId": "92",
+      "description": "An exciting treasure hunt event that combines fun, creativity, humour, and adventure. Participants begin with an entertaining quiz featuring memes, riddles, quirky challenges, and hilarious questions with unexpected answers. The excitement continues with a treasure hunt across the entire college campus, where participants follow clues, solve puzzles, and race to discover the hidden treasure.",
       "rules": [
-        "Round 1: Reverse Coding challenge (time + correctness scoring).",
-        "Round 2: DSA 1v1 Knockout Bracket.",
-        "Eligibility: 1st–3rd year + MCA.",
-        "Individual event."
+        "Eligibility: Students from all years and branches are eligible to participate.",
+        "Team Formation: Inter-year teams are not allowed; all team members must belong to the same academic year.",
+        "Round 1 – Fun Quiz: Challenges may include meme identification, movie guessing, crosswords, song guessing through emojis, and fun trivia.",
+        "Bonus Challenges: Bonus-point questions and fun dares will be introduced between Rounds 1 and 2. Teams can choose whether to attempt them and earn additional points.",
+        "Round 2 – Audio Round: Participants will identify songs, advertisements, and other audio clips, along with fun trivia challenges.",
+        "Round 3 – Treasure Hunt: Participants must follow clues hidden across the college campus to complete the treasure hunt.",
+        "Transportation: Bicycles are allowed during the treasure hunt; the use of e-rickshaws is strictly prohibited.",
+        "Fair Play: Participants must follow all instructions given by the organizers throughout the event."
       ],
       "PsLink": "",
       "coordinators": [
         {
-          "name": "Priyanshu Anand",
-          "contact": ""
+          "name": "Divyansh",
+          "contact": "8418850049"
         },
         {
-          "name": "Priyam Raj",
-          "contact": ""
+          "name": "Arham",
+          "contact": "6206388716"
+        },
+        {
+          "name": "Anushka",
+          "contact": "9651587920"
+        },
+        {
+          "name": "Hrishi",
+          "contact": "9308509892"
+        },
+        {
+          "name": "Tanay",
+          "contact": "7275878506"
+        },
+        {
+          "name": "Prince",
+          "contact": "9142577300"
         }
       ],
       "fixedKey": "avishkar/powersurge/5"
+    },
+    {
+      "eventName": "Circuit Cipher",
+      "eventId": "93",
+      "description": "A competitive analytical problem-solving event testing participants’ logical reasoning, mathematical aptitude, probability, and quick decision-making through challenging puzzles and timed rounds.",
+      "rules": [
+        "Eligibility: Students from all years and branches are eligible to participate.",
+        "Round 1 – Analytical Quiz: Participants will solve questions based on logical reasoning, mathematical aptitude, probability, and analytical thinking within a given time limit.",
+        "Round 2 – Problem-Solving Challenge: Shortlisted participants will tackle challenging puzzles and time-bound problems requiring quick decision-making, logical reasoning, and strategic thinking.",
+        "Time Limit: Participants must complete each round within the allotted time.",
+        "Fair Play: Any use of unfair means will lead to disqualification."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        {
+          "name": "Abhishek",
+          "contact": "8875974470"
+        }
+      ],
+      "fixedKey": "avishkar/powersurge/6"
     }
   ]
 }

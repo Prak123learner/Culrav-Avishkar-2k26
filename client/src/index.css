@@ -417,7 +417,7 @@ body {
   z-index: 0;
   background:
     linear-gradient(135deg, rgba(15, 8, 3, 0.5), rgba(23, 12, 4, 0.2)),
-    url("/media/common/textures/loader-table-20261026.webp") center / cover no-repeat;
+    url("/media/common/textures/loader-table-20261027.webp") center / cover no-repeat;
   transform: scale(1.03);
 }
 

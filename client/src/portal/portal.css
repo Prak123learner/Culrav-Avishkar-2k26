@@ -1448,6 +1448,63 @@ ol.list-decimal li {
   box-shadow: 0 0 0 2px rgba(229, 167, 85, 0.35);
   outline: none;
 }
+.ca-portal.ca-auth-screen .ca-password-field {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-top: 2px;
+}
+.ca-portal.ca-auth-screen .ca-password-field input {
+  width: 100%;
+  padding-right: 46px;
+  box-sizing: border-box;
+}
+.ca-portal.ca-auth-screen .ca-password-toggle {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  width: 34px;
+  height: 32px;
+  min-width: 34px;
+  min-height: 32px;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-left: 1px solid rgba(229, 167, 85, 0.32);
+  border-radius: 0;
+  background: transparent;
+  color: #e4b66f;
+  box-shadow: none;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+.ca-portal.ca-auth-screen .ca-password-toggle:hover:not(:disabled),
+.ca-portal.ca-auth-screen .ca-password-toggle:focus-visible,
+.ca-portal.ca-auth-screen .ca-password-toggle:active:not(:disabled) {
+  border: 0;
+  border-left: 1px solid rgba(229, 167, 85, 0.48);
+  background: rgba(229, 167, 85, 0.11);
+  color: #e4b66f !important;
+  box-shadow: none;
+  transform: translateY(-50%);
+  outline: none;
+}
+.ca-portal.ca-auth-screen .ca-password-toggle:focus-visible {
+  box-shadow: inset 0 0 0 1px rgba(229, 167, 85, 0.65);
+}
+.ca-portal.ca-auth-screen .ca-password-toggle svg {
+  width: 19px;
+  height: 19px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
 .ca-portal.ca-auth-screen .ca-auth-content > button:not(.ca-secondary),
 .ca-portal.ca-staff.ca-auth-screen .ca-auth-content > button {
   align-self: stretch !important;
@@ -5345,7 +5402,7 @@ ol.list-decimal li {
   line-height: 1.2;
 }
 
-.ca-auth-change-password .ca-auth-content button,
+.ca-auth-change-password .ca-auth-content > button,
 .ca-auth-change-password .ca-primary-btn {
   align-self: stretch !important;
   width: 100% !important;
@@ -5373,7 +5430,7 @@ ol.list-decimal li {
   box-sizing: border-box !important;
 }
 
-.ca-auth-change-password .ca-auth-content button:hover:not(:disabled),
+.ca-auth-change-password .ca-auth-content > button:hover:not(:disabled),
 .ca-auth-change-password .ca-primary-btn:hover:not(:disabled) {
   border-color: #ffd996 !important;
   background: linear-gradient(135deg, #c04c18 0%, #e26c27 46%, #ad4312 100%) !important;
@@ -5384,13 +5441,13 @@ ol.list-decimal li {
   transform: translateY(-1px) !important;
 }
 
-.ca-auth-change-password .ca-auth-content button:active:not(:disabled),
+.ca-auth-change-password .ca-auth-content > button:active:not(:disabled),
 .ca-auth-change-password .ca-primary-btn:active:not(:disabled) {
   transform: translateY(1px) !important;
   box-shadow: 0 2px 8px rgba(140, 50, 10, 0.45) !important;
 }
 
-.ca-auth-change-password .ca-auth-content button:disabled,
+.ca-auth-change-password .ca-auth-content > button:disabled,
 .ca-auth-change-password .ca-primary-btn:disabled {
   opacity: 0.55 !important;
   cursor: not-allowed !important;

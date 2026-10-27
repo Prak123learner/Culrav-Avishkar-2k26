@@ -819,6 +819,19 @@ function EventEditor({ event, categories, onClose, onSaved }) {
           .toISOString()
           .slice(0, 16)
       : "";
+  const minimumFutureDate = dateValue(
+    new Date(Math.ceil((Date.now() + 1000) / 60000) * 60000),
+  );
+  const updateFutureDeadline = (value, update) => {
+    if (value && new Date(value).getTime() <= Date.now()) {
+      setError("Deadline must be a future date and time.");
+      return;
+    }
+    setError((current) =>
+      current === "Deadline must be a future date and time." ? "" : current,
+    );
+    update(value);
+  };
   const originalFields = event.fields;
   const questionsChanged =
     originalFields.length !== draft.fields.length ||
@@ -858,6 +871,23 @@ function EventEditor({ event, categories, onClose, onSaved }) {
         new Date(draft.closesAt).getTime() <= Date.now())
     ) {
       setError("Registration deadline must be a future date and time.");
+      return;
+    }
+    if (
+      !admin &&
+      existingParticipantsNeedReview &&
+      (!updatedAnswerDeadline ||
+        new Date(updatedAnswerDeadline).getTime() <= Date.now())
+    ) {
+      setError("Updated-answer deadline must be a future date and time.");
+      return;
+    }
+    if (
+      !admin &&
+      extendReviewDeadline &&
+      (!extendedDeadline || new Date(extendedDeadline).getTime() <= Date.now())
+    ) {
+      setError("Extended review deadline must be a future date and time.");
       return;
     }
     setBusy(true);
@@ -1158,10 +1188,14 @@ function EventEditor({ event, categories, onClose, onSaved }) {
               Registration closes (your local time)
               <input
                 type="datetime-local"
-                min={dateValue(new Date())}
+                min={minimumFutureDate}
                 step="60"
                 value={dateValue(draft.closesAt)}
-                onChange={(e) => set("closesAt", e.target.value)}
+                onChange={(e) =>
+                  updateFutureDeadline(e.target.value, (value) =>
+                    set("closesAt", value),
+                  )
+                }
               />
               <small>
                 Optional. Leave blank to keep registration open while the form
@@ -1214,9 +1248,14 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                   <input
                     type="datetime-local"
                     required
-                    min={dateValue(new Date())}
+                    min={minimumFutureDate}
                     value={updatedAnswerDeadline}
-                    onChange={(e) => setUpdatedAnswerDeadline(e.target.value)}
+                    onChange={(e) =>
+                      updateFutureDeadline(
+                        e.target.value,
+                        setUpdatedAnswerDeadline,
+                      )
+                    }
                   />
                 </label>
               ) : (
@@ -1239,7 +1278,11 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                   onClick={() => {
                     setExtendReviewDeadline((current) => !current);
                     setExtendedDeadline(
-                      dateValue(draft.responseUpdateDeadline),
+                      draft.responseUpdateDeadline &&
+                        new Date(draft.responseUpdateDeadline).getTime() >
+                          Date.now()
+                        ? dateValue(draft.responseUpdateDeadline)
+                        : "",
                     );
                   }}
                 >
@@ -1253,9 +1296,11 @@ function EventEditor({ event, categories, onClose, onSaved }) {
                     <input
                       type="datetime-local"
                       required
-                      min={dateValue(new Date())}
+                      min={minimumFutureDate}
                       value={extendedDeadline}
-                      onChange={(e) => setExtendedDeadline(e.target.value)}
+                      onChange={(e) =>
+                        updateFutureDeadline(e.target.value, setExtendedDeadline)
+                      }
                     />
                   </label>
                 )}

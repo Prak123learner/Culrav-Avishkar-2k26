@@ -23,13 +23,16 @@
         "The organizers decision would be final."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Ayush Kumar", "contact": "" },
+        { "name": "Darsh Shah", "contact": "" }
+      ],
       "fixedKey": "avishkar/kreedomania/0"
     },
     {
-      "eventName": "BGMI",
+      "eventName": "Battle Grounds Mobile India",
       "eventId": "101",
-      "description": "INDIA KA BATTLEGROUNDS IS HERE. Georgo ho ya Pochinki, squad fights rukni nahi chahiyye. Let's go !",
+      "description": "INDIA KA BATTLEGROUNDS IS HERE. Georgopol ho ya Pochinki, squad fights rukni nahi chahiye. B.Tech and M.Tech students from all branches may participate.",
       "rules": [
         "ALL THE TEAMS WILL BE DIVIDED INTO SUBGROUPS",
         "3 BATTLE ROYALE WILL BE PLAYED AND YOU’LL BE AWARDED POINTS IN EACH BR ACCORDING TO THE FOLLOWING POINT SYSTEM - #1 - 10 POINTS #5 - 3 POINTS #2 - 6 POINTS #6 - 2 POINTS #3 - 5POINTS #(7-8) - 1 POINTS #4 - 4 POINTS #(9-16) - 0 POINTS (AND 1 POINT FOR EACH KILL FOR ALL TEAMS)",
@@ -39,7 +42,9 @@
         "ROOM ID AND PASSWORD WILL BE SHARED 15 MINUTES PRIOR TO THE ALLOTED TIMINGS AND MATCHES WILL START ON TIME, WE’LL NOT WAIT FOR ANYONE."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Satvik Yadav", "contact": "8840047057" }
+      ],
       "fixedKey": "avishkar/kreedomania/1"
     },
     {
@@ -55,38 +60,48 @@
         "Matches will be played offline"
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Ayush Kumar", "contact": "" },
+        { "name": "Darsh Shah", "contact": "" }
+      ],
       "fixedKey": "avishkar/kreedomania/2"
     },
     {
-      "eventName": "Stumble Guys",
+      "eventName": "Tekken 8",
       "eventId": "103",
-      "description": "Stumble Guys is a multiplayer battle royale obstacle course game where players race to become the last one standing",
+      "description": "A one-on-one fighting-game tournament where timing, character mastery, and adaptability determine the champion.",
       "rules": [
-        "Game Settings: Default settings will apply to all rounds (randomized maps, obstacles, etc.). Players are prohibited from using custom skins or modifications.",
-        "Character Selection: Players may choose any character from the base game, but custom skins are not allowed.",
-        "Fair Play: Cheating, hacking, or use of third-party software will result in immediate disqualification. Any unsportsmanlike behavior, such as foul language or harassment, is grounds for disqualification.",
-        "Organizer’s Decisions: All decisions by the organizers are final and binding. Organizers will resolve any disputes or issues."
+        "This is a solo event played in a one-versus-one format.",
+        "Matches will use the standard competitive settings announced by the organizers.",
+        "Players may select any character available in the standard game roster.",
+        "Pausing or intentionally interrupting a match without an organizer's permission may result in a round loss.",
+        "Use of cheats, macros, modified game files, or other unfair assistance will lead to immediate disqualification.",
+        "Players must report at the assigned time and follow the tournament bracket.",
+        "The organizers' decision will be final in case of a dispute or technical interruption."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Divyansh Agrawal", "contact": "9569090638" }
+      ],
       "fixedKey": "avishkar/kreedomania/3"
     },
     {
-      "eventName": "FIFA 23",
+      "eventName": "Smash Kart",
       "eventId": "104",
-      "description": "Offline knockout format. Players select any regular season team; a toss determines first choice.",
+      "description": "A fast-paced solo kart-battle tournament where players race, collect power-ups, and outplay their opponents to reach the top.",
       "rules": [
-        "Participants are allowed to choose any regular season team available in the original game, excluding all-star teams. The first player to make a choice will be determined by a toss.",
-        "Overtime: If the scores are level after the regular time duration of play, the game will proceed directly to a penalty shootout. Game settings: Default.",
-        "The full tournament will be held offline from 10th March 2023, and it will be a Knockout tournament. In case of a tie, 2 matches will be played in 1v1 format, and the number of goals will decide the winner.",
-        "Two pauses of 10 seconds each will be allowed to each player during the entire game, excluding the half-time stoppage. Game settings: Default.",
-        "Participants are expected to adhere to these rules at all times, and any violations will be subject to penalties as determined by the judges. The decision made by the judges will be final with no further discussion.",
-        "Organizers' decision will be final.",
-        "Game settings: Default."
+        "This is a solo event.",
+        "Matches will be played in private lobbies created by the organizers.",
+        "Lobby settings, maps, match duration, and qualification criteria will be announced before each round.",
+        "Players must use their own identity and may not allow another person to play on their behalf.",
+        "Use of cheats, exploits, modified clients, or unfair external assistance will lead to immediate disqualification.",
+        "Players must join their allotted lobby on time. Unexplained absence may be treated as a walkover.",
+        "The organizers' decision will be final in case of a dispute, disconnection, or technical issue."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Nishant Tiwari", "contact": "" }
+      ],
       "fixedKey": "avishkar/kreedomania/4"
     },
     {
@@ -102,7 +117,9 @@
         "Matches will be played offline"
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Divyansh Agrawal", "contact": "9569090638" }
+      ],
       "fixedKey": "avishkar/kreedomania/5"
     },
     {
@@ -120,7 +137,9 @@
         "Room ID and password will be shared 15 minutes prior to the alloted timings and matches will start on time, we’ll not wait for anyone."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Dishant Prakash Rai", "contact": "" }
+      ],
       "fixedKey": "avishkar/kreedomania/6"
     },
     {
@@ -138,33 +157,29 @@
         "ROOM ID AND PASSWORD WILL BE SHARED 15 MINUTES PRIOR TO THE ALLOTED TIMINGS AND MATCHES WILL START ON TIME, WE’LL NOT WAIT FOR ANYONE."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Ayush Kumar", "contact": "" },
+        { "name": "Darsh Shah", "contact": "" }
+      ],
       "fixedKey": "avishkar/kreedomania/7"
     },
     {
-      "eventName": "Chess",
+      "eventName": "Scribble",
       "eventId": "121",
-      "description": "A team-based chess tournament featuring league rounds with Swiss system pairing followed by finals. Fair play, strategy, and consistency will determine the champions.\n\nUseful Links:\nChess Resources: https://tinyurl.com/yn73pfja\nMNNIT Lichess Team: https://lichess.org/team/mnnit-chess-club\nInstagram: https://instagram.com/mnnit_chess_club",
+      "description": "A quick-thinking online drawing-and-guessing contest where creativity, observation, and speed earn the highest score.",
       "rules": [
-        "The event consists of two stages: League Stage and Finals.",
-        "The League Stage will follow the Swiss system. Teams will be paired against each other every round and must maintain a fixed board order throughout the tournament.",
-        "Teams must play all games; no match can be skipped.",
-        "Players are not allowed to agree to draws. Only 3-fold repetition or 50-move rule can result in a draw.",
-        "Entry fee: ₹100 per team (MNNIT students) and ₹200 per team (others).",
-        "Teams must follow standard FIDE rules.",
-        "Outcome fixing or use of unfair means will lead to immediate disqualification.",
-        "Each tournament match consists of 2 games with opposite colors for each board.",
-        "Scoring: Win = 1 point, Draw = 0.5 point, Loss = 0 points.",
-        "A team wins the round if their cumulative score across the two games exceeds 4.",
-        "If a team wins both games or wins one and draws the other, they win the round.",
-        "If each team wins one game, or both games are drawn, the round is a draw.",
-        "Tiebreakers after League Stage: 1) Total Match Points, 2) Swiss Sonneborn-Berger, 3) Blitz tiebreak (3+0) until a decisive result.",
-        "Finals tiebreak: One 3+0 team game; higher-ranked team from League Stage gets White.",
-        "All participants are eligible for a separate individual bullet (1+1) tournament.",
-        "The organizers' decision will be final in case of disputes."
+        "This is a solo event.",
+        "Participants will play in private rooms created by the organizers.",
+        "Each participant must draw the assigned word without writing the word, spelling it out, or giving direct textual hints.",
+        "External communication, screen sharing, or assistance from another person is not allowed.",
+        "Qualification and final rankings will be based on the in-game scores after the announced number of rounds.",
+        "Participants must join their allotted room on time and use the name provided during registration.",
+        "The organizers' decision will be final in case of misconduct, disconnection, or a scoring dispute."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Krish Kumar", "contact": "6204415558" }
+      ],
       "fixedKey": "avishkar/kreedomania/8"
     }
   ]

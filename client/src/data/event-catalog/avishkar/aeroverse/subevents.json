@@ -1,0 +1,200 @@
+{
+  "festival": "avishkar",
+  "categorySlug": "aeroverse",
+  "categoryName": "Aeroverse",
+  "eventName": "Aeroverse",
+  "tagline": "Where Aerodynamics Meets Innovation",
+  "events": [
+    {
+      "eventName": "SkyVision",
+      "registrationLink": "",
+      "eventId": "01",
+      "description": "Round 1: Flight Test (60 Seconds)\n* Each participant must fly their RC plane for 60 seconds.\n\nRound 2: Arena Challenge\n\n* Participants must drop as many balls as possible into the designated arena during their flight.\n* Points will be awarded based on the number of balls landing inside the arena or near to the arena.\n* Bonus points will be awarded for a smooth landing and performing stunts during the flight.",
+      "rules": [
+        "Wingspan Limit: The wingspan of the RC plane must remain within the specified limit.",
+        "Weight-to-Thrust Ratio: The plane’s weight-to-thrust ratio must fall within the permitted range",
+        "Single Motor: Each RC plane must use only one motor for propulsion."
+      ],
+      "coordinators": [
+        {
+          "name": "Aman Kharwar",
+          "contact": "6200798149"
+        },
+        {
+          "name": "Jayprakash",
+          "contact": "9376727697"
+        },
+        {
+          "name": "Prashant",
+          "contact": "7976333160"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/0"
+    },
+    {
+      "eventName": "Hover Guardian",
+      "registrationLink": "",
+      "eventId": "02",
+      "description": "ROUND 1: Knockout Rounds (Battle Arena)\n\n* Knock your opponent's Hover out of the arena.\n* Arena size: 16 ft x 16 ft.\n* The match ends when one team is completely pushed out or disabled.\n* Teams must stay active; idling for more than 5 seconds may lead to a warning or disqualification.\n\nROUND 2 : Racing Rounds\n\n* Qualified teams race on a challenging track filled with obstacles and checkpoints.\n* Teams must complete the course as fast as possible with minimal penalties.\n* Points will be awarded based on how fast the team completes the race without penalties",
+      "rules": [
+        "* Dimensions: Max 60 x 60 x 50 cm.",
+        "* Lift height: Minimum 3 cm at full throttle.",
+        "* Material: Safe and lightweight (foam, coroplast, wood, etc.).",
+        "* No metal propellers or sharp components allowed.",
+        "* Homemade crafts only no ready-made kits"
+      ],
+      "coordinators": [
+        {
+          "name": "Rishu Gupta",
+          "contact": "7488386206"
+        },
+        {
+          "name": "Mrityunjay Rai",
+          "contact": "6394180893"
+        },
+        {
+          "name": "Anshu Raj",
+          "contact": "9142737496"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/1"
+    },
+    {
+      "eventName": "Project Agamotto",
+      "registrationLink": "",
+      "eventId": "03",
+      "description": "Project Agamotto is a software hackathon with two tracks: Full Stack Web Development and Machine Learning. All problem statements are based on aviation and the aerospace domain.\n\nPROBLEM STATEMENT TIERS (both tracks)\n• Easy: open to 1st-year teams only\n• Medium and Hard: open to all years (incl. freshers)\n\nROUND 1: The Pitch (Online Screening)\n• Teams choose a track and one problem statement from their eligible tier, and submit a PPT covering problem understanding, proposed solution, tech stack / model approach, architecture and expected outcome.\n• Shortlisted teams from each track will advance to Round 2.\n\nROUND 2: The 8-Hour Time Loop (On-site Hackathon)\n• Shortlisted teams build their solution on-site within 8 hours.\n• Time Stone Twist: midway through the hackathon, an additional requirement will be revealed that teams must incorporate.\n• Web Track: teams build a working full stack web application based on their problem statement and the solution proposed in Round 1.\n• ML Track: teams train a machine learning model on the dataset provided in the problem statement and present it through a Streamlit app (minimum requirement). Teams that build a full API or a more complete interface will earn additional marks. Judges will test each model on their own hidden test dataset and evaluate its performance.\n• Final Evaluation: judges will evaluate each team at their workstation through a live demo and Q&A on their solution and code.",
+      "rules": [
+        "Open to MNNIT students only.",
+        "Team size: 2–4 members. All members of a team must be from the same year. A participant can be part of only one team.",
+        "Each team must register all members with their names, year, roll numbers and selected track before the registration deadline. The chosen problem statement must be declared at the time of Round 1 submission.",
+        "Each team must choose one track (Web or ML) and one problem statement. These cannot be changed after Round 1.",
+        "Easy tier problem statements are open to 1st-year teams only. Teams from 2nd year and above must choose Medium or Hard.",
+        "All project code must be written during the hackathon. Open-source libraries, frameworks, public datasets and pre-trained models are allowed but must be declared.",
+        "Teams must maintain a GitHub repository from the start of Round 2; commit history will be checked. The repository must include a README listing all libraries and datasets used. Final submission must include the repo link before the deadline.",
+        "ML Track: the Streamlit app must accept input in the test template format given in the problem statement and return predictions in the required output format. Models that cannot be tested on the judges' dataset will not be evaluated.",
+        "Teams must bring their own laptops and chargers.",
+        "Late submissions will not be evaluated. Plagiarism or copying another team's work will lead to immediate disqualification.",
+        "The judges' decision will be final."
+      ],
+      "coordinators": [
+        {
+          "name": "Sajal Dhuriya",
+          "contact": "8858837833"
+        },
+        {
+          "name": "Vaibhav Kumar Shashwat",
+          "contact": "9520825517"
+        },
+        {
+          "name": "Anupam",
+          "contact": "9335018161"
+        },
+        {
+          "name": "Aviral Tiwari",
+          "contact": "6395977829"
+        },
+        {
+          "name": "Mayank Agarwal",
+          "contact": "7007346160"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/2"
+    },
+    {
+      "eventName": "Fight for a Soul",
+      "registrationLink": "",
+      "eventId": "04",
+      "description": "Fight for the Soul is a virtual drone-racing competition inspired by Marvel's Soul Stone.\nPilots will test their precision, agility, reflexes, and control in an FPV drone-racing simulator.\nThe event consists of two rounds, progressing from individual skill assessment to intense 1v1 knockout races.\n\nROUND 1: Awakening (Individual Qualification)\n\n• Every participant gets 3 attempts on a designated virtual drone-racing course.\n• Participants must navigate the racing track, pass through designated gates, and demonstrate precision and agility.\n• The best attempt out of the three will be considered for evaluation.\n• Participants will be ranked based on their performance, with penalties for missed gates or invalid runs, if applicable.\n• Only the top-performing pilots will advance to Round 2.\n\nROUND 2: Fight for the Soul (1v1 Knockout)\n\n• Qualified pilots will compete in head-to-head 1v1 matchups in the drone-racing simulator.\n• Each matchup will test the pilots' speed, precision, agility, and ability to maintain control under pressure.\n• Winners will advance to the next stage, while the losing pilot will be eliminated.\n• The knockout format will continue through the subsequent matchups until the final race determines the ultimate champion.\n• The last pilot standing will claim the Soul Stone and be crowned the winner of Fight for the Soul.",
+      "rules": [
+        "Eligibility: The event is open to MNNIT Allahabad students only.",
+        "Individual Participation: This is an individual event. Each participant must register separately, and a participant cannot register more than once.",
+        "Simulator: The competition will be conducted using an FPV drone-racing simulator. The simulator, track, and control settings will be specified by the organisers.",
+        "Round 1 – Awakening: Each participant will be given 3 attempts on the designated virtual racing course. The best attempt will be considered for qualification.",
+        "Qualification Criteria: Participants will be evaluated based on their precision, agility, and flying performance. Rankings will be determined by the best valid completion time, subject to any penalties for missed gates or invalid runs.",
+        "Round 2 – Fight for the Soul: Only shortlisted participants from Round 1 will advance to the 1v1 knockout round. Winners will advance to the next stage, while losers will be eliminated.",
+        "Standardised Settings: All participants must use the same designated simulator, track, drone configuration, and control settings to ensure fair competition.",
+        "Practice and Equipment: Participants will be provided equal familiarisation time with the simulator and must follow the organisers' instructions regarding the use of controllers and other equipment.",
+        "Fair Play: Any attempt to exploit simulator bugs, interfere with another participant's run, or manipulate results will lead to disqualification.",
+        "Reporting and Attendance: Participants must report at the designated venue and time. Failure to report when called may result in disqualification.",
+        "Organisers' Authority: The organisers reserve the right to modify the event schedule, qualification criteria, or competition format if necessary. Any changes will be communicated to participants.",
+        "Final Decision: The judges' and organisers' decisions regarding scoring, qualification, penalties, and disqualification will be final."
+      ],
+      "coordinators": [
+        {
+          "name": "Shyam Narayan Yadav",
+          "contact": "8808030783"
+        },
+        {
+          "name": "Arpit",
+          "contact": "8604973588"
+        },
+        {
+          "name": "Aadesh Kumar",
+          "contact": "8810933814"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/3"
+    },
+    {
+      "eventName": "Loki's Glider",
+      "registrationLink": "",
+      "eventId": "05",
+      "description": "* Overview: Design and construct a lightweight, unpowered glider that relies entirely on aerodynamic lift. The use of motors, batteries, propellers, and remote-control systems is prohibited.\n* Team Size: 2–3 Members\n\nThe Challenges:\n* Round 1: Design Evaluation – Gliders will be assessed on centre of gravity, dihedral angle, weight distribution, structural alignment, and material efficiency.\n* Round 2: Distance Challenge – Teams will hand-launch their gliders from the designated launch line. The glider achieving the greatest valid horizontal flight distance will secure the highest score",
+      "rules": [
+        "Team Size: 2–3 members per team.",
+        "Glider: Only one registered, aerodynamically functional glider per team.",
+        "Restrictions: Motors, batteries, propellers, RC systems, and mechanical launchers are prohibited.",
+        "Safety: Gliders must pass design and safety inspection before flying.",
+        "Launch: Hand-launching from the designated line only; running starts and external assistance are prohibited.",
+        "Attempts: Three distance attempts and two stability attempts per team.",
+        "Scoring: Design Inspection (20 points), Distance Flight (50 points), and Stability (30 points).",
+        "Fair Play: No modifications after inspection without approval. Unsafe practices may lead to disqualification.",
+        "Winner: The team with the highest total score wins. Judges’ decisions are final."
+      ],
+      "coordinators": [
+        {
+          "name": "Kartikey Mishra",
+          "contact": "7803059669"
+        },
+        {
+          "name": "Roshan",
+          "contact": "7385776559"
+        },
+        {
+          "name": "Uplakshya Singh",
+          "contact": "9598503635"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/4"
+    },
+    {
+      "eventName": "Reality Check",
+      "registrationLink": "",
+      "eventId": "06",
+      "description": "Round 1: Reality Reforged: Paper Aircraft Design\n\n* Participants must design and construct a paper aircraft using the materials provided.\n* Judging will be based on flight parameters and aesthetics of the aircraft.\n\nRound 2: Snapping the Forged Reality: Launcher Design & Flight Challenge\n\n* Teams must design and construct a functional launcher using permitted materials and demonstrate its performance by launching the aircraft.\n* Judging will be based on aesthetics, functionality, cost of construction and major launching criterias. \n NOTE: There will be year wise changes in the deliverables and will be specified on site.",
+      "rules": [
+        "Only materials permitted by the organisers may be used to forge your launcher.",
+        "No pre-built launchers are allowed. Every team must create its own mechanism.",
+        "Your creation must be safe and fully functional to wield the power of the Reality Stone.",
+        "Teams must fulfil the year-wise requirements revealed by the organisers.",
+        "The judges' decisions shall be final. Bend reality, but never the rules!"
+      ],
+      "coordinators": [
+        {
+          "name": "Rajeev Gupta",
+          "contact": "7991234295"
+        },
+        {
+          "name": "Yatin Sai Chaitanya",
+          "contact": "7894221555"
+        },
+        {
+          "name": "Vanshika",
+          "contact": "9148820705"
+        }
+      ],
+      "fixedKey": "avishkar/aeroverse/5"
+    }
+  ]
+}
