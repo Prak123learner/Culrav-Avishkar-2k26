@@ -17,7 +17,10 @@ const JWT_EXPIRES = process.env.JWT_EXPIRES;
 
 const CONFIRM_MIN = Number(process.env.CONFIRM_TOKEN_EXPIRES_MIN || 60);
 const RESET_MIN = Number(process.env.RESET_TOKEN_EXPIRES_MIN || 30);
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
+// Use the first configured origin for links in legacy verification emails.
+const FRONTEND_URL = (process.env.FRONTEND_URL || "http://localhost:5173")
+  .split(",")[0]
+  .trim();
 
 exports.signUp = catchAsync(async (req, res, next) => {
   const { email, password, name, college, branch, resumeLink } = req.body;

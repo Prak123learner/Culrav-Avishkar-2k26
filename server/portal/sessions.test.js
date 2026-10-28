@@ -272,7 +272,7 @@ test("growth-collection indexes support member and event access patterns", async
   );
 });
 
-test("production configuration requires a single HTTPS origin", () => {
+test("production configuration requires exact HTTPS origins", () => {
   const { validateProductionConfig } = require("./deployment");
   const valid = {
     NODE_ENV: "production",
@@ -280,10 +280,17 @@ test("production configuration requires a single HTTPS origin", () => {
     JWT_SECRET: "a".repeat(32),
   };
   assert.doesNotThrow(() => validateProductionConfig(valid));
+  assert.doesNotThrow(() =>
+    validateProductionConfig({
+      ...valid,
+      FRONTEND_URL: "https://fest.example.edu,https://www.fest.example.edu",
+    }),
+  );
   for (const bad of [
     "http://fest.example.edu",
     "https://fest.example.edu/path",
-    "https://fest.example.edu,https://other.example.edu",
+    "https://fest.example.edu,",
+    "https://fest.example.edu,https://fest.example.edu",
   ])
     assert.throws(() =>
       validateProductionConfig({ ...valid, FRONTEND_URL: bad }),
