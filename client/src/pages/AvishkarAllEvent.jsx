@@ -52,8 +52,8 @@ import RobomaniaWithoutHover from "../assets/pages/avishkar/cards/Robomania_With
 import RobomaniaWithHover from "../assets/pages/avishkar/cards/Robomania_With_Hover.webp";
 
 import ButtonPlaque from "../assets/pages/avishkar/cards/ButtonCrop.webp";
-import NexusDomainWithoutHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-a.webp";
-import NexusDomainWithHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-b.webp";
+import NexusDomainWithoutHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261028-c.webp";
+import NexusDomainWithHover from "../assets/pages/avishkar/cards/nexus-domain-card-20261028-d.webp";
 
 
 function AvishkarEventCard({ event, onClick, eager, mobile }) {
@@ -96,10 +96,10 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
       {/* Event Title (Vertically aligned with the side laurel leaves at ~60%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
         <h3
-          className={`font-dalek sm:text-2xl md:text-[23px] font-black uppercase text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1 ${
+          className={`font-dalek sm:text-[22px] md:text-[21px] font-black uppercase text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1 ${
             event.slug === "nexus-domain"
-              ? "text-[17px] tracking-[0.09em] sm:tracking-[0.16em]"
-              : "text-[20px] tracking-[0.16em]"
+              ? "text-[15.5px] tracking-[0.08em] sm:tracking-[0.14em]"
+              : "text-[18.5px] tracking-[0.14em]"
           }`}
         >
           {event.name}
@@ -115,7 +115,7 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
 
       {/* Event Description (In the open parchment area below the title and divider) */}
       <div className="absolute top-[66%] left-[11%] right-[11%] bottom-[19%] z-20 flex items-center justify-center pointer-events-none text-center">
-        <p className="font-garamond text-sm sm:text-base font-semibold text-[#482d66] group-hover:text-[#28153d] transition-colors px-2 leading-relaxed line-clamp-3">
+        <p className="font-garamond text-[13px] sm:text-[15px] font-semibold text-[#482d66] group-hover:text-[#28153d] transition-colors px-2 leading-relaxed line-clamp-3">
           {event.tagline}
         </p>
       </div>

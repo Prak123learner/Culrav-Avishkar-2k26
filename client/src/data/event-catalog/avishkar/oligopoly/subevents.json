@@ -10,8 +10,9 @@
       "eventName": "Solo Lobo",
       "registrationLink": "https://forms.gle/FS4NoLncNJQHPyAN8",
       "eventId": "01",
-      "description": "The event will be followed by three rounds for the participants.",
+      "description": "The event will be followed by three rounds for the participants.\n\nRound 1: Group Discussion\nThis round is a discussion round that tests leadership skills, communication skills, teamwork, listening ability, general awareness, and problem-solving skills. Participants will be divided into different groups and a GD topic will be assigned, wherein 10 minutes would be allotted to each group to discuss the topic. The more composed and articulate individuals will qualify for the next round.\n\nRound 2: Mock Interview\nThe mock interview round tests an individual’s fitness in the corporate world. This is going to be an HR round of interview, wherein the participant will be judged on their communication skills, perseverance skills, persuasion skills and listening skills.\n\nRound 3: Corporate Strategy and Risk Management\n1. A critical corporate scenario with reference to personnel management will be given and the participant will have to explain their strategy within 10 minutes.\n2. Evaluation will be done on the basis of articulation, fluency, clarity of thought, creativity, presence of mind and practical applicability and relevance of the solution.",
       "rules": [
+        "Solo participation only.",
         "Round 1: Group Discussion — this round tests leadership, communication, teamwork, listening ability, general awareness, and problem-solving skills.",
         "Participants will be divided into groups and assigned a GD topic. Each group receives 10 minutes to discuss the topic; the most composed and articulate individuals qualify for the next round.",
         "Round 2: Mock Interview — an HR interview assessing fitness for the corporate world through communication, perseverance, persuasion, and listening skills.",
@@ -19,15 +20,19 @@
         "Evaluation is based on articulation, fluency, clarity of thought, creativity, presence of mind, practical applicability, and relevance of the solution."
       ],
       "PsLink": "",
-      "coordinators": [{"name":"Harshit Singh","contact":"9140363284"},{"name":"Akshay Kumar","contact":"8756282848"}],
+      "coordinators": [
+        { "name": "Harshit Singh", "contact": "9140363284" },
+        { "name": "Akshay Kumar", "contact": "8756282848" }
+      ],
       "fixedKey": "avishkar/oligopoly/0"
     },
     {
       "eventName": "Pitchers",
       "registrationLink": "https://forms.gle/TFBod4xhuiHrSpBX7",
       "eventId": "02",
-      "description": "An offline startup and entrepreneurship quiz followed by a startup-idea pitch presentation for qualifying teams.",
+      "description": "Pitchers comprises an offline quiz based on the theme “Startups and Entrepreneurship” (qualifying in nature), followed by a startup-idea pitch for qualifying teams.\n\nRound 1: Offline Quiz\nAn offline quiz based on the theme “Startups and Entrepreneurship” (qualifying in nature).\na. 40 multiple choice questions with one or more than one correct answer.\nb. There is no negative marking.\nc. The qualifying score is 30%.\n\nRound 2: Startup Pitch\nQualifiers of Round 1 will be required to present their startup idea using a PowerPoint presentation (not exceeding 10 slides excluding cover and Thank You slides).\nThe presentation must address the following questions:\na. What motivated you to take up this startup idea?\nb. Why do you think you will succeed in the chosen industry?\nc. Explain your revenue generation strategy.\nd. Explain your Marketing and Finance strategy.",
       "rules": [
+        "Team participation only.",
         "Round 1: Offline quiz based on the theme ‘Startups and Entrepreneurship’ (qualifying in nature).",
         "The quiz has 40 multiple-choice questions, with one or more than one correct answer.",
         "There is no negative marking, and the qualifying score is 30%.",
@@ -35,15 +40,19 @@
         "The presentation must address motivation for the idea, likelihood of success in the chosen industry, revenue-generation strategy, and marketing and finance strategy."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Harshit Singh", "contact": "9140363284" },
+        { "name": "Akshay Kumar", "contact": "8756282848" }
+      ],
       "fixedKey": "avishkar/oligopoly/1"
     },
     {
       "eventName": "Ad-Hole",
       "registrationLink": "",
       "eventId": "03",
-      "description": "The event will be followed by three rounds for the participants.",
+      "description": "The event will be followed by three rounds for the participants.\n\nRound 1: Brain Teaser (Elimination Round)\nA quiz link related to advertisements will be provided. Each member of the team has to take the test individually, and then their results will be clubbed together for final evaluation. The time limit for the quiz is 15 minutes and the total number of questions is 20. (Please ensure good internet connectivity.)\n\nRound 2: Evolution (30 minutes) (Elimination Round – 5 teams will be shortlisted)\nA video advertisement will be shown. Participants will be given 20 minutes to write their analysis of the advertisement on an A4 sheet of paper.\n\nRound 3: Thinkistaan\n1. Advertisement of a given product.\n2. You will have full liberty to choose the platform of advertisement and how to create it.\n3. The minimum time limit for the advertisement is 1.5 minutes.\n4. The maximum time limit for the advertisement is 3 minutes.\n5. Q&A round.",
       "rules": [
+        "Team participation only.",
         "Round 1: Brain Teaser (Elimination Round) — a quiz link related to advertising will be provided. Each team member takes the test individually, then scores are combined for final evaluation.",
         "The quiz time limit is 15 minutes and contains 20 questions. Participants should ensure good internet connectivity.",
         "Round 2: Evolution (30 minutes, Elimination Round) — a video advertisement is shown, after which participants have 20 minutes to write its analysis on an A4 sheet. Five teams are shortlisted.",
@@ -51,23 +60,11 @@
         "The advertisement must be at least 1.5 minutes and no longer than 3 minutes, followed by a Q&A round."
       ],
       "PsLink": "",
-      "coordinators": [],
-      "fixedKey": "avishkar/oligopoly/2"
-    },
-    {
-      "eventName": "Trading Strategist",
-      "registrationLink": "",
-      "eventId": "04",
-      "description": "A stock-market based analytical event testing fundamentals of finance, trading mindset and portfolio strategy under simulated conditions.",
-      "rules": [
-        "Individual participation only.",
-        "Round 1: The Financial Forum – MCQ-based assessment covering stock basics, concepts & market awareness.",
-        "Round 2: The Trading Turf – simulated trading session to maximize profits using strategic decisions.",
-        "Eligibility: Open to all interested in stock trading."
+      "coordinators": [
+        { "name": "Harshit Singh", "contact": "9140363284" },
+        { "name": "Akshay Kumar", "contact": "8756282848" }
       ],
-      "PsLink": "",
-      "coordinators": [],
-      "fixedKey": "avishkar/oligopoly/3"
+      "fixedKey": "avishkar/oligopoly/2"
     }
   ]
 }

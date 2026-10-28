@@ -10,8 +10,9 @@
       "eventName": "Chanakya Neeti",
       "registrationLink": "",
       "eventId": "71",
-      "description": "A three-round competition testing strategic thinking, problem-solving, and analytical skills.",
+      "description": "A three-round competition testing strategic thinking, problem-solving, and analytical skills.\n\nRound 1: Brain Buster Blitz (Quiz Round)\nTeams will tackle a quiz filled with challenging questions. Both members collaborate, and their combined performance will determine advancement.\n\nRound 2: The Riddle Conundrum\nTeams must solve 5 riddles in the shortest time possible. Those solving the most riddles in the least time advance.\n\nRound 3: Strategic Mastermind (Case Study Presentation)\n5–7 min to present, another 5 min for the question-answer round.\n1. Teams will be assigned a common case study focused on strategy formulation.\n2. They will have 10–12 minutes (5–7 min presentation + 5 min Q&A). Performance will be judged on strategic and analytical skills.\n3. Judges will ask questions for evaluation.",
       "rules": [
+        "Team participation only.",
         "Round 1: Brain Buster Blitz (Quiz Round) — both team members collaborate on a quiz of challenging questions, and their combined performance determines advancement.",
         "Round 2: The Riddle Conundrum — teams solve 5 riddles in the shortest possible time. Teams solving the most riddles in the least time advance.",
         "Round 3: Strategic Mastermind (Case Study Presentation) — teams are assigned a common case study focused on strategy formulation.",
@@ -19,72 +20,52 @@
         "Performance is judged on strategic and analytical skills, and judges ask questions for evaluation."
       ],
       "PsLink": "",
-      "coordinators": [{"name":"Akshay Kumar","contact":"8756282848"},{"name":"Harshit Singh","contact":"9140363284"}],
+      "coordinators": [
+        { "name": "Akshay Kumar", "contact": "8756282848" },
+        { "name": "Harshit Singh", "contact": "9140363284" }
+      ],
       "fixedKey": "avishkar/monopoly/0"
     },
     {
       "eventName": "Netrivta",
       "registrationLink": "https://forms.gle/TXWsnm6EKZdhv4AJ7",
       "eventId": "72",
-      "description": "Participants receive 2 minutes to introduce themselves, followed by leadership questions. This is not an elimination round.",
+      "description": "The participants will be given 2 minutes to introduce themselves, followed by some leadership questions. (This will not be an elimination round.)\n\nRound 1: Parichaya (Introduction)\nThe participants will be given 2 minutes to introduce themselves, followed by some leadership questions. (This will not be an elimination round.)\n\nRound 2: Vaad-Vivad (Debate)\nParticipants will be provided with a current topic and will be required to actively participate by clearly stating their stance, without contradicting themselves. Topics will be disclosed at the time of the debate, and this round will test an individual’s spontaneity and persuasiveness.\n\nRound 3: Vaktavya (Elocution)\nParticipants will be provided with a topic for the elocution. After the monologue, the audience or the judges will ask questions based on the content of the speech given by the participant.",
       "rules": [
+        "Solo participation only.",
         "Round 1: Parichaya (Introduction) — participants receive 2 minutes to introduce themselves, followed by leadership questions. This is not an elimination round.",
         "Round 2: Vaad-Vivad (Debate) — participants receive a current topic and must actively participate by clearly presenting their stance without contradicting themselves.",
         "Debate topics are disclosed at the time of the round, which tests spontaneity and persuasiveness.",
-        "Round 3: Vaktavya (Elocution) — participants receive an elocution topic, followed by questions from the audience or judges based on the speech content."
+        "Round 3: Vaktavya (Elocution) — participants receive an elocution topic, followed by questions from the audience or judges based on the content of the speech."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Akshay Kumar", "contact": "8756282848" },
+        { "name": "Harshit Singh", "contact": "9140363284" }
+      ],
       "fixedKey": "avishkar/monopoly/1"
-    },
-    {
-      "eventName": "Navachar",
-      "registrationLink": "",
-      "eventId": "73",
-      "description": "An innovation & entrepreneurship-based event conducted across quiz, case analysis and business-presentation rounds.",
-      "rules": [
-        "Team size: 1–2 members",
-        "Round 1: Quizoholic – Objective quiz based on startups & innovation",
-        "Round 2: Business Case Study – 25 min written analysis, 100-word limit per question",
-        "Round 3: B-Plan Presentation – Max 6 slides, 10 min pitch + Q&A"
-      ],
-      "PsLink": "",
-      "coordinators": [],
-      "fixedKey": "avishkar/monopoly/2"
     },
     {
       "eventName": "Stall Mart",
       "registrationLink": "",
       "eventId": "74",
-      "description": "Stall Mart is a two-round competition where participants showcase creativity, business acumen, and organizational skills by setting up and managing stalls. The event tests ideation, execution, and revenue-generation skills.",
+      "description": "Stall Mart is a two-round competition where participants will showcase their creativity, business acumen, and organizational skills by setting up and managing stalls. The event tests ideation, execution, and revenue generation skills.\n\nRound 1: Idea Sprint\nTeams will present their stall concept and strategy in a concise and clear manner, explaining the products or services offered and how they plan to attract customers.\n\nRound 2: The Entrepreneur’s Arena\nTeams will set up and manage their stalls based on their proposed ideas. Stalls can feature artistic creations, games with psychological themes, food, etc. Teams must keep their stalls tidy and organized.\n\nEvaluation will be based on revenue generated, productivity, and a task assigned by the Event Coordinators (ECs).",
       "rules": [
-        "Round 1: Idea Sprint — teams present their stall concept and strategy, including the products or services offered and how they plan to attract customers.",
-        "Round 2: The Entrepreneur’s Arena — teams set up and manage stalls based on their proposed ideas. Stalls may feature artistic creations, games with psychological themes, food, and more.",
-        "Teams must keep their stalls tidy and organized.",
-        "Evaluation is based on revenue generated, productivity, and a task assigned by the Event Coordinators.",
-        "No gambling games, objectionable subjects, or unfair means are permitted.",
-        "Discipline must be maintained, and only members of the participating team may be in the stall.",
-        "Stalls are allotted on a first-come, first-served basis. No disputes will be entertained.",
-        "A daily balance sheet must be maintained."
+        "Team participation only.",
+        "No gambling games, events or any objectionable subjects.",
+        "Discipline should be maintained.",
+        "Only the members of the participating team are allowed in the stall.",
+        "No unfair means will be tolerated.",
+        "Stalls will be allotted on a first-come, first-served basis.",
+        "No disputes will be entertained.",
+        "An everyday balance sheet will have to be maintained."
       ],
       "PsLink": "",
-      "coordinators": [],
+      "coordinators": [
+        { "name": "Akshay Kumar", "contact": "8756282848" },
+        { "name": "Harshit Singh", "contact": "9140363284" }
+      ],
       "fixedKey": "avishkar/monopoly/3"
-    },
-    {
-      "eventName": "Reel Fiesta",
-      "registrationLink": "",
-      "eventId": "75",
-      "description": "A creative reel-based entrepreneurship challenge including quiz, brand face-off and product pitching through video creation.",
-      "rules": [
-        "Team size: 2–3 members",
-        "Round 1: Business Trivia Quiz",
-        "Round 2: Brand Battle – Create humorous reel of two competing brands (45–60 sec)",
-        "Round 3: Pitch Perfect – Reel-pitch of a mystery-box product (45–60 sec)"
-      ],
-      "PsLink": "",
-      "coordinators": [],
-      "fixedKey": "avishkar/monopoly/4"
     }
   ]
 }

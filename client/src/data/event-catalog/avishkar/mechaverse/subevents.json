@@ -174,7 +174,7 @@
         "Round 2: HR / Behavioural + Technical Interview.",
         "Round 3: Final Round (Offline)."
       ],
-      "coordinators": [],
+      "coordinators": [{ "name": "To be decided", "contact": "" }],
       "fixedKey": "avishkar/mechaverse/6"
     },
     {

@@ -6,167 +6,67 @@
   "tagline": "Where Innovation Meets Robotics",
   "events": [
     {
-      "eventName": "TrailBlitz",
+      "eventName": "Neon Navigator",
       "eventId": "01",
-      "description": "Teams design and construct an autonomous line-following robot capable of detecting and tracing a marked path. The bot must navigate turns, intersections, and checkpoints with precision, testing logic design, sensor tuning, and autonomous navigation.",
+      "description": "A robotics challenge testing autonomous navigation, sensor integration, and control logic. Participants design and program robots to follow designated paths or navigate complex mazes with precision, accuracy, and efficiency.",
       "rules": [
-        "Only one bot per team.",
-        "No touching or manual adjustment during the run.",
-        "Once started, no team member may enter the arena.",
-        "Maximum of 3 restarts allowed.",
-        "Timer does not reset during restarts.",
-        "Event coordinators’ decision is final and may change if needed.",
-        "Team Size: 2 – 4 members.",
-        "Event includes separate problem statements for 1st years & others."
+        "Team participation.",
+        "To be decided"
       ],
       "coordinators": [
-        {
-          "name": "Dhruv Chandhok",
-          "contact": "+91 8279448621"
-        },
-        {
-          "name": "Mohammad Kaif",
-          "contact": "+91 9520046728"
-        },
-        {
-          "name": "Aryan Vishwakarma",
-          "contact": "+91 9532983109"
-        },
-        {
-          "name": "Aman Sharma",
-          "contact": "+91 9936064502"
-        }
+        { "name": "To be decided", "contact": "" }
       ],
       "fixedKey": "avishkar/robomania/0"
     },
     {
-      "eventName": "Sketch-O-Bot",
+      "eventName": "Steel Clash",
       "eventId": "02",
-      "description": "Participants must process an image through OpenCV to extract contour data. Their autonomous bot must trace the pattern on the arena, managing pen lifts, intersections, and staying aligned with the given outline.",
+      "description": "A head-to-head robotic combat challenge in which participants engineer robots to push their opponents out of a designated arena while maintaining stability and control. The event tests mechanical design, traction, strategy, and real-time decision-making.",
       "rules": [
-        "Only one autonomous bot per team.",
-        "No team member allowed to touch the bot or enter arena after start.",
-        "Bot must start from a safe starting point inside arena.",
-        "Only one member allowed near the bot initially.",
-        "Run starts only on organizers’ signal.",
-        "If pen/brush falls off, run is nullified.",
-        "Teams must not hardcode the pattern.",
-        "Participants may choose any starting point (ending point must match).",
-        "Event coordinators’ decision is final.",
-        "Team Size: 2 – 4 members.",
-        "Separate problem statements for 1st years & others."
+        "Team participation.",
+        "To be decided"
       ],
       "coordinators": [
-        {
-          "name": "Abhay Agrawal",
-          "contact": "+91 9695666222"
-        },
-        {
-          "name": "Abdul Basit",
-          "contact": "+91 6392081638"
-        },
-        {
-          "name": "Astha Singh",
-          "contact": "+91 9336292091"
-        }
+        { "name": "To be decided", "contact": "" }
       ],
       "fixedKey": "avishkar/robomania/1"
     },
     {
-      "eventName": "RoboGesture Rally",
+      "eventName": "Night Hawk",
       "eventId": "03",
-      "description": "Teams design and construct gesture-controlled or mobile-controlled robotic vehicles to race through an urban-style obstacle arena. Bots must demonstrate agility, obstacle handling, and quick problem-solving in dynamic terrain.",
+      "description": "A vision-based robotics challenge focused on navigating low-visibility environments using ESP-CAM technology. Participants apply embedded systems, image processing, and autonomous control to detect paths and navigate through dark or challenging terrain.",
       "rules": [
-        "Teams must build their own bot — no prebuilt kits allowed.",
-        "Maximum 3 attempts; best timing considered.",
-        "Points deducted for collisions or missed checkpoints.",
-        "Intentional arena damage → disqualification.",
-        "Judges’ decision is final.",
-        "Team Size: 2 – 4 members.",
-        "Separate problem statements for 1st years & others."
+        "Team participation.",
+        "To be decided"
       ],
       "coordinators": [
-        {
-          "name": "Aman Sharma",
-          "contact": "+91 9936064502"
-        },
-        {
-          "name": "Ankit Upadhyay",
-          "contact": "+91 8368822483"
-        },
-        {
-          "name": "Avneesh Sahu",
-          "contact": "+91 9616520679"
-        },
-        {
-          "name": "Devanshi Gupta",
-          "contact": "+91 7081839153"
-        }
+        { "name": "To be decided", "contact": "" }
       ],
       "fixedKey": "avishkar/robomania/2"
     },
     {
-      "eventName": "Code Sprint",
+      "eventName": "Grab N Ghost",
       "eventId": "04",
-      "description": "A hackathon-style coding competition with multiple problem statements for both 1st years and open-category participants. Themes span AI, ML, audio analysis, vision tasks, and more.",
+      "description": "A robotics challenge combining object gripping, payload handling, and speed-based navigation. Participants design and control robots to retrieve designated objects, transport them securely, and complete the course with precision and efficiency.",
       "rules": [
-        "Raw dataset will be provided to teams.",
-        "Rules vary by theme and difficulty level.",
-        "Evaluation based on accuracy and application.",
-        "Event coordinators’ decision is final.",
-        "Separate problem statements for 1st years & others.",
-        "Themes (1st year): WorthSmith, PhytoMind, PlateNet, Signus.AI.",
-        "Themes (Open): EchoMind, SynthWave, SonicTrace, RoadSage."
+        "Team participation.",
+        "To be decided"
       ],
       "coordinators": [
-        {
-          "name": "Ankit Upadhyay",
-          "contact": "+91 8368822483"
-        },
-        {
-          "name": "Astha Singh",
-          "contact": "+91 9336292091"
-        },
-        {
-          "name": "Aryan Vishwakarma",
-          "contact": "+91 9532983109"
-        },
-        {
-          "name": "Inam",
-          "contact": "+91 7302533510"
-        }
+        { "name": "To be decided", "contact": "" }
       ],
       "fixedKey": "avishkar/robomania/3"
     },
     {
-      "eventName": "BOT Warriors",
+      "eventName": "Chrome Strokes",
       "eventId": "05",
-      "description": "A dual-stage robotics combat challenge combining ‘Destroy the Flag’ and a mechanical Tug of War. Bots must display strength, defense, endurance, and intelligent combat strategies.",
+      "description": "A creative robotics challenge in which participants build and program robots capable of reproducing drawings, patterns, or designs on a surface. The event combines mechanical design, motor control, and programming accuracy to transform robotic motion into artistic expression.",
       "rules": [
-        "Teams qualify by destroying opponent’s flag or defending their own.",
-        "Final winner decided by Tug of War between Stage 1 victors.",
-        "All bots must follow safety norms.",
-        "No harmful materials, flames, liquids, or flying objects allowed.",
-        "Intentional severe damage → disqualification.",
-        "Team Size: Maximum 4 members."
+        "Team participation.",
+        "To be decided"
       ],
       "coordinators": [
-        {
-          "name": "Mohammad Kaif",
-          "contact": "+91 9520046728"
-        },
-        {
-          "name": "Abhay Agrawal",
-          "contact": "+91 9695666222"
-        },
-        {
-          "name": "Abdul Basit",
-          "contact": "+91 6392081638"
-        },
-        {
-          "name": "Avneesh Sahu",
-          "contact": "+91 9616520679"
-        }
+        { "name": "To be decided", "contact": "" }
       ],
       "fixedKey": "avishkar/robomania/4"
     }

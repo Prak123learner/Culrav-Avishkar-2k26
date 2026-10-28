@@ -12,8 +12,8 @@ import CyberquestCard from "../assets/pages/avishkar/cards/Cyberquest_without_ho
 import ElectromaniaCard from "../assets/pages/avishkar/cards/Electromania_withouthover.webp";
 import CyberquestCardColor from "../assets/pages/avishkar/cards/Cyberquest_with_hover.webp";
 import ElectromaniaCardColor from "../assets/pages/avishkar/cards/Electromania_with_hover.webp";
-import NexusDomainCard from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-a.webp";
-import NexusDomainCardColor from "../assets/pages/avishkar/cards/nexus-domain-card-20261027-b.webp";
+import NexusDomainCard from "../assets/pages/avishkar/cards/nexus-domain-card-20261028-c.webp";
+import NexusDomainCardColor from "../assets/pages/avishkar/cards/nexus-domain-card-20261028-d.webp";
 import SACPortrait from "../data/Team/sac_president/dr_sushil kumar.png";
 import FacultyPortrait from "../data/Team/Faculty_incharge/SameerSir.jpeg";
 import FacultySecondPortrait from "../data/Team/Faculty_incharge/VP_singh_sir.png";
