@@ -174,7 +174,28 @@
         "Round 2: HR / Behavioural + Technical Interview.",
         "Round 3: Final Round (Offline)."
       ],
-      "coordinators": [{ "name": "To be decided", "contact": "" }],
+      "coordinators": [
+        {
+          "name": "Harshit Kumar",
+          "contact": "7830080485"
+        },
+        {
+          "name": "Khyati Jain",
+          "contact": "8435478765"
+        },
+        {
+          "name": "Naveli Gupta",
+          "contact": "6386312537"
+        },
+        {
+          "name": "Tanish Gupta",
+          "contact": "9870783693"
+        },
+        {
+          "name": "Vikash Meena",
+          "contact": "8955318940"
+        }
+      ],
       "fixedKey": "avishkar/mechaverse/6"
     },
     {
