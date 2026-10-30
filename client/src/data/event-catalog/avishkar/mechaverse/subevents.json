@@ -107,7 +107,12 @@
       "registrationLink": "",
       "eventId": "automax",
       "description": "",
-      "rules": [],
+      "rules": [
+        "The event will consist of three rounds:",
+        "Round 1 – Analysis Round: Participants will analyze the given problem statement and develop a suitable engineering solution.",
+        "Round 2 – PPT Presentation: Participants will present their proposed solutions through a PowerPoint presentation.",
+        "Round 3 – Fabrication Round: Participants will fabricate a working model or prototype."
+      ],
       "coordinators": [
         {
           "name": "Jitendra Singh",
