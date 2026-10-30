@@ -659,13 +659,23 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.festival-logo-size {
+  width: min(83vw, 550px);
+  height: auto;
+  max-height: 38vh;
+  object-fit: contain;
+}
+
+.hero-logo-glow {
+  filter: drop-shadow(0 0 18px rgba(255, 219, 92, 0.3))
+    drop-shadow(0 0 36px rgba(255, 211, 70, 0.18))
+    drop-shadow(0 16px 24px rgba(47, 20, 8, 0.42));
+}
+
 .oracle-logo {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(92vw, 610px);
-  height: auto;
-  max-height: 42vh;
   margin: 0;
   object-fit: contain;
   filter: sepia(0.15) drop-shadow(0 4px 6px rgba(77, 44, 18, 0.2));
@@ -894,16 +904,16 @@ body {
     --oracle-copy-offset: clamp(105px, 23vh, 210px);
   }
 
-  .oracle-logo {
-    width: min(68vw, 610px);
-    max-height: 37vh;
+  .festival-logo-size {
+    width: min(61vw, 550px);
+    max-height: 33vh;
   }
 }
 
 @media (min-width: 768px) {
-  .oracle-logo {
-    width: min(58vw, 610px);
-    max-height: 43vh;
+  .festival-logo-size {
+    width: min(52vw, 550px);
+    max-height: 39vh;
   }
 }
 

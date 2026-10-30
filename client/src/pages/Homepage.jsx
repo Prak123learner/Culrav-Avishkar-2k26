@@ -27,9 +27,9 @@ gsap.registerPlugin(ScrollTrigger);
 // --- CONFIGURATION: ADD YOUR ASSETS HERE ---
 // Leave as "" to use the futuristic placeholders
 const LOGO_URLS = {
-  main: "/media/common/branding/logo_avishkar_culrav.png", // e.g., "/logos/combined-logo.png"
-  culrav: "/media/common/branding/culrav_logo.png", // e.g., "/logos/culrav-logo.png"
-  avishkar: "/media/common/branding/avishkar_logo.png", // e.g., "/logos/avishkar-logo.png"
+  main: "/media/common/branding/Culrav-Avishkar-2026logo.png", // e.g., "/logos/combined-logo.png"
+  culrav: "/media/common/branding/Culravlogo.png", // e.g., "/logos/culrav-logo.png"
+  avishkar: "/media/common/branding/Avishkarlogo.png", // e.g., "/logos/avishkar-logo.png"
 };
 
 const VIDEO_URLS = {
@@ -457,7 +457,7 @@ const HeroSection = () => {
           <img
             src={LOGO_URLS.main}
             alt="Culrav and Avishkar"
-            className="h-auto max-h-[42vh] w-[92vw] max-w-[610px] object-contain drop-shadow-[0_16px_24px_rgba(47,20,8,0.42)] sm:w-[68vw] sm:max-h-[37vh] md:max-h-[43vh] md:w-[58vw]"
+            className="festival-logo-size hero-logo-glow"
           />
         </div>
 
@@ -897,7 +897,7 @@ const AboutSection = () => {
                   <img
                     src={LOGO_URLS.culrav}
                     alt="Culrav"
-                    className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)]"
+                    className="w-full max-h-full max-w-[250px] sm:max-w-[300px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)]"
                   />
                 </div>
                 <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#b86d2a]">
@@ -905,7 +905,7 @@ const AboutSection = () => {
                   <span className="text-[10px]">✦</span>
                   <div className="h-px flex-1 bg-current opacity-60" />
                 </div>
-                
+
                 <p className="font-garamond my-4 max-w-sm text-lg font-semibold leading-relaxed text-[#533920] sm:text-xl">
                   The realm of art, expression and celebration.
                 </p>
@@ -998,7 +998,7 @@ const AboutSection = () => {
                   <img
                     src={LOGO_URLS.avishkar}
                     alt="Avishkar"
-                    className="max-h-full max-w-[220px] sm:max-w-[260px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)] transition-all duration-300 group-hover:drop-shadow-[0_8px_18px_rgba(110,45,170,0.45)]"
+                    className="w-full max-h-full max-w-[250px] sm:max-w-[300px] object-contain drop-shadow-[0_8px_16px_rgba(130,59,10,0.28)] transition-all duration-300 group-hover:drop-shadow-[0_8px_18px_rgba(110,45,170,0.45)]"
                   />
                 </div>
                 <div className="my-2 flex w-32 items-center justify-center gap-2 text-[#64498e]">
@@ -1113,7 +1113,7 @@ function ArchiveVideo({ src }) {
 
   useEffect(() => {
     if (nearViewport) {
-      videoRef.current?.play().catch(() => {});
+      videoRef.current?.play().catch(() => { });
     } else {
       videoRef.current?.pause();
     }
@@ -1861,9 +1861,9 @@ export default function App() {
       // Hero
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
       tl.from(
-          ".hero-title",
-          { duration: 0.82, y: 28, opacity: 0 },
-        )
+        ".hero-title",
+        { duration: 0.82, y: 28, opacity: 0 },
+      )
         .from(
           ".hero-sub",
           { duration: 0.52, opacity: 0, y: 14 },

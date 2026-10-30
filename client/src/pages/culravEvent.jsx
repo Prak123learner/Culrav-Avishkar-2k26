@@ -6,7 +6,7 @@ import { mobileRouteCriticalImages, routeCriticalImages } from "../components/ro
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
-import image from "../assets/pages/culrav/CULRAV LOGO-display.webp";
+import image from "../assets/pages/culrav/Culravlogo.png";
 
 // Culrav Cultural Event Cards (Pairs: Without Hover & With Hover)
 import AnunaadWithoutHover from "../assets/pages/culrav/cards/Anunaad_Without_Hover.webp";
@@ -202,14 +202,14 @@ function CulravEvent() {
       }}
     >
       {/* Top Banner Group */}
-      <div className="relative w-full overflow-hidden md:h-[300px] lg:h-[200px] sm:h-[300px] h-[450px] lg:mt-12 lg:mr-5">
+      <div className="relative w-full overflow-hidden h-[260px] sm:h-[280px] md:h-[300px] lg:h-[200px] lg:mt-12 lg:mr-5">
         <div className="absolute inset-0 flex flex-col justify-center sm:px-8">
           <div className="w-full flex flex-col md:flex-row items-center justify-center md:gap-6">
             {/* Logo */}
-            <div className="flex justify-center w-full md:w-1/3 mt-6 md:mt-0">
+            <div className="flex justify-center w-full md:w-1/2 lg:w-1/3">
               <img
                 src={image}
-                className="w-75 sm:w-80 md:w-full max-w-[400px]"
+                className="h-auto w-4/5 max-w-[320px] object-contain sm:w-full sm:max-w-[400px] lg:max-w-[800px]"
                 alt="Culrav Crest"
               />
             </div>

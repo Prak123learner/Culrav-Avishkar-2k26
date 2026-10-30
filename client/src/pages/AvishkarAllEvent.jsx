@@ -6,7 +6,7 @@ import { mobileRouteCriticalImages, routeCriticalImages } from "../components/ro
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
-import image from "../assets/pages/avishkar/avishkarrr-display.webp";
+import image from "../assets/pages/avishkar/Avishkarlogo.png";
 
 // Avishkar Greek Mythological Event Cards (Pairs: Without Hover & With Hover)
 import AstrogynamixWithoutHover from "../assets/pages/avishkar/cards/Astrogynamix_without_hover.webp";
@@ -96,11 +96,10 @@ function AvishkarEventCard({ event, onClick, eager, mobile }) {
       {/* Event Title (Vertically aligned with the side laurel leaves at ~60%) */}
       <div className="absolute top-[58%] left-[8%] right-[8%] z-20 flex flex-col items-center justify-center pointer-events-none text-center">
         <h3
-          className={`font-dalek sm:text-[22px] md:text-[21px] font-black uppercase text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1 ${
-            event.slug === "nexus-domain"
+          className={`font-dalek sm:text-[22px] md:text-[21px] font-black uppercase text-[#2c153d] group-hover:text-[#431961] transition-colors drop-shadow-[0_1px_1px_rgba(255,255,255,0.6)] line-clamp-1 ${event.slug === "nexus-domain"
               ? "text-[15.5px] tracking-[0.08em] sm:tracking-[0.14em]"
               : "text-[18.5px] tracking-[0.14em]"
-          }`}
+            }`}
         >
           {event.name}
         </h3>
@@ -293,14 +292,14 @@ function AvishkarEvents() {
       }}
     >
       {/* Top Banner Group */}
-      <div className="relative w-full overflow-hidden md:h-[300px] lg:h-[200px] sm:h-[300px] h-[450px] lg:mt-12 lg:mr-5">
+      <div className="relative w-full overflow-hidden h-[260px] sm:h-[280px] md:h-[300px] lg:h-[200px] lg:mt-12 lg:mr-5">
         <div className="absolute inset-0 flex flex-col justify-center sm:px-8">
           <div className="w-full flex flex-col md:flex-row items-center justify-center md:gap-6">
             {/* Logo */}
-            <div className="flex justify-center w-full md:w-1/3">
+            <div className="flex justify-center w-full md:w-1/2 lg:w-1/3">
               <img
                 src={image}
-                className="w-75 sm:w-80 md:w-full max-w-[400px]"
+                className="h-auto w-4/5 max-w-[320px] object-contain sm:w-full sm:max-w-[400px] lg:max-w-[800px]"
                 alt="Avishkar Crest"
               />
             </div>

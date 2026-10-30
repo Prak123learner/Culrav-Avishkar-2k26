@@ -77,9 +77,9 @@ export default function OracleScrollLoader({ onComplete }) {
                 <div className="oracle-scroll-content">
                   <span className="oracle-eyebrow">Echoes of Olympus</span>
                   <img
-                    src="/media/common/branding/logo_avishkar_culrav.png"
-                    alt="Culrav Avishkar"
-                    className="oracle-logo"
+                    src="/media/common/branding/Culrav-Avishkar-2026logo.png"
+                    alt="Culrav Avishkar 2026"
+                    className="oracle-logo festival-logo-size"
                   />
                   <p className="oracle-copy">The realms awaken</p>
                 </div>
