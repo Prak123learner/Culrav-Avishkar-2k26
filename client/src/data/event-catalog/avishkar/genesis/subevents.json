@@ -30,6 +30,7 @@
       "eventId": "61",
       "description": "A case-study driven event where participants analyze real-world scenarios and demonstrate their analytical thinking, problem-solving approach, and decision-making abilities.",
       "rules": [
+        "Team Size of 2-3 members",
         "3 Rounds:",
         "Round 1 – Aptitude Assessment",
         "Round 2 – Case Study Analysis & Submission",

@@ -52,7 +52,7 @@ export const teamData = [
       person("Khyati Jain", undefined, "khyati-jain.webp", "khyatijain_19"),
       person("Manik Dev Azad", undefined, "manik-dev-azad.webp", "mani._.k_"),
       person("Naveli Gupta", undefined, "department-card-20261027-02.webp", "naveli_gupta"),
-      person("Nishant Tiwari"),
+      person("Nishant Tiwari", undefined, "nishant tiwari.webp", "nishantjodd"),
       person("Sange Choedon", undefined, "sange-choedon.webp", "imchoyye_"),
       person("Satvik Yadav", undefined, "satvik-yadav.webp", "satvik_037"),
       person("Tanish Gupta", undefined, "tanish-gupta.webp", "tanish.gupta.01"),

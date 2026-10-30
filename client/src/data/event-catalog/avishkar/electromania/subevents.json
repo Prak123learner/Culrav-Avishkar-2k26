@@ -34,7 +34,7 @@
       "eventName": "Innodev",
       "registrationLink": "",
       "eventId": "2",
-      "description": "The premier Design Team showcase of Electromania celebrating innovation and maker culture. Students showcase working hardware prototypes, embedded/IoT systems, software applications, or interdisciplinary engineering designs.",
+      "description": "A software development team event where participants build innovative, AI-powered solutions based on unique problem statements, focusing on creativity, implementation quality and impact.",
       "rules": [
         "Eligibility: B.Tech 1st, 2nd and 3rd year students (all branches, with at least one ECE student in each team).",
         "Team size: Individual or teams of 1 to 4 members.",
@@ -106,17 +106,15 @@
       "eventName": "AI Sprint",
       "registrationLink": "",
       "eventId": "9",
-      "description": "Simulates cutting-edge fresher online assessments used by top tech product firms. Teams receive a realistic, multi-file codebase with intentional functional bugs, along with an ERRORS.md file listing broken behaviours. An on-platform AI chatbot provides architectural advice, documentation, and syntax guidance, but cannot write code directly.",
+      "description": "A fast-paced, two-round AI engineering challenge combining rapid vibe coding and real-world codebase debugging.",
       "rules": [
-        "Eligibility: B.Tech 1st, 2nd and 3rd year students of all branches.",
-        "Team size: Individual or teams of up to 2 members.",
-        "Conducted offline in computer labs or on personal laptops under invigilation.",
-        "Teams receive a codebase and ERRORS.md detailing all failing behaviours.",
-        "The AI chatbot may only be used for architectural navigation, syntax lookup, and documentation. It will not write or copy-paste code.",
-        "External internet access, public ChatGPT, Claude, and Copilot extensions are strictly prohibited.",
-        "Objective: Fix the maximum errors in ERRORS.md while maintaining zero regression on existing passing tests.",
-        "Evaluation is based on bug-fix accuracy, code cleanliness, and time.",
-        "Automated test runner and evaluator decisions are final."
+        "Eligibility: B.Tech 1st, 2nd and 3rd year students .",
+        "Team size: Individual or teams of 1 to 2 members.",
+        "Round 1 (Vibe Coding): Problem statement revealed on the spot; teams must build a complete, functional website within a strict 30-minute time limit.",
+        "Round 2 (Codebase Debugging): Teams receive a multi-file codebase with injected errors and an ERRORS.md file; teams must debug and fix the errors.",
+        "AI tools/assistants may be used according to round guidelines, but external unauthorized assistance or collusion is strictly prohibited.",
+        "Evaluation: Round 1 is judged on functionality, UI, and completion within 30 mins. Round 2 is evaluated on bug-fix accuracy and test cases passed.",
+        "Judges' decisions on functionality, scoring, and correctness are final."
       ],
       "PsLink": "",
       "coordinators": [

@@ -10,11 +10,20 @@
       "eventId": "01",
       "description": "A robotics challenge testing autonomous navigation, sensor integration, and control logic. Participants design and program robots to follow designated paths or navigate complex mazes with precision, accuracy, and efficiency.",
       "rules": [
-        "Team participation.",
-        "To be decided"
+        "Eligibility: Open to students of all departments and academic years, Students from different branches can form a team.",
+        "Team Size: A maximum of 4 participants and only one autonomous bot are allowed per team.",
+        "Bot Dimensions: The bot must fit inside a 250×250×250mm box (L × B × H).",
+        "Power Supply: The bot may use an onboard power supply or an AC adapter. The voltage must not exceed 12 V at any time during the game.",
+        "Construction Restrictions: Ready-made LEGO kits and ready-made mechanisms are prohibited. Violation leads to disqualification.",
+        "Arena and Team Restrictions: Once the run starts, no team member may touch the bot or enter the arena.",
+        "Only one team member may be near the field while positioning and starting the bot.",
+        "Run and Time Limit: The total time limit is 10 minutes: 5 minutes for image processing and 5 minutes for the actual run. Points will be deducted for exceeding the allotted time.",
+        "Fair Play and Authority: Hardcoding the Maze is prohibited and leads to disqualification. The event coordinator may modify the rules if required, and the coordinator's decision is final."
       ],
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        { "name": "Aman Shukla", "contact": "7068428481" },
+        { "name": "Rishu Raj", "contact": "9113433804" },
+        { "name": "Vikrant Singh", "contact": "8076862571" }
       ],
       "fixedKey": "avishkar/robomania/0"
     },
@@ -23,11 +32,21 @@
       "eventId": "02",
       "description": "A head-to-head robotic combat challenge in which participants engineer robots to push their opponents out of a designated arena while maintaining stability and control. The event tests mechanical design, traction, strategy, and real-time decision-making.",
       "rules": [
-        "Team participation.",
-        "To be decided"
+        "Eligibility: Open to students of all departments and academic years, Students from different branches can form a team. Maximum 4 members per team.",
+        "Size & Weight: Maximum dimensions: 25 × 20 × 15 cm (L × B × H). Maximum weight: 3 kg.",
+        "Power Supply: Only onboard batteries are allowed, with a maximum voltage of 12V.",
+        "Chassis & Drive: Teams can use or modify the provided chassis or build a custom one. Both 2WD and 4WD are allowed.",
+        "Control: Both wired and wireless control systems are permitted.",
+        "Safety & Attachments: A fixed, blunt front wedge is allowed. Flames, projectiles, hazardous substances, and damaging mechanisms are prohibited.",
+        "Match Format: Knockout format with a maximum of 3 rounds. The first team to win 2 rounds wins the match. Each round lasts up to 2 minutes.",
+        "Scoring:\n- Pushing the opponent into the Outer Scoring Ring: 20 points.\n- Pushing the opponent completely outside the arena: 30 points and elimination victory.\n- No points for the Inner Circle.",
+        "General Rules: Only one robot per team is allowed. Touching the robot during a round is prohibited. Movement starts only after the official signal.",
+        "Inspection: Robots must pass checks for dimensions, weight, battery voltage, structural integrity, and safety before the match."
       ],
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        { "name": "Aaditya Gupta", "contact": "8171513141" },
+        { "name": "Surya Bhan Singh", "contact": "9026412664" },
+        { "name": "Aditya Dhangar", "contact": "9259431455" }
       ],
       "fixedKey": "avishkar/robomania/1"
     },
@@ -36,11 +55,27 @@
       "eventId": "03",
       "description": "A vision-based robotics challenge focused on navigating low-visibility environments using ESP-CAM technology. Participants apply embedded systems, image processing, and autonomous control to detect paths and navigate through dark or challenging terrain.",
       "rules": [
-        "Team participation.",
-        "To be decided"
+        "Eligibility: Students of all academic years can participate .",
+        "Team Size: 2-4",
+        "Size & Weight: Maximum dimensions: 250 × 250 × 250 mm. Maximum weight: 3 kg. No expansion is allowed.",
+        "Power Supply: Only an onboard battery pack of maximum 18V DC is permitted.",
+        "Control: Robot must be 100% manually controlled (wired or wireless). Maximum tether length is 10 m.",
+        "Autonomy: Autonomous features such as line following, obstacle avoidance, and auto-navigation are strictly prohibited.",
+        "Camera: Analog FPV (5.8 GHz), standard-power Wi-Fi, ESP 32 WebCam. External tracking cameras are prohibited.",
+        "Pilot Rules: Blind piloting is mandatory. The pilot cannot view the arena or receive coaching from teammates.",
+        "Pilot Station: The pilot must operate alone and bring their own screen/laptop.",
+        "Torch (Stage 2): A fixed or tilting white/IR LED torch is compulsory. Lasers and strobe lights are prohibited.",
+        "Safety: Weapons, lifters, projectiles, liquids, and hazardous mechanisms are not allowed.",
+        "Inspection: Robots must pass pre-run checks for size, weight, battery voltage, torch, and manual control.",
+        "Start Time: The robot must start within 2 minutes after the third call.",
+        "Stuck/Off-Course: If the robot remains stuck or goes off-course for 60 seconds, it will be reset to the last checkpoint with a penalty.",
+        "Time Limit: The match clock will not stop due to signal or hardware failures.",
+        "Final Decision: Referee and judges' decisions will be final."
       ],
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        { "name": "Vedang Tripathi", "contact": "9937845910" },
+        { "name": "Shiva Jadaun", "contact": "9412625301" },
+        { "name": "Tannu Panwar", "contact": "9759522161" }
       ],
       "fixedKey": "avishkar/robomania/2"
     },
@@ -49,11 +84,19 @@
       "eventId": "04",
       "description": "A robotics challenge combining object gripping, payload handling, and speed-based navigation. Participants design and control robots to retrieve designated objects, transport them securely, and complete the course with precision and efficiency.",
       "rules": [
-        "Team participation.",
-        "To be decided"
+        "Open to students of all departments and academic years, Students from different branches can form a team.",
+        "Team Size: 2-4",
+        "The onboard power source must meet the organizer's safety constraints.",
+        "If the robot leaves the track or arena, a 5-point penalty is given each time.",
+        "If the robot falls, it will be placed back 20 cm before the point where it fell.",
+        "If the robot gets stuck, any block it is carrying will be put back in its original place, and the robot will be moved back to the previous obstacle.",
+        "Teams may take two 30-second pauses and one 15-second pause. Extra pauses or misuse of pauses may lead to penalties under the organisers' rules.",
+        "The organizers' decision is final in disputes."
       ],
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        { "name": "Amit KS", "contact": "9893666975" },
+        { "name": "Aryan Kumar", "contact": "9304210667" },
+        { "name": "Abhay Agrahari", "contact": "7007295922" }
       ],
       "fixedKey": "avishkar/robomania/3"
     },
@@ -62,11 +105,20 @@
       "eventId": "05",
       "description": "A creative robotics challenge in which participants build and program robots capable of reproducing drawings, patterns, or designs on a surface. The event combines mechanical design, motor control, and programming accuracy to transform robotic motion into artistic expression.",
       "rules": [
-        "Team participation.",
-        "To be decided"
+        "Eligibility:Open to students of all departments and academic years, Students from different branches can form a team.",
+        "Team Size: A maximum of 4 participants and only one autonomous bot are allowed per team.",
+        "Bot Dimensions: The bot must fit inside a 250×250×250mm box (L × B × H).",
+        "Power Supply: The bot may use an onboard power supply or an AC adapter. The voltage must not exceed 12 V at any time during the game.",
+        "Construction Restrictions: Ready-made LEGO kits and ready-made mechanisms are prohibited. Violation leads to disqualification.",
+        "Marker and LED: The pen/marker/paintbrush must be rigidly attached and must not fall off during traversal. The bot must have an LED that glows upon completing the pattern.",
+        "Arena and Team Restrictions: Once the run starts, no team member may touch the bot or enter the arena. Only one team member may be near the field while positioning and starting the bot. The bot must stay within the arena.",
+        "Run and Time Limit: The total time limit is 10 minutes: 5 minutes for image processing and 5 minutes for the actual run. Points will be deducted for exceeding the allotted time.",
+        "Fair Play and Authority: Hardcoding the pattern is prohibited and leads to disqualification. The event coordinator may modify the rules if required, and the coordinator's decision is final."
       ],
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        { "name": "Krishna Raj Agrawal", "contact": "7479922089" },
+        { "name": "Rishav Raj", "contact": "8340402551" },
+        { "name": "Rishav Tiwari", "contact": "9170556446" }
       ],
       "fixedKey": "avishkar/robomania/4"
     }
