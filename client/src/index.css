@@ -672,8 +672,9 @@ body {
     drop-shadow(0 16px 24px rgba(47, 20, 8, 0.42));
 }
 
-/* The hero provides its own accessible playback button when autoplay is blocked. */
-.hero-background-video::-webkit-media-controls-start-playback-button {
+/* Playback is available through the hero button or a tap on an archive card. */
+.hero-background-video::-webkit-media-controls-start-playback-button,
+.archive-video::-webkit-media-controls-start-playback-button {
   display: none !important;
 }
 

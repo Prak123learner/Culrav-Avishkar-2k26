@@ -1141,24 +1141,51 @@ function ArchiveVideo({ src }) {
       setHasLoaded(true);
       return undefined;
     }
-    const observer = new IntersectionObserver(
+    const loadObserver = new IntersectionObserver(
       ([entry]) => {
-        setNearViewport(entry.isIntersecting);
-        if (entry.isIntersecting) setHasLoaded(true);
+        if (entry.isIntersecting) {
+          setHasLoaded(true);
+          loadObserver.disconnect();
+        }
       },
       { rootMargin: "500px 0px" },
     );
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setNearViewport(entry.isIntersecting);
+      },
+      { threshold: 0.01 },
+    );
+    loadObserver.observe(element);
     observer.observe(element);
-    return () => observer.disconnect();
+    return () => {
+      loadObserver.disconnect();
+      observer.disconnect();
+    };
   }, []);
+
+  const playArchiveVideo = () => {
+    const video = videoRef.current;
+    if (!video || !nearViewport) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.play().catch(() => {
+      // Keep the poster visible when iOS requires a tap on the card.
+    });
+  };
 
   useEffect(() => {
     if (nearViewport) {
-      videoRef.current?.play().catch(() => { });
+      const video = videoRef.current;
+      if (video) {
+        video.muted = true;
+        video.defaultMuted = true;
+        video.play().catch(() => {});
+      }
     } else {
       videoRef.current?.pause();
     }
-  }, [nearViewport]);
+  }, [nearViewport, hasLoaded]);
 
   return (
     <div ref={containerRef} className="absolute inset-0">
@@ -1169,9 +1196,12 @@ function ArchiveVideo({ src }) {
           loop
           muted
           playsInline
+          poster={src.replace("/videos/", "/images/").replace(/\.webm$/, "-poster.webp")}
+          onLoadedData={playArchiveVideo}
           preload="metadata"
           className="archive-video h-full w-full object-cover transition-all duration-700 ease-out grayscale sepia-[90%] hue-rotate-[-15deg] saturate-[220%] brightness-90 contrast-[105%] group-hover:grayscale-0 group-hover:sepia-0 group-hover:hue-rotate-0 group-hover:saturate-100 group-hover:brightness-105 group-hover:contrast-100 group-hover:scale-105"
         >
+          <source src={src.replace(/\.webm$/, ".mp4")} type="video/mp4" />
           <source src={src} type="video/webm" />
         </video>
       )}
@@ -1182,6 +1212,14 @@ function ArchiveVideo({ src }) {
 const GallerySection = () => {
   const [touchActiveArchive, setTouchActiveArchive] = useState(null);
   const touchReleaseTimerRef = useRef(null);
+
+  const playArchiveOnInteraction = (event) => {
+    const video = event.currentTarget.querySelector("video");
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.play().catch(() => {});
+  };
 
   useEffect(
     () => () => {
@@ -1285,6 +1323,17 @@ const GallerySection = () => {
           {galleryItems.map((item) => (
             <div
               key={item.id}
+              role="button"
+              tabIndex={0}
+              aria-label={`Play ${item.title} archive video`}
+              onClick={playArchiveOnInteraction}
+              onTouchEnd={playArchiveOnInteraction}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  playArchiveOnInteraction(event);
+                }
+              }}
               className={`archive-card group relative overflow-hidden rounded-md border-2 border-[#b88c4b]/50 bg-[#140b04] cursor-pointer shadow-[0_10px_25px_rgba(44,29,12,0.18)] transition-all duration-500 ease-out hover:z-30 hover:scale-[1.015] hover:border-[#f3cf8a] hover:shadow-[0_18px_40px_rgba(184,140,75,0.4)] ${item.gridClass} min-h-[260px] md:min-h-0 ${touchActiveArchive === item.id ? "archive-card--touch-active" : ""}`}
               onPointerDown={(event) => revealArchiveOnTouch(event, item.id)}
               onPointerUp={(event) => keepArchiveRevealed(event, item.id)}
