@@ -1,7 +1,7 @@
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
-import CulravLogo from "../assets/pages/culrav/CULRAV LOGO-display.webp";
-import AvishkarLogo from "../assets/pages/avishkar/avishkarrr-display.webp";
+import CulravLogo from "../assets/pages/culrav/Culravlogo.webp";
+import AvishkarLogo from "../assets/pages/avishkar/Avishkarlogo.webp";
 import AnunaadCard from "../assets/pages/culrav/cards/Anunaad_Without_Hover.webp";
 import RangmanchCard from "../assets/pages/culrav/cards/Rangmanch_without_hover.webp";
 import DarkroomCard from "../assets/pages/culrav/cards/Darkroom_without_Hover.webp";

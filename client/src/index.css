@@ -672,6 +672,11 @@ body {
     drop-shadow(0 16px 24px rgba(47, 20, 8, 0.42));
 }
 
+/* The hero provides its own accessible playback button when autoplay is blocked. */
+.hero-background-video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+}
+
 .oracle-logo {
   position: absolute;
   top: 50%;

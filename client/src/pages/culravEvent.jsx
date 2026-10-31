@@ -6,7 +6,7 @@ import { mobileRouteCriticalImages, routeCriticalImages } from "../components/ro
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import CulravBG from "../assets/common/backgrounds/CulravBG.webp";
-import image from "../assets/pages/culrav/Culravlogo.png";
+import image from "../assets/pages/culrav/Culravlogo.webp";
 
 // Culrav Cultural Event Cards (Pairs: Without Hover & With Hover)
 import AnunaadWithoutHover from "../assets/pages/culrav/cards/Anunaad_Without_Hover.webp";

@@ -27,12 +27,14 @@ gsap.registerPlugin(ScrollTrigger);
 // --- CONFIGURATION: ADD YOUR ASSETS HERE ---
 // Leave as "" to use the futuristic placeholders
 const LOGO_URLS = {
-  main: "/media/common/branding/Culrav-Avishkar-2026logo.png", // e.g., "/logos/combined-logo.png"
-  culrav: "/media/common/branding/Culravlogo.png", // e.g., "/logos/culrav-logo.png"
-  avishkar: "/media/common/branding/Avishkarlogo.png", // e.g., "/logos/avishkar-logo.png"
+  main: "/media/common/branding/Culrav-Avishkar-2026logo.webp",
+  culrav: "/media/common/branding/Culravlogo.webp",
+  avishkar: "/media/common/branding/Avishkarlogo.webp",
 };
 
 const VIDEO_URLS = {
+  heroMp4: "/media/homepage/videos/hero-video-20261026.mp4",
+  heroPoster: "/media/homepage/images/hero-poster.webp",
   heroBg: "/media/homepage/videos/hero-video-20261026.webm", // e.g., "/videos/cyberpunk-city-loop.mp4"
   teaser: "", // e.g., "/videos/fest-teaser.mp4"
 };
@@ -411,6 +413,28 @@ const TeaserModal = ({ onClose, onEnterRealm }) => {
 
 const HeroSection = () => {
   const [isTeaserOpen, setIsTeaserOpen] = useState(false);
+  const [isHeroPlaybackBlocked, setIsHeroPlaybackBlocked] = useState(false);
+  const heroVideoRef = useRef(null);
+
+  const playHeroVideo = () => {
+    const video = heroVideoRef.current;
+    if (!video || !video.paused) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.play().catch(() => {
+      // iOS may require a user gesture, especially in Low Power Mode.
+      setIsHeroPlaybackBlocked(true);
+    });
+  };
+
+  useEffect(() => {
+    playHeroVideo();
+    const resumeWhenVisible = () => {
+      if (document.visibilityState === "visible") playHeroVideo();
+    };
+    document.addEventListener("visibilitychange", resumeWhenVisible);
+    return () => document.removeEventListener("visibilitychange", resumeWhenVisible);
+  }, []);
 
   useEffect(() => {
     const handleHash = () => {
@@ -435,24 +459,41 @@ const HeroSection = () => {
   return (
     <section
       id="home"
+      onTouchEnd={playHeroVideo}
+      onClick={playHeroVideo}
       className="relative isolate flex h-[100dvh] min-h-[640px] items-center justify-center overflow-hidden bg-[#20130c]"
     >
       <div className="absolute inset-0 -z-20">
         <video
+          ref={heroVideoRef}
           autoPlay
           loop
           muted
           playsInline
+          poster={VIDEO_URLS.heroPoster}
+          onLoadedData={playHeroVideo}
+          onPlaying={() => setIsHeroPlaybackBlocked(false)}
           preload="auto"
           fetchPriority="high"
-          className="h-full w-full object-cover object-center"
+          className="hero-background-video h-full w-full object-cover object-center"
           aria-hidden="true"
         >
+          <source src={VIDEO_URLS.heroMp4} type="video/mp4" />
           <source src={VIDEO_URLS.heroBg} type="video/webm" />
         </video>
       </div>
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl flex-col items-center justify-center px-4 pb-12 pt-24 text-center sm:px-6 md:pb-16 md:pt-28">
+        {isHeroPlaybackBlocked && (
+          <button
+            type="button"
+            onClick={playHeroVideo}
+            className="absolute right-4 top-24 z-20 inline-flex items-center gap-2 rounded-sm border border-[#b8863b] bg-[#ebd4b0]/90 px-3 py-2 font-cinzel text-xs text-[#3d220f] shadow-sm"
+          >
+            <Play className="h-3.5 w-3.5" aria-hidden="true" />
+            Play background
+          </button>
+        )}
         <div className="hero-title absolute inset-0 flex items-center justify-center px-2 sm:px-6">
           <img
             src={LOGO_URLS.main}
@@ -461,8 +502,8 @@ const HeroSection = () => {
           />
         </div>
 
-        <div className="absolute bottom-10 flex flex-col items-center gap-3 md:bottom-14">
-          <div className="hero-sub relative mx-auto flex max-w-3xl items-center justify-center px-2 sm:px-6">
+        <div className="absolute inset-x-0 bottom-10 mx-auto flex w-full max-w-3xl flex-col items-center gap-3 px-4 sm:px-6 md:bottom-14">
+          <div className="hero-sub relative mx-auto flex w-full min-w-0 items-center justify-center px-2 sm:px-6">
             {/* Left Tabula Ansata Dovetail Wing */}
             <div
               className="pointer-events-none absolute -left-1 top-1/2 hidden -translate-y-1/2 items-center text-[#b8863b] drop-shadow-sm sm:flex"
@@ -573,7 +614,7 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <div className="hero-btns flex flex-wrap items-center justify-center gap-3.5 sm:gap-5">
+          <div className="hero-btns flex w-full min-w-0 flex-wrap items-center justify-center gap-3.5 sm:gap-5">
             {/* Enter the Realm — Primary Imperial Action */}
             <a
               href="#about"

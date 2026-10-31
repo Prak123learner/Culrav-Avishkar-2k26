@@ -133,7 +133,7 @@ const NavBar = () => {
             <div className="flex items-center gap-7">
               <Link to="/" className="flex items-center" onPointerEnter={() => preloadPublicRoute("/")} onFocus={() => preloadPublicRoute("/")}>
                 <img
-                  src="/media/common/branding/Culrav-Avishkar-2026logo.png"
+                  src="/media/common/branding/Culrav-Avishkar-2026logo.webp"
                   alt="Culrav Avishkar 2026"
                   className="h-10 sm:h-11 w-auto object-contain"
                 />

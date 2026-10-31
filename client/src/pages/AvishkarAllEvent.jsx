@@ -6,7 +6,7 @@ import { mobileRouteCriticalImages, routeCriticalImages } from "../components/ro
 import { preloadPublicRoute } from "../components/publicRoutePreload";
 
 import AvishkarBG from "../assets/common/backgrounds/AvishkarBG.webp";
-import image from "../assets/pages/avishkar/Avishkarlogo.png";
+import image from "../assets/pages/avishkar/Avishkarlogo.webp";
 
 // Avishkar Greek Mythological Event Cards (Pairs: Without Hover & With Hover)
 import AstrogynamixWithoutHover from "../assets/pages/avishkar/cards/Astrogynamix_without_hover.webp";
