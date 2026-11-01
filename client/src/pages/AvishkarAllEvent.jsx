@@ -267,8 +267,8 @@ function AvishkarEvents() {
     },
     {
       id: "av14",
-      name: "Gnosomania",
-      slug: "gnosomania",
+      name: "Gnosiomania",
+      slug: "gnosiomania",
       tagline: "The Grand Knowledge, Trivia & Quizzing Pantheon",
       withoutHover: GnosomaniaWithoutHover,
       withHover: GnosomaniaWithHover,
