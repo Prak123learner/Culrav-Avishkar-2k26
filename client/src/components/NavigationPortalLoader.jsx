@@ -101,7 +101,8 @@ const AVISHKAR_SUBEVENTS = {
   aeroverse: { label: "Entering Aeroverse Pantheon", subtext: "Unmanned Aerial Systems & Fluid Mechanics" },
   cosmocon: { label: "Entering Cosmocon Pantheon", subtext: "Astronomy, Astrophysics & Cosmic Exploration" },
   robomania: { label: "Entering Robomania Pantheon", subtext: "Combat Bot Wars, Maze Explorers & Autonomous Bots" },
-  gnosomania: { label: "Entering Gnosomania Pantheon", subtext: "The Grand Knowledge & Trivia Pantheon" },
+  gnosiomania: { label: "Entering Gnosiomania Pantheon", subtext: "The Grand Knowledge & Trivia Pantheon" },
+  gnosomania: { label: "Entering Gnosiomania Pantheon", subtext: "The Grand Knowledge & Trivia Pantheon" },
 };
 
 export function getRouteDetails(pathname) {

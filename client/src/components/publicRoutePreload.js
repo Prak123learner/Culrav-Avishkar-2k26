@@ -19,6 +19,7 @@ const routeModules = {
   "/avishkar/cyberquest": () => import("../pages/avishkar/CyberQuest"),
   "/avishkar/genesis": () => import("../pages/avishkar/Genesis"),
   "/avishkar/electromania": () => import("../pages/avishkar/Electromania"),
+  "/avishkar/gnosiomania": () => import("../pages/avishkar/Gnosomania"),
   "/avishkar/gnosomania": () => import("../pages/avishkar/Gnosomania"),
   "/avishkar/kreedomania": () => import("../pages/avishkar/Kreedomania"),
   "/avishkar/mechaverse": () => import("../pages/avishkar/Mechaverse"),

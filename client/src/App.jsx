@@ -143,6 +143,7 @@ function App() {
               />
               <Route path="/avishkar/cosmocon" element={<CosmoconPage />} />
               <Route path="/avishkar/robomania" element={<RobomaniaPage />} />
+              <Route path="/avishkar/gnosiomania" element={<GnosomaniaPage />} />
               <Route path="/avishkar/gnosomania" element={<GnosomaniaPage />} />
 
               {/* Team Page */}
