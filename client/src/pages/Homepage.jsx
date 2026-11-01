@@ -386,7 +386,7 @@ const TeaserModal = ({ onClose, onEnterRealm }) => {
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-end">
             <a
-              href="https://www.instagram.com/reels/DRSakAxkvsq/"
+              href="https://www.instagram.com/reel/DfJtdoqu53Y/"
               target="_blank"
               rel="noopener noreferrer"
               className="group/ig inline-flex items-center gap-2 rounded-sm border border-[#b8863b]/70 bg-[#2b160c] px-4 py-2 font-cinzel text-[11px] font-semibold uppercase tracking-[0.2em] text-[#f3cf8a] transition-all hover:border-[#ffd47d] hover:bg-[#3d1d0c] hover:text-[#fff0cc]"
@@ -1180,7 +1180,7 @@ function ArchiveVideo({ src }) {
       if (video) {
         video.muted = true;
         video.defaultMuted = true;
-        video.play().catch(() => {});
+        video.play().catch(() => { });
       }
     } else {
       videoRef.current?.pause();
@@ -1218,7 +1218,7 @@ const GallerySection = () => {
     if (!video) return;
     video.muted = true;
     video.defaultMuted = true;
-    video.play().catch(() => {});
+    video.play().catch(() => { });
   };
 
   useEffect(

@@ -21,8 +21,14 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Rishabh Kumar Pandey", "contact": "9693114370" },
-        { "name": "Priyanshu Mishra", "contact": "8218672580" }
+        {
+          "name": "Rishabh Kumar Pandey",
+          "contact": "9693114370"
+        },
+        {
+          "name": "Priyanshu Mishra",
+          "contact": "8218672580"
+        }
       ],
       "fixedKey": "avishkar/rasayans/0"
     },
@@ -40,8 +46,14 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Aashutosh Pathak", "contact": "9179420468" },
-        { "name": "Pushplata", "contact": "6206252098" }
+        {
+          "name": "Aashutosh Pathak",
+          "contact": "9179420468"
+        },
+        {
+          "name": "Pushplata",
+          "contact": "6206252098"
+        }
       ],
       "fixedKey": "avishkar/rasayans/1"
     },
@@ -59,9 +71,18 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Vatsal Kumar", "contact": "7004295597" },
-        { "name": "Aryan Raj", "contact": "7079162583" },
-        { "name": "Sonalika Seth", "contact": "8223908207" }
+        {
+          "name": "Vatsal Kumar",
+          "contact": "7004295597"
+        },
+        {
+          "name": "Aryan Raj",
+          "contact": "7079162583"
+        },
+        {
+          "name": "Sonalika Seth",
+          "contact": "8223908207"
+        }
       ],
       "fixedKey": "avishkar/rasayans/2"
     },
@@ -80,8 +101,14 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Rohit Kumar", "contact": "8882904020" },
-        { "name": "Aryan Raj", "contact": "7079162583" }
+        {
+          "name": "Rohit Kumar",
+          "contact": "8882904020"
+        },
+        {
+          "name": "Aryan Raj",
+          "contact": "7079162583"
+        }
       ],
       "fixedKey": "avishkar/rasayans/3"
     },
@@ -100,9 +127,18 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Mateen", "contact": "6392293044" },
-        { "name": "Aryan Raj", "contact": "7079162583" },
-        { "name": "Jatin Gupta", "contact": "7999649554" }
+        {
+          "name": "Mateen",
+          "contact": "6392293044"
+        },
+        {
+          "name": "Aryan Raj",
+          "contact": "7079162583"
+        },
+        {
+          "name": "Jatin Gupta",
+          "contact": "7999649554"
+        }
       ],
       "fixedKey": "avishkar/rasayans/4"
     },
@@ -120,8 +156,14 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Jatin Gupta", "contact": "7999649554" },
-        { "name": "Jyoti", "contact": "8126915713" }
+        {
+          "name": "Jatin Gupta",
+          "contact": "7999649554"
+        },
+        {
+          "name": "Jyoti",
+          "contact": "8126915713"
+        }
       ],
       "fixedKey": "avishkar/rasayans/5"
     },
@@ -139,11 +181,26 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "Vatsal Kumar", "contact": "7004295597" },
-        { "name": "Devannshi Jha", "contact": "9305221387" },
-        { "name": "Aryan Raj", "contact": "7079162583" },
-        { "name": "Rishabh Kumar Pandey", "contact": "9693114370" },
-        { "name": "Pushplata", "contact": "6206252098" }
+        {
+          "name": "Vatsal Kumar",
+          "contact": "7004295597"
+        },
+        {
+          "name": "Devannshi Jha",
+          "contact": "9305221387"
+        },
+        {
+          "name": "Aryan Raj",
+          "contact": "7079162583"
+        },
+        {
+          "name": "Rishabh Kumar Pandey",
+          "contact": "9693114370"
+        },
+        {
+          "name": "Pushplata",
+          "contact": "6206252098"
+        }
       ],
       "fixedKey": "avishkar/rasayans/6"
     },
@@ -160,7 +217,14 @@
       ],
       "PsLink": "",
       "coordinators": [
-        { "name": "To be decided", "contact": "" }
+        {
+          "name": "Vatsal Kumar",
+          "contact": "7004295597"
+        },
+        {
+          "name": "Aryan Raj",
+          "contact": "7079162583"
+        }
       ],
       "fixedKey": "avishkar/rasayans/7"
     }
