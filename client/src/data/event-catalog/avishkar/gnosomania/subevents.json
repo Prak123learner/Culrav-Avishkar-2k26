@@ -1,8 +1,8 @@
 {
   "festival": "avishkar",
-  "categorySlug": "gnosomania",
-  "categoryName": "Gnosomania",
-  "eventName": "Gnosomania",
+  "categorySlug": "gnosiomania",
+  "categoryName": "Gnosiomania",
+  "eventName": "Gnosiomania",
   "tagline": "",
   "instagramLink": "",
   "events": [
@@ -23,7 +23,7 @@
         { "name": "Anaranyo Sarkar", "contact": "9748891158" },
         { "name": "Shreyansh Rathi", "contact": "9131904757" }
       ],
-      "fixedKey": "avishkar/gnosomania/0"
+      "fixedKey": "avishkar/gnosiomania/0"
     },
     {
       "eventName": "Sci-Biz-Tech Quiz",
@@ -42,7 +42,7 @@
         { "name": "Anaranyo Sarkar", "contact": "9748891158" },
         { "name": "Shreyansh Rathi", "contact": "9131904757" }
       ],
-      "fixedKey": "avishkar/gnosomania/1"
+      "fixedKey": "avishkar/gnosiomania/1"
     },
     {
       "eventName": "MELA Quiz",
@@ -61,7 +61,7 @@
         { "name": "Anaranyo Sarkar", "contact": "9748891158" },
         { "name": "Shreyansh Rathi", "contact": "9131904757" }
       ],
-      "fixedKey": "avishkar/gnosomania/2"
+      "fixedKey": "avishkar/gnosiomania/2"
     },
     {
       "eventName": "General Quiz",
@@ -80,7 +80,7 @@
         { "name": "Anaranyo Sarkar", "contact": "9748891158" },
         { "name": "Shreyansh Rathi", "contact": "9131904757" }
       ],
-      "fixedKey": "avishkar/gnosomania/3"
+      "fixedKey": "avishkar/gnosiomania/3"
     },
     {
       "eventName": "Sports Quiz",
@@ -99,7 +99,7 @@
         { "name": "Anaranyo Sarkar", "contact": "9748891158" },
         { "name": "Shreyansh Rathi", "contact": "9131904757" }
       ],
-      "fixedKey": "avishkar/gnosomania/4"
+      "fixedKey": "avishkar/gnosiomania/4"
     }
   ]
 }
