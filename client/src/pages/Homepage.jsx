@@ -687,7 +687,7 @@ const HeroSection = () => {
 
             {/* Witness the Teaser — Secondary Parchment Stele Action */}
             <a
-              href="https://www.instagram.com/reels/DRSakAxkvsq/"
+              href="https://www.instagram.com/reel/DfJtdoqu53Y/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Witness the Teaser on Instagram Reels"
