@@ -297,7 +297,9 @@ export function TeamPage() {
                     .sort(([firstRole], [secondRole]) => firstRole.localeCompare(secondRole))
                     .map(([role, members]) => (
                     <div key={role}>
-                      <h3 className="mb-4 border-l-2 border-[#a85a18] pl-3 font-cinzel text-sm font-bold uppercase tracking-[0.16em] text-[#70401d]">{role}</h3>
+                      <h3 className="mb-4 border-l-2 border-[#a85a18] pl-3 font-cinzel text-sm font-bold uppercase tracking-[0.16em] text-[#70401d]">
+                        {members.length > 1 && role.endsWith("Lead") ? `${role}s` : role}
+                      </h3>
                       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-3 md:gap-6 lg:grid-cols-4 xl:grid-cols-5">
                         {[...members]
                           .sort((firstMember, secondMember) => firstMember.name.localeCompare(secondMember.name))
