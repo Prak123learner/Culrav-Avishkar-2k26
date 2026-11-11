@@ -12,6 +12,7 @@
       "eventId": "62",
       "description": "A consulting-driven event where participants develop product solutions, tackle real-world business crises, and showcase their strategic thinking, problem-solving, and decision-making skills.",
       "rules": [
+        "TeamSize : Solo event",
         "3 Rounds:",
         "Round 1 – Product Problem Solving",
         "Round 2 – Business Case Study",
@@ -50,7 +51,7 @@
       "description": "A placement-focused event designed to equip biotechnology students for internships and full-time opportunities. The competition evaluates participants across core biotechnology knowledge, consultancy thinking, and software/application skills — helping them sharpen industry-ready problem-solving and communication abilities.",
       "rules": [
         "Solo participation only",
-        "Round 1 – Computer-Based Test (Aptitude + Core Biotech Assessment)",
+        "Round 1 - Computer Based Test(Aptitude + based on your domain)",
         "Round 2 – Group Discussion followed by Personal Interview",
         "Participation is mandatory for all biotechnology students"
       ],
@@ -67,9 +68,9 @@
       "eventId": "60",
       "description": "An engaging event that blends current affairs with interactive game-based challenges — designed to make learning more exciting, competitive, and fun.",
       "rules": [
-        "Participation allowed in Solo or Duo format",
+        "TeamSize: 2-3",
         "Open to all branches and academic years",
-        "2 Rounds: Round 1 – Quiz based on current affairs, Round 2 – Fast-paced Buzzer Round"
+        "2 Rounds: Round 1 – Quiz based on current affairs, Round 2 - Treasure hunt"
       ],
       "PsLink": "",
       "coordinators": [
@@ -84,9 +85,9 @@
       "eventId": "58",
       "description": "An engaging core biotechnology event that blends technical knowledge with fun and creativity. Participants will progress through interactive rounds featuring biotech concepts, visual challenges, puzzles, anagrams, and themed question sets designed to test both understanding and quick thinking.",
       "rules": [
-        "Team size: 3 members (minimum one participant from the Biotechnology department)",
+        "TeamSize : 2-3 (one compulsory from biotechnology)",
         "Event consists of 3 rounds:",
-        "Round 1 – Written test covering PCM fundamentals and core biotechnology",
+        "Round 1 - Written test including memes + fun bio related quiz",
         "Round 2 – Live interactive round including images, puzzles, anagrams, and more",
         "Round 3 – High-pressure buzzer finale to determine the winning team"
       ],
@@ -103,12 +104,15 @@
       "eventId": "brainwave",
       "description": "Build innovative tech solutions using AI, software development, and data analytics to solve real-world problems.",
       "rules": [
-        "At least one Biotechnology student must be part of the team."
+        "TeamSize: 3-4 (one compulsory from Biotechnology)",
+        "Phase 1 - Abstract submission",
+        "Phase 2 - Mid evaluation",
+        "Phase 3 - Final evaluation"
       ],
       "PsLink": "",
       "coordinators": [
         { "name": "Priya", "contact": "6284852685" },
-        { "name": "Anisha Nigam", "contact": "6307576457" }
+        { "name": "Chetali Bansal", "contact": "6200507836" }
       ],
       "fixedKey": "avishkar/genesis/5"
     }
