@@ -57,32 +57,6 @@
         }
       ],
       "fixedKey": "avishkar/oligopoly/1"
-    },
-    {
-      "eventName": "Ad-Hole",
-      "registrationLink": "",
-      "eventId": "03",
-      "description": "The event will be followed by three rounds for the participants.",
-      "rules": [
-        "Team participation only.",
-        "Round 1: Brain Teaser (Elimination Round) — a quiz link related to advertising will be provided. Each team member takes the test individually, then scores are combined for final evaluation.",
-        "The quiz time limit is 15 minutes and contains 20 questions. Participants should ensure good internet connectivity.",
-        "Round 2: Evolution (30 minutes, Elimination Round) — a video advertisement is shown, after which participants have 20 minutes to write its analysis on an A4 sheet. Five teams are shortlisted.",
-        "Round 3: Thinkistaan — create an advertisement for a given product, with complete freedom to choose the advertising platform and production approach.",
-        "The advertisement must be at least 1.5 minutes and no longer than 3 minutes, followed by a Q&A round."
-      ],
-      "PsLink": "",
-      "coordinators": [
-        {
-          "name": "Harshit Singh",
-          "contact": "9140363284"
-        },
-        {
-          "name": "Akshay Kumar",
-          "contact": "8756282848"
-        }
-      ],
-      "fixedKey": "avishkar/oligopoly/2"
     }
   ]
 }

@@ -459,27 +459,15 @@
       },
       {
         "fixedKey": "avishkar/monopoly/1",
-        "title": "Netrivta",
+        "title": "Netritva",
         "minTeamSize": 1,
         "maxTeamSize": 1
-      },
-      {
-        "fixedKey": "avishkar/monopoly/2",
-        "title": "Navachar",
-        "minTeamSize": 1,
-        "maxTeamSize": 2
       },
       {
         "fixedKey": "avishkar/monopoly/3",
         "title": "Stall Mart",
         "minTeamSize": 3,
         "maxTeamSize": 4
-      },
-      {
-        "fixedKey": "avishkar/monopoly/4",
-        "title": "Reel Fiesta",
-        "minTeamSize": 2,
-        "maxTeamSize": 3
       }
     ]
   },
@@ -554,18 +542,6 @@
         "title": "Pitchers",
         "minTeamSize": 1,
         "maxTeamSize": 3
-      },
-      {
-        "fixedKey": "avishkar/oligopoly/2",
-        "title": "Ad-Hole",
-        "minTeamSize": 1,
-        "maxTeamSize": 2
-      },
-      {
-        "fixedKey": "avishkar/oligopoly/3",
-        "title": "Trading Strategist",
-        "minTeamSize": 1,
-        "maxTeamSize": 1
       }
     ]
   },
@@ -926,13 +902,13 @@
       },
       {
         "fixedKey": "culrav/razzmatazz/1",
-        "title": "Vault of Dance (Western Group Dance Competition)",
+        "title": "Vault of Dance",
         "minTeamSize": 6,
         "maxTeamSize": 30
       },
       {
         "fixedKey": "culrav/razzmatazz/2",
-        "title": "Revel (Solo/Duet Dance Competition)",
+        "title": "Revel",
         "minTeamSize": 1,
         "maxTeamSize": 2
       },
