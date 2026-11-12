@@ -21,9 +21,18 @@
         "Fair Play and Authority: Hardcoding the Maze is prohibited and leads to disqualification. The event coordinator may modify the rules if required, and the coordinator's decision is final."
       ],
       "coordinators": [
-        { "name": "Aman Shukla", "contact": "7068428481" },
-        { "name": "Rishu Raj", "contact": "9113433804" },
-        { "name": "Vikrant Singh", "contact": "8076862571" }
+        {
+          "name": "Aman Shukla",
+          "contact": "7068428481"
+        },
+        {
+          "name": "Rishu Raj",
+          "contact": "9113433804"
+        },
+        {
+          "name": "Vikrant Singh",
+          "contact": "8076862571"
+        }
       ],
       "fixedKey": "avishkar/robomania/0"
     },
@@ -44,9 +53,18 @@
         "Inspection: Robots must pass checks for dimensions, weight, battery voltage, structural integrity, and safety before the match."
       ],
       "coordinators": [
-        { "name": "Aaditya Gupta", "contact": "8171513141" },
-        { "name": "Surya Bhan Singh", "contact": "9026412664" },
-        { "name": "Aditya Dhangar", "contact": "9259431455" }
+        {
+          "name": "Aaditya Gupta",
+          "contact": "8171513141"
+        },
+        {
+          "name": "Surya Bhan Singh",
+          "contact": "9026412664"
+        },
+        {
+          "name": "Aditya Dhangar",
+          "contact": "9259431455"
+        }
       ],
       "fixedKey": "avishkar/robomania/1"
     },
@@ -73,9 +91,18 @@
         "Final Decision: Referee and judges' decisions will be final."
       ],
       "coordinators": [
-        { "name": "Vedang Tripathi", "contact": "9937845910" },
-        { "name": "Shiva Jadaun", "contact": "9412625301" },
-        { "name": "Tannu Panwar", "contact": "9759522161" }
+        {
+          "name": "Vedang Tripathi",
+          "contact": "9937845910"
+        },
+        {
+          "name": "Shiva Jadaun",
+          "contact": "9412625301"
+        },
+        {
+          "name": "Tannu Panwar",
+          "contact": "9759522161"
+        }
       ],
       "fixedKey": "avishkar/robomania/2"
     },
@@ -94,9 +121,18 @@
         "The organizers' decision is final in disputes."
       ],
       "coordinators": [
-        { "name": "Amit KS", "contact": "9893666975" },
-        { "name": "Aryan Kumar", "contact": "9304210667" },
-        { "name": "Abhay Agrahari", "contact": "7007295922" }
+        {
+          "name": "Amit KS",
+          "contact": "9893666975"
+        },
+        {
+          "name": "Aryan Kumar",
+          "contact": "9304210667"
+        },
+        {
+          "name": "Abhay Agrahari",
+          "contact": "7007295922"
+        }
       ],
       "fixedKey": "avishkar/robomania/3"
     },
@@ -116,11 +152,52 @@
         "Fair Play and Authority: Hardcoding the pattern is prohibited and leads to disqualification. The event coordinator may modify the rules if required, and the coordinator's decision is final."
       ],
       "coordinators": [
-        { "name": "Krishna Raj Agrawal", "contact": "7479922089" },
-        { "name": "Rishav Raj", "contact": "8340402551" },
-        { "name": "Rishav Tiwari", "contact": "9170556446" }
+        {
+          "name": "Krishna Raj Agrawal",
+          "contact": "7479922089"
+        },
+        {
+          "name": "Rishav Raj",
+          "contact": "8340402551"
+        },
+        {
+          "name": "Rishav Tiwari",
+          "contact": "9170556446"
+        }
       ],
       "fixedKey": "avishkar/robomania/4"
+    },
+    {
+      "eventName": "SYNAPSE",
+      "eventId": "06",
+      "description": "An AI-focused development hackathon organized by the Robotics Club, challenging participants to explore and build solutions using cutting-edge technologies such as Machine Learning, Deep Learning, Generative AI, and Agentic AI. Teams will choose one problem statement from the provided list and develop an intelligent, functional solution. From training predictive models to building autonomous AI agents capable of reasoning, planning, and executing tasks, the event encourages innovation, practical problem-solving, and real-world application of AI.",
+      "rules": [
+        "Eligibility: Open to B.Tech 1st, 2nd, and 3rd-year students.",
+        "Categories: First-year students and second-/third-year students will compete in separate categories, with independent evaluations.",
+        "Team Formation: Participants can form teams as per the team-size limit announced by the organizers.",
+        "Problem Statement Selection: Each team must select one problem statement from the official list released by the organizers and build its solution around it.",
+        "Development Period: Throughout November. Teams are expected to develop a working solution using relevant AI technologies, including ML, DL, Generative AI, or Agentic AI.",
+        "Mid-Evaluation: Teams will present their progress, approach, technical implementation, and initial working prototype. Evaluation will focus on problem understanding, innovation, technical direction, and development progress.",
+        "Final Evaluation: The completed projects will be evaluated during AVISHKAR. Teams must demonstrate their working solutions and explain their implementation, technology stack, and real-world applicability.",
+        "Evaluation Criteria: Problem-solving approach, innovation, technical implementation, functionality, practical applicability, and understanding of the developed solution.",
+        "Originality: Participants must develop their own solutions. Plagiarism or misrepresentation of work may lead to disqualification.",
+        "Fair Play: The decision of the event coordinators and judges will be final. The organizers reserve the right to modify the rules if required."
+      ],
+      "coordinators": [
+        {
+          "name": "Vatsal Kumar",
+          "contact": "7004295597"
+        },
+        {
+          "name": "Yash Srivastava",
+          "contact": "9953103166"
+        },
+        {
+          "name": "Ritvik Rai",
+          "contact": "9369869642"
+        }
+      ],
+      "fixedKey": "avishkar/robomania/5"
     }
   ]
 }

@@ -656,31 +656,37 @@
     "events": [
       {
         "fixedKey": "avishkar/robomania/0",
-        "title": "TrailBlitz",
-        "minTeamSize": 2,
+        "title": "Neon Navigator",
+        "minTeamSize": 1,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/robomania/1",
-        "title": "Sketch-O-Bot",
-        "minTeamSize": 2,
+        "title": "Steel Clash",
+        "minTeamSize": 1,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/robomania/2",
-        "title": "RoboGesture Rally",
+        "title": "Night Hawk",
         "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/robomania/3",
-        "title": "Code Sprint",
-        "minTeamSize": 1,
+        "title": "Grab N Ghost",
+        "minTeamSize": 2,
         "maxTeamSize": 4
       },
       {
         "fixedKey": "avishkar/robomania/4",
-        "title": "BOT Warriors",
+        "title": "Chrome Strokes",
+        "minTeamSize": 1,
+        "maxTeamSize": 4
+      },
+      {
+        "fixedKey": "avishkar/robomania/5",
+        "title": "SYNAPSE",
         "minTeamSize": 1,
         "maxTeamSize": 4
       }
