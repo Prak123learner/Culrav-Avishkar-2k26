@@ -136,9 +136,9 @@
     },
     {
       "id": 28,
-      "name": "Leap of Faith",
+      "name": "Leap of Faith (Solo)",
       "desc": [
-        "1v1 and Group Street Battle.",
+        "1v1",
         "\"Dancing is like dreaming with your feet.\""
       ],
       "rules": [
@@ -156,7 +156,32 @@
         "Attitude and Execution – 10%",
         "Creativity and Uniqueness – 15%",
         "Crowd response – 10%",
-        "Overall Impact – 10%",
+        "Overall Impact – 10%"
+      ],
+      "coords": [
+        {
+          "name": "Tanishqa Dhete",
+          "phone": "7058638378"
+        },
+        {
+          "name": "Anisha Nigam",
+          "phone": "6307576457"
+        },
+        {
+          "name": "Apoorva Pandey",
+          "phone": "8924848507"
+        }
+      ],
+      "fixedKey": "culrav/razzmatazz/3"
+    },
+    {
+      "id": 29,
+      "name": "Leap of Faith (Group)",
+      "desc": [
+        "Group Street Battle.",
+        "\"Dancing is like dreaming with your feet.\""
+      ],
+      "rules": [
         "Group Street Battle:",
         "\"Have you got what it takes to sweep the crowd off its feet? Bring your gang and prove it!\"",
         "Round 1 | The Jump-Off:",
@@ -201,7 +226,7 @@
           "phone": "8924848507"
         }
       ],
-      "fixedKey": "culrav/razzmatazz/3"
+      "fixedKey": "culrav/razzmatazz/4"
     }
   ]
 }
