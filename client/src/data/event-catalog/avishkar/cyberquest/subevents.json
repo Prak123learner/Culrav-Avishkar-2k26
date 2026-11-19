@@ -27,10 +27,16 @@
     {
       "eventName": "CodeClash",
       "eventId": "46",
-      "description": "A competitive coding tournament featuring an online Codeforces qualifier followed by offline one-on-one knockout battles. Designed to identify the strongest competitive programmers across MCA, B.Tech, and M.Sc students.",
-      "rules": ["Event Format: Online Qualifier + Offline Knockout", "Platform: CC Codeforces Group (participants must have active Codeforces account)", "Two groups shortlisted: 16 participants each", "Strict anti-cheating and plagiarism monitoring", "Offline Round: 1v1 battles — first to solve advances", "Tie-breaker: Earlier accepted submission wins"],
+      "description": "A two-round competitive programming event designed to test participants' coding skills, problem-solving abilities, and speed. It begins with an online Codeforces contest, followed by an offline knockout round featuring one-on-one coding battles where participants compete to solve programming challenges faster and more accurately than their opponents.",
+      "rules": [
+        "Team Size: 1",
+        "Winners: 4 teams (2 in each group)",
+        "Rounds: 2",
+        "Round 1 (Online Qualifier): Participants will compete in an online Codeforces contest, solving algorithmic problems within a fixed time limit. This round will test their problem-solving abilities, coding efficiency, accuracy, and performance under time constraints. Top 30 participants are shortlisted.",
+        "Round 2 (Offline Knockout): Shortlisted participants will be divided in 2 groups according to their year. They will compete in one-on-one coding battles within their group, racing against their opponents to solve a given programming problem. The fastest participant to submit a correct solution will win the duel and advance."
+      ],
       "PsLink": "",
-      "coordinators": [{ "name": "Manik Dev Azad", "contact": "9205342578" }],
+      "coordinators": [{ "name": "Manik Dev Azad", "contact": "9205342578" }, { "name": "Application Club", "contact": "9837108244" }],
       "fixedKey": "avishkar/cyberquest/2"
     },
     {
@@ -95,6 +101,37 @@
       "PsLink": "",
       "coordinators": [{ "name": "Manik Dev Azad", "contact": "9205342578" }],
       "fixedKey": "avishkar/cyberquest/9"
+    },
+    {
+      "eventName": "The Daemon",
+      "eventId": "",
+      "description": "The Daemon is an offline and beginner friendly, Linux-based challenge where participants connect to a private server via SSH and solve increasingly difficult tasks using Linux commands and tools. It promotes hands-on learning, logical thinking, and problem-solving, with a cheat sheet provided for beginners.",
+      "rules": [
+        "Team size: 1-2",
+        "Team eligibility: All branches (Inter-year not allowed)",
+        "Winner: 3 teams overall",
+        "Rounds: 1",
+        "Participants will be provided with access to a Linux-based server through SSH and will be required to solve a series of challenges by exploring files, discovering hidden clues, and using Linux commands to progress through increasingly difficult levels."
+      ],
+      "PsLink": "",
+      "coordinators": [{ "name": "Application Club", "contact": "9837108244" }],
+      "fixedKey": "avishkar/cyberquest/10"
+    },
+    {
+      "eventName": "RAG Quest",
+      "eventId": "",
+      "description": "A 36-hour challenge. Build an assistant that retrieves documents, queries structured databases, connects information across sources, and answers with evidence. In the final round, investigate an unseen business problem and present findings.",
+      "rules": [
+        "Team Size: 1-3",
+        "Team Eligibility: All branches (Inter-year not allowed)",
+        "Winners: 3 teams overall",
+        "Rounds: 2",
+        "Round 1 (Implementation Round): Participants will build an AI-powered assistant capable of retrieving, querying, and connecting information from multiple data sources, including documents, reports, and structured databases, to generate accurate, evidence-backed answers.",
+        "Round 2 (Investigation Round): Teams will use their developed AI agents to investigate an unseen business problem, analyse information from different sources, and present their findings with relevant supporting evidence."
+      ],
+      "PsLink": "",
+      "coordinators": [{ "name": "Application Club", "contact": "9837108245" }],
+      "fixedKey": "avishkar/cyberquest/11"
     }
   ]
 }

@@ -180,6 +180,18 @@
         "title": "Stack Overkill",
         "minTeamSize": 1,
         "maxTeamSize": 3
+      },
+      {
+        "fixedKey": "avishkar/cyberquest/10",
+        "title": "The Daemon",
+        "minTeamSize": 1,
+        "maxTeamSize": 2
+      },
+      {
+        "fixedKey": "avishkar/cyberquest/11",
+        "title": "RAG Quest",
+        "minTeamSize": 1,
+        "maxTeamSize": 3
       }
     ]
   },
