@@ -1194,9 +1194,9 @@ function Registrations({ focusRegistrationId, alreadyRegisteredEvent }) {
   function beginEdit(registration) {
     setEditing(registration);
     setAnswers(
-      registration.formUpdateNeeded
+      (registration.formUpdateNeeded
         ? registration.formUpdateAnswers
-        : registration.answers,
+        : registration.answers) || {},
     );
     setError("");
   }

@@ -21,6 +21,7 @@ function needsFormUpdate(previous = [], current = []) {
 }
 
 function carriedAnswers(previous = [], current = [], answers = {}) {
+  const safeAnswers = answers || {};
   const old = new Map(
     previous.map((field) => [field.id, questionSignature(field)]),
   );
@@ -29,9 +30,9 @@ function carriedAnswers(previous = [], current = [], answers = {}) {
       .filter(
         (field) =>
           old.get(field.id) === questionSignature(field) &&
-          Object.hasOwn(answers, field.id),
+          Object.hasOwn(safeAnswers, field.id),
       )
-      .map((field) => [field.id, answers[field.id]]),
+      .map((field) => [field.id, safeAnswers[field.id]]),
   );
 }
 

@@ -1,7 +1,13 @@
-export function FormFields({ fields, answers, setAnswers, disabled = false }) {
-  return fields.map((f) => {
+export function FormFields({
+  fields = [],
+  answers = {},
+  setAnswers,
+  disabled = false,
+}) {
+  const safeAnswers = answers || {};
+  return (fields || []).map((f) => {
     const options = (f.options || []).filter((option) => option.trim());
-    const value = answers[f.id] ?? (f.type === "checkbox" ? [] : "");
+    const value = safeAnswers[f.id] ?? (f.type === "checkbox" ? [] : "");
     const set = (value) => setAnswers((old) => ({ ...old, [f.id]: value }));
     const props = {
       id: f.id,
@@ -78,11 +84,12 @@ export function FormFields({ fields, answers, setAnswers, disabled = false }) {
     );
   });
 }
-export function AnswerView({ fields, answers }) {
+export function AnswerView({ fields = [], answers = {} }) {
+  const safeAnswers = answers || {};
   return (
     <dl>
-      {fields.map((f) => {
-        const value = answers[f.id];
+      {(fields || []).map((f) => {
+        const value = safeAnswers[f.id];
         return (
           <div key={f.id}>
             <dt>{f.label}</dt>

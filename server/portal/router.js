@@ -120,9 +120,13 @@ function registrationView(registration, event, includeForm = false) {
     : { ...registration };
   // Older registrations may have review decisions. They are all submissions now.
   data.status = "submitted";
+  data.fields = data.fields || [];
+  data.answers = data.answers || {};
   delete data.reviewReason;
   delete data.formUpdateReviewPending;
   for (const entry of data.answerHistory || []) {
+    entry.fields = entry.fields || [];
+    entry.answers = entry.answers || {};
     delete entry.status;
     delete entry.reviewReason;
   }
@@ -1631,7 +1635,7 @@ router.get(
         p.phone,
         ...columns.map((column) => {
           const id = column.sources.get(r.formVersion);
-          return id === undefined ? "" : r.answers[id];
+          return id === undefined ? "" : r.answers?.[id];
         }),
       ].map(safe);
       if (sheet) sheet.addRow(row).commit();

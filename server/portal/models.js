@@ -241,7 +241,7 @@ const registrationSchema = new Schema(
     reviewReason: String,
     revision: { type: Number, default: 0 },
   },
-  { timestamps: true },
+  { timestamps: true, minimize: false },
 );
 registrationSchema.index({ eventId: 1, memberIds: 1 }, { unique: true });
 registrationSchema.index({ memberIds: 1, createdAt: -1, _id: -1 });
