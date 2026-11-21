@@ -147,7 +147,10 @@ function registrationView(registration, event, includeForm = false) {
       registration.answers,
     );
   }
-  if (data.eventId?.formVersions) delete data.eventId.formVersions;
+  if (data.eventId?.formVersions) {
+    const { formVersions, ...eventWithoutVersions } = data.eventId;
+    data.eventId = eventWithoutVersions;
+  }
   return data;
 }
 function responseSearch(value) {

@@ -37,7 +37,7 @@ function carriedAnswers(previous = [], current = [], answers = {}) {
 
 function currentFields(event) {
   return (
-    event.formVersions.find((form) => form.version === event.currentVersion)
+    event?.formVersions?.find((form) => form.version === event.currentVersion)
       ?.fields || []
   );
 }
