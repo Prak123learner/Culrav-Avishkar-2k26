@@ -44,6 +44,7 @@ export default function EventExplorePage({
       description: desc,
       rules,
       coordinators,
+      qrCode: ev.qrCode || data.qrCode || "",
       raw: ev,
     };
   });
@@ -309,7 +310,7 @@ export default function EventExplorePage({
 
               {/* Right Column: Coordinators POC (Right-Aligned, Ornate Stone Cartouche - Original Colors) */}
               <div className="lg:col-span-5 xl:col-span-4 flex justify-end">
-                <div className="w-full lg:max-w-md lg:sticky lg:top-28">
+                <div className="w-full lg:max-w-md lg:sticky lg:top-28 flex flex-col gap-6">
                   <div
                     className="relative p-6 sm:p-7 border-2 border-[#b88c4b]/80 shadow-[0_12px_32px_rgba(70,35,10,0.18)] flex flex-col"
                     style={{
@@ -377,6 +378,53 @@ export default function EventExplorePage({
                       )}
                     </div>
                   </div>
+
+                  {selected.qrCode && (
+                    <div
+                      className="relative p-6 sm:p-7 border-2 border-[#b88c4b]/80 shadow-[0_12px_32px_rgba(70,35,10,0.18)] flex flex-col"
+                      style={{
+                        backgroundImage: "url('/media/common/textures/parchment-bg-20261026.webp')",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    >
+                      {/* Classical Inset Fillet Border */}
+                      <div className="pointer-events-none absolute inset-1.5 border border-[#b88c4b]/40" />
+
+                      {/* Classical Corner Stars */}
+                      <div className="pointer-events-none absolute top-2 left-2 text-[8px] text-[#b88c4b]">
+                        ✦
+                      </div>
+                      <div className="pointer-events-none absolute top-2 right-2 text-[8px] text-[#b88c4b]">
+                        ✦
+                      </div>
+                      <div className="pointer-events-none absolute bottom-2 left-2 text-[8px] text-[#b88c4b]">
+                        ✦
+                      </div>
+                      <div className="pointer-events-none absolute bottom-2 right-2 text-[8px] text-[#b88c4b]">
+                        ✦
+                      </div>
+
+                      <div className="relative z-10 flex items-center justify-between pb-3.5 mb-5 border-b border-[#b88c4b]/40">
+                        <h3 className="font-cinzel text-lg sm:text-xl font-black uppercase tracking-[0.12em] text-[#241104]">
+                          Payment QR Code
+                        </h3>
+                        <span className="text-[#b84218] text-xs">
+                          ✦
+                        </span>
+                      </div>
+
+                      <div className="relative z-10 flex flex-col items-center">
+                        <div className="p-3 border border-[#b88c4b]/50 bg-[#fffdfa]/90 shadow-xs">
+                          <img
+                            src={selected.qrCode}
+                            alt={`${selected.title} Payment QR Code`}
+                            className="w-48 h-48 sm:w-56 sm:h-56 object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

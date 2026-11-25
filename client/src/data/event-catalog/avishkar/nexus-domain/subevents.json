@@ -7,9 +7,9 @@
   "instagramLink": "",
   "events": [
     {
-      "eventName": "Code Shadow",
+      "eventName": "Hack12",
       "eventId": "01",
-      "description": "",
+      "description": "Hack 12, the flagship hackathon of Avishkar 2026, is a 12-hour offline overnight hackathon held at CSED. Teams will work on given problem statements and develop functional prototypes within the stipulated time. Submissions will be evaluated on innovation, technical implementation, feasibility and real-world impact.",
       "rules": [],
       "PsLink": "",
       "coordinators": [
@@ -33,40 +33,6 @@
         { "name": "Krish Kumar", "contact": "6204415558" }
       ],
       "fixedKey": "avishkar/nexus-domain/1"
-    },
-    {
-      "eventName": "Infinity Sales",
-      "eventId": "03",
-      "description": "Round 1: Online quiz based on the theme: ‘Startups and Entrepreneurship’.\n\nRound 2: Advertisement submission round based on the given problem statement.\n\nRound 3: Qualifiers of Round 2 will be required to present their startup idea using a PowerPoint presentation (not exceeding 10 slides excluding cover and Thank You slides).\n\nThe presentation must address the following questions:\na. What motivated you to take up this startup idea?\nb. Why do you think you will succeed in the chosen industry?\nc. Explain your revenue generation strategy.\nd. Explain your Marketing and Finance strategy.",
-      "rules": [
-        "Team participation only (2–4 members per team).",
-        "Eligibility: All.",
-        "Teams must submit all deliverables and appear in all evaluated rounds to qualify and receive certification and prizes.",
-        "Any plagiarism and AI malpractice during rounds leads to immediate disqualification.",
-        "Panel evaluation and judge decisions are final and binding."
-      ],
-      "PsLink": "",
-      "coordinators": [
-        { "name": "Prakhar Shandilya", "contact": "9315930661" }
-      ],
-      "fixedKey": "avishkar/nexus-domain/2"
-    },
-    {
-      "eventName": "Roboverse",
-      "eventId": "04",
-      "description": "Robo Rescue is a three-round robotics competition where teams navigate obstacles, collect objects, and complete rescue missions using their robots. It tests participants’ engineering skills, problem-solving, precision, and teamwork through progressively challenging tasks.\n\nRound 1: The Initiation – Obstacle Run\nPurpose: Test basic robot control and maneuverability. Teams navigate a simple track with turns, cones and barriers within 3 minutes.\n\nRound 2: The Rescue Mission – Collect & Deliver (top 50% of teams advance)\nPurpose: Test precision, control and basic mechanical design. Teams must collect three lightweight rescue objects from different locations and deliver them to a marked safe zone.\n\nRound 3: Grand Finale\nPurpose: Combine navigation, object handling and strategy. Teams must navigate a more difficult course, collect a designated payload, cross a small ramp or narrow bridge, and deliver it to the final extraction zone.",
-      "rules": [
-        "Team participation only (3–4 members per team).",
-        "Eligibility: All. Robot must fit within 30 × 30 × 30 cm.",
-        "Round 1:\n• One official attempt per team.\n• Touching an obstacle: −5 points.\n• Completing the track: +30 points.",
-        "Round 2:\n• Time limit: 4 minutes.\n• Each successfully delivered object: +20 points.\n• Delivering the difficult-to-reach object: +30 points.\n• Dropped objects outside the zone: 0 points.",
-        "Round 3:\n• Time limit: 5 minutes.\n• Complete the course: +30 points.\n• Deliver the payload: +30 points.\n• Cross the difficult section successfully: +20 points.\n• Finish within 3 minutes: +10 bonus points.\n• Highest score wins; fastest time breaks a tie."
-      ],
-      "PsLink": "",
-      "coordinators": [
-        { "name": "Ayush Kumar", "contact": "7897092845" }
-      ],
-      "fixedKey": "avishkar/nexus-domain/3"
     },
     {
       "eventName": "Vimaan Challenge",

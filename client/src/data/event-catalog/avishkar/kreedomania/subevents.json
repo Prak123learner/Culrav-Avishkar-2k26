@@ -5,12 +5,15 @@
   "eventName": "Kreedomania",
   "tagline": "Let the Game Begin",
   "instagramLink": "http://surl.li/qohpz",
+  "qrCode": "/QR.webp",
   "events": [
     {
       "eventName": "Valorant",
       "eventId": "100",
       "description": "A 5v5 character-based tactical shooter. Carry krpaoge apne team ko ?. Kya lgta hai ? ;)",
       "rules": [
+        "Registration Fee: ₹75 per player (The team leader must pay for the entire team).",
+        "Event conduction will be based on the participation of students.",
         "We will follow a knockout format with prelims to be held online..",
         "The final 2 teams will play 3 matches and the team with the highest cumulative score will win.",
         "Participants will have to play on their setup..",
@@ -34,6 +37,8 @@
       "eventId": "101",
       "description": "INDIA KA BATTLEGROUNDS IS HERE. Georgopol ho ya Pochinki, squad fights rukni nahi chahiye. B.Tech and M.Tech students from all branches may participate.",
       "rules": [
+        "Registration Fee: ₹75 per player (The team leader must pay for the entire team).",
+        "Event conduction will be based on the participation of students.",
         "ALL THE TEAMS WILL BE DIVIDED INTO SUBGROUPS",
         "3 BATTLE ROYALE WILL BE PLAYED AND YOU’LL BE AWARDED POINTS IN EACH BR ACCORDING TO THE FOLLOWING POINT SYSTEM - #1 - 10 POINTS #5 - 3 POINTS #2 - 6 POINTS #6 - 2 POINTS #3 - 5POINTS #(7-8) - 1 POINTS #4 - 4 POINTS #(9-16) - 0 POINTS (AND 1 POINT FOR EACH KILL FOR ALL TEAMS)",
         "TOP 8 TEAMS WILL MOVE ON TO THE NEXT ROUND FROM EACH GROUP.",
@@ -52,6 +57,8 @@
       "eventId": "102",
       "description": "Combat an intense battle at the arena with the Doodle Army",
       "rules": [
+        "Registration Fee: ₹50 per player (The team leader must pay for the entire team).",
+        "Event conduction will be based on the participation of students.",
         "The game will be played in a team death match format with a team size of 3.",
         "Tournament will be played on the apk provided by the organisers",
         "Map will be decided by the organisers on a random basis.",
@@ -71,6 +78,8 @@
       "eventId": "103",
       "description": "A one-on-one fighting-game tournament where timing, character mastery, and adaptability determine the champion.",
       "rules": [
+        "Registration Fee: ₹50 per player.",
+        "Event conduction will be based on the participation of students.",
         "This is a solo event played in a one-versus-one format.",
         "Matches will use the standard competitive settings announced by the organizers.",
         "Players may select any character available in the standard game roster.",
@@ -90,6 +99,8 @@
       "eventId": "104",
       "description": "A fast-paced solo kart-battle tournament where players race, collect power-ups, and outplay their opponents to reach the top.",
       "rules": [
+        "Registration Fee: ₹50 per player.",
+        "Event conduction will be based on the participation of students.",
         "This is a solo event.",
         "Matches will be played in private lobbies created by the organizers.",
         "Lobby settings, maps, match duration, and qualification criteria will be announced before each round.",
@@ -109,6 +120,8 @@
       "eventId": "105",
       "description": "Clash Royale is a real-time multiplayer game starring the Royales, your favourite Clash characters and much, much more.",
       "rules": [
+        "Registration Fee: ₹50 per player.",
+        "Event conduction will be based on the participation of students.",
         "Each participant will be divided into sub groups",
         "Round robin will be followed in the first stage.",
         "Top 2 from each group will be promoted to next round",
@@ -127,6 +140,8 @@
       "eventId": "108",
       "description": "Unlock your potential in this fun FPS multiplayer shooter game. Roger that !",
       "rules": [
+        "Registration Fee: ₹50 per player (The team leader must pay for the entire team).",
+        "Event conduction will be based on the participation of students.",
         "Start Time: Matches start promptly; teams must be ready on time.",
         "Banned Operator Skills: Annihilator and War Machine.",
         "Each team should have 5 players .",
@@ -147,6 +162,8 @@
       "eventId": "107",
       "description": "Free Fire is a free-to-play battle royale game developed and published by Garena for Android and iOS.",
       "rules": [
+        "Registration Fee: ₹50 per player (The team leader must pay for the entire team).",
+        "Event conduction will be based on the participation of students.",
         "ALL THE TEAMS WILL BE DIVIDED INTO SUBGROUPS",
         "3 BATTLE ROYALE WILL BE PLAYED AND YOU’LL BE AWARDED POINTS IN EACH BR ACCORDING TO THE FOLLOWING POINT SYSTEM #1 - 12 POINTS #7 - 4 POINTS #2 - 9 POINTS #6- 3 POINTS #3 - 8 POINTS #9 - 2 POINTS #4 - 7 POINTS #10 - 1 POINTS #5 - 6 POINTS #11- 0 POINTS #6 - 5 POINTS #12 - 0 POINTS (AND 1 POINT FOR EACH KILL FOR ALL TEAMS)",
         "TOP 8 TEAMS WILL MOVE ON TO THE NEXT ROUND FROM EACH GROUP.",
@@ -168,6 +185,8 @@
       "eventId": "121",
       "description": "A quick-thinking online drawing-and-guessing contest where creativity, observation, and speed earn the highest score.",
       "rules": [
+        "Registration Fee: ₹50 per player.",
+        "Event conduction will be based on the participation of students.",
         "This is a solo event.",
         "Participants will play in private rooms created by the organizers.",
         "Each participant must draw the assigned word without writing the word, spelling it out, or giving direct textual hints.",
@@ -181,6 +200,28 @@
         { "name": "Krish Kumar", "contact": "6204415558" }
       ],
       "fixedKey": "avishkar/kreedomania/8"
+    },
+    {
+      "eventName": "FIFA",
+      "eventId": "122",
+      "description": "Offline knockout format. Players select any regular season team; a toss determines first choice.",
+      "rules": [
+        "Registration Fee: ₹75 per player.",
+        "Event conduction will be based on the participation of students.",
+        "This is a solo event played in an offline knockout format.",
+        "Participants are allowed to choose any regular season team available in the original game, excluding all-star teams. The first player to make a choice will be determined by a toss.",
+        "Overtime: If the scores are level after the regular time duration of play, the game will proceed directly to a penalty shootout.",
+        "Two pauses of 10 seconds each will be allowed to each player during the entire game, excluding the half-time stoppage.",
+        "Game settings: Default.",
+        "Participants are expected to adhere to these rules at all times, and any violations will be subject to penalties as determined by the judges.",
+        "The organizers' decision will be final."
+      ],
+      "PsLink": "",
+      "coordinators": [
+        { "name": "Ayush Kumar", "contact": "" },
+        { "name": "Darsh Shah", "contact": "" }
+      ],
+      "fixedKey": "avishkar/kreedomania/9"
     }
   ]
 }

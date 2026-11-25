@@ -7,10 +7,10 @@
   "instagramLink": "",
   "events": [
     {
-      "eventName": "India Quiz",
+      "eventName": "ICH Quiz",
       "registrationLink": "",
       "eventId": "63",
-      "description": "India Quiz: Test your knowledge of India’s history, culture, geography, heritage, and current affairs.",
+      "description": "ICH - Indian Culture and History on 2nd Dec, 9 AM",
       "rules": [
         "Open to all branches.",
         "Cross-year teams are allowed.",
@@ -26,10 +26,10 @@
       "fixedKey": "avishkar/gnosiomania/0"
     },
     {
-      "eventName": "Sci-Biz-Tech Quiz",
+      "eventName": "PACT Quiz",
       "registrationLink": "",
       "eventId": "64",
-      "description": "Sci-Biz-Tech Quiz: Challenge yourself with questions on science, business, technology, innovation, and emerging trends.",
+      "description": "Place Animal Cuisine Travel on 2nd Dec, 2 PM",
       "rules": [
         "Open to all branches.",
         "Cross-year teams are allowed.",
@@ -45,10 +45,10 @@
       "fixedKey": "avishkar/gnosiomania/1"
     },
     {
-      "eventName": "MELA Quiz",
+      "eventName": "HELM Quiz",
       "registrationLink": "",
       "eventId": "65",
-      "description": "MELA Quiz: Music, Entertainment, Literature, Art Quiz. Everything all at once.",
+      "description": "History Etymology Literature Mytho on 3rd Dec, 9 AM",
       "rules": [
         "Open to all branches.",
         "Cross-year teams are allowed.",
@@ -64,10 +64,10 @@
       "fixedKey": "avishkar/gnosiomania/2"
     },
     {
-      "eventName": "General Quiz",
+      "eventName": "SPENT Quiz",
       "registrationLink": "",
       "eventId": "66",
-      "description": "Everything about every topic that you can or cannot imagine — a not-so-general General Quiz.",
+      "description": "Sports Entertainment on 3rd Dec, 2 PM",
       "rules": [
         "Open to all branches.",
         "Cross-year teams are allowed.",
@@ -83,10 +83,10 @@
       "fixedKey": "avishkar/gnosiomania/3"
     },
     {
-      "eventName": "Sports Quiz",
+      "eventName": "BEST Quiz",
       "registrationLink": "",
       "eventId": "67",
-      "description": "Sports Quiz: Test your knowledge of sports, legendary athletes, major tournaments, records, and sporting events.",
+      "description": "Business Entrepreneurship Science Technology on 4th Dec, 9 AM",
       "rules": [
         "Open to all branches.",
         "Cross-year teams are allowed.",

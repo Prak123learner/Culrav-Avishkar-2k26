@@ -67,15 +67,6 @@
       "fixedKey": "avishkar/cyberquest/5"
     },
     {
-      "eventName": "Who Let The Bots Out",
-      "eventId": "",
-      "description": "Ready to put your Agentic AI skills to the test? Develop an AI agent to tackle a given set of tasks and put it through multiple test cases. The top-performing agents will advance to a final evaluation. Build smart, experiment with your approach, and see how far your agent can go!",
-      "rules": ["Team size: 1-3", "Team eligibility: All branches (Inter-year not allowed)", "Winner: 3 teams overall", "Rounds: 2 (Development + Evaluation)", "Submission: Must provide GitHub repo with detailed README and demo video"],
-      "PsLink": "",
-      "coordinators": [{ "name": "Manik Dev Azad", "contact": "9205342578" }],
-      "fixedKey": "avishkar/cyberquest/6"
-    },
-    {
       "eventName": "The Grand Overfit",
       "eventId": "",
       "description": "Get ready to put your ML skills to the test! Participants will tackle a machine learning challenge where the goal is to build, train, and fine-tune models to achieve the best possible results. Experiment with different approaches, squeeze out every bit of accuracy, and climb the leaderboard before time runs out.",

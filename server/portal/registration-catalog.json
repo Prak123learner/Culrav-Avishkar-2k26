@@ -394,6 +394,12 @@
         "title": "Scribble",
         "minTeamSize": 1,
         "maxTeamSize": 1
+      },
+      {
+        "fixedKey": "avishkar/kreedomania/9",
+        "title": "FIFA",
+        "minTeamSize": 1,
+        "maxTeamSize": 1
       }
     ]
   },
