@@ -43,7 +43,7 @@
       "eventName": "Softathalon",
       "eventId": "47",
       "description": "An event aimed at simulating the software profile-based recruitment procedure for undergraduates. It consists of a series of written and coding rounds testing the technical prowess of the candidate. Interview rounds also form an integral part of the event in which the students are judged on the knowledge and confidence they exude.",
-      "rules": ["Team size: 1-3", "Team Eligibility: CSE", "Winners: 3", "Rounds 3"],
+      "rules": ["Team size: Solo", "Team Eligibility: CSE", "Winners: 3", "Rounds 3"],
       "PsLink": "",
       "coordinators": [{ "name": "Abhishek Jha", "contact": "8368866357" }],
       "fixedKey": "avishkar/cyberquest/3"
@@ -121,7 +121,7 @@
         "Round 2 (Investigation Round): Teams will use their developed AI agents to investigate an unseen business problem, analyse information from different sources, and present their findings with relevant supporting evidence."
       ],
       "PsLink": "",
-      "coordinators": [{ "name": "Application Club", "contact": "9837108245" }],
+      "coordinators": [{ "name": "Application Club", "contact": "9837108244" }],
       "fixedKey": "avishkar/cyberquest/11"
     }
   ]
