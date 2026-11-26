@@ -301,36 +301,36 @@
   },
   {
     "festival": "avishkar",
-    "slug": "gnosomania",
-    "name": "Gnosomania",
+    "slug": "gnosiomania",
+    "name": "Gnosiomania",
     "events": [
       {
-        "fixedKey": "avishkar/gnosomania/0",
-        "title": "India Quiz",
+        "fixedKey": "avishkar/gnosiomania/0",
+        "title": "ICH Quiz",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/gnosomania/1",
-        "title": "Sci-Biz-Tech Quiz",
+        "fixedKey": "avishkar/gnosiomania/1",
+        "title": "PACT Quiz",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/gnosomania/2",
-        "title": "MELA Quiz",
+        "fixedKey": "avishkar/gnosiomania/2",
+        "title": "HELM Quiz",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/gnosomania/3",
-        "title": "General Quiz",
+        "fixedKey": "avishkar/gnosiomania/3",
+        "title": "SPENT Quiz",
         "minTeamSize": 1,
         "maxTeamSize": 3
       },
       {
-        "fixedKey": "avishkar/gnosomania/4",
-        "title": "Sports Quiz",
+        "fixedKey": "avishkar/gnosiomania/4",
+        "title": "BEST Quiz",
         "minTeamSize": 1,
         "maxTeamSize": 3
       }
